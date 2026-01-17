@@ -1,9 +1,9 @@
 ---
-title: 我的技术栈之路：从Vue到Hexo
+title: How to bulid a web like this
 date: 2025-10-16 14:00:00
-tags: [Vue, Hexo, Netlify, 教程]
+tags: [Hexo, Netlify, 教程]
 categories: [技术杂谈]
-cover: /img/banner.jpg
+cover: source\img\banner.png
 description: 记录我是如何从手写 Vue 博客转向使用 Hexo + Butterfly 主题，并成功部署到 Netlify 的全过程。
 ---
 
@@ -87,15 +87,15 @@ git push -u origin main -f
 
 ### 2. Netlify 的关键设置
 
-这是最容易踩坑的地方！从 Vue 切换到 Hexo 后，必须去 Netlify 后台修改构建命令。
+这是最容易踩坑的地方！使用 Hexo 后，必须去 Netlify 后台设置对应的构建命令。
 
 * **路径**：Site configuration -> Build & deploy -> Edit settings
 * **配置项修改**：
 
-| 设置项 | 旧值 (Vue) | **新值 (Hexo)** |
-| --- | --- | --- |
-| **Build command** | `npm run build` | `hexo generate` |
-| **Publish directory** | `dist` | `public` |
+| 设置项 | **对应值** |
+| --- | --- |
+| **Build command** | `hexo generate` |
+| **Publish directory** | `public` |
 
 ### 3. 验证成果
 
@@ -124,15 +124,3 @@ git push
 虽然放弃了手写 Vue 博客有点遗憾，但通过这次迁移，我学会了 Git 的强制推送、Netlify 的持续集成配置，以及 Hexo 的插件机制。
 
 现在的重点是：**可以好好写文章了！**
-
-```
-
-### 💡 食用指南
-1.  复制上面的代码。
-2.  在 VS Code 中打开 `source/_posts/我的技术栈之路.md`。
-3.  **全选 -> 粘贴 -> 保存**。
-4.  然后执行你的 **“发布三连击”** (`git add` ... `git push`)。
-
-一分钟后，你的博客上就会出现这篇记录了你今天奋斗历程的文章了！去试试吧！
-
-```
