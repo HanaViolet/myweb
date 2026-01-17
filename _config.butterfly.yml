@@ -2,9 +2,8 @@
 # 🦋 Butterfly 主题个性化配置文件
 # =====================================
 
-# 1. 网站全局背景设置 (之前你缺的就是这行！)
+# 1. 网站全局背景设置
 # -------------------------------------
-# 确保你的 source/img/ 目录下真的有 bg.jpg 这张图
 # background: url(/img/bg.jpg)
 
 # 2. 首页顶部大图 (Page Header)
@@ -17,7 +16,7 @@ avatar:
   img: /img/avatar.jpg
   effect: false # 鼠标移上去会旋转
 
-# 这里的 card_author 是专门控制“Follow Me”大按钮的
+# 侧边栏 "Follow Me" 按钮
 card_author:
   enable: true
   description:
@@ -25,9 +24,7 @@ card_author:
     enable: true
     icon: fab fa-github
     text: Follow Me
-    # 👇 重点在这里！必须单独写一遍你的 GitHub 地址
     link: https://github.com/HanaViolet
-
 
 # 4. 社交图标 (Sidebar Social)
 # -------------------------------------
@@ -35,7 +32,6 @@ social:
   fab fa-github: https://github.com/HanaViolet || GitHub || #000000
   fas fa-envelope: mailto:ljh118@qq.com || Email || #0078d7
   fab fa-qq: http://wpa.qq.com/msgrd?v=3&uin=2627500660&site=qq&menu=yes || QQ || #5FB878
-  # 注意：QQ链接我帮你换成了可以直接点击聊天的格式
 
 # 5. 顶部导航菜单 (Menu)
 # -------------------------------------
@@ -47,10 +43,34 @@ menu:
   清单: /link/ || fas fa-link
   关于: /about/ || fas fa-heart
 
-# 6. 必开的增强功能 (强烈推荐)
-# -------------------------------------
+# =====================================
+# 💬 Giscus 评论系统 (新增)
+# =====================================
+comments:
+  use: Giscus
+  text: true
+  lazyload: true
+  count: true
 
-# 搜索功能 (让你的博客能搜索)
+giscus:
+  repo: HanaViolet/MyWeb
+  repo_id: R_kgDOQ7fNzw
+  category: Announcements
+  category_id: DIC_kwDOQ7fNz84C1EAw
+  mapping: pathname
+  strict: false
+  reactions_enabled: true
+  emit_metadata: false
+  input_position: bottom
+  theme: light
+  lang: zh-CN
+  crossorigin: anonymous
+
+# =====================================
+# 🛠️ 增强功能
+# =====================================
+
+# 搜索功能
 search:
   use: local_search
 
@@ -59,13 +79,13 @@ local_search:
   preload: false
   top_n_per_article: 1
 
-# 日夜间模式 (右下角的小齿轮)
+# 日夜间模式
 darkmode:
   enable: true
   button: true
-  autoChangeMode: 1 # 1: 跟随系统, 2: 根据时间
+  autoChangeMode: 1
 
-# 文章版权声明 (文章末尾显示作者和链接)
+# 文章版权声明
 post_copyright:
   enable: true
   decode: true
@@ -73,15 +93,11 @@ post_copyright:
 # =====================================
 # ⚡ 性能优化配置
 # =====================================
-
-# 1. Pjax (无刷新跳转)
 pjax:
   enable: true
 
-# 2. InstantPage (鼠标悬停预加载)
 instantpage:
   enable: true
 
-# 3. Lazyload (图片懒加载) - 即使没有 placeholder 图也可以开，默认会是空白
 lazyload:
   enable: true
