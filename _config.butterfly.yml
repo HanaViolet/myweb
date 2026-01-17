@@ -28,12 +28,6 @@ card_author:
     # 👇 重点在这里！必须单独写一遍你的 GitHub 地址
     link: https://github.com/HanaViolet
 
-# 4. 社交图标 (下面那一排小圆圈)
-# -------------------------------------
-social:
-  fab fa-github: https://github.com/HanaViolet || GitHub || #000000
-  fas fa-envelope: mailto:ljh118@qq.com || Email || #0078d7
-  fab fa-qq: http://wpa.qq.com/msgrd?v=3&uin=2627500660&site=qq&menu=yes || QQ || #5FB878  
 
 # 4. 社交图标 (Sidebar Social)
 # -------------------------------------
