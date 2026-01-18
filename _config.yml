@@ -120,3 +120,6 @@ deploy:
 abbrlink:
   alg: crc32      # 算法：crc16(短) 或 crc32(长一点)，推荐 crc32
   rep: hex        # 进制：dec(十进制) 或 hex(十六进制)，推荐 hex
+
+aplayer:
+  meting: true

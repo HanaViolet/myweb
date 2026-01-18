@@ -1,14 +1,14 @@
 # =====================================
-# 🦋 Butterfly 主题深度优化配置文件
+# 🦋 Butterfly 主题配置文件 (稳定完整版)
 # =====================================
 
 # --------------------------------------
-# 1. 导航与菜单设置
+# 1. 导航与菜单
 # --------------------------------------
 nav:
   logo:
   display_title: true
-  fixed: true # 建议开启固定导航栏，体验更好
+  fixed: true
 
 menu:
   首页: / || fas fa-home
@@ -19,72 +19,25 @@ menu:
   关于: /about/ || fas fa-heart
 
 # --------------------------------------
-# 2. 代码块设置 (优化美观度)
-# --------------------------------------
-code_blocks:
-  theme: light
-  macStyle: true # 开启 Mac 风格（红黄绿圆点），更美观
-  height_limit: false
-  word_wrap: true # 建议开启换行，防止代码过长溢出
-  copy: true
-  language: true
-  shrink: false
-
-# --------------------------------------
-# 3. 社交与个人信息
-# --------------------------------------
-social:
-  fas fa-envelope: mailto:ljh118@qq.com || Email || #0078d7
-  fab fa-qq: http://wpa.qq.com/msgrd?v=3&uin=2627500660&site=qq&menu=yes || QQ || #5FB878
-
-avatar:
-  img: /img/avatar.jpg
-  effect: false # 开启旋转效果，增加趣味性
-
-# --------------------------------------
-# 4. 图片与背景
-# --------------------------------------
-index_img: /img/banner.jpg # 首页大图
-favicon: /img/sakura.jpg
-
-# --------------------------------------
-# 5. 首页副标题 (API 接入)
-# --------------------------------------
-subtitle:
-  enable: true
-  effect: true # 开启打字机效果
-  # 来源选择:
-  # 1 - hitokoto.cn (一言 - 古诗词/优美句子)
-  source: 1 
-  sub: 
-
-# --------------------------------------
-# 6. 文章与页面设置
-# --------------------------------------
-index_layout: 3 # 标准行布局
-toc:
-  post: true
-  number: true
-  expand: true # 默认展开目录，方便阅读
-  style_simple: true # 简洁风格目录
-
-# 版权信息
-post_copyright:
-  enable: true
-  decode: true
-  author_href:
-  license: CC BY-NC-SA 4.0
-  license_url: https://creativecommons.org/licenses/by-nc-sa/4.0/
-
-# --------------------------------------
-# 7. 侧边栏 (Sidebar)
+# 2. 侧边栏与音乐播放器
 # --------------------------------------
 aside:
   enable: true
   hide: false
   button: true
-  mobile: false # 手机端通常关闭侧边栏以节省空间
+  mobile: false
   position: right
+  # 卡片排序
+  card_order:
+    - card_author
+    - card_ad          # 音乐卡片
+    - card_announcement
+    - card_recent_post
+    - card_categories
+    - card_tags
+    - card_archives
+    - card_webinfo
+
   card_author:
     enable: true
     description: 
@@ -94,7 +47,7 @@ aside:
       text: Follow Me
       link: https://github.com/HanaViolet
   card_announcement:
-    enable: false
+    enable: false # 暂时关闭
     content: 
   card_recent_post:
     enable: true
@@ -111,14 +64,83 @@ aside:
     type: monthly
     limit: 8
   card_webinfo:
-    enable: true # 显示网站统计信息
+    enable: true
     post_count: true
     last_push_date: true
 
+# [音乐播放器] 
+# 回归最简单的配置，使用 div 包裹防止样式错乱
+ad:
+  aside: >-
+    <div style="width: 100%">
+      <meting-js 
+        server="netease" 
+        type="playlist" 
+        id="17682751304" 
+        mutex="true" 
+        list-max-height="180px" 
+        preload="auto" 
+        theme="#ad7a86">
+      </meting-js>
+    </div>
+
 # --------------------------------------
-# 8. 全局功能增强
+# 3. 样式与脚本注入 (只保留核心必要的)
 # --------------------------------------
-# 搜索功能 (已整合你的配置)
+inject:
+  head:
+    # 1. 引入 APlayer 基础样式
+    - '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">'
+    # 2. 仅保留隐藏“广告”标题的样式，不再强制去除白边
+    - '<style>.card-widget.card-ad .item-headline { display: none; }</style>'
+  bottom:
+    # [脚本] 必须手动引入，否则会白屏
+    - '<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>'
+    - '<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>'
+
+# --------------------------------------
+# 4. 其他常规设置
+# --------------------------------------
+code_blocks:
+  theme: light
+  macStyle: true
+  height_limit: false
+  word_wrap: true
+  copy: true
+  language: true
+  shrink: false
+
+social:
+  fas fa-envelope: mailto:ljh118@qq.com || Email || #0078d7
+  fab fa-qq: http://wpa.qq.com/msgrd?v=3&uin=2627500660&site=qq&menu=yes || QQ || #5FB878
+
+avatar:
+  img: /img/avatar.jpg
+  effect: false
+
+index_img: /img/banner.jpg
+favicon: /img/sakura.jpg
+
+subtitle:
+  enable: true
+  effect: true
+  source: 1 
+  sub: 
+
+index_layout: 3
+toc:
+  post: true
+  number: true
+  expand: true
+  style_simple: true
+
+post_copyright:
+  enable: true
+  decode: true
+  author_href:
+  license: CC BY-NC-SA 4.0
+  license_url: https://creativecommons.org/licenses/by-nc-sa/4.0/
+
 search:
   use: local_search
 
@@ -127,21 +149,16 @@ local_search:
   preload: false
   top_n_per_article: 1
 
-# 日夜间模式切换
 darkmode:
   enable: true
   button: true
   autoChangeMode: false 
 
-# 性能优化 (建议开启)
 pjax:
-  enable: true # 页面无刷新加载
+  enable: true
 lazyload:
-  enable: true # 图片懒加载
+  enable: true
 
-# --------------------------------------
-# 9. 评论系统 (Giscus)
-# --------------------------------------
 comments:
   use: Giscus
   text: true
@@ -162,50 +179,32 @@ giscus:
   lang: zh-CN
   crossorigin: anonymous
 
-# --------------------------------------
-# 10. 视觉特效 (根据你的要求配置)
-# --------------------------------------
-
-# [要求3] 背景特效: Canvas Nest (线条吸附)
 canvas_nest:
   enable: true
-  color: '0,0,255' # 线条颜色 (RGB)
-  opacity: 0.5     # 透明度，建议0.5-0.7，太高会干扰文字阅读
-  zIndex: -1       # 置于背景层
-  count: 99        # 线条数量
-  mobile: false    # 手机端关闭以节省电量
+  color: '0,0,255'
+  opacity: 0.5
+  zIndex: -1
+  count: 118
+  mobile: false
 
-# [要求2] 鼠标点击特效: 文字
 clickShowText:
   enable: true
   text:
     - 才能
     - 智慧
     - 价值观
-
   fontSize: 15px
   random: true
   mobile: false
 
-# --------------------------------------
-# 其他辅助设置
-# --------------------------------------
-# 网站字数统计
 wordcount:
   enable: true
   post_wordcount: true
   min2read: true
   total_wordcount: true
 
-# 网站验证 (可选)
 site_verification:
 
-# 注入设置 (无需修改)
-inject:
-  head:
-  bottom:
-
-# CDN 设置 (使用默认即可)
 CDN:
   internal_provider: local
   third_party_provider: jsdelivr
