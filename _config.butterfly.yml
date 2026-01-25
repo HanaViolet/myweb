@@ -12,11 +12,15 @@ nav:
 
 menu:
   首页: / || fas fa-home
-  归档: /archives/ || fas fa-archive
-  标签: /tags/ || fas fa-tags
-  分类: /categories/ || fas fa-folder-open
-  清单: /link/ || fas fa-link
-  关于: /about/ || fas fa-heart
+  页面:
+    归档: /archives/ || fas fa-archive
+    标签: /tags/ || fas fa-tags
+    分类: /categories/ || fas fa-folder
+    图库: /gallery/ || fas fa-images
+    友链: /link/ || fas fa-link
+
+  资源: /resources/ || fas fa-book
+
 
 # --------------------------------------
 # 2. 侧边栏与音乐播放器
