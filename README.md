@@ -14,7 +14,7 @@
 </p>
 
 <!-- 4. 博客链接按钮 -->
-[👉 **访问我的个人博客** 👈](www.hanasakura.ink)
+[👉 **访问我的个人博客** 👈](https://sakura.luxe)
 
 </div>
 

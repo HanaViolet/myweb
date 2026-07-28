@@ -71,6 +71,20 @@ top_img: /img/gallery/彼岸花04.jpg
 .res-btn:hover {
   opacity: 0.8;
 }
+[data-theme='dark'] .res-card {
+  background: #1d1b26;
+  border-color: #2c2c3c;
+}
+[data-theme='dark'] .res-title {
+  color: #e0e0e0;
+}
+[data-theme='dark'] .res-desc {
+  color: #a0a0a0;
+}
+[data-theme='dark'] .res-meta {
+  background: #252331;
+  color: #ccc;
+}
 </style>
 
 <div class="res-container">

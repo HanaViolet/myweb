@@ -17,7 +17,7 @@ timezone: 'Asia/Shanghai'     # 时区
 # 2. 网址设置 (URL) - ⚠️ 关键设置
 # =========================================================
 ## 必须修改！把下面的地址换成你 Netlify 的真实域名 (例如 https://hanasakura.netlify.app)
-url: https://hanasakura.netlify.app
+url: https://sakura.luxe
 permalink: posts/:abbrlink/   # 推荐：文章链接格式 (如果没装 hexo-abbrlink 插件，请改回 :year/:month/:day/:title/)
 permalink_defaults:
 pretty_urls:
