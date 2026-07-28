@@ -110,7 +110,7 @@ theme: butterfly
 # =========================================================
 # 11. 部署 (Deployment)
 # =========================================================
-## 因为我们用 Netlify 自动抓取 GitHub，所以这里留空即可，不需要配置
+## 使用 Cloudflare Pages 自动抓取 GitHub 仓库，此处留空即可
 deploy:
   type: ''
 
@@ -123,3 +123,13 @@ abbrlink:
 
 aplayer:
   meting: true
+
+sitemap:
+  path: sitemap.xml
+
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+  hub:
+  content:

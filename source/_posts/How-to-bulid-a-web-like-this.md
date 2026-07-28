@@ -70,41 +70,31 @@ theme: butterfly
 
 ---
 
-## 🚀 部署到 Netlify
+## 🚀 部署到 Cloudflare Pages
 
-我选择了 **GitHub + Netlify** 的自动化部署方案。只要我把代码推送到 GitHub，Netlify 就会自动构建并发布新文章。
+我选择了 **GitHub + Cloudflare Pages** 的自动化部署方案。只要我把代码推送到 GitHub，Cloudflare 就会自动构建并分发到全球 CDN 边缘节点。
 
 ### 1. 推送代码到 GitHub
-
-因为我之前在这个仓库里存过 Vue 的代码，所以使用了强制推送来覆盖历史。
 
 ```bash
 git init
 git add .
 git commit -m "重构：迁移至 Hexo 博客"
 git branch -M main
-git remote add origin [https://github.com/HanaViolet/MyWeb.git](https://github.com/HanaViolet/MyWeb.git)
-
-# 强制推送 (慎用，会覆盖远程历史)
-git push -u origin main -f
-
+git remote add origin https://github.com/HanaViolet/MyWeb.git
+git push -u origin main
 ```
 
-### 2. Netlify 的关键设置
+### 2. Cloudflare Pages 的关键设置
 
-这是最容易踩坑的地方！使用 Hexo 后，必须去 Netlify 后台设置对应的构建命令。
+在 Cloudflare Pages 后台创建项目并绑定 GitHub 仓库：
 
-* **路径**：Site configuration -> Build & deploy -> Edit settings
-* **配置项修改**：
-
-| 设置项 | **对应值** |
-| --- | --- |
-| **Build command** | `hexo generate` |
-| **Publish directory** | `public` |
+* **构建命令 (Build command)**：`npx hexo g`
+* **输出目录 (Build output directory)**：`public`
 
 ### 3. 验证成果
 
-保存设置后，手动点击 **Trigger deploy**。当状态变为绿色的 **Published** 时，访问我的域名，那只漂亮的蝴蝶就出现了！
+保存设置后，Cloudflare Pages 会自动触发构建。当构建完成并绑定自定义域名 `sakura.luxe` 后，那只漂亮的蝴蝶就出现了！
 
 ---
 

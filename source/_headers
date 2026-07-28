@@ -1,0 +1,21 @@
+# Cloudflare Pages HTTP Headers Rules
+
+# 针对图片与媒体资源开启 Cloudflare 边缘 1 年强缓存
+/img/*
+  Cache-Control: public, max-age=31536000, immutable
+/posts/*/*.jpg
+  Cache-Control: public, max-age=31536000, immutable
+/posts/*/*.png
+  Cache-Control: public, max-age=31536000, immutable
+
+# 静态 CSS 和 JS 资源缓存
+/css/*
+  Cache-Control: public, max-age=31536000, immutable
+/js/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# 统一安全响应头
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
