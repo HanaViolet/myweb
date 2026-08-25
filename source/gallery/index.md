@@ -1,7 +1,11 @@
 ---
 title: 图库
 date: 2026-01-25 20:25:44
+type: "gallery"
 top_img: /img/gallery/小缘02.jpg
+aside: false
+comments: false
+description: 照片与插画是另一种记忆方式。
 ---
 
 {% gallery %}

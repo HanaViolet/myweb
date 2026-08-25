@@ -5,9 +5,9 @@
 # =========================================================
 # 1. 站点基本信息 (Site)
 # =========================================================
-title: sakura's blog          # 网站标题
-subtitle: 'Code & Life'       # 副标题
-description: 'AI学习者 | 全栈开发 | 生活记录'  # 网站描述 (给搜索引擎看的)
+title: Sakura Listening Room  # 网站标题
+subtitle: 'Music for the quiet hours' # 副标题
+description: 'Sakura 的私人聆听室：记录音乐、代码、游戏与生活。' # 网站描述
 keywords: Vue, Hexo, Python, AI, 编程, 随笔 # 网站关键词
 author: sakura                # 文章作者名
 language: zh-CN               # 语言
@@ -122,7 +122,8 @@ abbrlink:
   rep: hex        # 进制：dec(十进制) 或 hex(十六进制)，推荐 hex
 
 aplayer:
-  meting: true
+  meting: false
+  asset_inject: false
 
 sitemap:
   path: sitemap.xml

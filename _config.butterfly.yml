@@ -10,9 +10,20 @@ nav:
   display_title: true
   fixed: true
 
+footer:
+  nav:
+  owner:
+    enable: true
+    since: 2025
+  copyright:
+    enable: false
+    version: false
+  custom_text: '<span>END OF TRANSMISSION</span><span>MUSIC FOR THE QUIET HOURS.</span>'
+
 menu:
   首页: / || fas fa-home
   页面:
+    关于我: /about/ || fas fa-user
     归档: /archives/ || fas fa-archive
     标签: /tags/ || fas fa-tags
     分类: /categories/ || fas fa-folder
@@ -29,13 +40,12 @@ archive_img: /img/gallery/小缘01.jpg
 aside:
   enable: true
   hide: false
-  button: true
+  button: false
   mobile: false
   position: right
   # 卡片排序
   card_order:
     - card_author
-    - card_ad          # 音乐卡片
     - card_announcement
     - card_recent_post
     - card_categories
@@ -73,41 +83,17 @@ aside:
     post_count: true
     last_push_date: true
 
-# [音乐播放器] 
-# 回归最简单的配置，使用 div 包裹防止样式错乱
-ad:
-  aside: >-
-    <div style="width: 100%">
-      <meting-js 
-        server="netease" 
-        type="playlist" 
-        id="17682751304" 
-        mutex="true" 
-        list-max-height="180px" 
-        preload="auto" 
-        theme="#ad7a86">
-      </meting-js>
-    </div>
-
 # --------------------------------------
 # --------------------------------------
 # 3. 样式与脚本注入 (只保留核心必要的)
 # --------------------------------------
 inject:
   head:
-    # 1. 引入 APlayer 基础样式
-    - '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">'
-    # 2. 引入 AOS 滚屏动画样式
-    - '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">'
-    # 3. 仅保留隐藏“广告”标题的样式与复制提示弹窗 CSS
+    - '<link rel="stylesheet" href="/css/midnight.css">'
+    # 复制提示弹窗 CSS
     - '<style>.card-widget.card-ad .item-headline { display: none; } .custom-copy-toast { position: fixed; top: 20px; right: 20px; z-index: 99999; background: rgba(73, 177, 245, 0.95); color: #fff; padding: 12px 20px; border-radius: 8px; font-size: 14px; font-weight: 500; box-shadow: 0 4px 15px rgba(0,0,0,0.15); backdrop-filter: blur(5px); transform: translateY(-20px); opacity: 0; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); } .custom-copy-toast.show { transform: translateY(0); opacity: 1; } [data-theme="dark"] .custom-copy-toast { background: rgba(40, 44, 52, 0.95); color: #61afef; border: 1px solid rgba(255,255,255,0.1); }</style>'
   bottom:
-    # [脚本] 必须手动引入，否则会白屏
-    - '<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>'
-    - '<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>'
-    # [AOS 滚屏动画脚本 (兼容 PJAX)]
-    - '<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>'
-    - '<script>function initAOS() { if (typeof AOS !== "undefined") { AOS.init({ duration: 600, easing: "ease-in-out-cubic", once: true }); } } document.addEventListener("DOMContentLoaded", initAOS); document.addEventListener("pjax:complete", initAOS);</script>'
+    - '<script src="/js/midnight.js"></script>'
     # [复制弹窗提醒脚本]
     - '<script>document.addEventListener("copy", function(e) { var toast = document.createElement("div"); toast.className = "custom-copy-toast"; toast.innerHTML = "📋 已复制到剪贴板，转载请保留出处！"; document.body.appendChild(toast); setTimeout(function() { toast.classList.add("show"); }, 10); setTimeout(function() { toast.classList.remove("show"); setTimeout(function() { if(toast.parentNode) toast.parentNode.removeChild(toast); }, 300); }, 2500); });</script>'
 
@@ -164,8 +150,15 @@ local_search:
 
 darkmode:
   enable: true
-  button: true
+  button: false
   autoChangeMode: false 
+
+# 暗色主题固定使用，不显示 Butterfly 的右侧浮动工具栏
+readmode: false
+rightside_scroll_percent: false
+rightside_config_animation: false
+
+display_mode: dark
 
 pjax:
   enable: true
@@ -193,7 +186,7 @@ giscus:
   crossorigin: anonymous
 
 canvas_nest:
-  enable: true
+  enable: false
   color: '0,0,255'
   opacity: 0.5
   zIndex: -1
@@ -201,7 +194,7 @@ canvas_nest:
   mobile: false
 
 clickShowText:
-  enable: true
+  enable: false
   text:
     - 才能
     - 智慧
