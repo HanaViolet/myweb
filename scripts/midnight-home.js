@@ -36,7 +36,7 @@ const LISTENING_ROOM = `
     <h2 id="listening-title">夜晚适合把世界<br>调成静音，只留下音乐。</h2>
   </div>
   <div class="listening-selection">
-    <div class="listening-selection__label"><span>SAKURA'S 3 PICKS</span><span>CLICK TO PREVIEW</span></div>
+    <div class="listening-selection__label"><span>SAKURA'S 6 PICKS</span><span>CLICK TO LISTEN</span></div>
     <ol class="listening-tracks" aria-label="Sakura 的代表曲目">
       <li>
         <button class="track-trigger is-active" type="button" data-track-id="music" aria-pressed="true">
@@ -53,6 +53,21 @@ const LISTENING_ROOM = `
           <span class="track-no">03</span><span class="track-title">老人与海<small>老人と海</small></span><span class="track-artist">YORUSHIKA</span><span class="track-action"><i>DISCOVER</i><em>SELECTED</em><b>+</b></span>
         </button>
       </li>
+      <li>
+        <button class="track-trigger" type="button" data-track-id="odoriko" aria-pressed="false">
+          <span class="track-no">04</span><span class="track-title">踊り子<small>踊り子</small></span><span class="track-artist">VAUNDY</span><span class="track-action"><i>DISCOVER</i><em>SELECTED</em><b>+</b></span>
+        </button>
+      </li>
+      <li>
+        <button class="track-trigger" type="button" data-track-id="highway" aria-pressed="false">
+          <span class="track-no">05</span><span class="track-title">Highway Driving Car<small>Highway Driving Car</small></span><span class="track-artist">ETSUCO</span><span class="track-action"><i>DISCOVER</i><em>SELECTED</em><b>+</b></span>
+        </button>
+      </li>
+      <li>
+        <button class="track-trigger" type="button" data-track-id="sss" aria-pressed="false">
+          <span class="track-no">06</span><span class="track-title">S.S.S.<small>S.S.S.</small></span><span class="track-artist">佐藤千亜妃</span><span class="track-action"><i>DISCOVER</i><em>SELECTED</em><b>+</b></span>
+        </button>
+      </li>
     </ol>
     <a class="listening-collection" href="https://music.163.com/#/playlist?id=17682751304" target="_blank" rel="noopener">
       <span class="listening-collection__mark" aria-hidden="true">♬</span>
@@ -67,7 +82,7 @@ const LISTENING_ROOM = `
       <h3>所以我放弃了音乐</h3>
       <p class="listening-note__about">首张完整专辑的同名收束曲。专辑把青年写给 Elma 的信、照片与音乐连成一个完整故事，标题里的“放弃”也因此显得格外矛盾。</p>
       <blockquote><span>聆听札记 · 非原歌词</span><p lang="ja">まだ、音は夜の中に残っている。</p><p>声音仍旧留在夜色里。</p></blockquote>
-      <div class="listening-note__actions"><button type="button" data-detail-play="music">PLAY 30S PREVIEW <span>▶</span></button><a href="https://music.apple.com/jp/album/%E3%81%A0%E3%81%8B%E3%82%89%E5%83%95%E3%81%AF%E9%9F%B3%E6%A5%BD%E3%82%92%E8%BE%9E%E3%82%81%E3%81%9F/1648876058?i=1648877323&amp;uo=4" target="_blank" rel="noopener">OPEN FULL TRACK ↗</a></div>
+      <div class="listening-note__actions"><button type="button" data-detail-play="music">PLAY FULL TRACK <span>▶</span></button><a href="https://music.163.com/#/playlist?id=17682751304" target="_blank" rel="noopener">NETEASE PLAYLIST ↗</a></div>
     </div>
   </div>
 </section>`
@@ -78,9 +93,9 @@ const PERSISTENT_PLAYER = `
   <div class="sakura-player__inner">
     <div class="sakura-player__disc" aria-hidden="true"><i></i></div>
     <div class="sakura-player__meta">
-      <span class="sakura-player__eyebrow">CURRENT PREVIEW · 30S</span>
+      <span class="sakura-player__eyebrow">CURRENT TRACK · FULL LENGTH</span>
       <strong data-player-title>所以我放弃了音乐</strong>
-      <small><span data-player-title-ja>だから僕は音楽を辞めた</span> · YORUSHIKA</small>
+      <small><span data-player-title-ja>だから僕は音楽を辞めた</span> · <span data-player-artist>YORUSHIKA</span></small>
     </div>
     <div class="sakura-player__transport">
       <button type="button" data-player-prev aria-label="上一首">←</button>
@@ -90,13 +105,13 @@ const PERSISTENT_PLAYER = `
     <div class="sakura-player__timeline">
       <span data-player-current>0:00</span>
       <input type="range" min="0" max="100" value="0" step="0.1" aria-label="播放进度">
-      <span data-player-duration>0:30</span>
+      <span data-player-duration>—:—</span>
     </div>
     <div class="sakura-player__links">
-      <a data-player-apple href="https://music.apple.com/jp/album/%E3%81%A0%E3%81%8B%E3%82%89%E5%83%95%E3%81%AF%E9%9F%B3%E6%A5%BD%E3%82%92%E8%BE%9E%E3%82%81%E3%81%9F/1648876058?i=1648877323&amp;uo=4" target="_blank" rel="noopener">FULL TRACK ↗</a>
+      <a href="https://music.163.com/#/playlist?id=17682751304" target="_blank" rel="noopener">NETEASE LIST ↗</a>
     </div>
   </div>
-  <p class="sakura-player__status" data-player-status aria-live="polite">选择一首歌，试听会在页面之间继续播放。</p>
+  <p class="sakura-player__status" data-player-status aria-live="polite">选择一首歌，音乐会在页面之间继续播放。</p>
 </aside>`
 
 const NAV_FREQUENCY = `

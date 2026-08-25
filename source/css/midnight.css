@@ -797,7 +797,8 @@ body::before {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 10010;
+  /* Above page content and the fixed header, below Butterfly's menu/search layers. */
+  z-index: 100;
   height: 88px;
   border-top: 1px solid rgba(210, 224, 213, 0.22);
   background: rgba(8, 11, 13, 0.96);
@@ -2204,6 +2205,11 @@ body.has-sakura-player #rightside { bottom: 100px; }
 }
 
 @media (max-width: 600px) {
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
   #nav { height: 70px; padding: 0 20px; }
   #nav::after { right: 20px; left: 20px; }
   #nav #blog-info .site-name {
@@ -2326,6 +2332,170 @@ body.has-sakura-player #rightside { bottom: 100px; }
   .sakura-player__transport button:not(.sakura-player__play) { width: 22px; }
   .sakura-player__transport .sakura-player__play { width: 36px; height: 36px; }
 }
+
+/* Search archive / listening-room edition */
+#search-mask {
+  z-index: 1000;
+  background: rgba(3, 5, 6, 0.82);
+  backdrop-filter: blur(9px) saturate(90%);
+}
+
+#local-search .search-dialog {
+  top: clamp(24px, 8vh, 76px);
+  left: 50%;
+  width: min(780px, calc(100vw - 36px));
+  max-height: calc(100svh - 48px);
+  margin-left: 0;
+  padding: clamp(22px, 4vw, 40px);
+  overflow: hidden;
+  translate: -50% 0;
+  border: 1px solid rgba(213, 226, 216, 0.2);
+  border-radius: 0;
+  color: var(--midnight-text);
+  background:
+    radial-gradient(circle at 92% 8%, rgba(129, 114, 155, 0.14), transparent 30%),
+    linear-gradient(145deg, rgba(16, 20, 23, 0.99), rgba(7, 10, 12, 0.99));
+  box-shadow: 0 34px 100px rgba(0, 0, 0, 0.56);
+}
+
+#local-search .search-dialog::before {
+  display: block;
+  margin-bottom: 16px;
+  color: var(--midnight-accent);
+  content: "00 / SEARCH ARCHIVE · LISTENING NOTES";
+  font-size: 8px;
+  letter-spacing: 0.2em;
+}
+
+#local-search .search-nav {
+  min-height: 54px;
+  margin-bottom: 22px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--midnight-line);
+  color: var(--midnight-text);
+}
+
+#local-search .search-dialog-title {
+  color: var(--midnight-text);
+  font-family: var(--midnight-serif);
+  font-size: clamp(26px, 4vw, 38px);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+}
+
+#local-search .search-close-button {
+  display: grid;
+  flex: 0 0 38px;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--midnight-line);
+  border-radius: 50%;
+  color: #87918c;
+  transition: color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+#local-search .search-close-button:hover {
+  border-color: var(--midnight-accent);
+  color: var(--midnight-accent);
+  transform: rotate(90deg);
+}
+
+#local-search .local-search-input input {
+  height: 52px;
+  padding: 0 18px;
+  border: 1px solid rgba(213, 226, 216, 0.28);
+  border-radius: 0;
+  color: var(--midnight-text);
+  caret-color: var(--midnight-accent);
+  background: rgba(5, 8, 10, 0.72);
+  font-family: var(--midnight-serif);
+  font-size: 16px;
+  letter-spacing: 0.06em;
+  transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+#local-search .local-search-input input:focus {
+  border-color: rgba(185, 216, 194, 0.72);
+  background: rgba(8, 12, 14, 0.94);
+  box-shadow: inset 3px 0 var(--midnight-accent), 0 0 0 1px rgba(185, 216, 194, 0.08);
+}
+
+#local-search .local-search-input input::placeholder {
+  color: #69736e;
+}
+
+#local-search hr { display: none !important; }
+
+#local-search .search-result-list {
+  max-height: calc(80svh - 235px);
+  margin: 24px 0 0;
+  padding: 0;
+  scrollbar-color: rgba(185, 216, 194, 0.3) transparent;
+}
+
+#local-search .local-search-hit-item {
+  gap: 12px;
+  margin: 0;
+  padding: 20px 4px;
+  border-bottom: 1px solid rgba(225, 234, 224, 0.11);
+}
+
+#local-search .local-search-hit-item[value]::before {
+  min-width: 30px;
+  margin: 3px 0 0;
+  color: #66716b;
+  font-family: var(--midnight-sans);
+  font-size: 8px;
+  font-style: normal;
+  letter-spacing: 0.12em;
+}
+
+#local-search .local-search-hit-item a { min-width: 0; color: var(--midnight-text); }
+#local-search .search-result-title {
+  color: var(--midnight-text);
+  font-family: var(--midnight-serif);
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+#local-search .search-result {
+  margin-top: 7px;
+  color: #89928d;
+  font-size: 12px;
+  line-height: 1.9;
+}
+#local-search .search-keyword {
+  padding: 0 2px;
+  color: #d7e8da;
+  background: rgba(185, 216, 194, 0.12);
+}
+#local-search .search-result-stats {
+  color: #75807a;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+}
+
+html.is-mobile-device #local-search .search-dialog {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  padding: calc(22px + env(safe-area-inset-top, 0px)) clamp(18px, 5vw, 30px) calc(24px + env(safe-area-inset-bottom, 0px));
+  translate: none;
+  border: 0;
+}
+html.is-mobile-device #local-search .search-dialog::before { margin-bottom: 10px; font-size: 7px; }
+html.is-mobile-device #local-search .search-nav { min-height: 46px; margin-bottom: 18px; padding-bottom: 14px; }
+html.is-mobile-device #local-search .search-dialog-title { font-size: clamp(25px, 8vw, 34px); }
+html.is-mobile-device #local-search .local-search-input input { width: 100%; height: 50px; }
+html.is-mobile-device #local-search .search-result-list {
+  max-height: calc(100svh - 210px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+  margin-top: 18px;
+}
+html.is-mobile-device #local-search .local-search-hit-item { padding: 17px 0; }
+html.is-mobile-device #local-search .search-result-title { font-size: 17px; }
 
 /* Device-aware compact mode. Mobile browsers may report a desktop-like
    layout viewport, so this class is set from touch capability as well as width. */
@@ -2478,8 +2648,8 @@ html.is-mobile-device .sakura-player {
   height: calc(96px + env(safe-area-inset-bottom, 0px));
 }
 html.is-mobile-device .sakura-player__inner {
-  grid-template-areas: "meta transport" "timeline timeline";
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "meta links transport" "timeline timeline timeline";
+  grid-template-columns: minmax(0, 1fr) auto auto;
   grid-template-rows: 52px 28px;
   gap: 0 12px;
   width: 100%;
@@ -2489,12 +2659,22 @@ html.is-mobile-device .sakura-player__inner {
 html.is-mobile-device .sakura-player__disc,
 html.is-mobile-device .sakura-player__eyebrow,
 html.is-mobile-device .sakura-player__meta small,
-html.is-mobile-device .sakura-player__links,
 html.is-mobile-device .sakura-player__transport button:not(.sakura-player__play) {
   display: none;
 }
 html.is-mobile-device .sakura-player__meta { grid-area: meta; min-width: 0; }
 html.is-mobile-device .sakura-player__meta strong { font-size: clamp(14px, 3.5vw, 18px); }
+html.is-mobile-device .sakura-player__links {
+  display: flex;
+  grid-area: links;
+  gap: 0;
+}
+html.is-mobile-device .sakura-player__links a {
+  padding: 8px 2px;
+  color: #8f9a94;
+  font-size: 7px;
+  letter-spacing: 0.1em;
+}
 html.is-mobile-device .sakura-player__transport {
   grid-area: transport;
   justify-content: flex-end;
