@@ -10,7 +10,7 @@
 <p>
   <img src="https://img.shields.io/badge/Hexo-5.0+-blue?style=flat-square&logo=hexo">
   <img src="https://img.shields.io/badge/Theme-Butterfly-6515c2?style=flat-square&logo=googlechrome">
-  <img src="https://img.shields.io/badge/Hosted-Github_Pages-black?style=flat-square&logo=github">
+  <img src="https://img.shields.io/badge/Hosted-Cloudflare_Pages-f38020?style=flat-square&logo=cloudflare">
 </p>
 
 <!-- 4. 博客链接按钮 -->
@@ -22,7 +22,7 @@
 
 ## 📖 简介 (Introduction)
 
-这是我的个人博客源码仓库，基于 **Hexo** 框架构建，使用了 **Butterfly** 主题。在这里我记录技术笔记、生活感悟和学习历程。
+这是我的个人博客源码仓库，基于 **Hexo** 框架构建，使用了 **Butterfly** 主题，并由 **Cloudflare Pages** 自动构建发布。在这里我记录技术笔记、生活感悟和学习历程，也保存一份属于自己的夜间选曲。
 
 ## 📊 数据统计 (Stats)
 

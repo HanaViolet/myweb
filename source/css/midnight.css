@@ -1515,13 +1515,15 @@ body.has-sakura-player #rightside { bottom: 100px; }
 .post #pagination .info-item-2 { font-family: var(--midnight-serif); font-size: clamp(20px, 2.2vw, 31px); font-weight: 400; }
 .post #pagination .info-2 { display: none; }
 
-.post #post-comment {
+#post-comment {
   margin: 70px clamp(8px, 3vw, 42px) 0;
   padding-top: 34px;
   border-top: 1px solid var(--midnight-line);
 }
 
-.post #post-comment .comment-headline { color: var(--midnight-text); font-family: var(--midnight-serif); font-size: 22px; font-weight: 400; }
+#post-comment .comment-headline { color: var(--midnight-text); font-family: var(--midnight-serif); font-size: 22px; font-weight: 400; }
+#post-comment .comment-wrap { margin-top: 22px; }
+#post-comment .giscus { max-width: 100%; }
 
 .post #aside-content {
   min-width: 0;
@@ -2283,7 +2285,7 @@ body.has-sakura-player #rightside { bottom: 100px; }
   .post .post-copyright__notice { display: none; }
   .post .tag_share { margin-right: 6px; margin-left: 6px; }
   .post #pagination .pagination-related { min-height: 210px; }
-  .post #post-comment { margin-right: 6px; margin-left: 6px; }
+  #post-comment { margin-right: 6px; margin-left: 6px; }
   .page #recent-posts > .recent-post-items { display: block; }
   .page #recent-posts .recent-post-item { margin-bottom: 56px; }
   .page #recent-posts .recent-post-item > .post_cover,

@@ -21,6 +21,9 @@ MAX_DIMENSION = 1920
 
 # JPG 保存质量 (1-95)，推荐 78，视觉无损且体积大幅减小
 QUALITY = 78
+
+# 只有节省达到这个大小才替换原文件，避免为几 KB 的收益重复编码 JPEG
+MIN_SAVINGS_MB = 0.01
 # ===========================================
 
 def get_size_mb(file_path):
@@ -34,7 +37,7 @@ def process_image(file_path):
     file_name = os.path.basename(file_path)
     ext = os.path.splitext(file_name)[1].lower()
     
-    if ext not in ('.jpg', '.jpeg', '.png', '.bmp', '.tiff', '.webp'):
+    if ext not in ('.jpg', '.jpeg', '.png', '.webp'):
         return False, 0
 
     print(f"[Target] {file_name} ({orig_size:.2f} MB)")
@@ -51,22 +54,24 @@ def process_image(file_path):
                 img.thumbnail((MAX_DIMENSION, MAX_DIMENSION), Image.Resampling.LANCZOS)
                 print(f"  [Resize] {w}x{h} -> {img.size[0]}x{img.size[1]}")
 
-            # 转换为 RGB 格式保存为高效 JPEG
-            if img.mode in ('RGBA', 'LA') or (img.mode == 'P' and 'transparency' in img.info):
-                bg = Image.new('RGB', img.size, (255, 255, 255))
-                if img.mode != 'RGBA':
-                    img = img.convert('RGBA')
-                bg.paste(img, mask=img.split()[3])
-                img = bg
-            elif img.mode != 'RGB':
-                img = img.convert('RGB')
-
+            # 按原格式优化：PNG 保留透明通道，避免把 .png 文件写成 JPEG
             temp_path = file_path + ".tmp"
-            img.save(temp_path, 'JPEG', quality=QUALITY, optimize=True, progressive=True)
+            if ext in ('.jpg', '.jpeg'):
+                if img.mode not in ('RGB', 'L'):
+                    img = img.convert('RGB')
+                img.save(temp_path, 'JPEG', quality=QUALITY, optimize=True, progressive=True)
+            elif ext == '.png':
+                if img.mode not in ('1', 'L', 'LA', 'P', 'RGB', 'RGBA'):
+                    img = img.convert('RGBA' if 'A' in img.getbands() else 'RGB')
+                img.save(temp_path, 'PNG', optimize=True, compress_level=9)
+            else:  # WebP
+                if img.mode not in ('RGB', 'RGBA'):
+                    img = img.convert('RGBA' if 'A' in img.getbands() else 'RGB')
+                img.save(temp_path, 'WEBP', quality=QUALITY, method=6)
             
             new_size = get_size_mb(temp_path)
             
-            if new_size < orig_size:
+            if new_size < orig_size and (orig_size - new_size) >= MIN_SAVINGS_MB:
                 os.replace(temp_path, file_path)
                 saved = orig_size - new_size
                 print(f"  [Success] {orig_size:.2f} MB -> {new_size:.2f} MB (Saved {saved:.2f} MB)")

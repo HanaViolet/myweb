@@ -182,7 +182,8 @@ giscus:
   reactions_enabled: true
   emit_metadata: false
   input_position: bottom
-  theme: light
+  light_theme: dark_dimmed
+  dark_theme: dark_dimmed
   lang: zh-CN
   crossorigin: anonymous
 

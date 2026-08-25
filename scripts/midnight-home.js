@@ -29,45 +29,39 @@ const HOME_HERO = `
   <p class="midnight-scroll">SCROLL TO LISTEN <span aria-hidden="true">&#8595;</span></p>
 </section>`
 
-const LISTENING_ROOM = `
+const escapeHtml = (value = '') => String(value).replace(/[&<>'"]/g, (character) => ({
+  '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+}[character]))
+
+const renderTrackDetail = (track, index) => `
+  <div class="listening-note__index"><span>${String(index + 1).padStart(2, '0')}</span><small>ABOUT THE TRACK</small></div>
+  <div class="listening-note__copy">
+    <p class="listening-note__meta">${escapeHtml(track.meta)}</p>
+    <h3>${escapeHtml(track.title)}</h3>
+    <p class="listening-note__about">${escapeHtml(track.about)}</p>
+    <blockquote><span>聆听札记 · 非原歌词</span><p lang="ja">${escapeHtml(track.noteJa)}</p><p>${escapeHtml(track.noteZh)}</p></blockquote>
+    <div class="listening-note__actions"><button type="button" data-detail-play="${escapeHtml(track.id)}">PLAY FULL TRACK <span>▶</span></button><a href="https://music.163.com/#/playlist?id=17682751304" target="_blank" rel="noopener">NETEASE PLAYLIST ↗</a></div>
+  </div>`
+
+const renderListeningRoom = (tracks) => {
+  const selection = Array.isArray(tracks) ? tracks : []
+  const first = selection[0]
+  if (!first) return ''
+  const list = selection.map((track, index) => `
+      <li>
+        <button class="track-trigger${index === 0 ? ' is-active' : ''}" type="button" data-track-id="${escapeHtml(track.id)}" aria-pressed="${index === 0}">
+          <span class="track-no">${String(index + 1).padStart(2, '0')}</span><span class="track-title">${escapeHtml(track.title)}<small>${escapeHtml(track.titleJa)}</small></span><span class="track-artist">${escapeHtml(track.artist)}</span><span class="track-action"><i>DISCOVER</i><em>SELECTED</em><b>+</b></span>
+        </button>
+      </li>`).join('')
+  return `
 <section class="listening-room" id="listening-room" aria-labelledby="listening-title">
   <div class="listening-room__heading">
     <p>PERSONAL SELECTION / 2026</p>
     <h2 id="listening-title">夜晚适合把世界<br>调成静音，只留下音乐。</h2>
   </div>
   <div class="listening-selection">
-    <div class="listening-selection__label"><span>SAKURA'S 6 PICKS</span><span>CLICK TO LISTEN</span></div>
-    <ol class="listening-tracks" aria-label="Sakura 的代表曲目">
-      <li>
-        <button class="track-trigger is-active" type="button" data-track-id="music" aria-pressed="true">
-          <span class="track-no">01</span><span class="track-title">所以我放弃了音乐<small>だから僕は音楽を辞めた</small></span><span class="track-artist">YORUSHIKA</span><span class="track-action"><i>DISCOVER</i><em>SELECTED</em><b>+</b></span>
-        </button>
-      </li>
-      <li>
-        <button class="track-trigger" type="button" data-track-id="kajin" aria-pressed="false">
-          <span class="track-no">02</span><span class="track-title">花人局<small>花人局</small></span><span class="track-artist">YORUSHIKA</span><span class="track-action"><i>DISCOVER</i><em>SELECTED</em><b>+</b></span>
-        </button>
-      </li>
-      <li>
-        <button class="track-trigger" type="button" data-track-id="oldman" aria-pressed="false">
-          <span class="track-no">03</span><span class="track-title">老人与海<small>老人と海</small></span><span class="track-artist">YORUSHIKA</span><span class="track-action"><i>DISCOVER</i><em>SELECTED</em><b>+</b></span>
-        </button>
-      </li>
-      <li>
-        <button class="track-trigger" type="button" data-track-id="odoriko" aria-pressed="false">
-          <span class="track-no">04</span><span class="track-title">踊り子<small>踊り子</small></span><span class="track-artist">VAUNDY</span><span class="track-action"><i>DISCOVER</i><em>SELECTED</em><b>+</b></span>
-        </button>
-      </li>
-      <li>
-        <button class="track-trigger" type="button" data-track-id="highway" aria-pressed="false">
-          <span class="track-no">05</span><span class="track-title">Highway Driving Car<small>Highway Driving Car</small></span><span class="track-artist">ETSUCO</span><span class="track-action"><i>DISCOVER</i><em>SELECTED</em><b>+</b></span>
-        </button>
-      </li>
-      <li>
-        <button class="track-trigger" type="button" data-track-id="sss" aria-pressed="false">
-          <span class="track-no">06</span><span class="track-title">S.S.S.<small>S.S.S.</small></span><span class="track-artist">佐藤千亜妃</span><span class="track-action"><i>DISCOVER</i><em>SELECTED</em><b>+</b></span>
-        </button>
-      </li>
+    <div class="listening-selection__label"><span>SAKURA'S ${selection.length} PICKS</span><span>CLICK TO LISTEN</span></div>
+    <ol class="listening-tracks" aria-label="Sakura 的代表曲目">${list}
     </ol>
     <a class="listening-collection" href="https://music.163.com/#/playlist?id=17682751304" target="_blank" rel="noopener">
       <span class="listening-collection__mark" aria-hidden="true">♬</span>
@@ -75,17 +69,9 @@ const LISTENING_ROOM = `
       <span class="listening-collection__open">OPEN PLAYLIST ↗</span>
     </a>
   </div>
-  <div class="listening-note" data-track-detail aria-live="polite">
-    <div class="listening-note__index"><span>01</span><small>ABOUT THE TRACK</small></div>
-    <div class="listening-note__copy">
-      <p class="listening-note__meta">2019 / 1ST FULL ALBUM / LETTERS TO ELMA</p>
-      <h3>所以我放弃了音乐</h3>
-      <p class="listening-note__about">首张完整专辑的同名收束曲。专辑把青年写给 Elma 的信、照片与音乐连成一个完整故事，标题里的“放弃”也因此显得格外矛盾。</p>
-      <blockquote><span>聆听札记 · 非原歌词</span><p lang="ja">まだ、音は夜の中に残っている。</p><p>声音仍旧留在夜色里。</p></blockquote>
-      <div class="listening-note__actions"><button type="button" data-detail-play="music">PLAY FULL TRACK <span>▶</span></button><a href="https://music.163.com/#/playlist?id=17682751304" target="_blank" rel="noopener">NETEASE PLAYLIST ↗</a></div>
-    </div>
-  </div>
+  <div class="listening-note" data-track-detail aria-live="polite">${renderTrackDetail(first, 0)}</div>
 </section>`
+}
 
 const PERSISTENT_PLAYER = `
 <aside class="sakura-player" id="sakura-player" aria-label="Sakura 的持续音乐播放器">
@@ -169,10 +155,18 @@ const POST_SIDEBAR_NOTE = `
   </div>
 </section>`
 
+const getTrackData = () => {
+  const data = hexo.locals.get('data') || {}
+  return Array.isArray(data.tracks) ? data.tracks : []
+}
+
+const serializeTrackData = (tracks) => JSON.stringify(tracks).replace(/</g, '\\u003c')
+
 hexo.extend.filter.register('after_render:html', function (html, data) {
   if (!data) return html
 
   let result = html
+  const tracks = getTrackData()
 
   if (data.path !== 'index.html') {
     const intro = PAGE_INTROS[data.path]
@@ -184,13 +178,16 @@ hexo.extend.filter.register('after_render:html', function (html, data) {
       result = result.replace('<div class="aside-content" id="aside-content">', `<div class="aside-content" id="aside-content">${POST_SIDEBAR_NOTE}`)
     }
   } else {
-    result = result.replace('</header><main', `${HOME_HERO}</header>${LISTENING_ROOM}<main`)
+    result = result.replace('</header><main', `${HOME_HERO}</header>${renderListeningRoom(tracks)}<main`)
     result = result.replace('<div class="recent-posts', `${NOTES_HEADING}<div class="recent-posts`)
     result = result.replace('</main><footer', `</main>${HOME_CODA}<footer`)
     result = result.replace(/(<meta property="og:image" content=")[^"]+("\s*\/?>)/, '$1https://sakura.luxe/img/og.png$2')
     result = result.replace(/(<meta name="twitter:image" content=")[^"]+("\s*\/?>)/, '$1https://sakura.luxe/img/og.png$2')
   }
 
+  if (!result.includes('window.__SAKURA_TRACKS')) {
+    result = result.replace('</head>', `<script>window.__SAKURA_TRACKS=${serializeTrackData(tracks)};</script></head>`)
+  }
   if (!result.includes('id="sakura-player"')) {
     result = result.replace('</body>', `${PERSISTENT_PLAYER}</body>`)
   }

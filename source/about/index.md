@@ -4,7 +4,7 @@ date: 2026-08-25 18:20:00
 type: "about"
 top_img: /img/gallery/季09.jpg
 aside: false
-comments: false
+comments: true
 description: 关于音乐、代码，以及我愿意留在这里的生活片段。
 ---
 

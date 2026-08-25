@@ -1,0 +1,68 @@
+[
+  {
+    "id": "music",
+    "title": "所以我放弃了音乐",
+    "titleJa": "だから僕は音楽を辞めた",
+    "meta": "2019 / 1ST FULL ALBUM / LETTERS TO ELMA",
+    "about": "首张完整专辑的同名收束曲。专辑把青年写给 Elma 的信、照片与音乐连成一个完整故事，标题里的“放弃”也因此显得格外矛盾。",
+    "noteJa": "まだ、音は夜の中に残っている。",
+    "noteZh": "声音仍旧留在夜色里。",
+    "artist": "YORUSHIKA",
+    "src": "/music/01-dakara.mp3"
+  },
+  {
+    "id": "kajin",
+    "title": "花人局",
+    "titleJa": "花人局",
+    "meta": "2020 / ALBUM “盗作” / THE BEAUTY OF DECEPTION",
+    "about": "收录在以“盗作家”为叙事核心的专辑《盗作》。花、骗局与美感被放在同一个标题里，让明亮的旋律从一开始就带着不安。",
+    "noteJa": "花は、秘密を抱いたまま咲く。",
+    "noteZh": "花怀抱着秘密，依然盛开。",
+    "artist": "YORUSHIKA",
+    "src": "/music/02-kajin.mp3"
+  },
+  {
+    "id": "oldman",
+    "title": "老人与海",
+    "titleJa": "老人と海",
+    "meta": "2021 / LITERARY PROJECT / INSPIRED MOVIES",
+    "about": "官方曾邀请多组创作者以这首歌为起点，制作不同风格的 Inspired Movie。同一段“向海而去”的想象，因此拥有了不止一种视觉答案。",
+    "noteJa": "想像力の向こうへ、海は続いている。",
+    "noteZh": "越过想象力的边界，海仍在延伸。",
+    "artist": "YORUSHIKA",
+    "src": "/music/03-oldman.mp3"
+  },
+  {
+    "id": "odoriko",
+    "title": "踊り子",
+    "titleJa": "踊り子",
+    "meta": "2021 / VAUNDY / LATE-NIGHT GROOVE",
+    "about": "克制的节拍和大量留白让这首歌拥有独特的悬浮感。它不急着抵达，更像在夜色里保持一段恰好的距离。",
+    "noteJa": "夜の余白に、リズムだけが残る。",
+    "noteZh": "夜的留白里，只剩下节奏。",
+    "artist": "VAUNDY",
+    "src": "/music/04-odoriko.mp3"
+  },
+  {
+    "id": "highway",
+    "title": "Highway Driving Car",
+    "titleJa": "Highway Driving Car",
+    "meta": "ETSUCO / NIGHT DRIVE SELECTION",
+    "about": "像深夜公路上不断后退的灯光，声音平稳地向前流动。适合在城市安静下来以后，让思绪自由滑行。",
+    "noteJa": "光の線が、夜の向こうへ続いていく。",
+    "noteZh": "光的线条，一直通往夜的另一边。",
+    "artist": "ETSUCO",
+    "src": "/music/05-highway.mp3"
+  },
+  {
+    "id": "sss",
+    "title": "S.S.S.",
+    "titleJa": "S.S.S.",
+    "meta": "佐藤千亜妃 / AFTER-HOURS SELECTION",
+    "about": "清晰的声线与细腻的层次慢慢铺开，情绪没有被直白地说尽，却会在歌曲结束后继续停留。",
+    "noteJa": "言葉にならない気持ちほど、長く響く。",
+    "noteZh": "越是无法说成话的心情，越会长久回响。",
+    "artist": "佐藤千亜妃",
+    "src": "/music/06-sss.mp3"
+  }
+]

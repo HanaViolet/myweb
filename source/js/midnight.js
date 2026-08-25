@@ -1,74 +1,27 @@
 'use strict';
 
 (() => {
-  const tracks = [
-    {
-      id: 'music',
-      title: '所以我放弃了音乐',
-      titleJa: 'だから僕は音楽を辞めた',
-      meta: '2019 / 1ST FULL ALBUM / LETTERS TO ELMA',
-      about: '首张完整专辑的同名收束曲。专辑把青年写给 Elma 的信、照片与音乐连成一个完整故事，标题里的“放弃”也因此显得格外矛盾。',
-      noteJa: 'まだ、音は夜の中に残っている。',
-      noteZh: '声音仍旧留在夜色里。',
-      artist: 'YORUSHIKA',
-      src: '/music/01-dakara.mp3'
-    },
-    {
-      id: 'kajin',
-      title: '花人局',
-      titleJa: '花人局',
-      meta: '2020 / ALBUM “盗作” / THE BEAUTY OF DECEPTION',
-      about: '收录在以“盗作家”为叙事核心的专辑《盗作》。花、骗局与美感被放在同一个标题里，让明亮的旋律从一开始就带着不安。',
-      noteJa: '花は、秘密を抱いたまま咲く。',
-      noteZh: '花怀抱着秘密，依然盛开。',
-      artist: 'YORUSHIKA',
-      src: '/music/02-kajin.mp3'
-    },
-    {
-      id: 'oldman',
-      title: '老人与海',
-      titleJa: '老人と海',
-      meta: '2021 / LITERARY PROJECT / INSPIRED MOVIES',
-      about: '官方曾邀请多组创作者以这首歌为起点，制作不同风格的 Inspired Movie。同一段“向海而去”的想象，因此拥有了不止一种视觉答案。',
-      noteJa: '想像力の向こうへ、海は続いている。',
-      noteZh: '越过想象力的边界，海仍在延伸。',
-      artist: 'YORUSHIKA',
-      src: '/music/03-oldman.mp3'
-    },
-    {
-      id: 'odoriko',
-      title: '踊り子',
-      titleJa: '踊り子',
-      meta: '2021 / VAUNDY / LATE-NIGHT GROOVE',
-      about: '克制的节拍和大量留白让这首歌拥有独特的悬浮感。它不急着抵达，更像在夜色里保持一段恰好的距离。',
-      noteJa: '夜の余白に、リズムだけが残る。',
-      noteZh: '夜的留白里，只剩下节奏。',
-      artist: 'VAUNDY',
-      src: '/music/04-odoriko.mp3'
-    },
-    {
-      id: 'highway',
-      title: 'Highway Driving Car',
-      titleJa: 'Highway Driving Car',
-      meta: 'ETSUCO / NIGHT DRIVE SELECTION',
-      about: '像深夜公路上不断后退的灯光，声音平稳地向前流动。适合在城市安静下来以后，让思绪自由滑行。',
-      noteJa: '光の線が、夜の向こうへ続いていく。',
-      noteZh: '光的线条，一直通往夜的另一边。',
-      artist: 'ETSUCO',
-      src: '/music/05-highway.mp3'
-    },
-    {
-      id: 'sss',
-      title: 'S.S.S.',
-      titleJa: 'S.S.S.',
-      meta: '佐藤千亜妃 / AFTER-HOURS SELECTION',
-      about: '清晰的声线与细腻的层次慢慢铺开，情绪没有被直白地说尽，却会在歌曲结束后继续停留。',
-      noteJa: '言葉にならない気持ちほど、長く響く。',
-      noteZh: '越是无法说成话的心情，越会长久回响。',
-      artist: '佐藤千亜妃',
-      src: '/music/06-sss.mp3'
+  const tracks = Array.isArray(window.__SAKURA_TRACKS) ? window.__SAKURA_TRACKS : []
+  const PLAYER_STORAGE_KEY = 'sakura-player-state-v1'
+
+  const readPlayerState = () => {
+    try {
+      const raw = window.sessionStorage.getItem(PLAYER_STORAGE_KEY)
+      if (!raw) return null
+      const state = JSON.parse(raw)
+      return state && typeof state.trackId === 'string' ? state : null
+    } catch (_) {
+      return null
     }
-  ]
+  }
+
+  const writePlayerState = (state) => {
+    try {
+      window.sessionStorage.setItem(PLAYER_STORAGE_KEY, JSON.stringify(state))
+    } catch (_) {
+      // Private browsing or storage restrictions should never break playback.
+    }
+  }
 
   const formatTime = (seconds) => {
     if (!Number.isFinite(seconds)) return '0:00'
@@ -96,6 +49,32 @@
     const duration = root.querySelector('[data-player-duration]')
     const status = root.querySelector('[data-player-status]')
     let currentIndex = 0
+    let restoreState = readPlayerState()
+    let lastSavedAt = 0
+    let lastKnownTime = 0
+    let suppressPersistence = true
+    let restoreAttempts = 0
+
+    if (!tracks.length) {
+      status.textContent = '暂无可播放曲目。'
+      return window.__sakuraPlayer
+    }
+
+    const saveState = (force = false) => {
+      if (suppressPersistence) return
+      if (!force && Date.now() - lastSavedAt < 500) return
+      const track = tracks[currentIndex]
+      if (!track || !audio.dataset.trackId) return
+      lastSavedAt = Date.now()
+      const measuredTime = Number.isFinite(audio.currentTime) ? audio.currentTime : 0
+      const savedTime = measuredTime > 0 || lastKnownTime === 0 ? measuredTime : lastKnownTime
+      writePlayerState({
+        trackId: track.id,
+        currentTime: savedTime,
+        wasPlaying: !audio.paused && !audio.ended,
+        updatedAt: Date.now()
+      })
+    }
 
     const updateTrackUI = () => {
       const track = tracks[currentIndex]
@@ -122,6 +101,7 @@
       const track = tracks[currentIndex]
       const sameTrack = audio.dataset.trackId === track.id
       if (!sameTrack) {
+        suppressPersistence = true
         audio.src = track.src
         audio.dataset.trackId = track.id
         timeline.value = 0
@@ -141,16 +121,43 @@
     }
 
     const selectById = (id, shouldPlay = true) => {
+      restoreState = null
+      if (audio.dataset.trackId === id) suppressPersistence = false
       const index = tracks.findIndex((track) => track.id === id)
       const track = loadTrack(index < 0 ? 0 : index, shouldPlay)
       renderTrackDetail(track)
+    }
+
+    const restoreForUserGesture = () => {
+      const pending = restoreState && restoreState.trackId === tracks[currentIndex].id ? restoreState : null
+      if (!pending || !Number.isFinite(audio.duration) || audio.duration <= 0) return null
+      const target = Number(pending.currentTime)
+      if (!Number.isFinite(target)) return null
+      const clampedTarget = Math.min(Math.max(target, 0), Math.max(audio.duration - 0.25, 0))
+      audio.currentTime = clampedTarget
+      restoreState = null
+      suppressPersistence = false
+      lastKnownTime = clampedTarget
+      currentTime.textContent = formatTime(clampedTarget)
+      timeline.value = (clampedTarget / audio.duration) * 100
+      return clampedTarget
     }
 
     playButton.addEventListener('click', () => {
       if (!audio.src) loadTrack(currentIndex)
       if (audio.paused) {
         if (audio.ended) audio.currentTime = 0
-        audio.play().catch(() => { status.textContent = '音频加载失败，请刷新后重试。' })
+        const restoredTarget = restoreForUserGesture()
+        const playPromise = audio.play()
+        if (restoredTarget !== null) {
+          playPromise.then(() => {
+            audio.currentTime = restoredTarget
+            lastKnownTime = restoredTarget
+            currentTime.textContent = formatTime(restoredTarget)
+            timeline.value = (restoredTarget / audio.duration) * 100
+          }).catch(() => {})
+        }
+        playPromise.catch(() => { status.textContent = '音频加载失败，请刷新后重试。' })
       } else {
         audio.pause()
       }
@@ -160,20 +167,76 @@
     timeline.addEventListener('input', () => {
       if (Number.isFinite(audio.duration)) audio.currentTime = (Number(timeline.value) / 100) * audio.duration
     })
-    audio.addEventListener('play', updatePlaybackUI)
-    audio.addEventListener('pause', updatePlaybackUI)
-    audio.addEventListener('loadedmetadata', () => { duration.textContent = formatTime(audio.duration) })
+    audio.addEventListener('play', () => {
+      updatePlaybackUI()
+      saveState(true)
+    })
+    audio.addEventListener('pause', () => {
+      updatePlaybackUI()
+      saveState(true)
+    })
+    const restorePlaybackPosition = () => {
+      const pending = restoreState && restoreState.trackId === tracks[currentIndex].id ? restoreState : null
+      if (!pending || !Number.isFinite(audio.duration) || audio.duration <= 0) return false
+      const target = Number(pending.currentTime)
+      const clampedTarget = Number.isFinite(target) ? Math.min(Math.max(target, 0), Math.max(audio.duration - 0.25, 0)) : 0
+      audio.currentTime = clampedTarget
+      if (clampedTarget > 0 && Math.abs(audio.currentTime - clampedTarget) > 0.5) {
+        if (restoreAttempts >= 20) return false
+        restoreAttempts += 1
+        window.setTimeout(restorePlaybackPosition, 100)
+        return false
+      }
+      restoreAttempts = 0
+      restoreState = null
+      lastKnownTime = audio.currentTime
+      currentTime.textContent = formatTime(audio.currentTime)
+      timeline.value = (audio.currentTime / audio.duration) * 100
+      if (pending.wasPlaying) status.textContent = '已恢复上次位置，点击播放继续。'
+      return true
+    }
+
+    audio.addEventListener('loadedmetadata', () => {
+      duration.textContent = formatTime(audio.duration)
+      const hasPendingRestore = Boolean(restoreState && restoreState.trackId === tracks[currentIndex].id)
+      const restored = restorePlaybackPosition()
+      suppressPersistence = hasPendingRestore && !restored
+    })
+    audio.addEventListener('canplay', () => {
+      if (!restoreState || restoreState.trackId !== tracks[currentIndex].id) {
+        suppressPersistence = false
+        return
+      }
+      suppressPersistence = !restorePlaybackPosition()
+    })
     audio.addEventListener('timeupdate', () => {
+      lastKnownTime = audio.currentTime
       currentTime.textContent = formatTime(audio.currentTime)
       timeline.value = Number.isFinite(audio.duration) && audio.duration > 0 ? (audio.currentTime / audio.duration) * 100 : 0
+      saveState()
     })
     audio.addEventListener('ended', () => {
+      audio.currentTime = 0
+      lastKnownTime = 0
+      currentTime.textContent = '0:00'
+      timeline.value = 0
       updatePlaybackUI()
       status.textContent = `${tracks[currentIndex].title} · 播放完毕，点击播放可从头聆听。`
+      saveState(true)
     })
-    audio.addEventListener('error', () => { status.textContent = '音频加载失败，请刷新后重试。' })
+    audio.addEventListener('error', () => {
+      suppressPersistence = false
+      status.textContent = '音频加载失败，请刷新后重试。'
+    })
+    timeline.addEventListener('change', () => saveState(true))
+    window.addEventListener('pagehide', () => saveState(true))
+    window.addEventListener('beforeunload', () => saveState(true))
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') saveState(true)
+    })
 
-    loadTrack(0)
+    const restoredIndex = restoreState ? tracks.findIndex((track) => track.id === restoreState.trackId) : -1
+    loadTrack(restoredIndex >= 0 ? restoredIndex : 0)
     window.__sakuraPlayer = { audio, selectById, syncTrackUI: updateTrackUI, get currentTrack () { return tracks[currentIndex] } }
     return window.__sakuraPlayer
   }
