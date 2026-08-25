@@ -1247,7 +1247,7 @@ body.has-sakura-player #rightside { bottom: 100px; }
 }
 
 /* Inner pages share the same quiet, editorial reading surface. */
-#page-header:not(.full_page) {
+#page-header.not-home-page {
   background-image: linear-gradient(rgba(5, 7, 9, 0.64), rgba(5, 7, 9, 0.9)), url("/img/banner.jpg") !important;
 }
 
