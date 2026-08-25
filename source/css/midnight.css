@@ -2121,19 +2121,19 @@ body.has-sakura-player #rightside { bottom: 100px; }
 }
 
 @media (max-width: 900px) {
-  /* Butterfly adds .hide-menu on narrow screens. Keep our desktop flex rule
-     from forcing the full channel list back into the mobile header. */
-  #nav.hide-menu .menus_items { display: none !important; }
-  #nav.hide-menu #menus { gap: 5px; }
-  #nav.hide-menu #search-button .site-page {
+  /* Use the compact navigation for the same range as the stacked page layout.
+     Some mobile browsers expose a layout viewport wider than 768px. */
+  #nav .menus_items { display: none !important; }
+  #nav #menus { gap: 5px; }
+  #nav #search-button .site-page {
     justify-content: center;
     width: 38px;
     padding: 0;
     font-size: 0;
   }
-  #nav.hide-menu #search-button .site-page::before { display: none; }
-  #nav.hide-menu #search-button i { display: inline-block; font-size: 12px; }
-  #nav.hide-menu #toggle-menu {
+  #nav #search-button .site-page::before { display: none; }
+  #nav #search-button i { display: inline-block; font-size: 12px; }
+  #nav #toggle-menu {
     display: flex !important;
     align-items: center;
     justify-content: center;
@@ -2141,7 +2141,7 @@ body.has-sakura-player #rightside { bottom: 100px; }
     height: 100%;
     padding: 0;
   }
-  #nav.hide-menu #toggle-menu .site-page { padding: 0; font-size: 14px; }
+  #nav #toggle-menu .site-page { padding: 0; font-size: 14px; }
   .page #page-header.full_page { min-height: 760px; }
   .midnight-hero { grid-template-columns: 1fr; padding-top: 82px; }
   .midnight-hero__copy { position: relative; z-index: 2; }
@@ -2156,8 +2156,32 @@ body.has-sakura-player #rightside { bottom: 100px; }
   .post #post-info { width: calc(100% - 56px); }
   .post #content-inner.layout { grid-template-columns: minmax(0, 1fr); width: min(900px, 100%); }
   .post #aside-content { display: none; }
-  .sakura-player__inner { grid-template-columns: 46px minmax(150px, 1fr) auto minmax(180px, .8fr); }
+  .sakura-player {
+    height: calc(118px + env(safe-area-inset-bottom, 0px));
+  }
+  .sakura-player__inner {
+    grid-template-columns: 40px minmax(0, 1fr) 96px;
+    grid-template-rows: 66px 34px;
+    gap: 0 12px;
+    padding: 7px 20px calc(10px + env(safe-area-inset-bottom, 0px));
+  }
+  .sakura-player__disc { width: 40px; height: 40px; }
+  .sakura-player__transport { justify-content: flex-end; gap: 3px; min-width: 0; }
+  .sakura-player__transport button:not(.sakura-player__play) { width: 24px; }
+  .sakura-player__transport .sakura-player__play { width: 40px; height: 40px; }
+  .sakura-player__timeline {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    grid-template-columns: 30px minmax(0, 1fr) 30px;
+    gap: 7px;
+  }
   .sakura-player__links { display: none; }
+  body.has-sakura-player #body-wrap {
+    padding-bottom: calc(118px + env(safe-area-inset-bottom, 0px));
+  }
+  body.has-sakura-player #rightside {
+    bottom: calc(130px + env(safe-area-inset-bottom, 0px));
+  }
   .midnight-section-title { grid-template-columns: 1fr; align-items: start; }
   .page #recent-posts > .recent-post-items { gap: 54px 24px; }
   .page #recent-posts .recent-post-item,
