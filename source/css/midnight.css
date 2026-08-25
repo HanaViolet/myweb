@@ -2120,7 +2120,7 @@ body.has-sakura-player #rightside { bottom: 100px; }
   .nav-frequency { display: none; }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   /* Use the compact navigation for the same range as the stacked page layout.
      Some mobile browsers expose a layout viewport wider than 768px. */
   #nav .menus_items { display: none !important; }
@@ -2325,6 +2325,192 @@ body.has-sakura-player #rightside { bottom: 100px; }
   .sakura-player__disc { width: 34px; height: 34px; }
   .sakura-player__transport button:not(.sakura-player__play) { width: 22px; }
   .sakura-player__transport .sakura-player__play { width: 36px; height: 36px; }
+}
+
+/* Device-aware compact mode. Mobile browsers may report a desktop-like
+   layout viewport, so this class is set from touch capability as well as width. */
+html.is-mobile-device,
+html.is-mobile-device body {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+html.is-mobile-device #nav {
+  height: 68px;
+  padding: 0 clamp(14px, 4vw, 28px);
+}
+
+html.is-mobile-device #nav::after {
+  right: clamp(14px, 4vw, 28px);
+  left: clamp(14px, 4vw, 28px);
+}
+
+html.is-mobile-device #nav #blog-info { min-width: 0; }
+html.is-mobile-device #nav .nav-site-title { min-width: 0; gap: 9px; }
+html.is-mobile-device #nav #blog-info .site-name {
+  display: block;
+  overflow: hidden;
+  font-size: clamp(9px, 2.6vw, 12px);
+  letter-spacing: 0.14em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+html.is-mobile-device .nav-frequency,
+html.is-mobile-device #nav .menus_items { display: none !important; }
+html.is-mobile-device #nav #menus { flex: 0 0 auto; gap: 4px; }
+html.is-mobile-device #nav #search-button .site-page {
+  justify-content: center;
+  width: 36px;
+  padding: 0;
+  font-size: 0;
+}
+html.is-mobile-device #nav #search-button .site-page::before { display: none; }
+html.is-mobile-device #nav #search-button i { display: inline-block; font-size: 12px; }
+html.is-mobile-device #nav #toggle-menu {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 100%;
+  padding: 0;
+}
+html.is-mobile-device #nav #toggle-menu .site-page { padding: 0; font-size: 14px; }
+
+html.is-mobile-device .page #page-header.full_page {
+  height: max(680px, 100svh);
+  min-height: 0;
+}
+html.is-mobile-device .midnight-hero {
+  grid-template-columns: minmax(0, 1fr);
+  width: 100%;
+  height: calc(100% - 68px);
+  padding: clamp(58px, 11vh, 96px) clamp(20px, 6vw, 56px) 42px;
+}
+html.is-mobile-device .midnight-hero__copy { position: relative; z-index: 2; min-width: 0; }
+html.is-mobile-device .midnight-eyebrow span:last-child,
+html.is-mobile-device .midnight-actions > a,
+html.is-mobile-device .midnight-record-caption,
+html.is-mobile-device .midnight-orbit,
+html.is-mobile-device .midnight-scroll { display: none; }
+html.is-mobile-device .midnight-hero h1 {
+  max-width: 760px;
+  font-size: clamp(52px, 11vw, 88px);
+  line-height: 0.9;
+}
+html.is-mobile-device .midnight-intro {
+  margin: clamp(28px, 6vh, 42px) 0 30px;
+  font-size: clamp(15px, 2.6vw, 19px);
+}
+html.is-mobile-device .midnight-actions { gap: 18px; }
+html.is-mobile-device .midnight-record-stage {
+  position: absolute;
+  right: clamp(-130px, -10vw, -60px);
+  bottom: -18px;
+  min-height: 0;
+  opacity: 0.4;
+}
+html.is-mobile-device .midnight-record { width: clamp(260px, 54vw, 400px); }
+
+html.is-mobile-device .listening-room,
+html.is-mobile-device .resource-intro,
+html.is-mobile-device .resource-group,
+html.is-mobile-device .about-profile,
+html.is-mobile-device .about-profile__text,
+html.is-mobile-device .about-manifesto,
+html.is-mobile-device .about-contact,
+html.is-mobile-device .midnight-section-title,
+html.is-mobile-device .midnight-coda__heading,
+html.is-mobile-device .post #content-inner.layout {
+  grid-template-columns: minmax(0, 1fr);
+}
+html.is-mobile-device .listening-room {
+  gap: clamp(38px, 9vw, 64px);
+  width: 100%;
+  padding: clamp(64px, 12vw, 110px) clamp(20px, 6vw, 56px);
+}
+html.is-mobile-device .track-trigger {
+  grid-template-columns: 42px minmax(0, 1fr) 34px;
+  gap: 10px;
+  min-height: 82px;
+}
+html.is-mobile-device .track-artist { display: none; }
+html.is-mobile-device .track-action { font-size: 0; }
+html.is-mobile-device .track-action b { margin: 0; }
+html.is-mobile-device .listening-collection {
+  grid-template-columns: 36px minmax(0, 1fr);
+  width: 100%;
+}
+html.is-mobile-device .listening-collection__open { display: none; }
+html.is-mobile-device .listening-note {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 26px;
+  padding: clamp(26px, 6vw, 42px);
+}
+html.is-mobile-device .listening-note__index {
+  flex-direction: row;
+  min-height: 0;
+  padding: 0 0 20px;
+  border-right: 0;
+  border-bottom: 1px solid var(--midnight-line);
+}
+
+html.is-mobile-device .page #content-inner.layout,
+html.is-mobile-device .post #content-inner.layout {
+  width: 100%;
+  padding-right: clamp(18px, 5vw, 48px);
+  padding-left: clamp(18px, 5vw, 48px);
+}
+html.is-mobile-device .page #recent-posts > .recent-post-items { display: block; }
+html.is-mobile-device .page #recent-posts .recent-post-item,
+html.is-mobile-device .page #recent-posts .recent-post-item:nth-child(n) {
+  width: 100%;
+  margin-bottom: 54px;
+  padding-top: 0;
+}
+html.is-mobile-device .post #aside-content { display: none; }
+html.is-mobile-device .resource-group > header { position: static; }
+html.is-mobile-device .resource-list,
+html.is-mobile-device .resource-nav,
+html.is-mobile-device .about-interest-list { grid-template-columns: minmax(0, 1fr); }
+html.is-mobile-device .resource-item { width: 100%; min-height: 240px; }
+
+html.is-mobile-device .sakura-player {
+  height: calc(96px + env(safe-area-inset-bottom, 0px));
+}
+html.is-mobile-device .sakura-player__inner {
+  grid-template-areas: "meta transport" "timeline timeline";
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: 52px 28px;
+  gap: 0 12px;
+  width: 100%;
+  max-width: none;
+  padding: 8px clamp(12px, 4vw, 22px) calc(8px + env(safe-area-inset-bottom, 0px));
+}
+html.is-mobile-device .sakura-player__disc,
+html.is-mobile-device .sakura-player__eyebrow,
+html.is-mobile-device .sakura-player__meta small,
+html.is-mobile-device .sakura-player__links,
+html.is-mobile-device .sakura-player__transport button:not(.sakura-player__play) {
+  display: none;
+}
+html.is-mobile-device .sakura-player__meta { grid-area: meta; min-width: 0; }
+html.is-mobile-device .sakura-player__meta strong { font-size: clamp(14px, 3.5vw, 18px); }
+html.is-mobile-device .sakura-player__transport {
+  grid-area: transport;
+  justify-content: flex-end;
+}
+html.is-mobile-device .sakura-player__transport .sakura-player__play {
+  width: 40px;
+  height: 40px;
+}
+html.is-mobile-device .sakura-player__timeline {
+  grid-area: timeline;
+  grid-template-columns: 28px minmax(0, 1fr) 28px;
+  gap: 7px;
+  width: 100%;
+}
+html.is-mobile-device body.has-sakura-player #body-wrap {
+  padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
 }
 
 @media (prefers-reduced-motion: reduce) {
