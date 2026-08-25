@@ -113,6 +113,7 @@ body::before {
 #nav #blog-info {
   display: flex;
   align-items: center;
+  min-width: 0;
   height: 100%;
 }
 
@@ -120,6 +121,7 @@ body::before {
   display: flex;
   gap: 13px;
   align-items: center;
+  min-width: 0;
 }
 
 #nav .nav-site-title::before {
@@ -807,6 +809,7 @@ body::before {
 
 .sakura-player__inner {
   display: grid;
+  box-sizing: border-box;
   grid-template-columns: 54px minmax(210px, 1.15fr) auto minmax(220px, 1fr) auto;
   gap: clamp(14px, 2.2vw, 34px);
   align-items: center;
@@ -893,6 +896,7 @@ body::before {
 
 .sakura-player__timeline {
   display: grid;
+  min-width: 0;
   grid-template-columns: 34px 1fr 34px;
   gap: 9px;
   align-items: center;
@@ -901,6 +905,7 @@ body::before {
 }
 
 .sakura-player__timeline input {
+  min-width: 0;
   width: 100%;
   height: 2px;
   margin: 0;
@@ -2116,6 +2121,27 @@ body.has-sakura-player #rightside { bottom: 100px; }
 }
 
 @media (max-width: 900px) {
+  /* Butterfly adds .hide-menu on narrow screens. Keep our desktop flex rule
+     from forcing the full channel list back into the mobile header. */
+  #nav.hide-menu .menus_items { display: none !important; }
+  #nav.hide-menu #menus { gap: 5px; }
+  #nav.hide-menu #search-button .site-page {
+    justify-content: center;
+    width: 38px;
+    padding: 0;
+    font-size: 0;
+  }
+  #nav.hide-menu #search-button .site-page::before { display: none; }
+  #nav.hide-menu #search-button i { display: inline-block; font-size: 12px; }
+  #nav.hide-menu #toggle-menu {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 100%;
+    padding: 0;
+  }
+  #nav.hide-menu #toggle-menu .site-page { padding: 0; font-size: 14px; }
   .page #page-header.full_page { min-height: 760px; }
   .midnight-hero { grid-template-columns: 1fr; padding-top: 82px; }
   .midnight-hero__copy { position: relative; z-index: 2; }
@@ -2156,7 +2182,14 @@ body.has-sakura-player #rightside { bottom: 100px; }
 @media (max-width: 600px) {
   #nav { height: 70px; padding: 0 20px; }
   #nav::after { right: 20px; left: 20px; }
-  #nav #blog-info .site-name { font-size: 10px; letter-spacing: 0.17em; }
+  #nav #blog-info .site-name {
+    display: block;
+    overflow: hidden;
+    font-size: clamp(8px, 2.65vw, 10px);
+    letter-spacing: 0.14em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   #nav .nav-site-title { gap: 9px; }
   #footer { padding: 38px 22px; }
   #footer .footer-other { grid-template-columns: 1fr; gap: 16px; }
@@ -2181,16 +2214,33 @@ body.has-sakura-player #rightside { bottom: 100px; }
   .listening-note { padding: 28px 22px; }
   .listening-note__about { font-size: 13px; }
   .listening-note__actions { align-items: stretch; flex-direction: column; }
-  .sakura-player { height: 124px; }
-  .sakura-player__inner { grid-template-columns: 38px minmax(0, 1fr) auto; grid-template-rows: 64px 36px; gap: 0 12px; padding: 8px 18px 10px; }
-  .sakura-player__disc { width: 38px; height: 38px; }
+  .sakura-player {
+    height: calc(116px + env(safe-area-inset-bottom, 0px));
+  }
+  .sakura-player__inner {
+    grid-template-columns: 36px minmax(0, 1fr) 88px;
+    grid-template-rows: 66px 32px;
+    gap: 0 10px;
+    padding: 7px 14px calc(9px + env(safe-area-inset-bottom, 0px));
+  }
+  .sakura-player__disc { width: 36px; height: 36px; }
   .sakura-player__meta strong { font-size: 13px; }
-  .sakura-player__transport { gap: 2px; }
+  .sakura-player__meta small { font-size: 7px; }
+  .sakura-player__transport { justify-content: flex-end; gap: 2px; min-width: 0; }
   .sakura-player__transport button:not(.sakura-player__play) { width: 24px; }
   .sakura-player__transport .sakura-player__play { width: 36px; height: 36px; }
-  .sakura-player__timeline { grid-column: 1 / -1; grid-row: 2; }
-  body.has-sakura-player #body-wrap { padding-bottom: 124px; }
-  body.has-sakura-player #rightside { bottom: 136px; }
+  .sakura-player__timeline {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    grid-template-columns: 29px minmax(0, 1fr) 29px;
+    gap: 6px;
+  }
+  body.has-sakura-player #body-wrap {
+    padding-bottom: calc(116px + env(safe-area-inset-bottom, 0px));
+  }
+  body.has-sakura-player #rightside {
+    bottom: calc(128px + env(safe-area-inset-bottom, 0px));
+  }
   .post #page-header.post-bg { height: 440px; min-height: 440px; }
   .post #post-info { bottom: 52px; width: 100%; padding-right: 22px; padding-left: 22px; }
   .post #page-header #post-info > .post-issue { margin-bottom: 14px; }
@@ -2232,6 +2282,25 @@ body.has-sakura-player #rightside { bottom: 100px; }
   #archive { padding: 34px 22px; }
   #archive .article-sort-item { min-height: 120px; }
   #archive .article-sort-item-img { width: 112px; height: 88px; }
+}
+
+@media (max-width: 380px) {
+  #nav { padding-right: 14px; padding-left: 14px; }
+  #nav::after { right: 14px; left: 14px; }
+  #nav .nav-site-title { gap: 7px; }
+  #nav .nav-site-title::before { flex-basis: 8px; width: 8px; height: 8px; }
+  .midnight-hero { padding-right: 18px; padding-left: 18px; }
+  .midnight-hero h1 { font-size: clamp(48px, 15.5vw, 60px); }
+  .midnight-intro { font-size: 14px; }
+  .sakura-player__inner {
+    grid-template-columns: 34px minmax(0, 1fr) 84px;
+    gap: 0 8px;
+    padding-right: 11px;
+    padding-left: 11px;
+  }
+  .sakura-player__disc { width: 34px; height: 34px; }
+  .sakura-player__transport button:not(.sakura-player__play) { width: 22px; }
+  .sakura-player__transport .sakura-player__play { width: 36px; height: 36px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
