@@ -3,7 +3,7 @@
   "profileUrl": "https://music.163.com/#/user/home?id=1441471952",
   "source": "NetEase Cloud Music play record API (Cookie) + public fallback",
   "endpoint": "/api/v1/play/record",
-  "updatedAt": "2026-08-26T08:00:46.939Z",
+  "updatedAt": "2026-08-26T08:31:05.016Z",
   "timezone": "Asia/Shanghai",
   "rankLimit": 20,
   "scrape": {
@@ -15,8 +15,8 @@
     "message": "Cookie 页面抓取未成功，但 Cookie 接口读取成功；公开接口用于字段补全。"
   },
   "duration": {
-    "weeklyMinutes": 229,
-    "allTimeMinutes": null,
+    "weeklyMinutes": null,
+    "allTimeMinutes": 126,
     "available": true,
     "source": "netease-listen-data",
     "endpoints": {
@@ -25,15 +25,19 @@
     },
     "fields": {
       "weekly": null,
-      "allTime": null
+      "allTime": {
+        "path": "totalDuration",
+        "unit": "milliseconds",
+        "rawValue": 7568797
+      }
     },
     "validation": {
-      "status": "inconsistent",
-      "message": "网易云累计接口返回的候选值小于本周值，已拒绝写入累计时长；等待下一次工作流同步并记录实际字段。"
+      "status": "partial",
+      "message": ""
     },
     "weeklyTracksCounted": 0,
     "allTimeTracksCounted": 0,
-    "message": "本周听歌时长来自网易云“云村听歌足迹”接口；累计时长暂不显示未经验证的字段。网易云累计接口返回的候选值小于本周值，已拒绝写入累计时长。"
+    "message": "累计听歌时长来自网易云“云村听歌足迹”接口；本周时长暂不显示未经验证的字段。网易云没有返回可识别的本周总时长。"
   },
   "weekly": [
     {
@@ -479,5 +483,5 @@
       "score": 29
     }
   ],
-  "notes": "本周听歌时长来自网易云“云村听歌足迹”接口；累计时长暂不显示未经验证的字段。网易云累计接口返回的候选值小于本周值，已拒绝写入累计时长。"
+  "notes": "累计听歌时长来自网易云“云村听歌足迹”接口；本周时长暂不显示未经验证的字段。网易云没有返回可识别的本周总时长。"
 }
