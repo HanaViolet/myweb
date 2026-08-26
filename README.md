@@ -102,7 +102,7 @@ npx hexo new post "文章标题"
 
 Cloudflare Pages 负责从 GitHub 构建并发布站点，仓库本身不保存部署密钥。若将音频迁移到 R2，建议使用公开只读对象 URL，并把管理凭据放在 Cloudflare Secrets 中；不要把 API Token、私有歌单或未获授权的音频提交到公开仓库。
 
-`.github/workflows/update-netease-stats.yml` 会每天按北京时间 00:17 更新 `source/_data/netease-stats.json` 并提交变更，Cloudflare Pages 随后自动重新构建。脚本会请求公开排行；如果配置了 GitHub Actions Secret `NETEASE_COOKIE`，会优先用无头 Chrome 打开个人页，并把同一登录态传给排行接口，以读取登录后页面或接口返回的播放次数。同时，脚本会调用网易云听歌足迹的 `/api/content/activity/listen/data/realtime/report`（`type=week`）与 `/api/content/activity/listen/data/total`，只接受明确的时长字段并转换为页面展示的小时 / 分钟；累计值如果小于本周值会被拒绝写入，避免把计数或其他摘要字段误当成时长。生成文件会保留脱敏的字段路径、单位和校验状态，便于接口变更时排查。Cookie 只在 Actions 运行时注入，不会写入仓库或生成数据文件；过期后删除 / 更新该 Secret 即可。
+`.github/workflows/update-netease-stats.yml` 会每天按北京时间 00:17 更新 `source/_data/netease-stats.json` 并提交变更，Cloudflare Pages 随后自动重新构建。脚本会请求公开排行；如果配置了 GitHub Actions Secret `NETEASE_COOKIE`，会优先用无头 Chrome 打开个人页，并把同一登录态传给排行接口，以读取登录后页面或接口返回的播放次数。同时，脚本会调用网易云听歌足迹的 `/api/content/activity/listen/data/realtime/report`（`type=week`）与 `/api/content/activity/listen/data/total`，只接受明确的时长字段并转换为页面展示的小时 / 分钟；其中累计接口的 `totalDuration` 是秒，不能按歌曲时长常见的毫秒处理。累计值如果小于本周值会被拒绝写入，避免把计数或其他摘要字段误当成时长。生成文件会保留脱敏的字段路径、单位和校验状态，便于接口变更时排查。Cookie 只在 Actions 运行时注入，不会写入仓库或生成数据文件；过期后删除 / 更新该 Secret 即可。
 
 `.github/workflows/update-netease-comments.yml` 会每周按北京时间周日 00:31 更新 `source/_data/netease-comments.json`。它按 `tracks.json` 中的 `neteaseId` 请求热门评论，每首只缓存少量摘录，并保留网易云歌曲页链接；请求失败时会继续展示上一次缓存，不会让构建中断。评论内容来自网易云公开页面 / 接口，页面只展示必要的署名、获赞数和日期。
 

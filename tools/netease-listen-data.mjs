@@ -202,12 +202,18 @@ const parseDurationText = (value) => {
 const numericDuration = (value, key, unitHint = '') => {
   const numeric = Number(value)
   if (!Number.isFinite(numeric) || numeric < 0) return null
+  const keyName = compactKey(key)
   const hint = `${keyText(key)}.${keyText(unitHint)}`
   if (/(毫秒|millisecond|msec|ms)/i.test(hint)) return { minutes: Math.round(numeric / 60000), unit: 'milliseconds' }
   if (/(秒|second|sec)/i.test(hint)) return { minutes: Math.round(numeric / 60), unit: 'seconds' }
   if (/(小时|小時|时|hour|hr)/i.test(hint)) return { minutes: Math.round(numeric * 60), unit: 'hours' }
   if (/(分钟|分|minute|min)/i.test(hint)) return { minutes: Math.round(numeric), unit: 'minutes' }
   if (!explicitDurationKey(key)) return null
+  // The listen-data total endpoint returns `totalDuration` in seconds,
+  // despite the field carrying no unit label. Treating this value as the
+  // usual millisecond duration turns 7,568,797 seconds into only 126 minutes
+  // instead of the account's actual 2,102 hours 26 minutes.
+  if (keyName === 'totalduration') return { minutes: Math.floor(numeric / 60), unit: 'seconds' }
   // NetEase duration fields conventionally use milliseconds. For an
   // unlabelled small value, minutes are the least surprising fallback.
   if (numeric >= 100000) return { minutes: Math.round(numeric / 60000), unit: 'milliseconds' }

@@ -16,7 +16,7 @@
   },
   "duration": {
     "weeklyMinutes": null,
-    "allTimeMinutes": 126,
+    "allTimeMinutes": 126146,
     "available": true,
     "source": "netease-listen-data",
     "endpoints": {
@@ -27,7 +27,7 @@
       "weekly": null,
       "allTime": {
         "path": "totalDuration",
-        "unit": "milliseconds",
+        "unit": "seconds",
         "rawValue": 7568797
       }
     },
