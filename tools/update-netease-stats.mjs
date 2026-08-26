@@ -180,6 +180,28 @@ const finiteMinutes = (value) => {
   return Number.isFinite(minutes) && minutes >= 0 ? Math.round(minutes) : null
 }
 
+// Every selected duration is normalised to minutes before it reaches the
+// data file. The explicit `minutes` field is preferred; the unit-aware
+// fallback keeps older endpoint result shapes from leaking raw seconds or
+// milliseconds into `*Minutes`.
+const durationMinutes = (duration) => {
+  const explicit = finiteMinutes(duration?.minutes)
+  if (explicit !== null) return explicit
+  const raw = Number(duration?.rawValue)
+  if (!Number.isFinite(raw) || raw < 0) return null
+  const unit = String(duration?.unit || '').toLowerCase()
+  if (/^(?:seconds?|秒)$/.test(unit)) return Math.floor(raw / 60)
+  if (/^(?:milliseconds?|毫秒)$/.test(unit)) return Math.round(raw / 60000)
+  if (/^(?:hours?|小时|小時|时)$/.test(unit)) return Math.round(raw * 60)
+  return Math.round(raw)
+}
+
+const normaliseDuration = (duration) => {
+  if (duration?.ok !== true) return null
+  const minutes = durationMinutes(duration)
+  return minutes === null ? null : { ...duration, minutes, source: 'listen-data' }
+}
+
 // The browser scraper reads the values printed on the authenticated NetEase
 // profile (for example “本周收听时长 11 小时 19 分” and “总时长 2102 小时
 // 26 分”). They are exact UI totals, unlike the old Top-20 play-count ×
@@ -205,20 +227,17 @@ const browserDuration = (minutes, period) => minutes === null
     }
 const browserWeeklyDuration = browserDuration(browserWeeklyMinutes, 'weekly')
 const browserAllTimeDuration = browserDuration(browserAllTimeMinutes, 'allTime')
-const selectedWeeklyDuration = browserWeeklyDuration || (officialDurations.weekly?.ok === true
-  ? { ...officialDurations.weekly, source: 'listen-data' }
-  : null)
-const selectedAllTimeDuration = browserAllTimeDuration || (officialDurations.allTime?.ok === true
-  ? { ...officialDurations.allTime, source: 'listen-data' }
-  : null)
+const listenDataWeeklyDuration = normaliseDuration(officialDurations.weekly)
+const listenDataAllTimeDuration = normaliseDuration(officialDurations.allTime)
+const selectedWeeklyDuration = browserWeeklyDuration || listenDataWeeklyDuration
+const selectedAllTimeDuration = browserAllTimeDuration || listenDataAllTimeDuration
 
 // Never publish an impossible pair. If a newly returned candidate makes the
 // cumulative total smaller than this week's total, keep the weekly value and
 // suppress only the inconsistent cumulative candidate until the next run.
 const inconsistentDuration = Boolean(
   selectedWeeklyDuration && selectedAllTimeDuration &&
-  finiteMinutes(selectedAllTimeDuration.minutes ?? selectedAllTimeDuration.rawValue) <
-    finiteMinutes(selectedWeeklyDuration.minutes ?? selectedWeeklyDuration.rawValue)
+  durationMinutes(selectedAllTimeDuration) < durationMinutes(selectedWeeklyDuration)
 )
 const allTimeDuration = inconsistentDuration
   ? {
@@ -323,8 +342,8 @@ const result = {
     message: scrapeMessage
   },
   duration: {
-    weeklyMinutes: weeklyDurationAvailable ? finiteMinutes(selectedWeeklyDuration.minutes ?? selectedWeeklyDuration.rawValue) : null,
-    allTimeMinutes: allTimeDurationAvailable ? finiteMinutes(allTimeDuration.minutes ?? allTimeDuration.rawValue) : null,
+    weeklyMinutes: weeklyDurationAvailable ? durationMinutes(selectedWeeklyDuration) : null,
+    allTimeMinutes: allTimeDurationAvailable ? durationMinutes(allTimeDuration) : null,
     available: durationAvailable,
     source: weeklyFromProfile && allTimeFromProfile
       ? 'netease-profile-visible'

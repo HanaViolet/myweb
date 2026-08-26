@@ -396,6 +396,7 @@ export const fetchOfficialListenDurations = async (rawCookie, { timeoutMs = DEFA
       path: weekly?.path || '',
       unit: weekly?.unit || '',
       rawValue: weekly?.rawValue ?? null,
+      minutes: weekly?.minutes ?? null,
       message: weekly
         ? ''
         : (weeklyResponse.message || '网易云没有返回可识别的本周总时长。')
@@ -406,6 +407,7 @@ export const fetchOfficialListenDurations = async (rawCookie, { timeoutMs = DEFA
       path: allTimeCandidate?.path || '',
       unit: allTimeCandidate?.unit || '',
       rawValue: allTimeCandidate?.rawValue ?? null,
+      minutes: allTime?.minutes ?? null,
       message: allTime
         ? ''
         : (consistencyMessage || allTimeResponse.message || '网易云没有返回可识别的累计总时长。')
