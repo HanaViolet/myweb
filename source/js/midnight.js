@@ -71,9 +71,18 @@
       writePlayerState({
         trackId: track.id,
         currentTime: savedTime,
+        duration: Number.isFinite(audio.duration) ? audio.duration : 0,
         wasPlaying: !audio.paused && !audio.ended,
         updatedAt: Date.now()
       })
+    }
+
+    const updateProgressUI = (seconds, total = audio.duration) => {
+      if (!Number.isFinite(seconds)) return
+      currentTime.textContent = formatTime(seconds)
+      if (Number.isFinite(total) && total > 0) {
+        timeline.value = String(Math.min(Math.max((seconds / total) * 100, 0), 100))
+      }
     }
 
     const updateTrackUI = () => {
@@ -138,8 +147,7 @@
       restoreState = null
       suppressPersistence = false
       lastKnownTime = clampedTarget
-      currentTime.textContent = formatTime(clampedTarget)
-      timeline.value = (clampedTarget / audio.duration) * 100
+      updateProgressUI(clampedTarget)
       return clampedTarget
     }
 
@@ -150,14 +158,13 @@
         const restoredTarget = restoreForUserGesture()
         const playPromise = audio.play()
         if (restoredTarget !== null) {
-          playPromise.then(() => {
+          Promise.resolve(playPromise).then(() => {
             audio.currentTime = restoredTarget
             lastKnownTime = restoredTarget
-            currentTime.textContent = formatTime(restoredTarget)
-            timeline.value = (restoredTarget / audio.duration) * 100
+            updateProgressUI(restoredTarget)
           }).catch(() => {})
         }
-        playPromise.catch(() => { status.textContent = '音频加载失败，请刷新后重试。' })
+        Promise.resolve(playPromise).catch(() => { status.textContent = '音频加载失败，请刷新后重试。' })
       } else {
         audio.pause()
       }
@@ -165,7 +172,12 @@
     root.querySelector('[data-player-prev]').addEventListener('click', () => selectById(tracks[(currentIndex - 1 + tracks.length) % tracks.length].id))
     root.querySelector('[data-player-next]').addEventListener('click', () => selectById(tracks[(currentIndex + 1) % tracks.length].id))
     timeline.addEventListener('input', () => {
-      if (Number.isFinite(audio.duration)) audio.currentTime = (Number(timeline.value) / 100) * audio.duration
+      if (Number.isFinite(audio.duration)) {
+        const nextTime = (Number(timeline.value) / 100) * audio.duration
+        audio.currentTime = nextTime
+        lastKnownTime = nextTime
+        updateProgressUI(nextTime)
+      }
     })
     audio.addEventListener('play', () => {
       updatePlaybackUI()
@@ -175,6 +187,40 @@
       updatePlaybackUI()
       saveState(true)
     })
+    const finishRestore = (pending, target) => {
+      const track = tracks[currentIndex]
+      const finish = (message) => {
+        suppressPersistence = false
+        if (message) status.textContent = message
+        updatePlaybackUI()
+        saveState(true)
+      }
+
+      if (!pending.wasPlaying) {
+        finish(`${track.title} · 已恢复上次位置`)
+        return
+      }
+
+      status.textContent = '正在恢复播放…'
+      let playPromise
+      try {
+        playPromise = audio.play()
+      } catch (_) {
+        finish('已恢复上次位置，浏览器拦截了自动播放，请点击播放继续。')
+        return
+      }
+
+      Promise.resolve(playPromise).then(() => {
+        finish(`${track.title} · 完整曲目`)
+      }).catch(() => {
+        // Keep the restored position visible when autoplay is blocked.
+        audio.currentTime = target
+        lastKnownTime = target
+        updateProgressUI(target)
+        finish('已恢复上次位置，浏览器拦截了自动播放，请点击播放继续。')
+      })
+    }
+
     const restorePlaybackPosition = () => {
       const pending = restoreState && restoreState.trackId === tracks[currentIndex].id ? restoreState : null
       if (!pending || !Number.isFinite(audio.duration) || audio.duration <= 0) return false
@@ -189,10 +235,9 @@
       }
       restoreAttempts = 0
       restoreState = null
-      lastKnownTime = audio.currentTime
-      currentTime.textContent = formatTime(audio.currentTime)
-      timeline.value = (audio.currentTime / audio.duration) * 100
-      if (pending.wasPlaying) status.textContent = '已恢复上次位置，点击播放继续。'
+      lastKnownTime = clampedTarget
+      updateProgressUI(clampedTarget)
+      finishRestore(pending, clampedTarget)
       return true
     }
 
@@ -200,19 +245,19 @@
       duration.textContent = formatTime(audio.duration)
       const hasPendingRestore = Boolean(restoreState && restoreState.trackId === tracks[currentIndex].id)
       const restored = restorePlaybackPosition()
-      suppressPersistence = hasPendingRestore && !restored
+      if (!hasPendingRestore) suppressPersistence = false
+      if (hasPendingRestore && !restored) suppressPersistence = true
     })
     audio.addEventListener('canplay', () => {
       if (!restoreState || restoreState.trackId !== tracks[currentIndex].id) {
         suppressPersistence = false
         return
       }
-      suppressPersistence = !restorePlaybackPosition()
+      if (!restorePlaybackPosition()) suppressPersistence = true
     })
     audio.addEventListener('timeupdate', () => {
       lastKnownTime = audio.currentTime
-      currentTime.textContent = formatTime(audio.currentTime)
-      timeline.value = Number.isFinite(audio.duration) && audio.duration > 0 ? (audio.currentTime / audio.duration) * 100 : 0
+      updateProgressUI(audio.currentTime)
       saveState()
     })
     audio.addEventListener('ended', () => {
@@ -236,7 +281,18 @@
     })
 
     const restoredIndex = restoreState ? tracks.findIndex((track) => track.id === restoreState.trackId) : -1
+    const initialRestore = restoredIndex >= 0 ? restoreState : null
     loadTrack(restoredIndex >= 0 ? restoredIndex : 0)
+    if (initialRestore) {
+      const savedDuration = Number(initialRestore.duration)
+      const savedTime = Number(initialRestore.currentTime)
+      if (Number.isFinite(savedDuration) && savedDuration > 0) {
+        const clampedTime = Number.isFinite(savedTime) ? Math.min(Math.max(savedTime, 0), savedDuration) : 0
+        duration.textContent = formatTime(savedDuration)
+        lastKnownTime = clampedTime
+        updateProgressUI(clampedTime, savedDuration)
+      }
+    }
     window.__sakuraPlayer = { audio, selectById, syncTrackUI: updateTrackUI, get currentTrack () { return tracks[currentIndex] } }
     return window.__sakuraPlayer
   }
