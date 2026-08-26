@@ -11,15 +11,21 @@
     "attempted": true,
     "succeeded": true,
     "publicApiAuthenticated": true,
+    "listenDataAuthenticated": false,
     "message": "Cookie 页面抓取未成功，但 Cookie 接口读取成功；公开接口用于字段补全。"
   },
   "duration": {
-    "weeklyMinutes": 269,
-    "allTimeMinutes": 18021,
-    "available": true,
-    "weeklyTracksCounted": 20,
-    "allTimeTracksCounted": 20,
-    "message": "听歌时长由登录态返回的播放次数 × 歌曲时长计算；网易云未提供时，页面不会猜测。"
+    "weeklyMinutes": null,
+    "allTimeMinutes": null,
+    "available": false,
+    "source": null,
+    "endpoints": {
+      "weekly": "/api/content/activity/listen/data/realtime/report",
+      "allTime": "/api/content/activity/listen/data/total"
+    },
+    "weeklyTracksCounted": 0,
+    "allTimeTracksCounted": 0,
+    "message": "尚未同步网易云“云村听歌足迹”总时长；请运行 Update NetEase listening stats 工作流。"
   },
   "weekly": [
     {
@@ -465,5 +471,5 @@
       "score": 29
     }
   ],
-  "notes": "听歌时长由登录态返回的播放次数 × 歌曲时长计算；网易云未提供时，页面不会猜测。"
+  "notes": "尚未同步网易云“云村听歌足迹”总时长；请运行 Update NetEase listening stats 工作流。"
 }

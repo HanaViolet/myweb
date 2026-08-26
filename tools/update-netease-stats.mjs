@@ -2,9 +2,9 @@ import { writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import {
-  durationFromTracks,
   scrapeNeteaseProfile
 } from './netease-browser-scraper.mjs'
+import { fetchOfficialListenDurations } from './netease-listen-data.mjs'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const outputPath = path.join(root, 'source', '_data', 'netease-stats.json')
@@ -159,32 +159,34 @@ if (!publicRankings.weekly.length && !publicRankings.allTime.length && !browserR
 
 const weekly = mergeRankings(publicRankings.weekly, browserResult?.weekly || [])
 const allTime = mergeRankings(publicRankings.allTime, browserResult?.allTime || [])
-const weeklyFromTracks = durationFromTracks(weekly)
-const allTimeFromTracks = durationFromTracks(allTime)
-const browserDuration = browserResult?.duration || {}
-const weeklyDuration = weeklyFromTracks.available ? weeklyFromTracks : {
-  minutes: Number.isFinite(browserDuration.weeklyMinutes) ? browserDuration.weeklyMinutes : null,
-  available: Number.isFinite(browserDuration.weeklyMinutes),
-  tracksCounted: browserDuration.weeklyTracksCounted || 0
+let officialDurations = {
+  available: false,
+  weeklyMinutes: null,
+  allTimeMinutes: null,
+  weekly: { ok: false, message: '未配置有效的网易云登录 Cookie。' },
+  allTime: { ok: false, message: '未配置有效的网易云登录 Cookie。' }
 }
-const allTimeDuration = allTimeFromTracks.available ? allTimeFromTracks : {
-  minutes: Number.isFinite(browserDuration.allTimeMinutes) ? browserDuration.allTimeMinutes : null,
-  available: Number.isFinite(browserDuration.allTimeMinutes),
-  tracksCounted: browserDuration.allTimeTracksCounted || 0
+if (cookieHeader) {
+  try {
+    officialDurations = await fetchOfficialListenDurations(cookieHeader)
+  } catch (error) {
+    console.warn(`[netease] 官方听歌足迹请求失败：${error.message}`)
+  }
 }
-const durationAvailable = weeklyDuration.available || allTimeDuration.available
-if (browserAttempted && !durationAvailable) {
-  console.warn('[netease] 登录态仍未提供可计算的播放次数与歌曲时长；请检查 NETEASE_COOKIE 是否过期或重新运行工作流。')
-}
+
+const durationAvailable = officialDurations.available === true
+const durationFailures = [officialDurations.weekly, officialDurations.allTime]
+  .filter((result) => result?.ok !== true)
+  .map((result) => result?.message)
+  .filter(Boolean)
 const durationMessage = durationAvailable
-  ? authenticatedSource
-    ? '听歌时长由登录态返回的播放次数 × 歌曲时长计算；网易云未提供时，页面不会猜测。'
-    : '听歌时长由公开排行中的播放次数 × 歌曲时长计算。'
-  : browserResult
-    ? '已读取登录页面的排行，但页面没有公开播放次数或累计时长；因此暂不显示猜测值。'
-    : publicCookieSucceeded
-      ? 'Cookie 登录接口返回了排行，但缺少可计算的播放次数或歌曲时长；因此暂不显示猜测值。'
-    : '网易云公开排行接口返回了歌曲榜单，但未返回播放次数；因此暂不显示猜测的听歌时长。'
+  ? `本周和累计听歌时长来自网易云“云村听歌足迹”接口。${durationFailures.length ? ` ${durationFailures.join(' ')}` : ''}`
+  : cookieHeader
+    ? `网易云“云村听歌足迹”接口暂时没有返回可识别的总时长，未使用排行估算替代。${durationFailures.join(' ')}`
+    : '未配置网易云 Cookie，暂不显示官方听歌时长。'
+if (cookieHeader && !durationAvailable) {
+  console.warn(`[netease] ${durationMessage}`)
+}
 
 const scrapeMessage = browserResult
   ? 'Cookie 页面抓取成功；公开接口在页面抓取失败或字段缺失时回退。'
@@ -199,6 +201,9 @@ const scrapeMode = browserResult
   : publicCookieSucceeded
     ? 'cookie-api+public-api'
     : 'public-api'
+const finalScrapeMode = officialDurations.available
+  ? `listen-data+${scrapeMode}`
+  : scrapeMode
 
 const now = new Date()
 const result = {
@@ -214,18 +219,24 @@ const result = {
   timezone: 'Asia/Shanghai',
   rankLimit,
   scrape: {
-    mode: scrapeMode,
+    mode: finalScrapeMode,
     attempted: browserAttempted,
     succeeded: authenticatedSource,
     publicApiAuthenticated: publicCookieSucceeded,
+    listenDataAuthenticated: officialDurations.available === true,
     message: scrapeMessage
   },
   duration: {
-    weeklyMinutes: weeklyDuration.minutes,
-    allTimeMinutes: allTimeDuration.minutes,
+    weeklyMinutes: officialDurations.weeklyMinutes,
+    allTimeMinutes: officialDurations.allTimeMinutes,
     available: durationAvailable,
-    weeklyTracksCounted: weeklyDuration.tracksCounted,
-    allTimeTracksCounted: allTimeDuration.tracksCounted,
+    source: officialDurations.available ? 'netease-listen-data' : null,
+    endpoints: {
+      weekly: officialDurations.weekly?.endpoint || '/api/content/activity/listen/data/realtime/report',
+      allTime: officialDurations.allTime?.endpoint || '/api/content/activity/listen/data/total'
+    },
+    weeklyTracksCounted: 0,
+    allTimeTracksCounted: 0,
     message: durationMessage
   },
   weekly,
