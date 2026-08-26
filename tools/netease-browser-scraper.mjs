@@ -156,35 +156,65 @@ const collectPayloadRankings = (payload, output, depth = 0) => {
   }
 }
 
-/**
- * Read the exact duration printed by the logged-in NetEase page.
- *
- * The page usually renders a composite value such as “本周收听时长 11 小时
- * 19 分”.  Matching the whole labelled value is important: taking only the
- * first number was the reason the previous scraper turned 11h19m into 11h.
- */
-const extractDurationMinutes = (text) => {
-  const source = asText(text)
-  const label = source.match(/(?:本周|本月|累计|总计|总共|全部)?\s*(?:听歌|收听)(?:时长|时间)|(?:累计|总计|总共|全部)\s*(?:听歌|收听)?\s*时长/i)
-  if (!label) return null
-  const tail = source.slice(label.index + label[0].length)
-  const labelled = tail.match(/((?:\d+(?:\.\d+)?\s*(?:天|日|小时|小時|时|分钟|分|秒|毫秒|days?|hours?|hrs?|minutes?|mins?|seconds?|secs?|milliseconds?|msecs?)\s*){1,5})/i)
-  if (!labelled) return null
+const DURATION_TOKEN = '(?:天|日|小时|小時|时|分钟|分|秒|毫秒|days?|hours?|hrs?|minutes?|mins?|seconds?|secs?|milliseconds?|msecs?)'
+const DURATION_SEQUENCE = new RegExp(`((?:\\d+(?:\\.\\d+)?\\s*${DURATION_TOKEN}\\s*){1,5})`, 'i')
+const DURATION_PART = new RegExp(`(\\d+(?:\\.\\d+)?)\\s*(${DURATION_TOKEN})`, 'gi')
+
+const parseDurationSequence = (value) => {
   let minutes = 0
-  for (const match of labelled[1].matchAll(/(\d+(?:\.\d+)?)\s*(天|日|小时|小時|时|分钟|分|秒|毫秒|days?|hours?|hrs?|minutes?|mins?|seconds?|secs?|milliseconds?|msecs?)/gi)) {
-    const value = Number(match[1])
-    if (!Number.isFinite(value)) continue
+  for (const match of String(value || '').matchAll(DURATION_PART)) {
+    const number = Number(match[1])
+    if (!Number.isFinite(number)) continue
     const unit = match[2].toLowerCase()
-    if (/^(天|日|day)/i.test(unit)) minutes += value * 24 * 60
-    else if (/^(小时|小時|时|hour|hr)/i.test(unit)) minutes += value * 60
-    else if (/^(秒|second|sec)/i.test(unit)) minutes += value / 60
-    else if (/^(毫秒|millisecond|msec)/i.test(unit)) minutes += value / 60000
-    else minutes += value
+    if (/^(天|日|day)/i.test(unit)) minutes += number * 24 * 60
+    else if (/^(小时|小時|时|hour|hr)/i.test(unit)) minutes += number * 60
+    else if (/^(秒|second|sec)/i.test(unit)) minutes += number / 60
+    else if (/^(毫秒|millisecond|msec)/i.test(unit)) minutes += number / 60000
+    else minutes += number
   }
   return Number.isFinite(minutes) ? Math.round(minutes) : null
 }
 
-export { extractDurationMinutes }
+const durationLabelPatterns = {
+  weekly: /(?:本周|本月)\s*(?:听歌|收听)\s*(?:时长|时间)/gi,
+  allTime: /(?:总|累计|总计|总共|全部)\s*(?:听歌|收听)?\s*(?:时长|时间)/gi
+}
+
+/**
+ * Read the exact durations printed by the logged-in NetEase page.
+ *
+ * The profile page contains both labels (for example “本周收听时长
+ * 11 小时 19 分” and “总时长 2102 小时 26 分”).  Parse the label and its
+ * complete unit sequence together so the two values cannot be confused and
+ * a composite value is never truncated to its first number.
+ */
+const extractDurationValues = (text) => {
+  const source = asText(text)
+  const values = {}
+  for (const [period, pattern] of Object.entries(durationLabelPatterns)) {
+    for (const label of source.matchAll(pattern)) {
+      const start = label.index + label[0].length
+      const tail = source.slice(start, start + 96)
+      const labelled = tail.match(new RegExp(`^\\s*[:：]?\\s*${DURATION_SEQUENCE.source}`, 'i'))
+      if (!labelled) continue
+      const minutes = parseDurationSequence(labelled[1])
+      if (minutes !== null) {
+        values[period] = minutes
+        break
+      }
+    }
+  }
+  return values
+}
+
+const extractDurationMinutes = (text, period = 'any') => {
+  const values = extractDurationValues(text)
+  if (period === 'weekly') return values.weekly ?? null
+  if (period === 'allTime') return values.allTime ?? null
+  return values.weekly ?? values.allTime ?? null
+}
+
+export { extractDurationMinutes, extractDurationValues }
 
 const extractVisibleRows = () => {
   const textOf = (element) => (element?.innerText || element?.textContent || '').replace(/\s+/g, ' ').trim()
@@ -393,14 +423,19 @@ export async function scrapeNeteaseProfile({
   // it as the account's exact listening total.
   const weeklyDuration = durationFromTracks(weekly)
   const allTimeDuration = durationFromTracks(allTime)
-  const weeklyVisibleDuration = captures
-    .filter((capture) => capture.mode === 'weekly')
-    .map((capture) => extractDurationMinutes(capture.text))
-    .find((value) => value !== null) ?? null
-  const allTimeVisibleDuration = captures
-    .filter((capture) => capture.mode === 'allTime')
-    .map((capture) => extractDurationMinutes(capture.text))
-    .find((value) => value !== null) ?? extractDurationMinutes(captures.find((capture) => capture.mode === 'profile')?.text || '')
+  // The profile page is the one place where NetEase renders both exact
+  // account totals. Ranking sub-pages may contain rows but not the aggregate
+  // duration, so use them first and then fall back to the profile capture.
+  const durationCaptures = captures.map((capture) => ({
+    mode: capture.mode,
+    ...extractDurationValues(capture.text)
+  }))
+  const firstDuration = (period, modes) => modes
+    .flatMap((mode) => durationCaptures.filter((capture) => capture.mode === mode))
+    .map((capture) => capture[period])
+    .find((value) => Number.isFinite(value)) ?? null
+  const weeklyVisibleDuration = firstDuration('weekly', ['weekly', 'profile'])
+  const allTimeVisibleDuration = firstDuration('allTime', ['allTime', 'profile'])
 
   // A page layout change can hide the ranking rows while still rendering the
   // account's labelled listening duration. Keep that exact value available to

@@ -216,6 +216,26 @@ const formatMinutes = (minutes) => {
   return hours ? `${hours}h ${String(remaining).padStart(2, '0')}m` : `${remaining}m`
 }
 
+// Older workflow snapshots briefly stored the raw `totalDuration` seconds
+// in a `*Minutes` field. Keep those snapshots readable while the next Action
+// run replaces them with canonical minutes. New snapshots have a diagnostic
+// raw value, so this conversion is only applied when the stored value is
+// exactly that raw seconds/milliseconds value.
+const readDurationMinutes = (duration, key, field) => {
+  const rawStoredValue = duration?.[key]
+  if (rawStoredValue === null || rawStoredValue === undefined || rawStoredValue === '') return null
+  const value = Number(rawStoredValue)
+  if (!Number.isFinite(value) || value < 0) return null
+  const diagnostic = duration?.fields?.[field] || {}
+  const rawValue = Number(diagnostic.rawValue)
+  const unit = String(diagnostic.unit || '').toLowerCase()
+  if (Number.isFinite(rawValue) && rawValue === value) {
+    if (/^(?:seconds?|秒)$/.test(unit)) return Math.floor(value / 60)
+    if (/^(?:milliseconds?|毫秒)$/.test(unit)) return Math.round(value / 60000)
+  }
+  return Math.round(value)
+}
+
 const formatSongDuration = (durationMs) => {
   const seconds = Math.max(0, Math.round(Number(durationMs) / 1000))
   if (!Number.isFinite(seconds) || seconds === 0) return '—'
@@ -246,8 +266,8 @@ const renderNeteaseStats = () => {
   const stats = getNeteaseStats()
   const duration = stats.duration || {}
   const available = duration.available === true
-  const weeklyMinutes = available ? formatMinutes(duration.weeklyMinutes) : '—'
-  const allTimeMinutes = available ? formatMinutes(duration.allTimeMinutes) : '—'
+  const weeklyMinutes = available ? formatMinutes(readDurationMinutes(duration, 'weeklyMinutes', 'weekly')) : '—'
+  const allTimeMinutes = available ? formatMinutes(readDurationMinutes(duration, 'allTimeMinutes', 'allTime')) : '—'
   const weekly = Array.isArray(stats.weekly) ? stats.weekly : []
   const allTime = Array.isArray(stats.allTime) ? stats.allTime : []
   const updated = stats.updatedAt ? String(stats.updatedAt).slice(0, 10) : '等待首次同步'

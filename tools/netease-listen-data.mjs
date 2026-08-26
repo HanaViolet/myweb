@@ -326,7 +326,16 @@ const collectDurationCandidates = (value, path, period, output, unitHint = '') =
  */
 export const extractListenDuration = (payload, period = 'weekly', { minimumMinutes = null } = {}) => {
   const candidates = []
-  collectDurationCandidates(payload?.data ?? payload, [], period, candidates)
+  const data = payload?.data ?? payload
+  collectDurationCandidates(data, [], period, candidates)
+  // A few client versions unwrap the response to a scalar `data` value. Give
+  // that scalar the endpoint's semantic key so a labelled value (or the
+  // known totalDuration-in-seconds value) is still interpreted correctly.
+  if (!candidates.length && (typeof data === 'string' || typeof data === 'number')) {
+    const key = period === 'allTime' ? 'totalDuration' : 'weeklyDuration'
+    const candidate = durationCandidate(data, key, [], period)
+    if (candidate) candidates.push(candidate)
+  }
   candidates.sort((left, right) => right.rank - left.rank || left.path.length - right.path.length)
   if (Number.isFinite(Number(minimumMinutes))) {
     const consistent = candidates.find((candidate) => candidate.minutes >= Number(minimumMinutes))
@@ -337,7 +346,6 @@ export const extractListenDuration = (payload, period = 'weekly', { minimumMinut
 
 const endpointInfo = {
   weekly: '/api/content/activity/listen/data/realtime/report',
-  weeklyReport: '/api/content/activity/listen/data/report',
   allTime: '/api/content/activity/listen/data/total'
 }
 
@@ -357,19 +365,15 @@ export const fetchOfficialListenDurations = async (rawCookie, { timeoutMs = DEFA
     }
   }
 
-  const [weeklyResponse, weeklyReportResponse, allTimeResponse] = await Promise.all([
+  // These two endpoints expose the same account-level listen-data family:
+  // one is the current week and one is the lifetime total. Keep the request
+  // set small and let the browser profile be the fallback for UI-only totals.
+  const [weeklyResponse, allTimeResponse] = await Promise.all([
     fetchJson(endpointInfo.weekly, { type: 'week' }, cookieMap, timeoutMs),
-    // Some account/client combinations return an empty realtime report while
-    // the regular weekly report still contains the exact aggregate duration.
-    // Both routes are first-party NetEase listen-data endpoints and use the
-    // same authenticated Cookie.
-    fetchJson(endpointInfo.weeklyReport, { type: 'week' }, cookieMap, timeoutMs),
     fetchJson(endpointInfo.allTime, {}, cookieMap, timeoutMs)
   ])
-  const weeklyPrimary = weeklyResponse.ok ? extractListenDuration(weeklyResponse.payload, 'weekly') : null
-  const weeklyFallback = weeklyReportResponse.ok ? extractListenDuration(weeklyReportResponse.payload, 'weekly') : null
-  const weekly = weeklyPrimary || weeklyFallback
-  const weeklyEndpointUsed = weeklyPrimary ? endpointInfo.weekly : endpointInfo.weeklyReport
+  const weekly = weeklyResponse.ok ? extractListenDuration(weeklyResponse.payload, 'weekly') : null
+  const weeklyEndpointUsed = endpointInfo.weekly
   const allTimeCandidate = allTimeResponse.ok
     ? extractListenDuration(allTimeResponse.payload, 'allTime', { minimumMinutes: weekly?.minutes ?? null })
     : null
@@ -394,7 +398,7 @@ export const fetchOfficialListenDurations = async (rawCookie, { timeoutMs = DEFA
       rawValue: weekly?.rawValue ?? null,
       message: weekly
         ? ''
-        : (weeklyResponse.message || weeklyReportResponse.message || '网易云没有返回可识别的本周总时长。')
+        : (weeklyResponse.message || '网易云没有返回可识别的本周总时长。')
     },
     allTime: {
       ok: Boolean(allTime),

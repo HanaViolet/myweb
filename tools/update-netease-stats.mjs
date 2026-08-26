@@ -180,31 +180,37 @@ const finiteMinutes = (value) => {
   return Number.isFinite(minutes) && minutes >= 0 ? Math.round(minutes) : null
 }
 
-// The browser scraper reads the value printed on the authenticated NetEase
-// page (for example “本周收听时长 11 小时 19 分”). It is an exact UI total,
-// unlike the old Top-20 play-count × song-length estimate. Use it only when
-// both official weekly endpoints failed to expose a duration field.
+// The browser scraper reads the values printed on the authenticated NetEase
+// profile (for example “本周收听时长 11 小时 19 分” and “总时长 2102 小时
+// 26 分”). They are exact UI totals, unlike the old Top-20 play-count ×
+// song-length estimate. Prefer the labelled profile values for both periods;
+// the two listen-data endpoints are the fallback when the page omits them.
 const browserWeeklyMinutes = finiteMinutes(
   browserResult?.duration?.weeklyVisibleMinutes ?? browserResult?.duration?.weeklyMinutes
 )
-const browserWeeklyDuration = officialDurations.weekly?.ok === true || browserWeeklyMinutes === null
+const browserAllTimeMinutes = finiteMinutes(
+  browserResult?.duration?.allTimeVisibleMinutes ?? browserResult?.duration?.allTimeMinutes
+)
+const browserDuration = (minutes, period) => minutes === null
   ? null
   : {
       ok: true,
       source: 'browser-visible',
       endpoint: 'browser-profile-visible',
-      path: 'weekly.visibleDuration',
+      path: `${period}.visibleDuration`,
       unit: 'minutes',
-      rawValue: browserWeeklyMinutes,
-      minutes: browserWeeklyMinutes,
+      rawValue: minutes,
+      minutes,
       message: ''
     }
-const selectedWeeklyDuration = officialDurations.weekly?.ok === true
+const browserWeeklyDuration = browserDuration(browserWeeklyMinutes, 'weekly')
+const browserAllTimeDuration = browserDuration(browserAllTimeMinutes, 'allTime')
+const selectedWeeklyDuration = browserWeeklyDuration || (officialDurations.weekly?.ok === true
   ? { ...officialDurations.weekly, source: 'listen-data' }
-  : browserWeeklyDuration
-const selectedAllTimeDuration = officialDurations.allTime?.ok === true
+  : null)
+const selectedAllTimeDuration = browserAllTimeDuration || (officialDurations.allTime?.ok === true
   ? { ...officialDurations.allTime, source: 'listen-data' }
-  : null
+  : null)
 
 // Never publish an impossible pair. If a newly returned candidate makes the
 // cumulative total smaller than this week's total, keep the weekly value and
@@ -229,16 +235,24 @@ const durationFailures = [
   allTimeDurationAvailable ? null : (allTimeDuration?.message || officialDurations.allTime?.message)
 ]
   .filter(Boolean)
+const weeklyFromProfile = selectedWeeklyDuration?.source === 'browser-visible'
+const allTimeFromProfile = allTimeDuration?.source === 'browser-visible'
 const durationMessage = weeklyDurationAvailable && allTimeDurationAvailable
-  ? selectedWeeklyDuration.source === 'browser-visible'
-    ? '本周听歌时长来自登录后的网易云页面“本周收听时长”；累计时长来自网易云“云村听歌足迹”接口。'
-    : '本周和累计听歌时长来自网易云“云村听歌足迹”接口。'
+  ? weeklyFromProfile && allTimeFromProfile
+    ? '本周和累计听歌时长来自登录后的网易云个人页明确显示值。'
+    : weeklyFromProfile
+      ? '本周听歌时长来自登录后的网易云个人页；累计时长来自网易云“云村听歌足迹”接口。'
+      : allTimeFromProfile
+        ? '累计听歌时长来自登录后的网易云个人页；本周时长来自网易云“云村听歌足迹”接口。'
+        : '本周和累计听歌时长来自网易云“云村听歌足迹”接口。'
   : weeklyDurationAvailable
-    ? selectedWeeklyDuration.source === 'browser-visible'
+    ? weeklyFromProfile
       ? `本周听歌时长来自登录后的网易云页面“本周收听时长”；累计时长暂不显示未经验证的字段。${durationFailures.join(' ')}`
       : `本周听歌时长来自网易云“云村听歌足迹”接口；累计时长暂不显示未经验证的字段。${durationFailures.join(' ')}`
     : allTimeDurationAvailable
-      ? `累计听歌时长来自网易云“云村听歌足迹”接口；本周时长暂不显示未经验证的字段。${durationFailures.join(' ')}`
+      ? allTimeFromProfile
+        ? `累计听歌时长来自登录后的网易云个人页“总时长”；本周时长暂不显示未经验证的字段。${durationFailures.join(' ')}`
+        : `累计听歌时长来自网易云“云村听歌足迹”接口；本周时长暂不显示未经验证的字段。${durationFailures.join(' ')}`
       : cookieHeader
         ? `网易云“云村听歌足迹”接口和登录页面暂时没有返回可识别的本周总时长，未使用排行估算替代。${durationFailures.join(' ')}`
         : '未配置网易云 Cookie，暂不显示官方听歌时长。'
@@ -312,9 +326,11 @@ const result = {
     weeklyMinutes: weeklyDurationAvailable ? finiteMinutes(selectedWeeklyDuration.minutes ?? selectedWeeklyDuration.rawValue) : null,
     allTimeMinutes: allTimeDurationAvailable ? finiteMinutes(allTimeDuration.minutes ?? allTimeDuration.rawValue) : null,
     available: durationAvailable,
-    source: selectedWeeklyDuration?.source === 'browser-visible'
-      ? (allTimeDurationAvailable ? 'netease-listen-data+netease-profile-visible' : 'netease-profile-visible')
-      : officialDurations.available ? 'netease-listen-data' : null,
+    source: weeklyFromProfile && allTimeFromProfile
+      ? 'netease-profile-visible'
+      : weeklyFromProfile || allTimeFromProfile
+        ? 'netease-listen-data+netease-profile-visible'
+        : officialDurations.available ? 'netease-listen-data' : null,
     endpoints: {
       weekly: selectedWeeklyDuration?.endpoint || '/api/content/activity/listen/data/realtime/report',
       allTime: allTimeDuration?.endpoint || '/api/content/activity/listen/data/total'
