@@ -1,0 +1,32 @@
+{
+  "name": "hexo-theme-sakura-listening-room",
+  "version": "1.0.0",
+  "description": "Sakura Listening Room theme for Hexo",
+  "main": "package.json",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "hexo",
+    "theme",
+    "sakura",
+    "listening-room",
+    "hexo-theme"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HanaViolet/MyWeb"
+  },
+  "bugs": {
+    "url": "https://github.com/HanaViolet/MyWeb/issues"
+  },
+  "dependencies": {
+    "hexo-renderer-pug": "^3.0.0",
+    "hexo-renderer-stylus": "^3.0.1",
+    "hexo-util": "^4.0.0",
+    "moment-timezone": "^0.6.0"
+  },
+  "homepage": "https://sakura.luxe",
+  "author": "Sakura",
+  "license": "Apache-2.0"
+}

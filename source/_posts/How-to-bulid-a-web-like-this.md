@@ -12,6 +12,8 @@ abbrlink: c029052
 date: 2026-01-16 14:00:00
 ---
 
+> **更新说明（2026-08-26）**：本文记录的是网站最初迁移到 Hexo + Butterfly 的过程，命令与配置属于历史备忘。当前站点已将所需渲染层复制并改造为项目内的 `themes/sakura` 独立主题，根配置使用 `theme: sakura`，不再安装或加载 `hexo-theme-butterfly` npm 包。主题来源与许可证说明见仓库中的 [`themes/sakura/NOTICE.md`](https://github.com/HanaViolet/MyWeb/blob/main/themes/sakura/NOTICE.md)。
+
 ## 前言
 
 作为一名人工智能专业的学生，我最初的想法是使用 **Vue 3 + Element Plus** 配合AI搭建一个博客。我成功配置了 Vite，写好了 Router，甚至搭建了一个简单的后台骨架。

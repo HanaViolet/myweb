@@ -44,6 +44,6 @@ description: 关于音乐、代码，以及我愿意留在这里的生活片段�
   <nav aria-label="联系 Sakura">
     <a href="https://github.com/HanaViolet" target="_blank" rel="noopener"><span>01</span><strong>GITHUB</strong><em>CODE &amp; PROJECTS ↗</em></a>
     <a href="mailto:ljh118@qq.com"><span>02</span><strong>EMAIL</strong><em>SAY HELLO ↗</em></a>
-    <a href="https://music.163.com/#/playlist?id=17682751304" target="_blank" rel="noopener"><span>03</span><strong>NETEASE MUSIC</strong><em>MY PLAYLIST ↗</em></a>
+    <a href="https://music.163.com/#/playlist?id=2203036705" target="_blank" rel="noopener"><span>03</span><strong>NETEASE MUSIC</strong><em>MY PLAYLIST ↗</em></a>
   </nav>
 </section>

@@ -1,0 +1,225 @@
+# =====================================
+# Sakura Listening Room 主题配置
+# =====================================
+#
+# This is the site-level override for themes/sakura. The rendering layer was
+# derived from Butterfly (Apache-2.0); see themes/sakura/LICENSE and NOTICE.md.
+# The old _config.butterfly.yml is retained only as a migration reference.
+
+# --------------------------------------
+# 1. 导航与菜单
+# --------------------------------------
+nav:
+  logo:
+  display_title: true
+  fixed: true
+
+footer:
+  nav:
+  owner:
+    enable: true
+    since: 2025
+  copyright:
+    enable: false
+    version: false
+  custom_text: '<span>END OF TRANSMISSION</span><span>MUSIC FOR THE QUIET HOURS.</span>'
+
+menu:
+  首页: / || fas fa-home
+  页面:
+    关于我: /about/ || fas fa-user
+    归档: /archives/ || fas fa-archive
+    标签: /tags/ || fas fa-tags
+    分类: /categories/ || fas fa-folder
+    图库: /gallery/ || fas fa-images
+    友链: /link/ || fas fa-link
+
+  资源: /resources/ || fas fa-book
+
+# 归档页顶部图
+archive_img: /img/gallery/小缘01.jpg
+# --------------------------------------
+# 2. 侧边栏与音乐播放器
+# --------------------------------------
+aside:
+  enable: true
+  hide: false
+  button: false
+  mobile: false
+  position: right
+  # 卡片排序
+  card_order:
+    - card_author
+    - card_announcement
+    - card_recent_post
+    - card_categories
+    - card_tags
+    - card_archives
+    - card_webinfo
+
+  card_author:
+    enable: true
+    description: 
+    button:
+      enable: true
+      icon: fab fa-github
+      text: Follow Me
+      link: https://github.com/HanaViolet
+  card_announcement:
+    enable: false # 暂时关闭
+    content: 
+  card_recent_post:
+    enable: true
+    limit: 5
+    sort: date
+  card_categories:
+    enable: true
+    limit: 8
+  card_tags:
+    enable: true
+    limit: 40
+  card_archives:
+    enable: true
+    type: monthly
+    limit: 8
+  card_webinfo:
+    enable: true
+    post_count: true
+    last_push_date: true
+
+# --------------------------------------
+# --------------------------------------
+# 3. 样式与脚本注入 (只保留核心必要的)
+# --------------------------------------
+inject:
+  head:
+    - '<script>(function(){var touch=window.matchMedia&&matchMedia("(hover: none) and (pointer: coarse)").matches;var smallTouch=navigator.maxTouchPoints>1&&Math.min(screen.width,screen.height)<=1024;var uaMobile=navigator.userAgentData&&navigator.userAgentData.mobile;if(touch||smallTouch||uaMobile){document.documentElement.classList.add("is-mobile-device");}})();</script>'
+    - '<link rel="stylesheet" href="/css/midnight.css?v=20260826-player3">'
+    # 复制提示弹窗 CSS
+    - '<style>.card-widget.card-ad .item-headline { display: none; } .custom-copy-toast { position: fixed; top: 20px; right: 20px; z-index: 99999; background: rgba(73, 177, 245, 0.95); color: #fff; padding: 12px 20px; border-radius: 8px; font-size: 14px; font-weight: 500; box-shadow: 0 4px 15px rgba(0,0,0,0.15); backdrop-filter: blur(5px); transform: translateY(-20px); opacity: 0; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); } .custom-copy-toast.show { transform: translateY(0); opacity: 1; } [data-theme="dark"] .custom-copy-toast { background: rgba(40, 44, 52, 0.95); color: #61afef; border: 1px solid rgba(255,255,255,0.1); }</style>'
+  bottom:
+    - '<script src="/js/midnight.js?v=20260826-player3"></script>'
+    # [复制弹窗提醒脚本]
+    - '<script>document.addEventListener("copy", function(e) { var toast = document.createElement("div"); toast.className = "custom-copy-toast"; toast.innerHTML = "📋 已复制到剪贴板，转载请保留出处！"; document.body.appendChild(toast); setTimeout(function() { toast.classList.add("show"); }, 10); setTimeout(function() { toast.classList.remove("show"); setTimeout(function() { if(toast.parentNode) toast.parentNode.removeChild(toast); }, 300); }, 2500); });</script>'
+
+# --------------------------------------
+# 4. 其他常规设置
+# --------------------------------------
+code_blocks:
+  theme: light
+  macStyle: true
+  height_limit: 350
+  word_wrap: true
+  copy: true
+  language: true
+  shrink: true
+
+social:
+  fas fa-envelope: mailto:ljh118@qq.com || Email || #0078d7
+  fab fa-qq: http://wpa.qq.com/msgrd?v=3&uin=2627500660&site=qq&menu=yes || QQ || #5FB878
+
+avatar:
+  img: /img/avatar.jpg
+  effect: false
+
+index_img: /img/banner.jpg
+favicon: /img/sakura.jpg
+
+subtitle:
+  # The listening-room hero carries the site's copy; disable Butterfly's
+  # random quote/typed.js request so every page stays self-contained.
+  enable: false
+  effect: true
+  source: 1 
+  sub: 
+
+index_layout: 3
+toc:
+  post: true
+  number: true
+  expand: true
+  style_simple: true
+
+post_copyright:
+  enable: true
+  decode: true
+  author_href:
+  license: CC BY-NC-SA 4.0
+  license_url: https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+search:
+  use: local_search
+
+local_search:
+  enable: true
+  preload: false
+  top_n_per_article: 1
+
+darkmode:
+  enable: true
+  button: false
+  autoChangeMode: false 
+
+# 暗色主题固定使用，不显示右侧浮动工具栏
+readmode: false
+rightside_scroll_percent: false
+rightside_config_animation: false
+
+display_mode: dark
+
+pjax:
+  enable: true
+lazyload:
+  enable: true
+
+comments:
+  use: Giscus
+  text: true
+  lazyload: true
+  count: true
+
+giscus:
+  repo: HanaViolet/MyWeb
+  repo_id: R_kgDOQ7fNzw
+  category: Announcements
+  category_id: DIC_kwDOQ7fNz84C1EAw
+  mapping: pathname
+  strict: false
+  reactions_enabled: true
+  emit_metadata: false
+  input_position: bottom
+  light_theme: dark_dimmed
+  dark_theme: dark_dimmed
+  lang: zh-CN
+  crossorigin: anonymous
+
+canvas_nest:
+  enable: false
+  color: '0,0,255'
+  opacity: 0.5
+  zIndex: -1
+  count: 118
+  mobile: false
+
+clickShowText:
+  enable: false
+  text:
+    - 才能
+    - 智慧
+    - 价值观
+  fontSize: 15px
+  random: true
+  mobile: false
+
+wordcount:
+  enable: true
+  post_wordcount: true
+  min2read: true
+  total_wordcount: true
+
+site_verification:
+
+CDN:
+  internal_provider: local
+  third_party_provider: jsdelivr
+  version: false

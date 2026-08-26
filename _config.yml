@@ -53,7 +53,7 @@ post_asset_folder: true
 relative_link: false
 future: true
 
-# 代码高亮设置 (配合 Butterfly 主题)
+# 代码高亮设置 (配合 Sakura 主题的本地渲染层)
 syntax_highlighter: highlight.js
 highlight:
   enable: true
@@ -61,9 +61,9 @@ highlight:
   auto_detect: false
   tab_replace: ''
   wrap: true
-  hljs: true  # 开启这个，Butterfly 的代码块样式更兼容
+  hljs: true  # 本地主题的代码块样式兼容设置
 prismjs:
-  enable: false # Butterfly 默认推荐用 highlight.js，关闭 prismjs 避免冲突
+  enable: false # 使用 highlight.js，关闭 prismjs 避免冲突
   preprocess: true
   line_number: true
   tab_replace: ''
@@ -104,8 +104,8 @@ pagination_dir: page
 # =========================================================
 # 10. 扩展 (Extensions)
 # =========================================================
-## 启用 Butterfly 主题
-theme: butterfly
+## 启用项目内独立主题
+theme: sakura
 
 # =========================================================
 # 11. 部署 (Deployment)
@@ -120,10 +120,6 @@ deploy:
 abbrlink:
   alg: crc32      # 算法：crc16(短) 或 crc32(长一点)，推荐 crc32
   rep: hex        # 进制：dec(十进制) 或 hex(十六进制)，推荐 hex
-
-aplayer:
-  meting: false
-  asset_inject: false
 
 sitemap:
   path: sitemap.xml

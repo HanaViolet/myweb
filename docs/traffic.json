@@ -1,0 +1,14 @@
+{
+  "source": "Busuanzi",
+  "metric": "cumulative",
+  "timezone": "Asia/Shanghai",
+  "updatedAt": "2026-08-26T12:28:00+08:00",
+  "notes": "首次真实快照；后续按日期追加每日 UV/PV，不填入推测值。",
+  "points": [
+    {
+      "date": "2026-08-26",
+      "uv": 222,
+      "pv": 380
+    }
+  ]
+}
