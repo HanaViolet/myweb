@@ -179,13 +179,43 @@ const durationFailures = [officialDurations.weekly, officialDurations.allTime]
   .filter((result) => result?.ok !== true)
   .map((result) => result?.message)
   .filter(Boolean)
-const durationMessage = durationAvailable
-  ? `本周和累计听歌时长来自网易云“云村听歌足迹”接口。${durationFailures.length ? ` ${durationFailures.join(' ')}` : ''}`
-  : cookieHeader
-    ? `网易云“云村听歌足迹”接口暂时没有返回可识别的总时长，未使用排行估算替代。${durationFailures.join(' ')}`
-    : '未配置网易云 Cookie，暂不显示官方听歌时长。'
-if (cookieHeader && !durationAvailable) {
+const weeklyDurationAvailable = officialDurations.weekly?.ok === true
+const allTimeDurationAvailable = officialDurations.allTime?.ok === true
+const durationMessage = weeklyDurationAvailable && allTimeDurationAvailable
+  ? `本周和累计听歌时长来自网易云“云村听歌足迹”接口。`
+  : weeklyDurationAvailable
+    ? `本周听歌时长来自网易云“云村听歌足迹”接口；累计时长暂不显示未经验证的字段。${durationFailures.join(' ')}`
+    : allTimeDurationAvailable
+      ? `累计听歌时长来自网易云“云村听歌足迹”接口；本周时长暂不显示未经验证的字段。${durationFailures.join(' ')}`
+      : cookieHeader
+        ? `网易云“云村听歌足迹”接口暂时没有返回可识别的总时长，未使用排行估算替代。${durationFailures.join(' ')}`
+        : '未配置网易云 Cookie，暂不显示官方听歌时长。'
+if (cookieHeader && (!durationAvailable || durationFailures.length)) {
   console.warn(`[netease] ${durationMessage}`)
+}
+if (cookieHeader) {
+  console.log(`[netease] duration fields: weekly=${officialDurations.weekly?.path || '—'} (${officialDurations.weekly?.unit || '—'}); allTime=${officialDurations.allTime?.path || '—'} (${officialDurations.allTime?.unit || '—'})`)
+}
+
+// Keep a small, non-sensitive record of the selected field. This makes a
+// future API shape change diagnosable without writing the Cookie or the full
+// response payload to the repository.
+const durationFieldDiagnostic = (result) => {
+  if (!result?.path) return null
+  const rawValue = result.rawValue
+  if (typeof rawValue === 'string') {
+    return { path: result.path, unit: result.unit || '', rawValue: rawValue.slice(0, 160) }
+  }
+  if (typeof rawValue === 'number' && Number.isFinite(rawValue)) {
+    return { path: result.path, unit: result.unit || '', rawValue }
+  }
+  if (rawValue && typeof rawValue === 'object' && !Array.isArray(rawValue)) {
+    const components = Object.fromEntries(Object.entries(rawValue)
+      .filter(([, value]) => Number.isFinite(Number(value)))
+      .map(([key, value]) => [key, Number(value)]))
+    return { path: result.path, unit: result.unit || '', rawValue: components }
+  }
+  return { path: result.path, unit: result.unit || '' }
 }
 
 const scrapeMessage = browserResult
@@ -234,6 +264,14 @@ const result = {
     endpoints: {
       weekly: officialDurations.weekly?.endpoint || '/api/content/activity/listen/data/realtime/report',
       allTime: officialDurations.allTime?.endpoint || '/api/content/activity/listen/data/total'
+    },
+    fields: {
+      weekly: durationFieldDiagnostic(officialDurations.weekly),
+      allTime: durationFieldDiagnostic(officialDurations.allTime)
+    },
+    validation: officialDurations.validation || {
+      status: durationAvailable ? 'partial' : 'unavailable',
+      message: ''
     },
     weeklyTracksCounted: 0,
     allTimeTracksCounted: 0,

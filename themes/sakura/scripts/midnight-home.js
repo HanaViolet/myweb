@@ -208,6 +208,7 @@ const getNeteaseStats = () => {
 }
 
 const formatMinutes = (minutes) => {
+  if (minutes === null || minutes === undefined || minutes === '') return '—'
   const value = Number(minutes)
   if (!Number.isFinite(value) || value < 0) return '—'
   const hours = Math.floor(value / 60)

@@ -125,21 +125,49 @@ const fetchJson = async (uri, data, cookieMap, timeoutMs) => {
   }
 }
 
-const keyText = (value) => String(value || '').toLowerCase()
+const keyText = (value) => String(value ?? '').toLowerCase()
+const compactKey = (value) => keyText(value).replace(/[^a-z0-9\u4e00-\u9fff]/g, '')
+const durationContextPattern = /(listen|duration|time|week|weekly|month|monthly|total|alltime|overall|history|cumulative|report)/i
+const nonDurationPattern = /(song|count|number|days?|rank|score|percent|rate|id|timestamp|date|starttime|endtime|updatetime|createtime)/i
 
-const durationKeyRank = (key, path, period) => {
-  const keyName = keyText(key)
-  const pathName = keyText(path.join('.'))
+// These are the names used by the listen-data APIs (and by a few versions
+// of the mobile client). Generic keys such as `total`, `time`, `value`, or
+// `duration` are deliberately not treated as durations on their own: those
+// keys are also used for counts, timestamps, and summary values.
+const explicitDurationKey = (key) => {
+  const name = compactKey(key)
+  if (!name) return false
+  return [
+    /^listen(?:ing|ed)?(?:time|duration|minutes?|seconds?|milliseconds?|hours?)$/,
+    /^total(?:listen(?:ing|ed)?(?:time|duration)?|duration(?:minutes?|seconds?|milliseconds?|hours?)?|time|minutes?|seconds?|milliseconds?|hours?)$/,
+    /^(?:weekly|week|current|monthly|month)(?:listen(?:ing|ed)?(?:time|duration)?|duration(?:minutes?|seconds?|milliseconds?|hours?)?|time|minutes?|seconds?|milliseconds?|hours?)$/,
+    /^(?:alltime|overall|cumulative|history)(?:listen(?:ing|ed)?(?:time|duration)?|duration(?:minutes?|seconds?|milliseconds?|hours?)?|time|minutes?|seconds?|milliseconds?|hours?)$/,
+    /^duration(?:minutes?|seconds?|milliseconds?|hours?)$/,
+    /^(?:hours?|minutes?|seconds?|milliseconds?|小时|小時|时|分钟|分|秒|毫秒)$/
+  ].some((pattern) => pattern.test(name))
+}
+
+const durationKeyRank = (key, path, period, unitHint = '') => {
+  const keyName = compactKey(key)
+  const pathName = compactKey(path.join('.'))
   const combined = `${keyName}.${pathName}`
-  if (/(song|count|number|days?|rank|score|percent|rate|id|timestamp|date|starttime|endtime|updatetime|createtime)/i.test(combined)) return -100
-  let score = 0
-  if (/(listentime|totallistentime|listenduration|totalduration)/i.test(keyName)) score += 90
-  if (/^(duration|time|total|minutes?|seconds?|milliseconds?)$/i.test(keyName)) score += 55
-  if (/(listen|duration|time)/i.test(keyName)) score += 30
-  if (period === 'weekly' && /(week|weekly|realtime|current)/i.test(combined)) score += 25
-  if (period === 'allTime' && /(total|alltime|overall|history|cumulative)/i.test(combined)) score += 25
-  if (period === 'allTime' && /(total|alltime|overall|history|cumulative)/i.test(combined)) score += 12
-  if (period === 'weekly' && /(week|weekly|realtime|current)/i.test(combined)) score += 12
+  const hasUnitHint = Boolean(compactKey(unitHint))
+  const hasContext = durationContextPattern.test(combined)
+  if (nonDurationPattern.test(combined)) return -100
+
+  const isExplicit = explicitDurationKey(keyName)
+  const isGeneric = /^(total|time|duration|value|data)$/.test(keyName)
+  // Numeric generic fields are only meaningful when their containing object
+  // explicitly supplies a unit or a listen/duration context.
+  if (!isExplicit && !hasUnitHint && (!hasContext || !isGeneric)) return -100
+  if (isGeneric && !hasContext) return -100
+
+  let score = isExplicit ? 100 : 18
+  if (hasUnitHint) score += 35
+  if (/(listen|duration)/i.test(keyName)) score += 25
+  if (period === 'weekly' && /(week|weekly|realtime|current)/i.test(combined)) score += 20
+  if (period === 'allTime' && /(total|alltime|overall|history|cumulative)/i.test(combined)) score += 20
+  if (hasContext) score += 5
   return score
 }
 
@@ -179,6 +207,7 @@ const numericDuration = (value, key, unitHint = '') => {
   if (/(秒|second|sec)/i.test(hint)) return { minutes: Math.round(numeric / 60), unit: 'seconds' }
   if (/(小时|小時|时|hour|hr)/i.test(hint)) return { minutes: Math.round(numeric * 60), unit: 'hours' }
   if (/(分钟|分|minute|min)/i.test(hint)) return { minutes: Math.round(numeric), unit: 'minutes' }
+  if (!explicitDurationKey(key)) return null
   // NetEase duration fields conventionally use milliseconds. For an
   // unlabelled small value, minutes are the least surprising fallback.
   if (numeric >= 100000) return { minutes: Math.round(numeric / 60000), unit: 'milliseconds' }
@@ -187,10 +216,14 @@ const numericDuration = (value, key, unitHint = '') => {
 }
 
 const durationCandidate = (value, key, path, period, unitHint = '') => {
-  const rank = durationKeyRank(key, path, period)
-  if (rank < 0) return null
   const parsed = typeof value === 'string' ? parseDurationText(value) : numericDuration(value, key, unitHint)
   if (!parsed || !Number.isFinite(parsed.minutes) || parsed.minutes < 0) return null
+  const rank = durationKeyRank(key, path, period, unitHint)
+  // A labelled value such as "11小时19分" is self-describing, but still
+  // needs to live below a listen/duration object so ordinary prose and dates
+  // cannot be selected accidentally.
+  const hasContext = durationContextPattern.test(compactKey(path.join('.')))
+  if (rank < 0 && (!(parsed.unit === 'labelled' || parsed.unit === 'clock') || !hasContext)) return null
   return { ...parsed, rank, path: [...path, key].join('.'), rawValue: value }
 }
 
@@ -238,10 +271,14 @@ const collectDurationCandidates = (value, path, period, output, unitHint = '') =
  * The API has changed nesting/labels over time, so this deliberately accepts
  * the documented hour/minute strings as well as numeric duration fields.
  */
-export const extractListenDuration = (payload, period = 'weekly') => {
+export const extractListenDuration = (payload, period = 'weekly', { minimumMinutes = null } = {}) => {
   const candidates = []
   collectDurationCandidates(payload?.data ?? payload, [], period, candidates)
   candidates.sort((left, right) => right.rank - left.rank || left.path.length - right.path.length)
+  if (Number.isFinite(Number(minimumMinutes))) {
+    const consistent = candidates.find((candidate) => candidate.minutes >= Number(minimumMinutes))
+    if (consistent) return consistent
+  }
   return candidates[0] || null
 }
 
@@ -271,24 +308,39 @@ export const fetchOfficialListenDurations = async (rawCookie, { timeoutMs = DEFA
     fetchJson(endpointInfo.allTime, {}, cookieMap, timeoutMs)
   ])
   const weekly = weeklyResponse.ok ? extractListenDuration(weeklyResponse.payload, 'weekly') : null
-  const allTime = allTimeResponse.ok ? extractListenDuration(allTimeResponse.payload, 'allTime') : null
+  const allTimeCandidate = allTimeResponse.ok
+    ? extractListenDuration(allTimeResponse.payload, 'allTime', { minimumMinutes: weekly?.minutes ?? null })
+    : null
+  const inconsistent = Boolean(weekly && allTimeCandidate && allTimeCandidate.minutes < weekly.minutes)
+  const allTime = inconsistent ? null : allTimeCandidate
+  const consistencyMessage = inconsistent
+    ? `网易云累计接口返回的候选值（${allTimeCandidate.minutes} 分钟）小于本周值（${weekly.minutes} 分钟），已拒绝写入累计时长。`
+    : ''
   return {
     available: Boolean(weekly || allTime),
     weeklyMinutes: weekly?.minutes ?? null,
     allTimeMinutes: allTime?.minutes ?? null,
+    validation: {
+      status: inconsistent ? 'inconsistent' : (weekly && allTime ? 'valid' : 'partial'),
+      message: consistencyMessage
+    },
     weekly: {
       ok: Boolean(weekly),
       endpoint: endpointInfo.weekly,
       path: weekly?.path || '',
       unit: weekly?.unit || '',
+      rawValue: weekly?.rawValue ?? null,
       message: weekly ? '' : (weeklyResponse.message || '网易云没有返回可识别的本周总时长。')
     },
     allTime: {
       ok: Boolean(allTime),
       endpoint: endpointInfo.allTime,
-      path: allTime?.path || '',
-      unit: allTime?.unit || '',
-      message: allTime ? '' : (allTimeResponse.message || '网易云没有返回可识别的累计总时长。')
+      path: allTimeCandidate?.path || '',
+      unit: allTimeCandidate?.unit || '',
+      rawValue: allTimeCandidate?.rawValue ?? null,
+      message: allTime
+        ? ''
+        : (consistencyMessage || allTimeResponse.message || '网易云没有返回可识别的累计总时长。')
     }
   }
 }

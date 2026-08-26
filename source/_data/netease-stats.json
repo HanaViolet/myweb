@@ -16,16 +16,24 @@
   },
   "duration": {
     "weeklyMinutes": 229,
-    "allTimeMinutes": 126,
+    "allTimeMinutes": null,
     "available": true,
     "source": "netease-listen-data",
     "endpoints": {
       "weekly": "/api/content/activity/listen/data/realtime/report",
       "allTime": "/api/content/activity/listen/data/total"
     },
+    "fields": {
+      "weekly": null,
+      "allTime": null
+    },
+    "validation": {
+      "status": "inconsistent",
+      "message": "网易云累计接口返回的候选值小于本周值，已拒绝写入累计时长；等待下一次工作流同步并记录实际字段。"
+    },
     "weeklyTracksCounted": 0,
     "allTimeTracksCounted": 0,
-    "message": "本周和累计听歌时长来自网易云“云村听歌足迹”接口。"
+    "message": "本周听歌时长来自网易云“云村听歌足迹”接口；累计时长暂不显示未经验证的字段。网易云累计接口返回的候选值小于本周值，已拒绝写入累计时长。"
   },
   "weekly": [
     {
@@ -471,5 +479,5 @@
       "score": 29
     }
   ],
-  "notes": "本周和累计听歌时长来自网易云“云村听歌足迹”接口。"
+  "notes": "本周听歌时长来自网易云“云村听歌足迹”接口；累计时长暂不显示未经验证的字段。网易云累计接口返回的候选值小于本周值，已拒绝写入累计时长。"
 }
