@@ -7,7 +7,8 @@
     "clean": "hexo clean",
     "deploy": "hexo deploy",
     "server": "hexo server",
-    "traffic:chart": "node tools/generate-traffic-chart.mjs"
+    "listening:chart": "node tools/generate-listening-chart.mjs",
+    "netease:update": "node tools/update-netease-stats.mjs"
   },
   "hexo": {
     "version": "8.1.1"

@@ -1,0 +1,44 @@
+name: Update NetEase listening stats
+
+on:
+  schedule:
+    # 00:17 Asia/Shanghai (UTC+8), once per day.
+    - cron: '17 16 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: netease-stats
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Fetch public NetEase rankings
+        run: node tools/update-netease-stats.mjs
+
+      - name: Commit updated data
+        shell: bash
+        run: |
+          if git diff --quiet -- source/_data/netease-stats.json; then
+            echo "No NetEase data changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add source/_data/netease-stats.json
+          git commit -m "chore: update NetEase listening stats"
+          git push

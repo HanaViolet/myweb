@@ -1,6 +1,7 @@
 'use strict'
 
 const NETEASE_PLAYLIST_URL = 'https://music.163.com/#/playlist?id=2203036705'
+const NETEASE_PROFILE_URL = 'https://music.163.com/#/user/home?id=1441471952'
 
 const HOME_HERO = `
 <section class="midnight-hero" aria-labelledby="midnight-title">
@@ -162,6 +163,74 @@ const getTrackData = () => {
   return Array.isArray(data.tracks) ? data.tracks : []
 }
 
+const getNeteaseStats = () => {
+  const data = hexo.locals.get('data') || {}
+  return data.neteaseStats || data['netease-stats'] || {}
+}
+
+const formatMinutes = (minutes) => {
+  const value = Number(minutes)
+  if (!Number.isFinite(value) || value < 0) return '—'
+  const hours = Math.floor(value / 60)
+  const remaining = Math.round(value % 60)
+  return hours ? `${hours}h ${String(remaining).padStart(2, '0')}m` : `${remaining}m`
+}
+
+const formatSongDuration = (durationMs) => {
+  const seconds = Math.max(0, Math.round(Number(durationMs) / 1000))
+  if (!Number.isFinite(seconds) || seconds === 0) return '—'
+  return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`
+}
+
+const formatCount = (value) => {
+  const number = Number(value)
+  return Number.isFinite(number) && number > 0 ? new Intl.NumberFormat('zh-CN').format(number) : '—'
+}
+
+const renderNeteaseRanking = (label, rows) => {
+  const entries = Array.isArray(rows) ? rows.slice(0, 8) : []
+  const items = entries.length
+    ? entries.map((track, index) => {
+      const title = track.title || '未命名歌曲'
+      const subtitle = track.alias && track.alias !== title ? track.alias : (track.album || track.artist || '')
+      const metric = Number(track.playCount) > 0
+        ? `${formatCount(track.playCount)} 次`
+        : (Number.isFinite(Number(track.score)) ? `SCORE ${track.score}` : formatSongDuration(track.durationMs))
+      return `<li><span class="about-netease__rank-no">${String(index + 1).padStart(2, '0')}</span><span class="about-netease__rank-song"><strong>${escapeHtml(title)}</strong><small>${escapeHtml(subtitle)}</small></span><span class="about-netease__rank-artist">${escapeHtml(track.artist || '')}</span><em>${escapeHtml(metric)}</em></li>`
+    }).join('')
+    : '<li class="about-netease__empty">等待网易云数据同步。</li>'
+  return `<article class="about-netease__ranking"><header><span>${escapeHtml(label)}</span><small>TOP ${entries.length || '—'}</small></header><ol>${items}</ol></article>`
+}
+
+const renderNeteaseStats = () => {
+  const stats = getNeteaseStats()
+  const duration = stats.duration || {}
+  const available = duration.available === true
+  const weeklyMinutes = available ? formatMinutes(duration.weeklyMinutes) : '—'
+  const allTimeMinutes = available ? formatMinutes(duration.allTimeMinutes) : '—'
+  const weekly = Array.isArray(stats.weekly) ? stats.weekly : []
+  const allTime = Array.isArray(stats.allTime) ? stats.allTime : []
+  const updated = stats.updatedAt ? String(stats.updatedAt).slice(0, 10) : '等待首次同步'
+  const note = duration.message || stats.notes || '排行榜会由 GitHub Actions 每日同步。'
+  const profileUrl = stats.profileUrl || NETEASE_PROFILE_URL
+  return `<section class="about-netease" id="netease-listening" aria-labelledby="about-netease-title">
+  <header class="about-netease__header">
+    <div><p>NETEASE CLOUD / LISTENING LOG</p><h2 id="about-netease-title">我的听歌轨迹</h2></div>
+    <a href="${escapeHtml(profileUrl)}" target="_blank" rel="noopener">OPEN NETEASE PROFILE <span aria-hidden="true">↗</span></a>
+  </header>
+  <div class="about-netease__metrics">
+    <div><span>THIS WEEK</span><strong>${weeklyMinutes}</strong><small>本周听歌时长</small></div>
+    <div><span>ALL TIME</span><strong>${allTimeMinutes}</strong><small>累计听歌时长</small></div>
+    <div><span>RANKING CACHE</span><strong>${weekly.length} / ${allTime.length}</strong><small>周榜 / 总榜曲目</small></div>
+  </div>
+  <div class="about-netease__rankings">
+    ${renderNeteaseRanking('WEEKLY RANKING / 本周', weekly)}
+    ${renderNeteaseRanking('ALL-TIME RANKING / 总榜', allTime)}
+  </div>
+  <footer class="about-netease__footer"><p>${escapeHtml(note)}</p><time datetime="${escapeHtml(String(stats.updatedAt || ''))}">UPDATED ${escapeHtml(updated)}</time></footer>
+</section>`
+}
+
 const serializeTrackData = (tracks) => JSON.stringify(tracks).replace(/</g, '\\u003c')
 
 hexo.extend.filter.register('after_render:html', function (html, data) {
@@ -178,6 +247,9 @@ hexo.extend.filter.register('after_render:html', function (html, data) {
     if (/^posts\/[^/]+\/index\.html$/.test(data.path)) {
       result = result.replace('<div id="post-info"><h1', '<div id="post-info"><p class="post-issue">LISTENING NOTES / SIDE B</p><h1')
       result = result.replace('<div class="aside-content" id="aside-content">', `<div class="aside-content" id="aside-content">${POST_SIDEBAR_NOTE}`)
+    }
+    if (data.path === 'about/index.html') {
+      result = result.replace('<section class="about-interests"', `${renderNeteaseStats()}<section class="about-interests"`)
     }
   } else {
     result = result.replace('</header><main', `${HOME_HERO}</header>${renderListeningRoom(tracks)}<main`)

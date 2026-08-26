@@ -21,25 +21,27 @@
 
 这是 Sakura 的个人博客源码。网站由 Hexo 构建、Cloudflare Pages 发布，视觉上采用固定暗色、留白和唱片纹理，首页围绕 YORUSHIKA 等 J-pop 选曲展开。文章、资源、关于我和播放器共享同一套响应式布局，页面切换使用 Pjax，播放状态会在导航和登录返回后尽量恢复。
 
-## 📈 访问趋势
+## 🎼 选曲档案图
 
 <p align="center">
-  <img src="./docs/traffic.svg" width="820" alt="Sakura Listening Room access trend">
+  <img src="./docs/listening-archive.svg" width="820" alt="Sakura Listening Room audio archive">
 </p>
 
-图表由 [`docs/traffic.json`](docs/traffic.json) 生成，当前展示的是 Busuanzi 的真实累计 UV/PV 快照。仓库尚未接入 Cloudflare Web Analytics 的历史导出，因此不会把猜测数据伪装成访客趋势；后续拿到每日统计后，只需向 `points` 追加数据并运行下面的命令即可更新图表：
+这张图展示歌单中每首音频的文件体积，数据直接从 [`source/_data/tracks.json`](source/_data/tracks.json) 和 `source/music/` 读取。它既能快速浏览这间 Listening Room 的声音库存，也能在迁移到 Cloudflare R2 前估算存储体积；不需要额外的统计权限或手工录入。
 
 ```bash
-npm run traffic:chart
+npm run listening:chart
 ```
 
-每个数据点格式为 `{ "date": "YYYY-MM-DD", "uv": 访客数, "pv": 浏览量 }`。如果改用 Cloudflare Analytics，请保留字段含义并在 JSON 的 `source` 与 `notes` 中记录来源和时区，方便审计。
+新增歌曲、替换音频或修改标题后重新运行命令，README 图表就会同步更新。缺失的音频会标记为“音频文件未找到”，不会悄悄填入估算值。
 
 ## 🎧 音乐与内容
 
 - `source/_data/tracks.json`：选曲元数据（日文标题、中文标题、专辑信息、短笺和音频路径）。
 - `source/music/`：本地播放器使用的音频文件；只应提交你拥有或获准发布的音频，后续可迁移到 Cloudflare R2。
+- `source/_data/netease-stats.json`：网易云公开接口同步的每周 / 总榜前 20 首歌曲；关于我页面会自动读取它。
 - 网易云完整歌单：[Sakura 的收藏歌单](https://music.163.com/#/playlist?id=2203036705)。
+- 网易云个人页：[Sakura 的听歌排行](https://music.163.com/#/user/home?id=1441471952)。
 - `source/_posts/`：Markdown 文章；文章的 `cover` 会作为文章页顶部渐变背景。
 
 ## 🧩 主题结构
@@ -59,7 +61,7 @@ npm run traffic:chart
 ├─ themes/sakura/          # 独立主题：模板、样式、脚本与资源
 ├─ scripts/                # Hexo 扩展脚本
 ├─ tools/                  # README 图表等维护工具
-├─ docs/                   # README 图表与维护数据
+├─ docs/                   # README 图表
 ├─ _config.yml             # Hexo 基础配置
 ├─ _config.sakura.yml      # Sakura 主题配置
 └─ compress.py             # 图片/资源压缩工具
@@ -81,7 +83,8 @@ npm run server       # http://localhost:4000
 ```bash
 npm run build         # 生成 public/
 npm run clean         # 清理生成目录
-npm run traffic:chart # 从 docs/traffic.json 生成 docs/traffic.svg
+npm run listening:chart # 从歌曲数据与音频文件生成 docs/listening-archive.svg
+npm run netease:update  # 手动同步网易云周榜 / 总榜数据
 python compress.py    # 按脚本说明压缩图片资源
 ```
 
@@ -96,6 +99,8 @@ npx hexo new post "文章标题"
 ## 🔐 发布与隐私
 
 Cloudflare Pages 负责从 GitHub 构建并发布站点，仓库本身不保存部署密钥。若将音频迁移到 R2，建议使用公开只读对象 URL，并把管理凭据放在 Cloudflare Secrets 中；不要把 API Token、私有歌单或未获授权的音频提交到公开仓库。
+
+`.github/workflows/update-netease-stats.yml` 会每天按北京时间 00:17 请求网易云公开排行接口，更新 `source/_data/netease-stats.json` 并提交变更，Cloudflare Pages 随后自动重新构建。公开接口有时只返回榜单和排序分数、隐藏播放次数；这种情况下页面会明确显示“暂不可读”，不会用猜测值冒充听歌时长。
 
 ## 📄 许可证与致谢
 
