@@ -3,14 +3,14 @@
   "profileUrl": "https://music.163.com/#/user/home?id=1441471952",
   "source": "NetEase Cloud Music public play record API",
   "endpoint": "/api/v1/play/record",
-  "updatedAt": "2026-08-26T05:41:15.106Z",
+  "updatedAt": "2026-08-26T05:47:40.700Z",
   "timezone": "Asia/Shanghai",
   "rankLimit": 20,
   "scrape": {
     "mode": "public-api",
-    "attempted": false,
+    "attempted": true,
     "succeeded": false,
-    "message": "未配置 Cookie，使用公开接口。"
+    "message": "Cookie 页面抓取未成功，已回退公开接口。"
   },
   "duration": {
     "weeklyMinutes": null,
