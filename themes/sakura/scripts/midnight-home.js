@@ -279,7 +279,17 @@ const renderListeningFingerprint = (weekly, allTime) => {
 
   const weights = source.map(fingerprintWeight)
   const maximum = Math.max(...weights, 1)
-  const bars = weights.map((weight, index) => {
+  // Interpolate the ranking weights into a denser waveform so the signal reads
+  // clearly on wide desktop cards as well as on compact mobile layouts.
+  const waveform = Array.from({ length: 16 }, (_, index) => {
+    if (weights.length === 1) return weights[0]
+    const position = (index / 15) * (weights.length - 1)
+    const left = Math.floor(position)
+    const right = Math.min(left + 1, weights.length - 1)
+    const ratio = position - left
+    return weights[left] + ((weights[right] - weights[left]) * ratio)
+  })
+  const bars = waveform.map((weight, index) => {
     const height = Math.max(22, Math.round((weight / maximum) * 100))
     return `<i style="--bar-height:${height}%;--bar-index:${index}" aria-hidden="true"></i>`
   }).join('')

@@ -2267,13 +2267,13 @@ body.has-sakura-player #rightside { bottom: 100px; }
 .about-netease__metrics strong { display: block; margin: 18px 0 10px; color: var(--midnight-text); font-family: var(--midnight-serif); font-size: clamp(30px, 3.5vw, 48px); font-weight: 400; line-height: 1; }
 .about-netease__metrics small { color: #7e8984; font-size: 11px; }
 
-.about-netease__fingerprint { min-width: 0; }
+.about-netease__fingerprint { display: flex; min-width: 0; flex-direction: column; }
 .about-netease__fingerprint-label { color: var(--midnight-accent) !important; }
 .about-netease__fingerprint-head { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; margin-top: 18px; min-width: 0; }
 .about-netease__fingerprint-head strong { min-width: 0; margin: 0; overflow: hidden; font-size: clamp(24px, 2.8vw, 38px); text-overflow: ellipsis; white-space: nowrap; }
 .about-netease__fingerprint-head small { flex: 0 0 auto; color: #8ca89a; font-size: 8px; letter-spacing: 0.1em; text-transform: uppercase; }
-.about-netease__fingerprint-bars { display: flex; align-items: flex-end; gap: 5px; height: 46px; margin: 17px 0 13px; padding: 0 1px 5px; border-bottom: 1px solid rgba(185, 216, 194, 0.18); }
-.about-netease__fingerprint-bars i { flex: 1 1 0; min-width: 4px; height: var(--bar-height); border-radius: 999px 999px 1px 1px; background: linear-gradient(180deg, var(--midnight-accent), rgba(140, 168, 154, 0.28)); box-shadow: 0 0 14px rgba(185, 216, 194, 0.08); transform-origin: bottom; animation: midnight-fingerprint-breathe 3600ms ease-in-out calc(var(--bar-index) * -180ms) infinite alternate; }
+.about-netease__fingerprint-bars { display: flex !important; align-items: flex-end; gap: 5px; width: 100%; min-height: 46px; height: 46px; margin: 17px 0 13px; padding: 0 1px 5px; border-bottom: 1px solid rgba(185, 216, 194, 0.18); visibility: visible; }
+.about-netease__fingerprint-bars i { flex: 1 1 0; min-width: 4px; height: var(--bar-height); border-radius: 999px 999px 1px 1px; background: linear-gradient(180deg, var(--midnight-accent), rgba(140, 168, 154, 0.28)); box-shadow: 0 0 14px rgba(185, 216, 194, 0.08); transform-origin: bottom; animation: midnight-fingerprint-breathe 2600ms ease-in-out calc(var(--bar-index) * -120ms) infinite alternate; }
 .about-netease__fingerprint-meta { display: block; overflow: hidden; color: #7e8984; text-overflow: ellipsis; white-space: nowrap; }
 .about-netease__fingerprint.is-empty { display: flex; flex-direction: column; justify-content: space-between; }
 .about-netease__fingerprint.is-empty strong { margin: auto 0 8px; font-size: clamp(22px, 2.6vw, 32px); }
@@ -2282,6 +2282,19 @@ body.has-sakura-player #rightside { bottom: 100px; }
 @keyframes midnight-fingerprint-breathe {
   from { opacity: 0.72; transform: scaleY(0.78); }
   to { opacity: 1; transform: scaleY(1); }
+}
+
+@media (min-width: 901px) {
+  .about-netease__fingerprint-bars {
+    gap: clamp(5px, 0.55vw, 9px);
+    height: clamp(54px, 5vw, 72px);
+    min-height: 54px;
+    margin-top: 20px;
+  }
+  .about-netease__fingerprint-bars i {
+    min-width: 6px;
+    animation-duration: 2200ms;
+  }
 }
 
 .about-netease__rankings {
