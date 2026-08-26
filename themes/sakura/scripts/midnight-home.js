@@ -252,7 +252,11 @@ const renderNeteaseStats = () => {
   const updated = stats.updatedAt ? String(stats.updatedAt).slice(0, 10) : '等待首次同步'
   const note = duration.message || stats.notes || '排行榜会由 GitHub Actions 每日同步。'
   const scrape = stats.scrape || {}
-  const sourceLabel = scrape.succeeded ? 'COOKIE PAGE + PUBLIC FALLBACK' : 'PUBLIC API FALLBACK'
+  const sourceLabel = scrape.mode === 'cookie-api+public-api'
+    ? 'COOKIE API + PUBLIC FALLBACK'
+    : scrape.succeeded
+      ? 'COOKIE PAGE + PUBLIC FALLBACK'
+      : 'PUBLIC API FALLBACK'
   const profileUrl = stats.profileUrl || NETEASE_PROFILE_URL
   return `<section class="about-netease" id="netease-listening" aria-labelledby="about-netease-title">
   <header class="about-netease__header">
