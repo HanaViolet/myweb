@@ -262,6 +262,46 @@ const renderNeteaseRanking = (label, rows) => {
   return `<article class="about-netease__ranking"><header><span>${escapeHtml(label)}</span><small>TOP ${entries.length || '—'}</small></header><ol>${items}</ol></article>`
 }
 
+const fingerprintWeight = (track) => {
+  const playCount = Number(track?.playCount)
+  if (Number.isFinite(playCount) && playCount > 0) return playCount
+  const score = Number(track?.score)
+  return Number.isFinite(score) && score > 0 ? score : 1
+}
+
+const renderListeningFingerprint = (weekly, allTime) => {
+  const useWeekly = weekly.length > 0
+  const source = (useWeekly ? weekly : allTime).slice(0, 8)
+  const scope = useWeekly ? '本周声纹' : '总榜信号'
+  if (!source.length) {
+    return `<div class="about-netease__fingerprint is-empty"><span class="about-netease__fingerprint-label">LISTENING FINGERPRINT / ${scope}</span><strong>等待数据同步</strong><small>网易云排行准备好后，这里会生成你的听歌声纹。</small></div>`
+  }
+
+  const weights = source.map(fingerprintWeight)
+  const maximum = Math.max(...weights, 1)
+  const bars = weights.map((weight, index) => {
+    const height = Math.max(22, Math.round((weight / maximum) * 100))
+    return `<i style="--bar-height:${height}%;--bar-index:${index}" aria-hidden="true"></i>`
+  }).join('')
+
+  const artistWeights = new Map()
+  source.forEach((track) => {
+    const artist = String(track?.artist || '').trim()
+    if (!artist) return
+    artistWeights.set(artist, (artistWeights.get(artist) || 0) + fingerprintWeight(track))
+  })
+  const leadArtist = [...artistWeights.entries()]
+    .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))[0]?.[0]
+  const leadTrack = String(source[0]?.title || '未命名歌曲')
+  const leadLabel = leadArtist || leadTrack
+  const firstPlayCount = Number(source[0]?.playCount)
+  const playLabel = Number.isFinite(firstPlayCount) && firstPlayCount > 0
+    ? `${formatCount(firstPlayCount)} 次循环`
+    : 'TOP 01'
+  const ariaLabel = `${scope}：${leadLabel}，${leadTrack}`
+  return `<div class="about-netease__fingerprint"><span class="about-netease__fingerprint-label">LISTENING FINGERPRINT / ${scope}</span><div class="about-netease__fingerprint-head"><strong title="${escapeHtml(leadLabel)}">${escapeHtml(leadLabel)}</strong><small>${escapeHtml(playLabel)}</small></div><div class="about-netease__fingerprint-bars" role="img" aria-label="${escapeHtml(ariaLabel)}">${bars}</div><small class="about-netease__fingerprint-meta">${escapeHtml(leadTrack)} · ${source.length} 首上榜</small></div>`
+}
+
 const renderNeteaseStats = () => {
   const stats = getNeteaseStats()
   const duration = stats.duration || {}
@@ -291,7 +331,7 @@ const renderNeteaseStats = () => {
   <div class="about-netease__metrics">
     <div><span>THIS WEEK</span><strong>${weeklyMinutes}</strong><small>本周听歌时长</small></div>
     <div><span>ALL TIME</span><strong>${allTimeMinutes}</strong><small>累计听歌时长</small></div>
-    <div><span>RANKING CACHE</span><strong>${weekly.length} / ${allTime.length}</strong><small>周榜 / 总榜曲目</small></div>
+    ${renderListeningFingerprint(weekly, allTime)}
   </div>
   <div class="about-netease__rankings">
     ${renderNeteaseRanking('WEEKLY RANKING / 本周', weekly)}
