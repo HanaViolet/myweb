@@ -3,7 +3,7 @@
   "profileUrl": "https://music.163.com/#/user/home?id=1441471952",
   "source": "NetEase Cloud Music play record API (Cookie) + public fallback",
   "endpoint": "/api/v1/play/record",
-  "updatedAt": "2026-08-26T11:53:15.029Z",
+  "updatedAt": "2026-08-26T16:58:57.929Z",
   "timezone": "Asia/Shanghai",
   "rankLimit": 20,
   "scrape": {
