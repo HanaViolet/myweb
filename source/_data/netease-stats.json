@@ -1,24 +1,25 @@
 {
   "userId": "1441471952",
   "profileUrl": "https://music.163.com/#/user/home?id=1441471952",
-  "source": "NetEase Cloud Music public play record API",
+  "source": "NetEase Cloud Music play record API (Cookie) + public fallback",
   "endpoint": "/api/v1/play/record",
-  "updatedAt": "2026-08-26T05:47:40.700Z",
+  "updatedAt": "2026-08-26T06:35:00.297Z",
   "timezone": "Asia/Shanghai",
   "rankLimit": 20,
   "scrape": {
-    "mode": "public-api",
+    "mode": "cookie-api+public-api",
     "attempted": true,
-    "succeeded": false,
-    "message": "Cookie 页面抓取未成功，已回退公开接口。"
+    "succeeded": true,
+    "publicApiAuthenticated": true,
+    "message": "Cookie 页面抓取未成功，但 Cookie 接口读取成功；公开接口用于字段补全。"
   },
   "duration": {
-    "weeklyMinutes": null,
-    "allTimeMinutes": null,
-    "available": false,
-    "weeklyTracksCounted": 0,
-    "allTimeTracksCounted": 0,
-    "message": "网易云公开排行接口返回了歌曲榜单，但未返回播放次数；因此暂不显示猜测的听歌时长。"
+    "weeklyMinutes": 269,
+    "allTimeMinutes": 18021,
+    "available": true,
+    "weeklyTracksCounted": 20,
+    "allTimeTracksCounted": 20,
+    "message": "听歌时长由登录态返回的播放次数 × 歌曲时长计算；网易云未提供时，页面不会猜测。"
   },
   "weekly": [
     {
@@ -29,7 +30,7 @@
       "artist": "李荣浩",
       "album": "有理想",
       "durationMs": 312997,
-      "playCount": 0,
+      "playCount": 9,
       "score": 100
     },
     {
@@ -40,7 +41,7 @@
       "artist": "李荣浩",
       "album": "戒烟",
       "durationMs": 293875,
-      "playCount": 0,
+      "playCount": 8,
       "score": 88
     },
     {
@@ -51,7 +52,7 @@
       "artist": "宇多田ヒカル",
       "album": "This Is The One",
       "durationMs": 237946,
-      "playCount": 0,
+      "playCount": 7,
       "score": 77
     },
     {
@@ -62,7 +63,7 @@
       "artist": "ヨルシカ",
       "album": "二人称",
       "durationMs": 220711,
-      "playCount": 0,
+      "playCount": 6,
       "score": 66
     },
     {
@@ -73,7 +74,7 @@
       "artist": "LOVE PSYCHEDELICO",
       "album": "This is LOVE PSYCHEDELICO",
       "durationMs": 300973,
-      "playCount": 0,
+      "playCount": 5,
       "score": 55
     },
     {
@@ -84,7 +85,7 @@
       "artist": "etsuco",
       "album": "わすれもの",
       "durationMs": 228920,
-      "playCount": 0,
+      "playCount": 3,
       "score": 33
     },
     {
@@ -95,7 +96,7 @@
       "artist": "ずっと真夜中でいいのに。",
       "album": "あいつら全員同窓会",
       "durationMs": 254533,
-      "playCount": 0,
+      "playCount": 3,
       "score": 33
     },
     {
@@ -106,7 +107,7 @@
       "artist": "椎名林檎",
       "album": "歌舞伎町の女王",
       "durationMs": 171160,
-      "playCount": 0,
+      "playCount": 2,
       "score": 22
     },
     {
@@ -117,7 +118,7 @@
       "artist": "吉森信",
       "album": "続 夏目友人帳 音楽集 いとうるわしきもの【Selected Edition】",
       "durationMs": 181640,
-      "playCount": 0,
+      "playCount": 2,
       "score": 22
     },
     {
@@ -128,7 +129,7 @@
       "artist": "米津玄師",
       "album": "Lemon",
       "durationMs": 256000,
-      "playCount": 0,
+      "playCount": 2,
       "score": 22
     },
     {
@@ -139,7 +140,7 @@
       "artist": "The Weepies",
       "album": "Say I Am You",
       "durationMs": 199786,
-      "playCount": 0,
+      "playCount": 2,
       "score": 22
     },
     {
@@ -150,7 +151,7 @@
       "artist": "THE CHARM PARK",
       "album": "Bedroom Revelations",
       "durationMs": 216840,
-      "playCount": 0,
+      "playCount": 2,
       "score": 22
     },
     {
@@ -161,7 +162,7 @@
       "artist": "高橋洋子",
       "album": "NEON GENESIS EVANGELION SOUNDTRACK 25th ANNIVERSARY BOX",
       "durationMs": 245093,
-      "playCount": 0,
+      "playCount": 2,
       "score": 22
     },
     {
@@ -172,7 +173,7 @@
       "artist": "ヨルシカ",
       "album": "心に穴が空いた",
       "durationMs": 264497,
-      "playCount": 0,
+      "playCount": 2,
       "score": 22
     },
     {
@@ -183,7 +184,7 @@
       "artist": "DADARAY",
       "album": "Tandoor",
       "durationMs": 229064,
-      "playCount": 0,
+      "playCount": 2,
       "score": 22
     },
     {
@@ -194,7 +195,7 @@
       "artist": "いきものがかり",
       "album": "SAKURA",
       "durationMs": 354986,
-      "playCount": 0,
+      "playCount": 1,
       "score": 11
     },
     {
@@ -205,7 +206,7 @@
       "artist": "竹内まりや",
       "album": "VARIETY -30th Anniversary Edition-",
       "durationMs": 294346,
-      "playCount": 0,
+      "playCount": 1,
       "score": 11
     },
     {
@@ -216,7 +217,7 @@
       "artist": "つじあやの",
       "album": "恋恋風歌",
       "durationMs": 276600,
-      "playCount": 0,
+      "playCount": 1,
       "score": 11
     },
     {
@@ -227,7 +228,7 @@
       "artist": "椎名林檎",
       "album": "罪と罰",
       "durationMs": 272625,
-      "playCount": 0,
+      "playCount": 1,
       "score": 11
     },
     {
@@ -238,7 +239,7 @@
       "artist": "磯村由紀子",
       "album": "風の住む街 (风居住的街道)",
       "durationMs": 285957,
-      "playCount": 0,
+      "playCount": 1,
       "score": 11
     }
   ],
@@ -251,7 +252,7 @@
       "artist": "ヨルシカ",
       "album": "だから僕は音楽を辞めた",
       "durationMs": 242973,
-      "playCount": 0,
+      "playCount": 546,
       "score": 100
     },
     {
@@ -262,7 +263,7 @@
       "artist": "Vaundy",
       "album": "踊り子",
       "durationMs": 230109,
-      "playCount": 0,
+      "playCount": 458,
       "score": 83
     },
     {
@@ -273,7 +274,7 @@
       "artist": "ヨルシカ",
       "album": "DARMA GRAND PRIX",
       "durationMs": 259866,
-      "playCount": 0,
+      "playCount": 315,
       "score": 57
     },
     {
@@ -284,7 +285,7 @@
       "artist": "ヨルシカ",
       "album": "だから僕は音楽を辞めた",
       "durationMs": 185132,
-      "playCount": 0,
+      "playCount": 297,
       "score": 54
     },
     {
@@ -295,7 +296,7 @@
       "artist": "ヨルシカ",
       "album": "老人と海",
       "durationMs": 255468,
-      "playCount": 0,
+      "playCount": 259,
       "score": 47
     },
     {
@@ -306,7 +307,7 @@
       "artist": "Aimer",
       "album": "daydream",
       "durationMs": 207934,
-      "playCount": 0,
+      "playCount": 240,
       "score": 43
     },
     {
@@ -317,7 +318,7 @@
       "artist": "ヨルシカ",
       "album": "創作",
       "durationMs": 190319,
-      "playCount": 0,
+      "playCount": 235,
       "score": 43
     },
     {
@@ -328,7 +329,7 @@
       "artist": "chilldspot",
       "album": "ingredients",
       "durationMs": 200248,
-      "playCount": 0,
+      "playCount": 224,
       "score": 41
     },
     {
@@ -339,7 +340,7 @@
       "artist": "ヨルシカ",
       "album": "思想犯",
       "durationMs": 252056,
-      "playCount": 0,
+      "playCount": 220,
       "score": 40
     },
     {
@@ -350,7 +351,7 @@
       "artist": "米津玄師",
       "album": "BOOTLEG",
       "durationMs": 288949,
-      "playCount": 0,
+      "playCount": 202,
       "score": 36
     },
     {
@@ -361,7 +362,7 @@
       "artist": "ミイナ・オカベ",
       "album": "エヴリー・セカンド (ジャパニーズ・ヴァージョン)",
       "durationMs": 182500,
-      "playCount": 0,
+      "playCount": 193,
       "score": 35
     },
     {
@@ -372,7 +373,7 @@
       "artist": "ヨルシカ",
       "album": "夏草が邪魔をする",
       "durationMs": 188429,
-      "playCount": 0,
+      "playCount": 190,
       "score": 34
     },
     {
@@ -383,7 +384,7 @@
       "artist": "三浦透子 / RADWIMPS",
       "album": "天気の子",
       "durationMs": 188066,
-      "playCount": 0,
+      "playCount": 190,
       "score": 34
     },
     {
@@ -394,7 +395,7 @@
       "artist": "ヨルシカ",
       "album": "又三郎",
       "durationMs": 227731,
-      "playCount": 0,
+      "playCount": 185,
       "score": 33
     },
     {
@@ -405,7 +406,7 @@
       "artist": "ヨルシカ",
       "album": "盗作",
       "durationMs": 162834,
-      "playCount": 0,
+      "playCount": 177,
       "score": 32
     },
     {
@@ -416,7 +417,7 @@
       "artist": "RADWIMPS",
       "album": "×と○と罪と",
       "durationMs": 287240,
-      "playCount": 0,
+      "playCount": 175,
       "score": 32
     },
     {
@@ -427,7 +428,7 @@
       "artist": "ヨルシカ",
       "album": "負け犬にアンコールはいらない",
       "durationMs": 234293,
-      "playCount": 0,
+      "playCount": 167,
       "score": 30
     },
     {
@@ -438,7 +439,7 @@
       "artist": "ヨルシカ",
       "album": "春泥棒",
       "durationMs": 290279,
-      "playCount": 0,
+      "playCount": 166,
       "score": 30
     },
     {
@@ -449,7 +450,7 @@
       "artist": "十明",
       "album": "灰かぶり",
       "durationMs": 220714,
-      "playCount": 0,
+      "playCount": 165,
       "score": 30
     },
     {
@@ -460,9 +461,9 @@
       "artist": "ヨルシカ",
       "album": "盗作",
       "durationMs": 217048,
-      "playCount": 0,
+      "playCount": 162,
       "score": 29
     }
   ],
-  "notes": "网易云公开排行接口返回了歌曲榜单，但未返回播放次数；因此暂不显示猜测的听歌时长。"
+  "notes": "听歌时长由登录态返回的播放次数 × 歌曲时长计算；网易云未提供时，页面不会猜测。"
 }
