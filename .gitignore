@@ -6,3 +6,14 @@ node_modules/
 public/
 .deploy*/
 _multiconfig.yml
+
+# Local NetEase authentication state. Never commit cookies or browser sessions.
+.netease/
+netease-storage*.json
+storage-state*.json
+netease-cookie*
+*.cookie
+playwright/.auth/
+.env
+.env.*
+!.env.example

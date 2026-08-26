@@ -212,6 +212,8 @@ const renderNeteaseStats = () => {
   const allTime = Array.isArray(stats.allTime) ? stats.allTime : []
   const updated = stats.updatedAt ? String(stats.updatedAt).slice(0, 10) : '等待首次同步'
   const note = duration.message || stats.notes || '排行榜会由 GitHub Actions 每日同步。'
+  const scrape = stats.scrape || {}
+  const sourceLabel = scrape.succeeded ? 'COOKIE PAGE + PUBLIC FALLBACK' : 'PUBLIC API FALLBACK'
   const profileUrl = stats.profileUrl || NETEASE_PROFILE_URL
   return `<section class="about-netease" id="netease-listening" aria-labelledby="about-netease-title">
   <header class="about-netease__header">
@@ -227,7 +229,7 @@ const renderNeteaseStats = () => {
     ${renderNeteaseRanking('WEEKLY RANKING / 本周', weekly)}
     ${renderNeteaseRanking('ALL-TIME RANKING / 总榜', allTime)}
   </div>
-  <footer class="about-netease__footer"><p>${escapeHtml(note)}</p><time datetime="${escapeHtml(String(stats.updatedAt || ''))}">UPDATED ${escapeHtml(updated)}</time></footer>
+  <footer class="about-netease__footer"><p>${escapeHtml(note)}<span class="about-netease__source">${escapeHtml(sourceLabel)}</span></p><time datetime="${escapeHtml(String(stats.updatedAt || ''))}">UPDATED ${escapeHtml(updated)}</time></footer>
 </section>`
 }
 

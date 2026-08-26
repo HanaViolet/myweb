@@ -2208,6 +2208,7 @@ body.has-sakura-player #rightside { bottom: 100px; }
 }
 
 .about-netease__footer p { max-width: 680px; margin: 0; }
+.about-netease__source { display: inline-block; margin-left: 14px; color: #8ca89a; font-size: 8px; letter-spacing: 0.12em; }
 .about-netease__footer time { flex: 0 0 auto; color: #66736d; font-size: 8px; letter-spacing: 0.13em; }
 
 #archive {
@@ -2836,6 +2837,7 @@ html.is-mobile-device body.has-sakura-player #body-wrap {
   .about-netease__rank-artist { display: none; }
   .about-netease__ranking li em { min-width: 42px; font-size: 7px; }
   .about-netease__footer { align-items: flex-start; flex-direction: column; gap: 10px; margin-top: 22px; }
+  .about-netease__source { display: block; margin: 8px 0 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {

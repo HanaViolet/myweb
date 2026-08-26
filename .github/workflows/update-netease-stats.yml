@@ -27,7 +27,23 @@ jobs:
         with:
           node-version: 20
 
-      - name: Fetch public NetEase rankings
+      - name: Install scraper dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Locate Chromium
+        shell: bash
+        run: |
+          for candidate in /usr/bin/google-chrome-stable /usr/bin/google-chrome /usr/bin/chromium /usr/bin/chromium-browser; do
+            if [ -x "$candidate" ]; then
+              echo "NETEASE_BROWSER_PATH=$candidate" >> "$GITHUB_ENV"
+              echo "Using $candidate"
+              break
+            fi
+          done
+
+      - name: Fetch NetEase rankings
+        env:
+          NETEASE_COOKIE: ${{ secrets.NETEASE_COOKIE }}
         run: node tools/update-netease-stats.mjs
 
       - name: Commit updated data

@@ -1,39 +1,26 @@
 import { writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import {
+  durationFromTracks,
+  scrapeNeteaseProfile
+} from './netease-browser-scraper.mjs'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const outputPath = path.join(root, 'source', '_data', 'netease-stats.json')
 const userId = process.env.NETEASE_USER_ID || '1441471952'
 const profileUrl = `https://music.163.com/#/user/home?id=${userId}`
 const endpoint = (type) => `https://music.163.com/api/v1/play/record?uid=${encodeURIComponent(userId)}&type=${type}`
-const rankLimit = 20
-
-const response = await fetch(endpoint(1), {
-  headers: {
-    accept: 'application/json',
-    referer: 'https://music.163.com/',
-    'user-agent': 'Sakura-Listening-Room/1.0 (+https://sakura.luxe)'
-  }
-})
-if (!response.ok) throw new Error(`NetEase weekly request failed: ${response.status}`)
-const weeklyPayload = await response.json()
-
-const allTimeResponse = await fetch(endpoint(0), {
-  headers: {
-    accept: 'application/json',
-    referer: 'https://music.163.com/',
-    'user-agent': 'Sakura-Listening-Room/1.0 (+https://sakura.luxe)'
-  }
-})
-if (!allTimeResponse.ok) throw new Error(`NetEase all-time request failed: ${allTimeResponse.status}`)
-const allTimePayload = await allTimeResponse.json()
-
-if (!Array.isArray(weeklyPayload.weekData) || !Array.isArray(allTimePayload.allData)) {
-  throw new Error('NetEase response did not include public weekly and all-time rankings')
+const rankLimit = Number(process.env.NETEASE_RANK_LIMIT) > 0
+  ? Math.min(100, Math.round(Number(process.env.NETEASE_RANK_LIMIT)))
+  : 20
+const requestHeaders = {
+  accept: 'application/json',
+  referer: 'https://music.163.com/',
+  'user-agent': 'Sakura-Listening-Room/1.0 (+https://sakura.luxe)'
 }
 
-const normalize = (items) => (Array.isArray(items) ? items : []).slice(0, rankLimit).map((item, index) => {
+const normalise = (items) => (Array.isArray(items) ? items : []).slice(0, rankLimit).map((item, index) => {
   const song = item?.song || {}
   const artists = Array.isArray(song.ar) ? song.ar.map((artist) => artist?.name).filter(Boolean) : []
   const aliases = [
@@ -55,50 +42,157 @@ const normalize = (items) => (Array.isArray(items) ? items : []).slice(0, rankLi
   }
 })
 
-const weekly = normalize(weeklyPayload.weekData)
-const allTime = normalize(allTimePayload.allData)
-
-const durationFor = (items) => {
-  const played = items.filter((item) => item.playCount > 0 && item.durationMs > 0)
-  if (played.length === 0) {
-    return { minutes: null, available: false, tracksCounted: 0 }
+const fetchPublicRankings = async () => {
+  const [weeklyResponse, allTimeResponse] = await Promise.all([
+    fetch(endpoint(1), { headers: requestHeaders }),
+    fetch(endpoint(0), { headers: requestHeaders })
+  ])
+  if (!weeklyResponse.ok) throw new Error(`网易云周榜请求失败：${weeklyResponse.status}`)
+  if (!allTimeResponse.ok) throw new Error(`网易云总榜请求失败：${allTimeResponse.status}`)
+  const [weeklyPayload, allTimePayload] = await Promise.all([
+    weeklyResponse.json(),
+    allTimeResponse.json()
+  ])
+  if (!Array.isArray(weeklyPayload.weekData) || !Array.isArray(allTimePayload.allData)) {
+    throw new Error('网易云公开接口没有返回周榜和总榜数据')
   }
-  const milliseconds = played.reduce((sum, item) => sum + item.playCount * item.durationMs, 0)
   return {
-    minutes: Math.round(milliseconds / 60000),
-    available: true,
-    tracksCounted: played.length
+    weekly: normalise(weeklyPayload.weekData),
+    allTime: normalise(allTimePayload.allData)
   }
 }
 
-const weeklyDuration = durationFor(weekly)
-const allTimeDuration = durationFor(allTime)
-const durationAvailable = weeklyDuration.available || allTimeDuration.available
-const now = new Date()
-const notes = durationAvailable
-  ? '听歌时长由公开排行中的播放次数 × 歌曲时长计算。'
-  : '网易云公开排行接口返回了歌曲榜单，但未返回播放次数；因此暂不显示猜测的听歌时长。'
+const trackKey = (track) => track.songId
+  ? `id:${track.songId}`
+  : `title:${String(track.title || '').toLowerCase()}`
 
+const mergeTrack = (base, overlay) => ({
+  ...base,
+  ...overlay,
+  songId: overlay.songId || base.songId || null,
+  title: overlay.title || base.title || '未命名歌曲',
+  alias: overlay.alias || base.alias || '',
+  artist: overlay.artist && overlay.artist !== '未知艺人' ? overlay.artist : (base.artist || '未知艺人'),
+  album: overlay.album || base.album || '',
+  durationMs: overlay.durationMs || base.durationMs || 0,
+  playCount: overlay.playCount || base.playCount || 0,
+  score: overlay.score || base.score || null
+})
+
+const mergeRankings = (publicRows, browserRows) => {
+  if (!browserRows.length) return publicRows.slice(0, rankLimit)
+  const publicByKey = new Map(publicRows.map((row) => [trackKey(row), row]))
+  const merged = []
+  for (const row of browserRows) {
+    const key = trackKey(row)
+    merged.push(mergeTrack(publicByKey.get(key) || {}, row))
+    publicByKey.delete(key)
+  }
+  for (const row of publicRows) {
+    const key = trackKey(row)
+    if (publicByKey.has(key)) merged.push(row)
+  }
+  return merged.slice(0, rankLimit).map((row, index) => ({ ...row, rank: index + 1 }))
+}
+
+const cookieHeader = process.env.NETEASE_COOKIE?.trim() || ''
+const storageStateFile = process.env.NETEASE_STORAGE_STATE_FILE?.trim() || ''
+const browserAttempted = Boolean(cookieHeader || storageStateFile)
+let browserResult = null
+let browserError = null
+if (browserAttempted) {
+  try {
+    browserResult = await scrapeNeteaseProfile({
+      userId,
+      profileUrl,
+      cookieHeader,
+      storageStateFile,
+      browserPath: process.env.NETEASE_BROWSER_PATH || '',
+      rankLimit,
+      publicWeekly: [],
+      publicAllTime: []
+    })
+  } catch (error) {
+    browserError = error
+    console.warn(`[netease] Cookie 页面抓取失败，将使用公开接口：${error.message}`)
+  }
+}
+
+let publicRankings = { weekly: [], allTime: [] }
+let publicError = null
+const browserNeedsFallback = !browserResult || !browserResult.weekly?.length || !browserResult.allTime?.length
+if (browserNeedsFallback) {
+  try {
+    publicRankings = await fetchPublicRankings()
+  } catch (error) {
+    publicError = error
+    console.warn(`[netease] 公开接口不可用：${error.message}`)
+  }
+}
+
+if (!publicRankings.weekly.length && !publicRankings.allTime.length && !browserResult) {
+  throw publicError || browserError || new Error('网易云没有返回可用排行数据')
+}
+
+const weekly = mergeRankings(publicRankings.weekly, browserResult?.weekly || [])
+const allTime = mergeRankings(publicRankings.allTime, browserResult?.allTime || [])
+const weeklyFromTracks = durationFromTracks(weekly)
+const allTimeFromTracks = durationFromTracks(allTime)
+const browserDuration = browserResult?.duration || {}
+const weeklyDuration = weeklyFromTracks.available ? weeklyFromTracks : {
+  minutes: Number.isFinite(browserDuration.weeklyMinutes) ? browserDuration.weeklyMinutes : null,
+  available: Number.isFinite(browserDuration.weeklyMinutes),
+  tracksCounted: browserDuration.weeklyTracksCounted || 0
+}
+const allTimeDuration = allTimeFromTracks.available ? allTimeFromTracks : {
+  minutes: Number.isFinite(browserDuration.allTimeMinutes) ? browserDuration.allTimeMinutes : null,
+  available: Number.isFinite(browserDuration.allTimeMinutes),
+  tracksCounted: browserDuration.allTimeTracksCounted || 0
+}
+const durationAvailable = weeklyDuration.available || allTimeDuration.available
+const durationMessage = durationAvailable
+  ? browserResult
+    ? '听歌时长由登录后页面可见的播放次数 × 歌曲时长计算；网易云未提供时，页面不会猜测。'
+    : '听歌时长由公开排行中的播放次数 × 歌曲时长计算。'
+  : browserResult
+    ? '已读取登录页面的排行，但页面没有公开播放次数或累计时长；因此暂不显示猜测值。'
+    : '网易云公开排行接口返回了歌曲榜单，但未返回播放次数；因此暂不显示猜测的听歌时长。'
+
+const scrapeMessage = browserResult
+  ? 'Cookie 页面抓取成功；公开接口在页面抓取失败或字段缺失时回退。'
+  : browserAttempted
+    ? 'Cookie 页面抓取未成功，已回退公开接口。'
+    : '未配置 Cookie，使用公开接口。'
+
+const now = new Date()
 const result = {
   userId: String(userId),
   profileUrl,
-  source: 'NetEase Cloud Music public play record API',
+  source: browserResult
+    ? 'NetEase Cloud Music rendered profile page (Cookie) + public fallback'
+    : 'NetEase Cloud Music public play record API',
   endpoint: '/api/v1/play/record',
   updatedAt: now.toISOString(),
   timezone: 'Asia/Shanghai',
   rankLimit,
+  scrape: {
+    mode: browserResult ? 'cookie-browser+public-api' : 'public-api',
+    attempted: browserAttempted,
+    succeeded: Boolean(browserResult),
+    message: scrapeMessage
+  },
   duration: {
     weeklyMinutes: weeklyDuration.minutes,
     allTimeMinutes: allTimeDuration.minutes,
     available: durationAvailable,
     weeklyTracksCounted: weeklyDuration.tracksCounted,
     allTimeTracksCounted: allTimeDuration.tracksCounted,
-    message: notes
+    message: durationMessage
   },
   weekly,
   allTime,
-  notes
+  notes: durationMessage
 }
 
 await writeFile(outputPath, `${JSON.stringify(result, null, 2)}\n`, 'utf8')
-console.log(`Updated ${path.relative(root, outputPath)} (${weekly.length} weekly / ${allTime.length} all-time tracks).`)
+console.log(`Updated ${path.relative(root, outputPath)} (${weekly.length} weekly / ${allTime.length} all-time tracks; ${result.scrape.mode}).`)
