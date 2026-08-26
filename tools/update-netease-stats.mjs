@@ -174,27 +174,79 @@ if (cookieHeader) {
   }
 }
 
-const durationAvailable = officialDurations.available === true
-const durationFailures = [officialDurations.weekly, officialDurations.allTime]
-  .filter((result) => result?.ok !== true)
-  .map((result) => result?.message)
+const finiteMinutes = (value) => {
+  if (value === null || value === undefined || value === '') return null
+  const minutes = Number(value)
+  return Number.isFinite(minutes) && minutes >= 0 ? Math.round(minutes) : null
+}
+
+// The browser scraper reads the value printed on the authenticated NetEase
+// page (for example “本周收听时长 11 小时 19 分”). It is an exact UI total,
+// unlike the old Top-20 play-count × song-length estimate. Use it only when
+// both official weekly endpoints failed to expose a duration field.
+const browserWeeklyMinutes = finiteMinutes(
+  browserResult?.duration?.weeklyVisibleMinutes ?? browserResult?.duration?.weeklyMinutes
+)
+const browserWeeklyDuration = officialDurations.weekly?.ok === true || browserWeeklyMinutes === null
+  ? null
+  : {
+      ok: true,
+      source: 'browser-visible',
+      endpoint: 'browser-profile-visible',
+      path: 'weekly.visibleDuration',
+      unit: 'minutes',
+      rawValue: browserWeeklyMinutes,
+      minutes: browserWeeklyMinutes,
+      message: ''
+    }
+const selectedWeeklyDuration = officialDurations.weekly?.ok === true
+  ? { ...officialDurations.weekly, source: 'listen-data' }
+  : browserWeeklyDuration
+const selectedAllTimeDuration = officialDurations.allTime?.ok === true
+  ? { ...officialDurations.allTime, source: 'listen-data' }
+  : null
+
+// Never publish an impossible pair. If a newly returned candidate makes the
+// cumulative total smaller than this week's total, keep the weekly value and
+// suppress only the inconsistent cumulative candidate until the next run.
+const inconsistentDuration = Boolean(
+  selectedWeeklyDuration && selectedAllTimeDuration &&
+  finiteMinutes(selectedAllTimeDuration.minutes ?? selectedAllTimeDuration.rawValue) <
+    finiteMinutes(selectedWeeklyDuration.minutes ?? selectedWeeklyDuration.rawValue)
+)
+const allTimeDuration = inconsistentDuration
+  ? {
+      ...selectedAllTimeDuration,
+      ok: false,
+      message: '网易云累计接口返回的候选值小于本周值，已暂不显示累计时长。'
+    }
+  : selectedAllTimeDuration
+const weeklyDurationAvailable = selectedWeeklyDuration?.ok === true
+const allTimeDurationAvailable = allTimeDuration?.ok === true
+const durationAvailable = weeklyDurationAvailable || allTimeDurationAvailable
+const durationFailures = [
+  weeklyDurationAvailable ? null : (officialDurations.weekly?.message || '网易云没有返回可识别的本周总时长。'),
+  allTimeDurationAvailable ? null : (allTimeDuration?.message || officialDurations.allTime?.message)
+]
   .filter(Boolean)
-const weeklyDurationAvailable = officialDurations.weekly?.ok === true
-const allTimeDurationAvailable = officialDurations.allTime?.ok === true
 const durationMessage = weeklyDurationAvailable && allTimeDurationAvailable
-  ? `本周和累计听歌时长来自网易云“云村听歌足迹”接口。`
+  ? selectedWeeklyDuration.source === 'browser-visible'
+    ? '本周听歌时长来自登录后的网易云页面“本周收听时长”；累计时长来自网易云“云村听歌足迹”接口。'
+    : '本周和累计听歌时长来自网易云“云村听歌足迹”接口。'
   : weeklyDurationAvailable
-    ? `本周听歌时长来自网易云“云村听歌足迹”接口；累计时长暂不显示未经验证的字段。${durationFailures.join(' ')}`
+    ? selectedWeeklyDuration.source === 'browser-visible'
+      ? `本周听歌时长来自登录后的网易云页面“本周收听时长”；累计时长暂不显示未经验证的字段。${durationFailures.join(' ')}`
+      : `本周听歌时长来自网易云“云村听歌足迹”接口；累计时长暂不显示未经验证的字段。${durationFailures.join(' ')}`
     : allTimeDurationAvailable
       ? `累计听歌时长来自网易云“云村听歌足迹”接口；本周时长暂不显示未经验证的字段。${durationFailures.join(' ')}`
       : cookieHeader
-        ? `网易云“云村听歌足迹”接口暂时没有返回可识别的总时长，未使用排行估算替代。${durationFailures.join(' ')}`
+        ? `网易云“云村听歌足迹”接口和登录页面暂时没有返回可识别的本周总时长，未使用排行估算替代。${durationFailures.join(' ')}`
         : '未配置网易云 Cookie，暂不显示官方听歌时长。'
 if (cookieHeader && (!durationAvailable || durationFailures.length)) {
   console.warn(`[netease] ${durationMessage}`)
 }
 if (cookieHeader) {
-  console.log(`[netease] duration fields: weekly=${officialDurations.weekly?.path || '—'} (${officialDurations.weekly?.unit || '—'}); allTime=${officialDurations.allTime?.path || '—'} (${officialDurations.allTime?.unit || '—'})`)
+  console.log(`[netease] duration fields: weekly=${selectedWeeklyDuration?.path || '—'} (${selectedWeeklyDuration?.unit || '—'}); allTime=${allTimeDuration?.path || '—'} (${allTimeDuration?.unit || '—'})`)
 }
 
 // Keep a small, non-sensitive record of the selected field. This makes a
@@ -231,8 +283,8 @@ const scrapeMode = browserResult
   : publicCookieSucceeded
     ? 'cookie-api+public-api'
     : 'public-api'
-const finalScrapeMode = officialDurations.available
-  ? `listen-data+${scrapeMode}`
+const finalScrapeMode = durationAvailable
+  ? `${officialDurations.available ? 'listen-data' : 'profile-duration'}+${scrapeMode}`
   : scrapeMode
 
 const now = new Date()
@@ -257,21 +309,25 @@ const result = {
     message: scrapeMessage
   },
   duration: {
-    weeklyMinutes: officialDurations.weeklyMinutes,
-    allTimeMinutes: officialDurations.allTimeMinutes,
+    weeklyMinutes: weeklyDurationAvailable ? finiteMinutes(selectedWeeklyDuration.minutes ?? selectedWeeklyDuration.rawValue) : null,
+    allTimeMinutes: allTimeDurationAvailable ? finiteMinutes(allTimeDuration.minutes ?? allTimeDuration.rawValue) : null,
     available: durationAvailable,
-    source: officialDurations.available ? 'netease-listen-data' : null,
+    source: selectedWeeklyDuration?.source === 'browser-visible'
+      ? (allTimeDurationAvailable ? 'netease-listen-data+netease-profile-visible' : 'netease-profile-visible')
+      : officialDurations.available ? 'netease-listen-data' : null,
     endpoints: {
-      weekly: officialDurations.weekly?.endpoint || '/api/content/activity/listen/data/realtime/report',
-      allTime: officialDurations.allTime?.endpoint || '/api/content/activity/listen/data/total'
+      weekly: selectedWeeklyDuration?.endpoint || '/api/content/activity/listen/data/realtime/report',
+      allTime: allTimeDuration?.endpoint || '/api/content/activity/listen/data/total'
     },
     fields: {
-      weekly: durationFieldDiagnostic(officialDurations.weekly),
-      allTime: durationFieldDiagnostic(officialDurations.allTime)
+      weekly: durationFieldDiagnostic(selectedWeeklyDuration),
+      allTime: durationFieldDiagnostic(allTimeDuration)
     },
-    validation: officialDurations.validation || {
-      status: durationAvailable ? 'partial' : 'unavailable',
-      message: ''
+    validation: {
+      status: inconsistentDuration
+        ? 'inconsistent'
+        : (weeklyDurationAvailable && allTimeDurationAvailable ? 'valid' : durationAvailable ? 'partial' : 'unavailable'),
+      message: inconsistentDuration ? allTimeDuration.message : (officialDurations.validation?.message || '')
     },
     weeklyTracksCounted: 0,
     allTimeTracksCounted: 0,

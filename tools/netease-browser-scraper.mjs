@@ -156,16 +156,35 @@ const collectPayloadRankings = (payload, output, depth = 0) => {
   }
 }
 
+/**
+ * Read the exact duration printed by the logged-in NetEase page.
+ *
+ * The page usually renders a composite value such as “本周收听时长 11 小时
+ * 19 分”.  Matching the whole labelled value is important: taking only the
+ * first number was the reason the previous scraper turned 11h19m into 11h.
+ */
 const extractDurationMinutes = (text) => {
   const source = asText(text)
-  const labelled = source.match(/听歌(?:时长|时间)[^\d]{0,12}(\d+(?:\.\d+)?)(?:天|日|小时|时|分钟|分)/i)
+  const label = source.match(/(?:本周|本月|累计|总计|总共|全部)?\s*(?:听歌|收听)(?:时长|时间)|(?:累计|总计|总共|全部)\s*(?:听歌|收听)?\s*时长/i)
+  if (!label) return null
+  const tail = source.slice(label.index + label[0].length)
+  const labelled = tail.match(/((?:\d+(?:\.\d+)?\s*(?:天|日|小时|小時|时|分钟|分|秒|毫秒|days?|hours?|hrs?|minutes?|mins?|seconds?|secs?|milliseconds?|msecs?)\s*){1,5})/i)
   if (!labelled) return null
-  const value = Number(labelled[1])
-  if (!Number.isFinite(value)) return null
-  if (/天|日/.test(labelled[0])) return Math.round(value * 24 * 60)
-  if (/小时|时/.test(labelled[0])) return Math.round(value * 60)
-  return Math.round(value)
+  let minutes = 0
+  for (const match of labelled[1].matchAll(/(\d+(?:\.\d+)?)\s*(天|日|小时|小時|时|分钟|分|秒|毫秒|days?|hours?|hrs?|minutes?|mins?|seconds?|secs?|milliseconds?|msecs?)/gi)) {
+    const value = Number(match[1])
+    if (!Number.isFinite(value)) continue
+    const unit = match[2].toLowerCase()
+    if (/^(天|日|day)/i.test(unit)) minutes += value * 24 * 60
+    else if (/^(小时|小時|时|hour|hr)/i.test(unit)) minutes += value * 60
+    else if (/^(秒|second|sec)/i.test(unit)) minutes += value / 60
+    else if (/^(毫秒|millisecond|msec)/i.test(unit)) minutes += value / 60000
+    else minutes += value
+  }
+  return Number.isFinite(minutes) ? Math.round(minutes) : null
 }
+
+export { extractDurationMinutes }
 
 const extractVisibleRows = () => {
   const textOf = (element) => (element?.innerText || element?.textContent || '').replace(/\s+/g, ' ').trim()
@@ -369,6 +388,9 @@ export async function scrapeNeteaseProfile({
   const allTimeFromPayload = normaliseTracks(payloadRankings.allTime, rankLimit)
   const weekly = mergeRankings(publicWeekly, mergeRankings(browserRankings.weekly, weeklyFromPayload, rankLimit), rankLimit)
   const allTime = mergeRankings(publicAllTime, mergeRankings(browserRankings.allTime, allTimeFromPayload, rankLimit), rankLimit)
+  // Duration derived from Top-20 rows is only an estimate (and misses songs
+  // outside the returned ranking). Keep it for diagnostics, but never expose
+  // it as the account's exact listening total.
   const weeklyDuration = durationFromTracks(weekly)
   const allTimeDuration = durationFromTracks(allTime)
   const weeklyVisibleDuration = captures
@@ -380,7 +402,10 @@ export async function scrapeNeteaseProfile({
     .map((capture) => extractDurationMinutes(capture.text))
     .find((value) => value !== null) ?? extractDurationMinutes(captures.find((capture) => capture.mode === 'profile')?.text || '')
 
-  if (!weekly.length && !allTime.length) {
+  // A page layout change can hide the ranking rows while still rendering the
+  // account's labelled listening duration. Keep that exact value available to
+  // the updater instead of discarding the whole browser result.
+  if (!weekly.length && !allTime.length && weeklyVisibleDuration === null && allTimeVisibleDuration === null) {
     throw new Error('登录页面未提取到听歌排行；Cookie 可能已过期，或网易云页面结构发生变化。')
   }
 
@@ -390,9 +415,15 @@ export async function scrapeNeteaseProfile({
     weekly,
     allTime,
     duration: {
-      weeklyMinutes: weeklyDuration.available ? weeklyDuration.minutes : weeklyVisibleDuration,
-      allTimeMinutes: allTimeDuration.available ? allTimeDuration.minutes : allTimeVisibleDuration,
-      available: weeklyDuration.available || allTimeDuration.available || weeklyVisibleDuration !== null || allTimeVisibleDuration !== null,
+      // These values come from the labelled duration shown on the logged-in
+      // NetEase page, not from multiplying ranking rows by song lengths.
+      weeklyMinutes: weeklyVisibleDuration,
+      allTimeMinutes: allTimeVisibleDuration,
+      weeklyVisibleMinutes: weeklyVisibleDuration,
+      allTimeVisibleMinutes: allTimeVisibleDuration,
+      weeklyEstimatedMinutes: weeklyDuration.available ? weeklyDuration.minutes : null,
+      allTimeEstimatedMinutes: allTimeDuration.available ? allTimeDuration.minutes : null,
+      available: weeklyVisibleDuration !== null || allTimeVisibleDuration !== null,
       weeklyTracksCounted: weeklyDuration.tracksCounted,
       allTimeTracksCounted: allTimeDuration.tracksCounted
     },

@@ -253,7 +253,9 @@ const renderNeteaseStats = () => {
   const updated = stats.updatedAt ? String(stats.updatedAt).slice(0, 10) : '等待首次同步'
   const note = duration.message || stats.notes || '排行榜会由 GitHub Actions 每日同步。'
   const scrape = stats.scrape || {}
-  const sourceLabel = String(scrape.mode || '').includes('listen-data')
+  const sourceLabel = String(duration.source || '').includes('profile-visible')
+    ? 'NETEASE PROFILE DURATION + LISTEN DATA'
+    : String(scrape.mode || '').includes('listen-data')
     ? 'NETEASE LISTEN DATA + COOKIE API'
     : scrape.mode === 'cookie-api+public-api'
       ? 'COOKIE API + PUBLIC FALLBACK'

@@ -102,7 +102,7 @@ npx hexo new post "文章标题"
 
 Cloudflare Pages 负责从 GitHub 构建并发布站点，仓库本身不保存部署密钥。若将音频迁移到 R2，建议使用公开只读对象 URL，并把管理凭据放在 Cloudflare Secrets 中；不要把 API Token、私有歌单或未获授权的音频提交到公开仓库。
 
-`.github/workflows/update-netease-stats.yml` 会每天按北京时间 00:17 更新 `source/_data/netease-stats.json` 并提交变更，Cloudflare Pages 随后自动重新构建。脚本会请求公开排行；如果配置了 GitHub Actions Secret `NETEASE_COOKIE`，会优先用无头 Chrome 打开个人页，并把同一登录态传给排行接口，以读取登录后页面或接口返回的播放次数。同时，脚本会调用网易云听歌足迹的 `/api/content/activity/listen/data/realtime/report`（`type=week`）与 `/api/content/activity/listen/data/total`，只接受明确的时长字段并转换为页面展示的小时 / 分钟；其中累计接口的 `totalDuration` 是秒，不能按歌曲时长常见的毫秒处理。累计值如果小于本周值会被拒绝写入，避免把计数或其他摘要字段误当成时长。生成文件会保留脱敏的字段路径、单位和校验状态，便于接口变更时排查。Cookie 只在 Actions 运行时注入，不会写入仓库或生成数据文件；过期后删除 / 更新该 Secret 即可。
+`.github/workflows/update-netease-stats.yml` 会每天按北京时间 00:17 更新 `source/_data/netease-stats.json` 并提交变更，Cloudflare Pages 随后自动重新构建。脚本会请求公开排行；如果配置了 GitHub Actions Secret `NETEASE_COOKIE`，会优先用无头 Chrome 打开个人页，并把同一登录态传给排行接口，以读取登录后页面或接口返回的播放次数。同时，脚本会调用网易云听歌足迹的 `/api/content/activity/listen/data/realtime/report`（`type=week`），若该响应没有可识别的聚合字段，再调用同一登录态的 `/api/content/activity/listen/data/report` 作为官方备用；累计值来自 `/api/content/activity/listen/data/total`。如果两个周接口都没有字段，脚本会读取登录页面明确展示的“本周收听时长”（支持“11 小时 19 分”等组合格式），不会再使用 Top 20 播放次数估算冒充总时长。累计接口的 `totalDuration` 是秒，不能按歌曲时长常见的毫秒处理；累计值如果小于本周值会被拒绝写入。生成文件会保留脱敏的字段路径、单位和校验状态，便于接口变更时排查。Cookie 只在 Actions 运行时注入，不会写入仓库或生成数据文件；过期后删除 / 更新该 Secret 即可。
 
 `.github/workflows/update-netease-comments.yml` 会每周按北京时间周日 00:31 更新 `source/_data/netease-comments.json`。它按 `tracks.json` 中的 `neteaseId` 请求热门评论，每首只缓存少量摘录，并保留网易云歌曲页链接；请求失败时会继续展示上一次缓存，不会让构建中断。评论内容来自网易云公开页面 / 接口，页面只展示必要的署名、获赞数和日期。
 
@@ -114,7 +114,7 @@ Cloudflare Pages 负责从 GitHub 构建并发布站点，仓库本身不保存�
 
 1. 在浏览器登录网易云音乐，只复制自己账号的 Cookie 请求头内容，不要把 Cookie 发到聊天或提交到 Git。
 2. 打开 GitHub 仓库的 **Settings → Secrets and variables → Actions**，新建 Secret，名称填写 `NETEASE_COOKIE`，值粘贴 Cookie 内容。
-3. 手动运行 `Update NetEase listening stats`，确认生成的 `netease-stats.json` 中 `duration.source` 为 `netease-listen-data` 且 `duration.available` 为 `true`，并检查 `duration.validation.status` 为 `valid`。如果接口字段发生变化、返回值不一致或暂时不可用（例如 Cookie 过期或账号权限限制），对应指标会显示 `—`，不会用 Top 20 播放次数估算冒充总时长；Actions 日志只出现字段摘要，不会打印 Cookie。
+3. 手动运行 `Update NetEase listening stats`，确认生成的 `netease-stats.json` 中 `duration.available` 为 `true`，并检查 `duration.weeklyMinutes` 与 `duration.allTimeMinutes`。两项都由官方接口返回时 `duration.source` 为 `netease-listen-data`；周接口缺字段但登录页面可见时，`duration.source` 会标记为 `netease-profile-visible`（或与累计接口组合的来源）。如果接口字段发生变化、页面抓取失败或 Cookie 过期，对应指标会显示 `—`，不会用 Top 20 播放次数估算冒充总时长；Actions 日志只出现字段摘要，不会打印 Cookie。
 
 本地运行时可临时设置环境变量 `NETEASE_COOKIE`（PowerShell 示例：`$env:NETEASE_COOKIE = '这里粘贴 Cookie'`，运行后用 `Remove-Item Env:NETEASE_COOKIE` 清除），也可以设置 `NETEASE_STORAGE_STATE_FILE` 指向 Playwright 的登录态 JSON；这些文件已加入 `.gitignore`。需要自定义 Chrome 路径时设置 `NETEASE_BROWSER_PATH`。脚本只读取登录态可访问的网易云页面与听歌足迹数据，不绕过登录、付费或访问控制；如果接口没有返回官方总时长，会明确保留“暂不可读”，不会用猜测值冒充听歌时长。
 

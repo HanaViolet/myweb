@@ -127,8 +127,8 @@ const fetchJson = async (uri, data, cookieMap, timeoutMs) => {
 
 const keyText = (value) => String(value ?? '').toLowerCase()
 const compactKey = (value) => keyText(value).replace(/[^a-z0-9\u4e00-\u9fff]/g, '')
-const durationContextPattern = /(listen|duration|time|week|weekly|month|monthly|total|alltime|overall|history|cumulative|report)/i
-const nonDurationPattern = /(song|count|number|days?|rank|score|percent|rate|id|timestamp|date|starttime|endtime|updatetime|createtime)/i
+const durationContextPattern = /(listen|duration|time|week|weekly|month|monthly|total|alltime|overall|history|cumulative|report|听歌|收听|时长|时间|本周|本月|累计|总计)/i
+const nonDurationPattern = /(song|count|number|rank|score|percent|rate|id|timestamp|starttime|endtime|updatetime|createtime)/i
 
 // These are the names used by the listen-data APIs (and by a few versions
 // of the mobile client). Generic keys such as `total`, `time`, `value`, or
@@ -138,11 +138,13 @@ const explicitDurationKey = (key) => {
   const name = compactKey(key)
   if (!name) return false
   return [
+    /^(?:听歌|收听)(?:时长|时间|分钟|分|小时|时|秒|毫秒)$/,
+    /^(?:本周|本月|累计|总计|总共|全部)(?:听歌|收听)?(?:时长|时间)$/,
     /^listen(?:ing|ed)?(?:time|duration|minutes?|seconds?|milliseconds?|hours?)$/,
     /^total(?:listen(?:ing|ed)?(?:time|duration)?|duration(?:minutes?|seconds?|milliseconds?|hours?)?|time|minutes?|seconds?|milliseconds?|hours?)$/,
     /^(?:weekly|week|current|monthly|month)(?:listen(?:ing|ed)?(?:time|duration)?|duration(?:minutes?|seconds?|milliseconds?|hours?)?|time|minutes?|seconds?|milliseconds?|hours?)$/,
     /^(?:alltime|overall|cumulative|history)(?:listen(?:ing|ed)?(?:time|duration)?|duration(?:minutes?|seconds?|milliseconds?|hours?)?|time|minutes?|seconds?|milliseconds?|hours?)$/,
-    /^duration(?:minutes?|seconds?|milliseconds?|hours?)$/,
+    /^duration(?:minutes?|seconds?|milliseconds?|hours?)?$/,
     /^(?:hours?|minutes?|seconds?|milliseconds?|小时|小時|时|分钟|分|秒|毫秒)$/
   ].some((pattern) => pattern.test(name))
 }
@@ -228,9 +230,26 @@ const durationCandidate = (value, key, path, period, unitHint = '') => {
   // A labelled value such as "11小时19分" is self-describing, but still
   // needs to live below a listen/duration object so ordinary prose and dates
   // cannot be selected accidentally.
-  const hasContext = durationContextPattern.test(compactKey(path.join('.')))
-  if (rank < 0 && (!(parsed.unit === 'labelled' || parsed.unit === 'clock') || !hasContext)) return null
-  return { ...parsed, rank, path: [...path, key].join('.'), rawValue: value }
+  const fullPath = [...path, key]
+  const hasContext = durationContextPattern.test(compactKey(fullPath.join('.')))
+  // A few responses use a short period key (`week`, `current`, `total`) and
+  // put the self-describing value next to it (for example `11小时19分`).
+  // Allow that labelled value while continuing to reject unlabelled numbers
+  // under generic keys such as `value` or `time`.
+  const labelledWithContext = (parsed.unit === 'labelled' || parsed.unit === 'clock') && hasContext
+  if (rank < 0 && !labelledWithContext) return null
+  return { ...parsed, rank: rank < 0 ? 25 : rank, path: fullPath.join('.'), rawValue: value }
+}
+
+const normaliseArrayPath = (path) => path.replace(/(?:^|\.)\d+(?=\.|$)/g, '')
+
+const isDurationArray = (value, path, elementCandidates) => {
+  if (elementCandidates.length < 2) return false
+  const parent = compactKey(path.join('.'))
+  const hasReportContext = /(daily|day|date|detail|trend|report|listen|duration|history|timeline)/i.test(parent)
+  const hasDateMetadata = value.every((item) => item && typeof item === 'object' && !Array.isArray(item) &&
+    Object.keys(item).some((key) => /^(?:date|day|weekday|timestamp|time|period|日期|日期时间|星期|时间)$/i.test(key)))
+  return hasReportContext || hasDateMetadata
 }
 
 const collectDurationCandidates = (value, path, period, output, unitHint = '') => {
@@ -241,7 +260,35 @@ const collectDurationCandidates = (value, path, period, output, unitHint = '') =
     if (candidate) output.push(candidate)
     return
   }
-  if (Array.isArray(value)) return
+  if (Array.isArray(value)) {
+    const flattened = []
+    const perElement = []
+    for (const [index, child] of value.entries()) {
+      const candidates = []
+      collectDurationCandidates(child, [...path, String(index)], period, candidates, unitHint)
+      flattened.push(...candidates)
+      if (candidates.length) {
+        candidates.sort((left, right) => right.rank - left.rank || left.path.length - right.path.length)
+        perElement.push(candidates[0])
+      }
+    }
+    if (isDurationArray(value, path, perElement)) {
+      const normalisedPaths = new Set(perElement.map((candidate) => normaliseArrayPath(candidate.path)))
+      if (normalisedPaths.size === 1) {
+        const minutes = perElement.reduce((sum, candidate) => sum + candidate.minutes, 0)
+        output.push({
+          minutes: Math.round(minutes),
+          unit: 'aggregate',
+          rank: Math.max(...perElement.map((candidate) => candidate.rank)) + 10,
+          path: `${path.join('.') || 'duration'}.aggregate`,
+          rawValue: perElement.map((candidate) => candidate.rawValue)
+        })
+        return
+      }
+    }
+    output.push(...flattened)
+    return
+  }
   if (typeof value !== 'object') return
   const localUnit = value.unit || value.timeUnit || value.durationUnit || value.listenTimeUnit || unitHint
   const numericField = (names) => {
@@ -290,6 +337,7 @@ export const extractListenDuration = (payload, period = 'weekly', { minimumMinut
 
 const endpointInfo = {
   weekly: '/api/content/activity/listen/data/realtime/report',
+  weeklyReport: '/api/content/activity/listen/data/report',
   allTime: '/api/content/activity/listen/data/total'
 }
 
@@ -309,11 +357,19 @@ export const fetchOfficialListenDurations = async (rawCookie, { timeoutMs = DEFA
     }
   }
 
-  const [weeklyResponse, allTimeResponse] = await Promise.all([
+  const [weeklyResponse, weeklyReportResponse, allTimeResponse] = await Promise.all([
     fetchJson(endpointInfo.weekly, { type: 'week' }, cookieMap, timeoutMs),
+    // Some account/client combinations return an empty realtime report while
+    // the regular weekly report still contains the exact aggregate duration.
+    // Both routes are first-party NetEase listen-data endpoints and use the
+    // same authenticated Cookie.
+    fetchJson(endpointInfo.weeklyReport, { type: 'week' }, cookieMap, timeoutMs),
     fetchJson(endpointInfo.allTime, {}, cookieMap, timeoutMs)
   ])
-  const weekly = weeklyResponse.ok ? extractListenDuration(weeklyResponse.payload, 'weekly') : null
+  const weeklyPrimary = weeklyResponse.ok ? extractListenDuration(weeklyResponse.payload, 'weekly') : null
+  const weeklyFallback = weeklyReportResponse.ok ? extractListenDuration(weeklyReportResponse.payload, 'weekly') : null
+  const weekly = weeklyPrimary || weeklyFallback
+  const weeklyEndpointUsed = weeklyPrimary ? endpointInfo.weekly : endpointInfo.weeklyReport
   const allTimeCandidate = allTimeResponse.ok
     ? extractListenDuration(allTimeResponse.payload, 'allTime', { minimumMinutes: weekly?.minutes ?? null })
     : null
@@ -332,11 +388,13 @@ export const fetchOfficialListenDurations = async (rawCookie, { timeoutMs = DEFA
     },
     weekly: {
       ok: Boolean(weekly),
-      endpoint: endpointInfo.weekly,
+      endpoint: weeklyEndpointUsed,
       path: weekly?.path || '',
       unit: weekly?.unit || '',
       rawValue: weekly?.rawValue ?? null,
-      message: weekly ? '' : (weeklyResponse.message || '网易云没有返回可识别的本周总时长。')
+      message: weekly
+        ? ''
+        : (weeklyResponse.message || weeklyReportResponse.message || '网易云没有返回可识别的本周总时长。')
     },
     allTime: {
       ok: Boolean(allTime),
