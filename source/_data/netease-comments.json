@@ -1,0 +1,233 @@
+{
+  "source": "NetEase Cloud Music hot comments API",
+  "endpoint": "/api/v1/resource/comments/R_SO_4_{songId}",
+  "updatedAt": "2026-08-26T06:07:17.400Z",
+  "timezone": "Asia/Shanghai",
+  "commentLimit": 3,
+  "tracks": {
+    "music": {
+      "trackId": "music",
+      "songId": 1357953768,
+      "title": "所以我放弃了音乐",
+      "artist": "YORUSHIKA",
+      "titleJa": "だから僕は音楽を辞めた",
+      "comments": [
+        {
+          "commentId": 1485315095,
+          "nickname": "Kiba穆年",
+          "content": "だから僕は宿題を辞めた\n（所以我放弃了作业）",
+          "likedCount": 61928,
+          "date": "2019-05-11"
+        },
+        {
+          "commentId": 1448351769,
+          "nickname": "拿橙之夏",
+          "content": "拿终于没有让一专辑死一堆人了，而是让一个人用了一专辑来死去[大哭]",
+          "likedCount": 32909,
+          "date": "2019-04-11"
+        },
+        {
+          "commentId": 1460473413,
+          "nickname": "地铁强子对撞机",
+          "content": "だから僕は钱包を辞めた",
+          "likedCount": 22553,
+          "date": "2019-04-22"
+        }
+      ],
+      "sourceUrl": "https://music.163.com/#/song?id=1357953768",
+      "endpoint": "https://music.163.com/api/v1/resource/comments/R_SO_4_1357953768?limit=20&offset=0",
+      "matchedBy": "track-data",
+      "mode": "fresh",
+      "error": "",
+      "updatedAt": "2026-08-26T06:07:12.134Z"
+    },
+    "kajin": {
+      "trackId": "kajin",
+      "songId": 1466519473,
+      "title": "花人局",
+      "artist": "YORUSHIKA",
+      "titleJa": "花人局",
+      "comments": [
+        {
+          "commentId": 3443836480,
+          "nickname": "云村用户264018",
+          "content": "n-buna：这是由“美人局”一词而演变来的自造词。所谓“美人局”，就是是早上醒来被身边突然出现的女人骗取金钱（中国俗称仙人跳）。而“花人局”是指早上起来反而发现身边谁都不在，却只留下了谁人曾经待过的痕迹。用来指代给自己人生带来花(华彩)并消失掉的人…",
+          "likedCount": 4117,
+          "date": "2020-09-04"
+        },
+        {
+          "commentId": 3397335609,
+          "nickname": "八重神子",
+          "content": "新专都好好听，但是我还是最喜欢花人局，这首太绝了我太喜欢了！",
+          "likedCount": 1656,
+          "date": "2020-07-29"
+        },
+        {
+          "commentId": 3396106514,
+          "nickname": "宋邋遢-Sonata-",
+          "content": "讲个有意思的。试听刚出来时，与其他曲目下面成片的赞美声不同，这首下面比较多的是调侃意味的“青春3.0”“emy2.0”。但全曲放出来后个人感觉这首整体素质排这专前三是没有问题的！\n花持たせ，自己丝毫不逊色，却把赞赏都让给他人，在某种意义上也是点题了。",
+          "likedCount": 1246,
+          "date": "2020-07-29"
+        }
+      ],
+      "sourceUrl": "https://music.163.com/#/song?id=1466519473",
+      "endpoint": "https://music.163.com/api/v1/resource/comments/R_SO_4_1466519473?limit=20&offset=0",
+      "matchedBy": "track-data",
+      "mode": "fresh",
+      "error": "",
+      "updatedAt": "2026-08-26T06:07:13.178Z"
+    },
+    "oldman": {
+      "trackId": "oldman",
+      "songId": 1870469768,
+      "title": "老人与海",
+      "artist": "YORUSHIKA",
+      "titleJa": "老人と海",
+      "comments": [
+        {
+          "commentId": 5395510597,
+          "nickname": "空气弥漫爱意于是我戴上防毒面具",
+          "content": "凭借我多年听日语歌和看日漫的经验，我居然翻译出了，这首歌的歌名！！！！啊啊啊啊！！我好厉害，我厉害死了！！！",
+          "likedCount": 43863,
+          "date": "2021-08-18"
+        },
+        {
+          "commentId": 5395679420,
+          "nickname": "MelanyLin",
+          "content": "ヨルシカ：将诗歌音乐化　　                       YOASOBI ：将小说音乐化                                      真夜中:将动画音乐化",
+          "likedCount": 24621,
+          "date": "2021-08-18"
+        },
+        {
+          "commentId": 5926339969,
+          "nickname": "川花花花",
+          "content": "“摘耳机是新世纪的脱帽礼。”",
+          "likedCount": 20215,
+          "date": "2023-06-18"
+        }
+      ],
+      "sourceUrl": "https://music.163.com/#/song?id=1870469768",
+      "endpoint": "https://music.163.com/api/v1/resource/comments/R_SO_4_1870469768?limit=20&offset=0",
+      "matchedBy": "track-data",
+      "mode": "fresh",
+      "error": "",
+      "updatedAt": "2026-08-26T06:07:14.233Z"
+    },
+    "odoriko": {
+      "trackId": "odoriko",
+      "songId": 1888864514,
+      "title": "踊り子",
+      "artist": "VAUNDY",
+      "titleJa": "踊り子",
+      "comments": [
+        {
+          "commentId": 5663101783,
+          "nickname": "瓦次run味日有",
+          "content": "居然能在一首歌里听出面无表情这个词。",
+          "likedCount": 29328,
+          "date": "2022-05-17"
+        },
+        {
+          "commentId": 5461250690,
+          "nickname": "Akaiyume-",
+          "content": "《关于我喜欢的冷门歌手出新歌封面是小松菜奈这件事》",
+          "likedCount": 19533,
+          "date": "2021-11-17"
+        },
+        {
+          "commentId": 5894590459,
+          "nickname": "退後y",
+          "content": "对于普通家庭的孩子来说，青春疼痛根本不是浮夸的三角恋、乐队、和街头黑道。真正疼痛的是青春期的肥胖，体育课腋下的汗水，找不到伴的午餐，不敢递给父母的试卷，班主任无意间的羞辱，就连青春都是懦弱，能够喜欢一个人都是好不容易，像我这样的人，很渺小很渺小的人，早对生活停止了期望。",
+          "likedCount": 17745,
+          "date": "2023-04-22"
+        }
+      ],
+      "sourceUrl": "https://music.163.com/#/song?id=1888864514",
+      "endpoint": "https://music.163.com/api/v1/resource/comments/R_SO_4_1888864514?limit=20&offset=0",
+      "matchedBy": "track-data",
+      "mode": "fresh",
+      "error": "",
+      "updatedAt": "2026-08-26T06:07:15.281Z"
+    },
+    "highway": {
+      "trackId": "highway",
+      "songId": 26217033,
+      "title": "Highway Driving Car",
+      "artist": "ETSUCO",
+      "titleJa": "Highway Driving Car",
+      "comments": [
+        {
+          "commentId": 231408889,
+          "nickname": "二宫_",
+          "content": "歌手百度:etsuco是日本女歌手，虽然只有144cm的身高，但是却有用惊人的演唱实力。出生三重县的她，现在集中经历在东海三县的LIVE上。嘛！不管怎样，这个声音很好听不是么？[憨笑]",
+          "likedCount": 13737,
+          "date": "2016-10-17"
+        },
+        {
+          "commentId": 251804120,
+          "nickname": "熊裁缝",
+          "content": "今天郑州下雪❄️了…考研党走在回寝室的路上看到一只手套，心想丢的人一定会回来找，便拿着手套往前走 果然看到一个女孩逆着人流在找东西…我手往前一伸 女孩笑了起来！尽管是帮到了别人一件小事，也会在这个寒冷的冬天感受到一丝温暖 [吐舌][吐舌]",
+          "likedCount": 10757,
+          "date": "2016-11-22"
+        },
+        {
+          "commentId": 340858121,
+          "nickname": "风人疯语",
+          "content": "日语愣生生唱出英语的感觉……",
+          "likedCount": 8255,
+          "date": "2017-03-28"
+        }
+      ],
+      "sourceUrl": "https://music.163.com/#/song?id=26217033",
+      "endpoint": "https://music.163.com/api/v1/resource/comments/R_SO_4_26217033?limit=20&offset=0",
+      "matchedBy": "track-data",
+      "mode": "fresh",
+      "error": "",
+      "updatedAt": "2026-08-26T06:07:16.335Z"
+    },
+    "sss": {
+      "trackId": "sss",
+      "songId": 1967786901,
+      "title": "S.S.S.",
+      "artist": "佐藤千亜妃",
+      "titleJa": "S.S.S.",
+      "comments": [
+        {
+          "commentId": 5892744188,
+          "nickname": "冰啡走",
+          "content": "原谅我 全等三角形 对应边相等SSS",
+          "likedCount": 8513,
+          "date": "2023-04-18"
+        },
+        {
+          "commentId": 5882595930,
+          "nickname": "Leiounad",
+          "content": "在村东头的一家山东煎饼铺子听到的，大蒜加辣椒burning，初秋的早晨",
+          "likedCount": 5576,
+          "date": "2023-04-03"
+        },
+        {
+          "commentId": 5998983126,
+          "nickname": "凉茶只喝加多宝a",
+          "content": "日推这个歌曲的点我一下！",
+          "likedCount": 4026,
+          "date": "2023-10-30"
+        }
+      ],
+      "sourceUrl": "https://music.163.com/#/song?id=1967786901",
+      "endpoint": "https://music.163.com/api/v1/resource/comments/R_SO_4_1967786901?limit=20&offset=0",
+      "matchedBy": "track-data",
+      "mode": "fresh",
+      "error": "",
+      "updatedAt": "2026-08-26T06:07:17.400Z"
+    }
+  },
+  "scrape": {
+    "mode": "public-api",
+    "cookieProvided": false,
+    "freshTracks": 6,
+    "cachedTracks": 0,
+    "failedTracks": 0
+  },
+  "notes": "每周从网易云公开热门评论中缓存少量摘录；Cookie 只在 GitHub Actions 运行时使用，不会写入数据文件。"
+}

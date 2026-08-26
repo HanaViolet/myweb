@@ -762,6 +762,105 @@ body::before {
   font-size: 12px;
 }
 
+.track-comments {
+  margin-top: 34px;
+  padding-top: 25px;
+  border-top: 1px solid rgba(185, 216, 194, 0.18);
+}
+
+.track-comments__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.track-comments__header span,
+.track-comments__header time {
+  color: #73817a;
+  font-size: 8px;
+  letter-spacing: 0.16em;
+}
+
+.track-comments__header strong {
+  display: block;
+  margin-top: 9px;
+  color: var(--midnight-text);
+  font-family: var(--midnight-serif);
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.track-comments__header time {
+  flex: 0 0 auto;
+  color: #66736d;
+  font-size: 7px;
+  white-space: nowrap;
+}
+
+.track-comments__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.track-comments blockquote {
+  min-width: 0;
+  margin: 0;
+  padding: 17px 18px 14px;
+  border: 1px solid rgba(185, 216, 194, 0.16);
+  border-left: 2px solid rgba(185, 216, 194, 0.58);
+  background: rgba(185, 216, 194, 0.035);
+}
+
+.track-comments blockquote p {
+  margin: 0;
+  color: #c9d5ce;
+  font-family: var(--midnight-sans);
+  font-size: 13px;
+  line-height: 1.8;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.track-comments blockquote footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 14px;
+  color: #718078;
+  font-size: 9px;
+  letter-spacing: 0.04em;
+}
+
+.track-comments blockquote footer span:last-child {
+  color: #8ca89a;
+  white-space: nowrap;
+}
+
+.track-comments__empty {
+  margin: 18px 0 0;
+  color: #77847e;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.track-comments__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+  color: #8ca89a;
+  font-size: 8px;
+  letter-spacing: 0.14em;
+}
+
+.track-comments__link:hover {
+  color: var(--midnight-text);
+}
+
 .listening-note__actions {
   display: flex;
   gap: 12px;
@@ -2369,6 +2468,13 @@ body.has-sakura-player #rightside { bottom: 100px; }
   .midnight-section-title { gap: 18px; }
   .listening-note { padding: 28px 22px; }
   .listening-note__about { font-size: 13px; }
+  .track-comments { margin-top: 28px; padding-top: 22px; }
+  .track-comments__header { align-items: flex-start; flex-direction: column; gap: 8px; }
+  .track-comments__header strong { margin-top: 7px; font-size: 18px; }
+  .track-comments__list { grid-template-columns: 1fr; margin-top: 15px; }
+  .track-comments blockquote { padding: 15px 15px 13px; }
+  .track-comments blockquote:nth-child(n + 2) { display: none; }
+  .track-comments blockquote p { font-size: 12px; }
   .listening-note__actions { align-items: stretch; flex-direction: column; }
   .sakura-player {
     height: calc(116px + env(safe-area-inset-bottom, 0px));

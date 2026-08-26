@@ -39,6 +39,7 @@ npm run listening:chart
 
 - `source/_data/tracks.json`：选曲元数据（日文标题、中文标题、专辑信息、短笺和音频路径）。
 - `source/music/`：本地播放器使用的音频文件；只应提交你拥有或获准发布的音频，后续可迁移到 Cloudflare R2。
+- `source/_data/netease-comments.json`：每首选曲缓存的少量网易云热门评论；首页切换歌曲时会显示对应热评，并提供原页面链接。
 - `source/_data/netease-stats.json`：网易云同步的每周 / 总榜前 20 首歌曲；关于我页面会自动读取它。默认走公开接口，配置 Cookie 后会优先读取登录页面可见数据。
 - 网易云完整歌单：[Sakura 的收藏歌单](https://music.163.com/#/playlist?id=2203036705)。
 - 网易云个人页：[Sakura 的听歌排行](https://music.163.com/#/user/home?id=1441471952)。
@@ -85,6 +86,7 @@ npm run build         # 生成 public/
 npm run clean         # 清理生成目录
 npm run listening:chart # 从歌曲数据与音频文件生成 docs/listening-archive.svg
 npm run netease:update  # 同步网易云周榜 / 总榜（可选 Cookie 页面抓取）
+npm run netease:comments # 手动同步选曲的网易云热门评论
 python compress.py    # 按脚本说明压缩图片资源
 ```
 
@@ -101,6 +103,10 @@ npx hexo new post "文章标题"
 Cloudflare Pages 负责从 GitHub 构建并发布站点，仓库本身不保存部署密钥。若将音频迁移到 R2，建议使用公开只读对象 URL，并把管理凭据放在 Cloudflare Secrets 中；不要把 API Token、私有歌单或未获授权的音频提交到公开仓库。
 
 `.github/workflows/update-netease-stats.yml` 会每天按北京时间 00:17 更新 `source/_data/netease-stats.json` 并提交变更，Cloudflare Pages 随后自动重新构建。脚本先请求公开排行作为保底；如果配置了 GitHub Actions Secret `NETEASE_COOKIE`，还会用无头 Chrome 打开个人页，读取登录后页面实际显示的排行和播放次数。Cookie 只在 Actions 运行时注入，不会写入仓库或生成数据文件；过期后删除 / 更新该 Secret 即可。
+
+`.github/workflows/update-netease-comments.yml` 会每周按北京时间周日 00:31 更新 `source/_data/netease-comments.json`。它按 `tracks.json` 中的 `neteaseId` 请求热门评论，每首只缓存少量摘录，并保留网易云歌曲页链接；请求失败时会继续展示上一次缓存，不会让构建中断。评论内容来自网易云公开页面 / 接口，页面只展示必要的署名、获赞数和日期。
+
+热评抓取的资源路径与流程参考了 [《抓取网易云音乐热门评论》](https://chengjun.github.io/mybook/04-crawler-netease-music.html)；本项目改为在 Actions 中低频执行并生成静态数据，避免访客浏览器直接请求网易云。
 
 ### 配置 Cookie 页面抓取（可选）
 

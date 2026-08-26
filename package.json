@@ -8,7 +8,8 @@
     "deploy": "hexo deploy",
     "server": "hexo server",
     "listening:chart": "node tools/generate-listening-chart.mjs",
-    "netease:update": "node tools/update-netease-stats.mjs"
+    "netease:update": "node tools/update-netease-stats.mjs",
+    "netease:comments": "node tools/update-netease-comments.mjs"
   },
   "hexo": {
     "version": "8.1.1"

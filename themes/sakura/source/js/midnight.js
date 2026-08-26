@@ -47,6 +47,35 @@
     '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
   }[character]))
 
+  const formatCommentLikes = (value) => {
+    const number = Number(value)
+    if (!Number.isFinite(number) || number <= 0) return '—'
+    if (number >= 10000) {
+      const digits = number >= 100000 ? 0 : 1
+      return `${(number / 10000).toFixed(digits)}万`
+    }
+    return new Intl.NumberFormat('zh-CN').format(number)
+  }
+
+  const renderTrackComments = (track) => {
+    const payload = track?.neteaseComments || {}
+    const comments = Array.isArray(payload.comments) ? payload.comments.slice(0, 3) : []
+    const updated = payload.updatedAt ? String(payload.updatedAt).slice(0, 10) : ''
+    const commentItems = comments.map((comment) => `
+        <blockquote>
+          <p>${escapeHtml(comment.content || '')}</p>
+          <footer><span>${escapeHtml(comment.nickname || '网易云听众')}</span><span>♥ ${escapeHtml(formatCommentLikes(comment.likedCount))}</span></footer>
+        </blockquote>`).join('')
+    const safeUrl = /^https:\/\/music\.163\.com\//.test(String(payload.sourceUrl || ''))
+      ? String(payload.sourceUrl)
+      : 'https://music.163.com/'
+    return `<section class="track-comments" aria-label="${escapeHtml(track.title)} 网易云热门评论">
+      <header class="track-comments__header"><div><span>NETEASE CLOUD / HOT COMMENTS</span><strong>听众留下的话</strong></div><time>${updated ? `UPDATED ${escapeHtml(updated)}` : 'WAITING FOR NEXT SYNC'}</time></header>
+      ${commentItems ? `<div class="track-comments__list">${commentItems}</div>` : '<p class="track-comments__empty">这首歌的热评会在下一次同步后出现。</p>'}
+      <a class="track-comments__link" href="${escapeHtml(safeUrl)}" target="_blank" rel="noopener">VIEW ON NETEASE <span aria-hidden="true">↗</span></a>
+    </section>`
+  }
+
   const initPlayer = () => {
     const root = document.querySelector('#sakura-player')
     if (!root || root.dataset.ready) return window.__sakuraPlayer
@@ -429,6 +458,7 @@
         <h3>${escapeHtml(track.title)}</h3>
         <p class="listening-note__about">${escapeHtml(track.about)}</p>
         <blockquote><span>聆听札记 · 非原歌词</span><p lang="ja">${escapeHtml(track.noteJa)}</p><p>${escapeHtml(track.noteZh)}</p></blockquote>
+        ${renderTrackComments(track)}
         <div class="listening-note__actions"><button type="button" data-detail-play="${track.id}">PLAY FULL TRACK <span>▶</span></button><a href="${NETEASE_PLAYLIST_URL}" target="_blank" rel="noopener">NETEASE PLAYLIST ↗</a></div>
       </div>`
     detail.classList.add('is-changing')

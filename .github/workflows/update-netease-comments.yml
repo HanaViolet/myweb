@@ -1,0 +1,49 @@
+name: Update NetEase hot comments
+
+on:
+  schedule:
+    # 00:31 Asia/Shanghai (UTC+8), once per week.
+    - cron: '31 16 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: netease-comments
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Fetch NetEase hot comments
+        env:
+          NETEASE_COOKIE: ${{ secrets.NETEASE_COOKIE }}
+        run: npm run netease:comments
+
+      - name: Commit updated comments
+        shell: bash
+        run: |
+          if git diff --quiet -- source/_data/netease-comments.json; then
+            echo "No NetEase comment changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add source/_data/netease-comments.json
+          git commit -m "chore: update NetEase hot comments"
+          git push
