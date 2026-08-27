@@ -1237,6 +1237,63 @@ body.has-sakura-player #rightside { bottom: 100px; }
   -webkit-line-clamp: 3;
 }
 
+.midnight-archive-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  margin-top: clamp(70px, 9vw, 120px);
+  padding: 26px 0 24px;
+  border-top: 1px solid var(--midnight-line);
+  border-bottom: 1px solid var(--midnight-line);
+}
+
+.midnight-archive-cta__copy {
+  display: flex;
+  align-items: baseline;
+  gap: 22px;
+}
+
+.midnight-archive-cta__copy span {
+  color: var(--midnight-accent);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  white-space: nowrap;
+}
+
+.midnight-archive-cta__copy p {
+  margin: 0;
+  color: var(--midnight-muted);
+  font-family: var(--midnight-serif);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.midnight-archive-cta > a {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 22px;
+  padding: 13px 0;
+  border-bottom: 1px solid rgba(237, 240, 232, 0.42);
+  color: var(--midnight-text);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  transition: color 180ms ease, gap 180ms ease, border-color 180ms ease;
+}
+
+.midnight-archive-cta > a:hover {
+  gap: 30px;
+  border-color: var(--midnight-accent);
+  color: var(--midnight-accent);
+}
+
+.midnight-archive-cta > a i {
+  font-size: 15px;
+  font-style: normal;
+  line-height: 1;
+}
+
 .midnight-coda {
   padding: clamp(90px, 11vw, 170px) 0;
   overflow: hidden;
@@ -2564,6 +2621,16 @@ body.has-sakura-player #rightside { bottom: 100px; }
   .listening-collection { grid-template-columns: 36px minmax(0, 1fr); }
   .listening-collection__open { display: none; }
   .midnight-section-title { gap: 18px; }
+  .midnight-archive-cta {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 64px;
+    padding: 22px 0 20px;
+  }
+  .midnight-archive-cta__copy { align-items: flex-start; flex-direction: column; gap: 8px; }
+  .midnight-archive-cta__copy p { font-size: 13px; }
+  .midnight-archive-cta > a { width: 100%; justify-content: space-between; }
   .listening-note { padding: 28px 22px; }
   .listening-note__about { font-size: 13px; }
   .track-comments { margin-top: 28px; padding-top: 22px; }

@@ -173,6 +173,51 @@ const HOME_CODA = `
     <figure><img src="/img/gallery/花鸟11.jpg" alt="相册中的花鸟片段" loading="lazy"><figcaption>FRAME / 04</figcaption></figure>
   </div>
 </section>
+<script data-sakura-gallery-init>
+(function () {
+  var strip = document.querySelector('[data-random-gallery]')
+  var pool = Array.isArray(window.__SAKURA_GALLERY)
+    ? window.__SAKURA_GALLERY.filter(function (item) { return item && typeof item.src === 'string' && item.src })
+    : []
+  var frames = strip ? Array.prototype.slice.call(strip.querySelectorAll('figure')) : []
+  if (!strip || !pool.length || !frames.length) return
+
+  var previous = ''
+  try { previous = window.sessionStorage.getItem('sakura-gallery-selection-v1') || '' } catch (_) {}
+  var shuffled = pool.slice()
+  var selectionKey = ''
+  for (var attempt = 0; attempt < 10; attempt += 1) {
+    shuffled = pool.slice()
+    for (var index = shuffled.length - 1; index > 0; index -= 1) {
+      var randomIndex = Math.floor(Math.random() * (index + 1))
+      var current = shuffled[index]
+      shuffled[index] = shuffled[randomIndex]
+      shuffled[randomIndex] = current
+    }
+    selectionKey = shuffled.slice(0, frames.length).map(function (item) { return item.src }).join('|')
+    if (selectionKey !== previous || pool.length <= frames.length) break
+  }
+
+  frames.forEach(function (frame, frameIndex) {
+    var item = shuffled[frameIndex]
+    if (!item) {
+      frame.hidden = true
+      return
+    }
+    frame.hidden = false
+    var image = frame.querySelector('img')
+    var caption = frame.querySelector('figcaption')
+    if (image) {
+      image.setAttribute('data-lazy-src', item.src)
+      image.setAttribute('src', item.src)
+      image.alt = item.alt || '图库片段 / FRAME ' + String(frameIndex + 1).padStart(2, '0')
+    }
+    if (caption) caption.textContent = 'FRAME / ' + String(frameIndex + 1).padStart(2, '0')
+  })
+  try { window.sessionStorage.setItem('sakura-gallery-selection-v1', selectionKey) } catch (_) {}
+  strip.setAttribute('data-gallery-ready', 'true')
+}())
+</script>
 <section class="midnight-manifesto">
   <p>END OF SIDE A</p>
   <h2>“有些无法说出口的事，<br>就让音乐替我们记住。”</h2>
@@ -415,7 +460,9 @@ hexo.extend.filter.register('after_render:html', function (html, data) {
   if (!result.includes('window.__SAKURA_TRACKS')) {
     result = result.replace('</head>', `<script>window.__SAKURA_TRACKS=${serializeTrackData(tracks)};</script></head>`)
   }
-  if (!result.includes('window.__SAKURA_GALLERY')) {
+  // The inline gallery initializer references the global name too. Check for
+  // the actual assignment so it cannot suppress the data payload injection.
+  if (!result.includes('window.__SAKURA_GALLERY=')) {
     result = result.replace('</head>', `<script>window.__SAKURA_GALLERY=${serializeGalleryData(getGalleryPool())};</script></head>`)
   }
   if (!result.includes('id="sakura-player"')) {

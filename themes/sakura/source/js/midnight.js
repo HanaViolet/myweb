@@ -67,6 +67,14 @@
     return parts.join(' · ')
   }
 
+  const readGallerySelection = () => {
+    try { return window.sessionStorage.getItem('sakura-gallery-selection-v1') || '' } catch (_) { return '' }
+  }
+
+  const writeGallerySelection = (selection) => {
+    try { window.sessionStorage.setItem('sakura-gallery-selection-v1', selection) } catch (_) {}
+  }
+
   const initRandomGallery = () => {
     const strip = document.querySelector('[data-random-gallery]')
     if (!strip || strip.dataset.galleryReady === 'true') return
@@ -77,10 +85,17 @@
     const frames = Array.from(strip.querySelectorAll('figure'))
     if (!pool.length || !frames.length) return
 
-    const shuffled = pool.slice()
-    for (let index = shuffled.length - 1; index > 0; index -= 1) {
-      const randomIndex = Math.floor(Math.random() * (index + 1))
-      ;[shuffled[index], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[index]]
+    let shuffled = pool.slice()
+    let selectionKey = ''
+    const previousSelection = readGallerySelection()
+    for (let attempt = 0; attempt < 10; attempt += 1) {
+      shuffled = pool.slice()
+      for (let index = shuffled.length - 1; index > 0; index -= 1) {
+        const randomIndex = Math.floor(Math.random() * (index + 1))
+        ;[shuffled[index], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[index]]
+      }
+      selectionKey = shuffled.slice(0, frames.length).map((item) => item.src).join('|')
+      if (selectionKey !== previousSelection || pool.length <= frames.length) break
     }
 
     frames.forEach((frame, index) => {
@@ -101,6 +116,7 @@
       }
       if (caption) caption.textContent = `FRAME / ${String(index + 1).padStart(2, '0')}`
     })
+    writeGallerySelection(selectionKey)
     strip.dataset.galleryReady = 'true'
   }
 
