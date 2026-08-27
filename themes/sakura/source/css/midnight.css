@@ -2942,6 +2942,248 @@ html.is-mobile-device #nav #toggle-menu {
 }
 html.is-mobile-device #nav #toggle-menu .site-page { padding: 0; font-size: 14px; }
 
+/* Mobile listening-room drawer. Keep the menu compact, layered and easy to
+   dismiss without letting Butterfly's full-height panel dominate the page. */
+html.is-mobile-device #sidebar #menu-mask {
+  background: rgba(3, 6, 7, 0.76);
+  backdrop-filter: blur(7px) saturate(82%);
+}
+
+html.is-mobile-device #sidebar #sidebar-menus {
+  top: 14px;
+  right: 14px;
+  box-sizing: border-box;
+  width: calc(100vw - 28px);
+  max-width: 320px;
+  width: min(320px, calc(100vw - 28px));
+  height: calc(100vh - 28px);
+  max-height: calc(100vh - 28px);
+  height: calc(100svh - 28px);
+  max-height: calc(100svh - 28px);
+  padding: 58px 0 54px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border: 1px solid rgba(185, 216, 194, 0.2);
+  border-radius: 4px;
+  background:
+    linear-gradient(145deg, rgba(185, 216, 194, 0.055), transparent 42%),
+    linear-gradient(180deg, rgba(14, 19, 22, 0.98), rgba(7, 10, 12, 0.98));
+  box-shadow: -22px 22px 70px rgba(0, 0, 0, 0.46), inset 0 0 0 1px rgba(237, 240, 232, 0.025);
+  scrollbar-width: none;
+  transform: translate3d(calc(100% + 28px), 0, 0);
+  transition: transform 420ms cubic-bezier(0.2, 0.78, 0.2, 1);
+}
+
+html.is-mobile-device #sidebar #sidebar-menus::-webkit-scrollbar { display: none; }
+html.is-mobile-device #sidebar #sidebar-menus.open { transform: translate3d(0, 0, 0); }
+
+.sidebar-mobile-close { display: none; }
+
+html.is-mobile-device #sidebar #sidebar-menus .sidebar-mobile-close {
+  position: absolute;
+  top: 13px;
+  right: 14px;
+  z-index: 1;
+  display: flex;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid rgba(185, 216, 194, 0.2);
+  border-radius: 50%;
+  color: #8d9a93;
+  background: rgba(185, 216, 194, 0.035);
+  font-family: var(--midnight-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 180ms ease, color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+
+html.is-mobile-device #sidebar #sidebar-menus .sidebar-mobile-close:hover,
+html.is-mobile-device #sidebar #sidebar-menus .sidebar-mobile-close:focus-visible {
+  border-color: rgba(185, 216, 194, 0.58);
+  color: var(--midnight-accent);
+  background: rgba(185, 216, 194, 0.1);
+  outline: none;
+  transform: rotate(90deg);
+}
+
+html.is-mobile-device #sidebar #sidebar-menus::before,
+html.is-mobile-device #sidebar #sidebar-menus::after {
+  position: absolute;
+  left: 22px;
+  color: var(--midnight-accent);
+  font-size: 7px;
+  letter-spacing: 0.18em;
+  pointer-events: none;
+}
+
+html.is-mobile-device #sidebar #sidebar-menus::before {
+  top: 22px;
+  content: "LISTENING ROOM / MENU";
+}
+
+html.is-mobile-device #sidebar #sidebar-menus::after {
+  right: 22px;
+  bottom: 18px;
+  left: auto;
+  color: #68736d;
+  content: "ON AIR  ·  YORUSHIKA";
+  text-align: right;
+}
+
+html.is-mobile-device #sidebar #sidebar-menus > .avatar-img {
+  position: relative;
+  width: 82px;
+  height: 82px;
+  margin: 0 auto 22px;
+  border: 1px solid rgba(185, 216, 194, 0.3);
+  border-radius: 50%;
+  box-shadow: 0 0 0 8px rgba(185, 216, 194, 0.035), 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+html.is-mobile-device #sidebar #sidebar-menus > .avatar-img::after {
+  position: absolute;
+  right: -26px;
+  bottom: 4px;
+  width: 7px;
+  height: 7px;
+  border: 1px solid var(--midnight-bg);
+  border-radius: 50%;
+  background: var(--midnight-accent);
+  box-shadow: 0 0 12px rgba(185, 216, 194, 0.65);
+  content: "";
+}
+
+html.is-mobile-device #sidebar #sidebar-menus .site-data {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+  box-sizing: border-box;
+  width: auto;
+  margin: 0 16px 22px;
+  padding: 0;
+}
+
+html.is-mobile-device #sidebar #sidebar-menus .site-data > a {
+  display: flex;
+  min-width: 0;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 64px;
+  padding: 9px 4px 8px;
+  border: 1px solid rgba(225, 234, 224, 0.1);
+  border-radius: 2px;
+  background: rgba(185, 216, 194, 0.035);
+  transition: border-color 180ms ease, background 180ms ease;
+}
+
+html.is-mobile-device #sidebar #sidebar-menus .site-data > a:hover {
+  border-color: rgba(185, 216, 194, 0.42);
+  background: rgba(185, 216, 194, 0.08);
+}
+
+html.is-mobile-device #sidebar #sidebar-menus .site-data .headline {
+  overflow: hidden;
+  max-width: 100%;
+  color: #7f8b85;
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+html.is-mobile-device #sidebar #sidebar-menus .site-data .length-num {
+  margin-top: 4px;
+  color: var(--midnight-text);
+  font-family: var(--midnight-serif);
+  font-size: 20px;
+  line-height: 1;
+}
+
+html.is-mobile-device #sidebar #sidebar-menus > .menus_items {
+  margin: 0 16px;
+  padding: 8px 0 12px;
+  border-top: 1px solid var(--midnight-line);
+  border-bottom: 1px solid var(--midnight-line);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+html.is-mobile-device #sidebar #sidebar-menus .menus_items > .menus_item {
+  border-bottom: 1px solid rgba(225, 234, 224, 0.08);
+}
+
+html.is-mobile-device #sidebar #sidebar-menus .menus_items > .menus_item:last-child { border-bottom: 0; }
+
+html.is-mobile-device #sidebar #sidebar-menus .menus_items .site-page {
+  display: flex;
+  min-height: 48px;
+  box-sizing: border-box;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 9px 10px;
+  border-radius: 0;
+  color: var(--midnight-text);
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  transition: color 180ms ease, background 180ms ease, padding 180ms ease;
+}
+
+html.is-mobile-device #sidebar #sidebar-menus .menus_items .site-page:hover {
+  padding-right: 14px;
+  padding-left: 14px;
+  background: rgba(185, 216, 194, 0.06);
+  box-shadow: none;
+  color: var(--midnight-accent);
+  transform: none;
+}
+
+html.is-mobile-device #sidebar #sidebar-menus .menus_items .site-page i:first-child {
+  flex: 0 0 25px;
+  width: 25px;
+  color: #82938a;
+  font-size: 14px;
+  text-align: center;
+}
+
+html.is-mobile-device #sidebar #sidebar-menus .menus_items .site-page > span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+html.is-mobile-device #sidebar #sidebar-menus .menus_items .site-page.group > i:last-child {
+  top: 50%;
+  right: 12px;
+  color: #82938a;
+  transform: translateY(-50%);
+}
+
+html.is-mobile-device #sidebar #sidebar-menus .menus_items .site-page.group.hide > i:last-child {
+  transform: translateY(-50%) rotate(90deg);
+}
+
+html.is-mobile-device #sidebar #sidebar-menus .menus_items .menus_item_child {
+  margin: 0 10px 8px 35px;
+  padding: 2px 0 2px 11px;
+  border-left: 1px solid rgba(185, 216, 194, 0.2);
+}
+
+html.is-mobile-device #sidebar #sidebar-menus .menus_items .menus_item_child .site-page.child {
+  min-height: 40px;
+  color: #9aa59f;
+  font-size: 13px;
+}
+
 html.is-mobile-device .page #page-header.full_page {
   height: max(680px, 100svh);
   min-height: 0;

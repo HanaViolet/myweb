@@ -921,6 +921,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuMask = document.getElementById('menu-mask')
     menuMask && menuMask.addEventListener('click', () => { sidebarFn.close() })
 
+    const sidebarClose = document.querySelector('[data-sidebar-close]')
+    sidebarClose && sidebarClose.addEventListener('click', () => { sidebarFn.close() })
+
+    document.addEventListener('pjax:send', () => {
+      if (mobileSidebarOpen) sidebarFn.close()
+    })
+
     clickFnOfSubMenu()
     GLOBAL_CONFIG.islazyloadPlugin && lazyloadImg()
     GLOBAL_CONFIG.copyright !== undefined && addCopyright()
