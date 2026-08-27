@@ -94,11 +94,11 @@ aside:
 inject:
   head:
     - '<script>(function(){var touch=window.matchMedia&&matchMedia("(hover: none) and (pointer: coarse)").matches;var smallTouch=navigator.maxTouchPoints>1&&window.innerWidth<=1100;var uaMobile=navigator.userAgentData&&navigator.userAgentData.mobile;if(touch||smallTouch||uaMobile){document.documentElement.classList.add("is-mobile-device");}})();</script>'
-    - '<link rel="stylesheet" href="/css/midnight.css?v=20260827-tonearm1">'
+    - '<link rel="stylesheet" href="/css/midnight.css?v=20260827-tonearm2">'
     # 复制提示弹窗 CSS
     - '<style>.card-widget.card-ad .item-headline { display: none; } .custom-copy-toast { position: fixed; top: 20px; right: 20px; z-index: 99999; background: rgba(73, 177, 245, 0.95); color: #fff; padding: 12px 20px; border-radius: 8px; font-size: 14px; font-weight: 500; box-shadow: 0 4px 15px rgba(0,0,0,0.15); backdrop-filter: blur(5px); transform: translateY(-20px); opacity: 0; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); } .custom-copy-toast.show { transform: translateY(0); opacity: 1; } [data-theme="dark"] .custom-copy-toast { background: rgba(40, 44, 52, 0.95); color: #61afef; border: 1px solid rgba(255,255,255,0.1); }</style>'
   bottom:
-    - '<script src="/js/midnight.js?v=20260827-tonearm1"></script>'
+    - '<script src="/js/midnight.js?v=20260827-tonearm2"></script>'
     # [复制弹窗提醒脚本]
     - '<script>document.addEventListener("copy", function(e) { var toast = document.createElement("div"); toast.className = "custom-copy-toast"; toast.innerHTML = "📋 已复制到剪贴板，转载请保留出处！"; document.body.appendChild(toast); setTimeout(function() { toast.classList.add("show"); }, 10); setTimeout(function() { toast.classList.remove("show"); setTimeout(function() { if(toast.parentNode) toast.parentNode.removeChild(toast); }, 300); }, 2500); });</script>'
 

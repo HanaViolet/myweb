@@ -457,45 +457,69 @@ body::before {
   overflow: visible;
   pointer-events: none;
   transform: translate(-50%, -50%);
+  opacity: 0.92;
 }
 
 .midnight-tonearm__assembly {
   transform-box: view-box;
-  transform-origin: 238px 42px;
-  animation: midnight-tonearm-scan 7s ease-in-out 0.6s infinite alternate;
+  transform-origin: 440px 68px;
+  animation: midnight-tonearm-scan 18s ease-in-out 0.6s infinite alternate;
+}
+
+.midnight-tonearm__pivot-halo {
+  fill: none;
+  stroke: rgba(185, 216, 194, 0.22);
+  stroke-width: 1;
 }
 
 .midnight-tonearm__pivot {
-  fill: rgba(9, 11, 13, 0.9);
-  stroke: rgba(185, 216, 194, 0.7);
-  stroke-width: 1.5;
-  filter: drop-shadow(0 0 9px rgba(185, 216, 194, 0.22));
+  fill: #101619;
+  stroke: rgba(185, 216, 194, 0.58);
+  stroke-width: 1.2;
+  filter: drop-shadow(0 0 7px rgba(185, 216, 194, 0.14));
 }
 
 .midnight-tonearm__pivot-core {
   fill: var(--midnight-accent);
 }
 
+.midnight-tonearm__arm-shadow {
+  fill: none;
+  stroke: rgba(3, 7, 8, 0.88);
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 .midnight-tonearm__arm {
   fill: none;
-  stroke: rgba(217, 231, 220, 0.72);
-  stroke-width: 3;
+  stroke: rgba(175, 199, 184, 0.52);
+  stroke-width: 2;
   stroke-linecap: round;
-  filter: drop-shadow(0 0 7px rgba(185, 216, 194, 0.18));
+  stroke-linejoin: round;
+}
+
+.midnight-tonearm__arm-highlight {
+  fill: none;
+  stroke: rgba(220, 237, 225, 0.64);
+  stroke-width: 0.65;
+  stroke-linecap: round;
+  stroke-dasharray: 12 42;
+  opacity: 0.7;
 }
 
 .midnight-tonearm__headshell {
-  fill: #b9c8bd;
-  stroke: rgba(9, 11, 13, 0.86);
-  stroke-width: 1.2;
+  fill: #1b2523;
+  stroke: rgba(185, 216, 194, 0.58);
+  stroke-width: 1;
 }
 
 .midnight-tonearm__needle {
   fill: none;
   stroke: var(--midnight-accent);
-  stroke-width: 1.5;
+  stroke-width: 1.15;
   stroke-linecap: round;
-  filter: drop-shadow(0 0 5px rgba(185, 216, 194, 0.55));
+  filter: drop-shadow(0 0 4px rgba(185, 216, 194, 0.36));
 }
 
 .midnight-scroll {
@@ -2412,8 +2436,8 @@ body.has-sakura-player #rightside { bottom: 100px; }
 @keyframes midnight-spin { to { transform: rotate(360deg); } }
 
 @keyframes midnight-tonearm-scan {
-  from { transform: rotate(-1.2deg); }
-  to { transform: rotate(1.2deg); }
+  from { transform: rotate(-0.7deg); }
+  to { transform: rotate(0.7deg); }
 }
 
 @media (max-width: 1200px) {

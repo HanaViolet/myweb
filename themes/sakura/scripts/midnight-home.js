@@ -26,13 +26,16 @@ const HOME_HERO = `
         <small>夜の選曲</small>
       </div>
     </div>
-    <svg class="midnight-tonearm" viewBox="0 0 280 280" aria-hidden="true">
+    <svg class="midnight-tonearm" viewBox="0 0 500 500" aria-hidden="true">
       <g class="midnight-tonearm__assembly">
-        <circle class="midnight-tonearm__pivot" cx="238" cy="42" r="11"></circle>
-        <circle class="midnight-tonearm__pivot-core" cx="238" cy="42" r="3"></circle>
-        <path class="midnight-tonearm__arm" d="M238 42 C226 80 204 99 179 119 C157 137 139 157 123 175"></path>
-        <path class="midnight-tonearm__headshell" d="M123 175 L109 183 L113 188 L128 182 Z"></path>
-        <path class="midnight-tonearm__needle" d="M113 186 L111 198"></path>
+        <circle class="midnight-tonearm__pivot-halo" cx="440" cy="68" r="19"></circle>
+        <circle class="midnight-tonearm__pivot" cx="440" cy="68" r="9"></circle>
+        <circle class="midnight-tonearm__pivot-core" cx="440" cy="68" r="2.5"></circle>
+        <path class="midnight-tonearm__arm-shadow" d="M440 68 C456 132 454 212 435 273 C423 314 413 342 397 364"></path>
+        <path class="midnight-tonearm__arm" d="M440 68 C456 132 454 212 435 273 C423 314 413 342 397 364"></path>
+        <path class="midnight-tonearm__arm-highlight" d="M440 68 C456 132 454 212 435 273 C423 314 413 342 397 364"></path>
+        <path class="midnight-tonearm__headshell" d="M397 364 L382 371 L388 381 L404 373 Z"></path>
+        <path class="midnight-tonearm__needle" d="M388 379 L383 394"></path>
       </g>
     </svg>
   </div>
