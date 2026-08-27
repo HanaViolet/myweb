@@ -127,7 +127,7 @@ const PERSISTENT_PLAYER = `
     <div class="sakura-player__meta">
       <span class="sakura-player__eyebrow">CURRENT TRACK · FULL LENGTH</span>
       <strong data-player-title>所以我放弃了音乐</strong>
-      <small><span data-player-title-ja>だから僕は音楽を辞めた</span> · <span data-player-artist>YORUSHIKA</span></small>
+      <small data-player-subline>だから僕は音楽を辞めた · YORUSHIKA</small>
     </div>
     <div class="sakura-player__transport">
       <button type="button" data-player-prev aria-label="上一首">←</button>

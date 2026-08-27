@@ -1021,7 +1021,6 @@ body::before {
 .sakura-player__meta > span,
 .sakura-player__meta > strong,
 .sakura-player__meta > small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.sakura-player__meta small span { display: inline; }
 .sakura-player__eyebrow { margin-bottom: 4px; color: var(--midnight-accent); font-size: 7px; letter-spacing: 0.16em; }
 .sakura-player__meta strong { color: var(--midnight-text); font-family: var(--midnight-serif); font-size: 14px; font-weight: 400; }
 .sakura-player__meta small { margin-top: 2px; color: #737d78; font-size: 8px; letter-spacing: 0.08em; }
@@ -2572,7 +2571,6 @@ body.has-sakura-player #rightside { bottom: 100px; }
   .track-comments__header strong { margin-top: 7px; font-size: 18px; }
   .track-comments__list { grid-template-columns: 1fr; margin-top: 15px; }
   .track-comments blockquote { padding: 15px 15px 13px; }
-  .track-comments blockquote:nth-child(n + 2) { display: none; }
   .track-comments blockquote p { font-size: 12px; }
   .listening-note__actions { align-items: stretch; flex-direction: column; }
   .sakura-player {

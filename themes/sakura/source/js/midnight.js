@@ -57,6 +57,16 @@
     return new Intl.NumberFormat('zh-CN').format(number)
   }
 
+  const formatPlayerSubline = (track) => {
+    const title = String(track?.title || '').trim()
+    const titleJa = String(track?.titleJa || '').trim()
+    const artist = String(track?.artist || '').trim()
+    const parts = []
+    if (titleJa && titleJa !== title) parts.push(titleJa)
+    if (artist) parts.push(artist)
+    return parts.join(' · ')
+  }
+
   const initRandomGallery = () => {
     const strip = document.querySelector('[data-random-gallery]')
     if (!strip || strip.dataset.galleryReady === 'true') return
@@ -82,6 +92,10 @@
       const image = frame.querySelector('img')
       const caption = frame.querySelector('figcaption')
       if (image) {
+        // The site uses Butterfly's lazy-loader, which reads data-lazy-src
+        // after this script runs. Keep both attributes in sync so the loader
+        // cannot replace the randomized source with the build-time placeholder.
+        image.dataset.lazySrc = item.src
         image.src = item.src
         image.alt = item.alt || `图库片段 / FRAME ${String(index + 1).padStart(2, '0')}`
       }
@@ -120,8 +134,7 @@
     const playButton = root.querySelector('[data-player-play]')
     const timeline = root.querySelector('.sakura-player__timeline input')
     const title = root.querySelector('[data-player-title]')
-    const titleJa = root.querySelector('[data-player-title-ja]')
-    const artist = root.querySelector('[data-player-artist]')
+    const subline = root.querySelector('[data-player-subline]')
     const currentTime = root.querySelector('[data-player-current]')
     const duration = root.querySelector('[data-player-duration]')
     const status = root.querySelector('[data-player-status]')
@@ -185,8 +198,7 @@
     const updateTrackUI = () => {
       const track = tracks[currentIndex]
       title.textContent = track.title
-      titleJa.textContent = track.titleJa
-      artist.textContent = track.artist
+      subline.textContent = formatPlayerSubline(track)
       root.dataset.playerState = audio.paused ? 'paused' : 'playing'
       document.querySelectorAll('.track-trigger').forEach((button) => {
         const active = button.dataset.trackId === track.id
