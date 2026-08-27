@@ -1018,9 +1018,10 @@ body::before {
 .sakura-player[data-player-state="playing"] .sakura-player__disc { animation: midnight-spin 7s linear infinite; }
 
 .sakura-player__meta { min-width: 0; }
-.sakura-player__meta span,
-.sakura-player__meta strong,
-.sakura-player__meta small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sakura-player__meta > span,
+.sakura-player__meta > strong,
+.sakura-player__meta > small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sakura-player__meta small span { display: inline; }
 .sakura-player__eyebrow { margin-bottom: 4px; color: var(--midnight-accent); font-size: 7px; letter-spacing: 0.16em; }
 .sakura-player__meta strong { color: var(--midnight-text); font-family: var(--midnight-serif); font-size: 14px; font-weight: 400; }
 .sakura-player__meta small { margin-top: 2px; color: #737d78; font-size: 8px; letter-spacing: 0.08em; }

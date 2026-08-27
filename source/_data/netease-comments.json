@@ -1,9 +1,9 @@
 {
   "source": "NetEase Cloud Music hot comments API",
   "endpoint": "/api/v1/resource/comments/R_SO_4_{songId}",
-  "updatedAt": "2026-08-26T06:07:17.400Z",
+  "updatedAt": "2026-08-27T03:07:44.413Z",
   "timezone": "Asia/Shanghai",
-  "commentLimit": 3,
+  "commentLimit": 4,
   "tracks": {
     "music": {
       "trackId": "music",
@@ -16,22 +16,29 @@
           "commentId": 1485315095,
           "nickname": "Kiba穆年",
           "content": "だから僕は宿題を辞めた\n（所以我放弃了作业）",
-          "likedCount": 61928,
+          "likedCount": 61944,
           "date": "2019-05-11"
         },
         {
           "commentId": 1448351769,
           "nickname": "拿橙之夏",
           "content": "拿终于没有让一专辑死一堆人了，而是让一个人用了一专辑来死去[大哭]",
-          "likedCount": 32909,
+          "likedCount": 32910,
           "date": "2019-04-11"
         },
         {
           "commentId": 1460473413,
           "nickname": "地铁强子对撞机",
           "content": "だから僕は钱包を辞めた",
-          "likedCount": 22553,
+          "likedCount": 22555,
           "date": "2019-04-22"
+        },
+        {
+          "commentId": 1475626692,
+          "nickname": "名之松",
+          "content": "这首上日本公信榜了。。。。流批(一下子实在想不出别的词了)",
+          "likedCount": 13014,
+          "date": "2019-05-03"
         }
       ],
       "sourceUrl": "https://music.163.com/#/song?id=1357953768",
@@ -39,7 +46,7 @@
       "matchedBy": "track-data",
       "mode": "fresh",
       "error": "",
-      "updatedAt": "2026-08-26T06:07:12.134Z"
+      "updatedAt": "2026-08-27T03:07:39.125Z"
     },
     "kajin": {
       "trackId": "kajin",
@@ -68,6 +75,13 @@
           "content": "讲个有意思的。试听刚出来时，与其他曲目下面成片的赞美声不同，这首下面比较多的是调侃意味的“青春3.0”“emy2.0”。但全曲放出来后个人感觉这首整体素质排这专前三是没有问题的！\n花持たせ，自己丝毫不逊色，却把赞赏都让给他人，在某种意义上也是点题了。",
           "likedCount": 1246,
           "date": "2020-07-29"
+        },
+        {
+          "commentId": 7559367514,
+          "nickname": "wolpis_kater",
+          "content": "很难想象这首歌除了suis还能有谁能想出来这种近乎完美的情绪释放方式，整首歌在我看来就是从克制的哀愁到清醒的悲伤，那种怅若所失感和拧巴男的和声还是太过于完美了",
+          "likedCount": 1120,
+          "date": "2025-03-05"
         }
       ],
       "sourceUrl": "https://music.163.com/#/song?id=1466519473",
@@ -75,7 +89,7 @@
       "matchedBy": "track-data",
       "mode": "fresh",
       "error": "",
-      "updatedAt": "2026-08-26T06:07:13.178Z"
+      "updatedAt": "2026-08-27T03:07:40.223Z"
     },
     "oldman": {
       "trackId": "oldman",
@@ -88,22 +102,29 @@
           "commentId": 5395510597,
           "nickname": "空气弥漫爱意于是我戴上防毒面具",
           "content": "凭借我多年听日语歌和看日漫的经验，我居然翻译出了，这首歌的歌名！！！！啊啊啊啊！！我好厉害，我厉害死了！！！",
-          "likedCount": 43863,
+          "likedCount": 43869,
           "date": "2021-08-18"
         },
         {
           "commentId": 5395679420,
           "nickname": "MelanyLin",
           "content": "ヨルシカ：将诗歌音乐化　　                       YOASOBI ：将小说音乐化                                      真夜中:将动画音乐化",
-          "likedCount": 24621,
+          "likedCount": 24625,
           "date": "2021-08-18"
         },
         {
           "commentId": 5926339969,
           "nickname": "川花花花",
           "content": "“摘耳机是新世纪的脱帽礼。”",
-          "likedCount": 20215,
+          "likedCount": 20220,
           "date": "2023-06-18"
+        },
+        {
+          "commentId": 5395464076,
+          "nickname": "txyler",
+          "content": "我曾经以为一个有着『冒着冷气的苏打水』、『漫天的晚霞与积雨云』、『晴空万里的原野』、『你歌颂的歌谣』的日子才是夏天。\n直到后来我才慢慢发现就算是一轮草凋谢的日子里，只要戴上耳机放起夜鹿的歌曲，夏天就已经来了。\n因为ヨルシカ，我的夏天被赋予特殊的意义。",
+          "likedCount": 12870,
+          "date": "2021-08-18"
         }
       ],
       "sourceUrl": "https://music.163.com/#/song?id=1870469768",
@@ -111,7 +132,7 @@
       "matchedBy": "track-data",
       "mode": "fresh",
       "error": "",
-      "updatedAt": "2026-08-26T06:07:14.233Z"
+      "updatedAt": "2026-08-27T03:07:41.278Z"
     },
     "odoriko": {
       "trackId": "odoriko",
@@ -124,22 +145,29 @@
           "commentId": 5663101783,
           "nickname": "瓦次run味日有",
           "content": "居然能在一首歌里听出面无表情这个词。",
-          "likedCount": 29328,
+          "likedCount": 29346,
           "date": "2022-05-17"
         },
         {
           "commentId": 5461250690,
           "nickname": "Akaiyume-",
           "content": "《关于我喜欢的冷门歌手出新歌封面是小松菜奈这件事》",
-          "likedCount": 19533,
+          "likedCount": 19540,
           "date": "2021-11-17"
         },
         {
           "commentId": 5894590459,
           "nickname": "退後y",
           "content": "对于普通家庭的孩子来说，青春疼痛根本不是浮夸的三角恋、乐队、和街头黑道。真正疼痛的是青春期的肥胖，体育课腋下的汗水，找不到伴的午餐，不敢递给父母的试卷，班主任无意间的羞辱，就连青春都是懦弱，能够喜欢一个人都是好不容易，像我这样的人，很渺小很渺小的人，早对生活停止了期望。",
-          "likedCount": 17745,
+          "likedCount": 17766,
           "date": "2023-04-22"
+        },
+        {
+          "commentId": 5564243809,
+          "nickname": "皿吾",
+          "content": "卧槽，看了一下歌手才19岁，作曲作词，唱歌，影像制作全能。😳论我来人间凑数的20多年",
+          "likedCount": 7921,
+          "date": "2022-01-26"
         }
       ],
       "sourceUrl": "https://music.163.com/#/song?id=1888864514",
@@ -147,7 +175,7 @@
       "matchedBy": "track-data",
       "mode": "fresh",
       "error": "",
-      "updatedAt": "2026-08-26T06:07:15.281Z"
+      "updatedAt": "2026-08-27T03:07:42.343Z"
     },
     "highway": {
       "trackId": "highway",
@@ -174,8 +202,15 @@
           "commentId": 340858121,
           "nickname": "风人疯语",
           "content": "日语愣生生唱出英语的感觉……",
-          "likedCount": 8255,
+          "likedCount": 8256,
           "date": "2017-03-28"
+        },
+        {
+          "commentId": 309206285,
+          "nickname": "Jacob-Shi",
+          "content": "课间休息 喜欢的女孩从后面路过 拍了一下我的肩 而我却跟屌丝一样 心里美了半天 什么也不敢说  老感觉我配不上她 也经常忘掉她长什么样子 然后就自己脑补 但每次见到她 永远都要比想象的更动人 祝自己情人节快乐",
+          "likedCount": 5212,
+          "date": "2017-02-14"
         }
       ],
       "sourceUrl": "https://music.163.com/#/song?id=26217033",
@@ -183,7 +218,7 @@
       "matchedBy": "track-data",
       "mode": "fresh",
       "error": "",
-      "updatedAt": "2026-08-26T06:07:16.335Z"
+      "updatedAt": "2026-08-27T03:07:43.367Z"
     },
     "sss": {
       "trackId": "sss",
@@ -196,7 +231,7 @@
           "commentId": 5892744188,
           "nickname": "冰啡走",
           "content": "原谅我 全等三角形 对应边相等SSS",
-          "likedCount": 8513,
+          "likedCount": 8517,
           "date": "2023-04-18"
         },
         {
@@ -210,8 +245,15 @@
           "commentId": 5998983126,
           "nickname": "凉茶只喝加多宝a",
           "content": "日推这个歌曲的点我一下！",
-          "likedCount": 4026,
+          "likedCount": 4027,
           "date": "2023-10-30"
+        },
+        {
+          "commentId": 5806716221,
+          "nickname": "冰栗子仙豆糕",
+          "content": "在纽约曼哈顿东村的一家日式油画吐司brunch小店听到的，冬日的早晨，🍞和🍵。",
+          "likedCount": 3422,
+          "date": "2022-12-10"
         }
       ],
       "sourceUrl": "https://music.163.com/#/song?id=1967786901",
@@ -219,7 +261,7 @@
       "matchedBy": "track-data",
       "mode": "fresh",
       "error": "",
-      "updatedAt": "2026-08-26T06:07:17.400Z"
+      "updatedAt": "2026-08-27T03:07:44.413Z"
     }
   },
   "scrape": {

@@ -1,5 +1,8 @@
 'use strict'
 
+const { readdirSync } = require('node:fs')
+const path = require('node:path')
+
 const NETEASE_PLAYLIST_URL = 'https://music.163.com/#/playlist?id=2203036705'
 const NETEASE_PROFILE_URL = 'https://music.163.com/#/user/home?id=1441471952'
 
@@ -58,7 +61,7 @@ const formatCommentLikes = (value) => {
 
 const renderTrackComments = (track) => {
   const payload = track?.neteaseComments || {}
-  const comments = Array.isArray(payload.comments) ? payload.comments.slice(0, 3) : []
+  const comments = Array.isArray(payload.comments) ? payload.comments.slice(0, 4) : []
   const updated = payload.updatedAt ? String(payload.updatedAt).slice(0, 10) : ''
   const commentItems = comments.map((comment) => `
       <blockquote>
@@ -163,7 +166,7 @@ const HOME_CODA = `
     <h2 id="fragments-title">一些被保存的瞬间</h2>
     <a href="/gallery/">VIEW THE GALLERY <span aria-hidden="true">&#8599;</span></a>
   </header>
-  <div class="midnight-filmstrip">
+  <div class="midnight-filmstrip" data-random-gallery="4">
     <figure><img src="/img/gallery/季09.jpg" alt="相册中的季节片段" loading="lazy"><figcaption>FRAME / 01</figcaption></figure>
     <figure><img src="/img/gallery/小缘03.jpg" alt="相册中的人物片段" loading="lazy"><figcaption>FRAME / 02</figcaption></figure>
     <figure><img src="/img/gallery/彼岸花04.jpg" alt="相册中的彼岸花片段" loading="lazy"><figcaption>FRAME / 03</figcaption></figure>
@@ -215,6 +218,25 @@ const getTrackData = () => {
 const getNeteaseStats = () => {
   const data = hexo.locals.get('data') || {}
   return data.neteaseStats || data['netease-stats'] || {}
+}
+
+const getGalleryPool = () => {
+  const galleryDir = path.join(hexo.source_dir, 'img', 'gallery')
+  const imageExtensions = new Set(['.avif', '.gif', '.jpeg', '.jpg', '.png', '.webp'])
+  try {
+    return readdirSync(galleryDir, { withFileTypes: true })
+      .filter((entry) => entry.isFile() && imageExtensions.has(path.extname(entry.name).toLowerCase()))
+      .map((entry) => {
+        const title = entry.name.replace(/\.[^.]+$/, '')
+        return {
+          src: `/img/gallery/${encodeURI(entry.name)}`,
+          alt: `图库片段：${title}`
+        }
+      })
+      .sort((left, right) => left.src.localeCompare(right.src, 'zh-CN'))
+  } catch (_) {
+    return []
+  }
 }
 
 const formatMinutes = (minutes) => {
@@ -362,6 +384,7 @@ const renderNeteaseStats = () => {
 }
 
 const serializeTrackData = (tracks) => JSON.stringify(tracks).replace(/</g, '\\u003c')
+const serializeGalleryData = (gallery) => JSON.stringify(gallery).replace(/</g, '\\u003c')
 
 hexo.extend.filter.register('after_render:html', function (html, data) {
   if (!data) return html
@@ -391,6 +414,9 @@ hexo.extend.filter.register('after_render:html', function (html, data) {
 
   if (!result.includes('window.__SAKURA_TRACKS')) {
     result = result.replace('</head>', `<script>window.__SAKURA_TRACKS=${serializeTrackData(tracks)};</script></head>`)
+  }
+  if (!result.includes('window.__SAKURA_GALLERY')) {
+    result = result.replace('</head>', `<script>window.__SAKURA_GALLERY=${serializeGalleryData(getGalleryPool())};</script></head>`)
   }
   if (!result.includes('id="sakura-player"')) {
     result = result.replace('</body>', `${PERSISTENT_PLAYER}</body>`)

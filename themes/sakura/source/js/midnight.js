@@ -57,9 +57,42 @@
     return new Intl.NumberFormat('zh-CN').format(number)
   }
 
+  const initRandomGallery = () => {
+    const strip = document.querySelector('[data-random-gallery]')
+    if (!strip || strip.dataset.galleryReady === 'true') return
+
+    const pool = Array.isArray(window.__SAKURA_GALLERY)
+      ? window.__SAKURA_GALLERY.filter((item) => item && typeof item.src === 'string' && item.src)
+      : []
+    const frames = Array.from(strip.querySelectorAll('figure'))
+    if (!pool.length || !frames.length) return
+
+    const shuffled = pool.slice()
+    for (let index = shuffled.length - 1; index > 0; index -= 1) {
+      const randomIndex = Math.floor(Math.random() * (index + 1))
+      ;[shuffled[index], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[index]]
+    }
+
+    frames.forEach((frame, index) => {
+      const item = shuffled[index]
+      if (!item) {
+        frame.hidden = true
+        return
+      }
+      const image = frame.querySelector('img')
+      const caption = frame.querySelector('figcaption')
+      if (image) {
+        image.src = item.src
+        image.alt = item.alt || `图库片段 / FRAME ${String(index + 1).padStart(2, '0')}`
+      }
+      if (caption) caption.textContent = `FRAME / ${String(index + 1).padStart(2, '0')}`
+    })
+    strip.dataset.galleryReady = 'true'
+  }
+
   const renderTrackComments = (track) => {
     const payload = track?.neteaseComments || {}
-    const comments = Array.isArray(payload.comments) ? payload.comments.slice(0, 3) : []
+    const comments = Array.isArray(payload.comments) ? payload.comments.slice(0, 4) : []
     const updated = payload.updatedAt ? String(payload.updatedAt).slice(0, 10) : ''
     const commentItems = comments.map((comment) => `
         <blockquote>
@@ -469,6 +502,8 @@
     const hero = document.querySelector('.midnight-hero')
     document.body.classList.toggle('is-midnight-home', Boolean(hero))
     if (!hero) return
+
+    initRandomGallery()
 
     const playButton = hero.querySelector('.midnight-play')
     if (playButton && !playButton.dataset.ready) {

@@ -13,31 +13,40 @@ hexo.extend.helper.register('related_posts', function (currentPost) {
   const relatedPosts = new Map()
   const tagsData = currentPost.tags
 
-  if (!tagsData || !tagsData.length) return ''
+  const collectPosts = (taxonomyData, baseWeight) => {
+    if (!taxonomyData || !taxonomyData.length) return
 
-  tagsData.forEach(tag => {
-    const posts = tag.posts
-    posts.forEach(post => {
-      if (currentPost.path === post.path) return
+    taxonomyData.forEach(term => {
+      const posts = term.posts
+      if (!posts || typeof posts.forEach !== 'function') return
 
-      if (relatedPosts.has(post.path)) {
-        relatedPosts.get(post.path).weight += 1
-      } else {
-        const getPostDesc = post.postDesc || postDesc(post, hexo)
-        relatedPosts.set(post.path, {
-          title: post.title,
-          path: post.path,
-          cover: post.cover,
-          cover_type: post.cover_type,
-          weight: 1,
-          updated: post.updated,
-          created: post.date,
-          postDesc: getPostDesc,
-          random: Math.random()
-        })
-      }
+      posts.forEach(post => {
+        if (currentPost.path === post.path) return
+
+        if (relatedPosts.has(post.path)) {
+          relatedPosts.get(post.path).weight += baseWeight
+        } else {
+          const getPostDesc = post.postDesc || postDesc(post, hexo)
+          relatedPosts.set(post.path, {
+            title: post.title,
+            path: post.path,
+            cover: post.cover,
+            cover_type: post.cover_type,
+            weight: baseWeight,
+            updated: post.updated,
+            created: post.date,
+            postDesc: getPostDesc,
+            random: Math.random()
+          })
+        }
+      })
     })
-  })
+  }
+
+  // Tags remain the strongest signal. Older posts may have unique tags, so
+  // fall back to their category to keep the recommendation module useful.
+  collectPosts(tagsData, 1)
+  if (relatedPosts.size === 0) collectPosts(currentPost.categories, 0.5)
 
   if (relatedPosts.size === 0) {
     return ''

@@ -10,7 +10,7 @@ const userAgent = 'Sakura-Listening-Room/1.0 (+https://sakura.luxe)'
 const cookieHeader = (process.env.NETEASE_COOKIE || '').replace(/[\r\n]+/g, ' ').trim()
 const commentLimit = Number(process.env.NETEASE_COMMENT_LIMIT) > 0
   ? Math.min(5, Math.round(Number(process.env.NETEASE_COMMENT_LIMIT)))
-  : 3
+  : 4
 const delayMs = Number.isFinite(Number(process.env.NETEASE_COMMENT_DELAY_MS))
   ? Math.min(10000, Math.max(300, Math.round(Number(process.env.NETEASE_COMMENT_DELAY_MS))))
   : 900

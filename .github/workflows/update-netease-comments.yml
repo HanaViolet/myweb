@@ -33,6 +33,7 @@ jobs:
       - name: Fetch NetEase hot comments
         env:
           NETEASE_COOKIE: ${{ secrets.NETEASE_COOKIE }}
+          NETEASE_COMMENT_LIMIT: 4
         run: npm run netease:comments
 
       - name: Commit updated comments
