@@ -447,17 +447,56 @@ body::before {
   text-align: right;
 }
 
-.midnight-orbit {
+.midnight-tonearm {
   position: absolute;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--midnight-accent);
-  box-shadow: 0 0 20px rgba(185, 216, 194, 0.8);
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  width: clamp(310px, 35vw, 500px);
+  height: auto;
+  overflow: visible;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
 }
 
-.midnight-orbit--one { top: 16%; left: 6%; }
-.midnight-orbit--two { right: 5%; bottom: 12%; width: 4px; height: 4px; }
+.midnight-tonearm__assembly {
+  transform-box: view-box;
+  transform-origin: 238px 42px;
+  animation: midnight-tonearm-scan 7s ease-in-out 0.6s infinite alternate;
+}
+
+.midnight-tonearm__pivot {
+  fill: rgba(9, 11, 13, 0.9);
+  stroke: rgba(185, 216, 194, 0.7);
+  stroke-width: 1.5;
+  filter: drop-shadow(0 0 9px rgba(185, 216, 194, 0.22));
+}
+
+.midnight-tonearm__pivot-core {
+  fill: var(--midnight-accent);
+}
+
+.midnight-tonearm__arm {
+  fill: none;
+  stroke: rgba(217, 231, 220, 0.72);
+  stroke-width: 3;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 7px rgba(185, 216, 194, 0.18));
+}
+
+.midnight-tonearm__headshell {
+  fill: #b9c8bd;
+  stroke: rgba(9, 11, 13, 0.86);
+  stroke-width: 1.2;
+}
+
+.midnight-tonearm__needle {
+  fill: none;
+  stroke: var(--midnight-accent);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 5px rgba(185, 216, 194, 0.55));
+}
 
 .midnight-scroll {
   position: absolute;
@@ -2372,6 +2411,11 @@ body.has-sakura-player #rightside { bottom: 100px; }
 
 @keyframes midnight-spin { to { transform: rotate(360deg); } }
 
+@keyframes midnight-tonearm-scan {
+  from { transform: rotate(-1.2deg); }
+  to { transform: rotate(1.2deg); }
+}
+
 @media (max-width: 1200px) {
   .nav-frequency { display: none; }
 }
@@ -2403,7 +2447,7 @@ body.has-sakura-player #rightside { bottom: 100px; }
   .midnight-hero__copy { position: relative; z-index: 2; }
   .midnight-record-stage { position: absolute; right: -90px; bottom: 45px; min-height: 0; opacity: 0.58; }
   .midnight-record { width: 390px; }
-  .midnight-record-caption, .midnight-orbit { display: none; }
+  .midnight-record-caption, .midnight-tonearm { display: none; }
   .listening-room { grid-template-columns: 1fr; }
   .listening-note { grid-template-columns: 1fr; gap: 30px; }
   .listening-note__index { flex-direction: row; min-height: 0; padding: 0 0 24px; border-right: 0; border-bottom: 1px solid var(--midnight-line); }
@@ -2822,7 +2866,7 @@ html.is-mobile-device .midnight-hero__copy { position: relative; z-index: 2; min
 html.is-mobile-device .midnight-eyebrow span:last-child,
 html.is-mobile-device .midnight-actions > a,
 html.is-mobile-device .midnight-record-caption,
-html.is-mobile-device .midnight-orbit,
+html.is-mobile-device .midnight-tonearm,
 html.is-mobile-device .midnight-scroll { display: none; }
 html.is-mobile-device .midnight-hero h1 {
   max-width: 760px;

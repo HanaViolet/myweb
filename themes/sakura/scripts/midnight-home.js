@@ -26,8 +26,15 @@ const HOME_HERO = `
         <small>夜の選曲</small>
       </div>
     </div>
-    <span class="midnight-orbit midnight-orbit--one"></span>
-    <span class="midnight-orbit midnight-orbit--two"></span>
+    <svg class="midnight-tonearm" viewBox="0 0 280 280" aria-hidden="true">
+      <g class="midnight-tonearm__assembly">
+        <circle class="midnight-tonearm__pivot" cx="238" cy="42" r="11"></circle>
+        <circle class="midnight-tonearm__pivot-core" cx="238" cy="42" r="3"></circle>
+        <path class="midnight-tonearm__arm" d="M238 42 C226 80 204 99 179 119 C157 137 139 157 123 175"></path>
+        <path class="midnight-tonearm__headshell" d="M123 175 L109 183 L113 188 L128 182 Z"></path>
+        <path class="midnight-tonearm__needle" d="M113 186 L111 198"></path>
+      </g>
+    </svg>
   </div>
   <p class="midnight-scroll">SCROLL TO LISTEN <span aria-hidden="true">&#8595;</span></p>
 </section>`
