@@ -3,7 +3,7 @@
   "profileUrl": "https://music.163.com/#/user/home?id=1441471952",
   "source": "NetEase Cloud Music play record API (Cookie) + public fallback",
   "endpoint": "/api/v1/play/record",
-  "updatedAt": "2026-08-28T00:55:10.729Z",
+  "updatedAt": "2026-08-29T00:33:45.924Z",
   "timezone": "Asia/Shanghai",
   "rankLimit": 20,
   "scrape": {
@@ -15,8 +15,8 @@
     "message": "Cookie 页面抓取未成功，但 Cookie 接口读取成功；公开接口用于字段补全。"
   },
   "duration": {
-    "weeklyMinutes": 302,
-    "allTimeMinutes": 126238,
+    "weeklyMinutes": 435,
+    "allTimeMinutes": 126371,
     "available": true,
     "source": "netease-listen-data",
     "endpoints": {
@@ -31,7 +31,7 @@
       "allTime": {
         "path": "totalDuration",
         "unit": "seconds",
-        "rawValue": 7574285
+        "rawValue": 7582297
       }
     },
     "validation": {
@@ -51,7 +51,7 @@
       "artist": "李荣浩",
       "album": "有理想",
       "durationMs": 312997,
-      "playCount": 8,
+      "playCount": 9,
       "score": 100
     },
     {
@@ -62,8 +62,8 @@
       "artist": "宇多田ヒカル",
       "album": "This Is The One",
       "durationMs": 237946,
-      "playCount": 7,
-      "score": 87
+      "playCount": 8,
+      "score": 88
     },
     {
       "rank": 3,
@@ -73,41 +73,41 @@
       "artist": "李荣浩",
       "album": "戒烟",
       "durationMs": 293875,
-      "playCount": 6,
-      "score": 75
+      "playCount": 7,
+      "score": 77
     },
     {
       "rank": 4,
-      "songId": 769651,
-      "title": "Standing Bird",
-      "alias": "",
-      "artist": "LOVE PSYCHEDELICO",
-      "album": "This is LOVE PSYCHEDELICO",
-      "durationMs": 300973,
-      "playCount": 5,
-      "score": 62
-    },
-    {
-      "rank": 5,
       "songId": 3355480210,
       "title": "花も騒めく",
       "alias": "花亦喧嚣",
       "artist": "ヨルシカ",
       "album": "二人称",
       "durationMs": 220711,
-      "playCount": 4,
-      "score": 50
+      "playCount": 5,
+      "score": 55
+    },
+    {
+      "rank": 5,
+      "songId": 769651,
+      "title": "Standing Bird",
+      "alias": "",
+      "artist": "LOVE PSYCHEDELICO",
+      "album": "This is LOVE PSYCHEDELICO",
+      "durationMs": 300973,
+      "playCount": 3,
+      "score": 33
     },
     {
       "rank": 6,
-      "songId": 26217033,
-      "title": "Highway Driving Car",
-      "alias": "",
-      "artist": "etsuco",
-      "album": "わすれもの",
-      "durationMs": 228920,
+      "songId": 1888864514,
+      "title": "踊り子",
+      "alias": "舞女",
+      "artist": "Vaundy",
+      "album": "踊り子",
+      "durationMs": 230109,
       "playCount": 3,
-      "score": 37
+      "score": 33
     },
     {
       "rank": 7,
@@ -118,10 +118,21 @@
       "album": "あいつら全員同窓会",
       "durationMs": 254533,
       "playCount": 3,
-      "score": 37
+      "score": 33
     },
     {
       "rank": 8,
+      "songId": 422429165,
+      "title": "飞雪玉花-净友钢琴版",
+      "alias": "",
+      "artist": "净友",
+      "album": "闻琴榭-净友翻奏作品集",
+      "durationMs": 111098,
+      "playCount": 2,
+      "score": 22
+    },
+    {
+      "rank": 9,
       "songId": 3355479290,
       "title": "太陽",
       "alias": "",
@@ -129,10 +140,21 @@
       "album": "二人称",
       "durationMs": 265608,
       "playCount": 2,
-      "score": 25
+      "score": 22
     },
     {
-      "rank": 9,
+      "rank": 10,
+      "songId": 26217033,
+      "title": "Highway Driving Car",
+      "alias": "",
+      "artist": "etsuco",
+      "album": "わすれもの",
+      "durationMs": 228920,
+      "playCount": 2,
+      "score": 22
+    },
+    {
+      "rank": 11,
       "songId": 19572271,
       "title": "Gotta Have You",
       "alias": "",
@@ -140,10 +162,10 @@
       "album": "Say I Am You",
       "durationMs": 199786,
       "playCount": 2,
-      "score": 25
+      "score": 22
     },
     {
-      "rank": 10,
+      "rank": 12,
       "songId": 1449537101,
       "title": "何なんw",
       "alias": "什么啊w",
@@ -151,10 +173,10 @@
       "album": "HELP EVER HURT NEVER",
       "durationMs": 320642,
       "playCount": 2,
-      "score": 25
+      "score": 22
     },
     {
-      "rank": 11,
+      "rank": 13,
       "songId": 1332473896,
       "title": "mother's piano",
       "alias": "",
@@ -162,32 +184,54 @@
       "album": "Tandoor",
       "durationMs": 229064,
       "playCount": 2,
-      "score": 25
-    },
-    {
-      "rank": 12,
-      "songId": 719102,
-      "title": "SAKURA",
-      "alias": "樱花",
-      "artist": "いきものがかり",
-      "album": "SAKURA",
-      "durationMs": 354986,
-      "playCount": 1,
-      "score": 12
-    },
-    {
-      "rank": 13,
-      "songId": 659423,
-      "title": "プラスティック・ラヴ",
-      "alias": "塑料般的爱",
-      "artist": "竹内まりや",
-      "album": "VARIETY -30th Anniversary Edition-",
-      "durationMs": 294346,
-      "playCount": 1,
-      "score": 12
+      "score": 22
     },
     {
       "rank": 14,
+      "songId": 874229,
+      "title": "さくらの季節",
+      "alias": "樱花的季节",
+      "artist": "38BEETS",
+      "album": "うたかた",
+      "durationMs": 164000,
+      "playCount": 1,
+      "score": 11
+    },
+    {
+      "rank": 15,
+      "songId": 784516,
+      "title": "ヒナタvsネジ",
+      "alias": "雏田vs 宁次",
+      "artist": "六三四Musashi",
+      "album": "NARUTO-ナルト-オリジナルサウンドトラックII",
+      "durationMs": 193493,
+      "playCount": 1,
+      "score": 11
+    },
+    {
+      "rank": 16,
+      "songId": 756112,
+      "title": "桜道",
+      "alias": "",
+      "artist": "Jusqu'à Grand-Père",
+      "album": "千年の戀",
+      "durationMs": 240000,
+      "playCount": 1,
+      "score": 11
+    },
+    {
+      "rank": 17,
+      "songId": 730631,
+      "title": "歳月-雲流れ-",
+      "alias": "岁月-层云流动-",
+      "artist": "Foxtail-Grass Studio",
+      "album": "なつかぜメモリア",
+      "durationMs": 129293,
+      "playCount": 1,
+      "score": 11
+    },
+    {
+      "rank": 18,
       "songId": 643034,
       "title": "風になる",
       "alias": "幻化成风",
@@ -195,10 +239,10 @@
       "album": "恋恋風歌",
       "durationMs": 276600,
       "playCount": 1,
-      "score": 12
+      "score": 11
     },
     {
-      "rank": 15,
+      "rank": 19,
       "songId": 642871,
       "title": "歌舞伎町の女王",
       "alias": "歌舞伎町的女王",
@@ -206,10 +250,10 @@
       "album": "歌舞伎町の女王",
       "durationMs": 171160,
       "playCount": 1,
-      "score": 12
+      "score": 11
     },
     {
-      "rank": 16,
+      "rank": 20,
       "songId": 586299,
       "title": "風の住む街",
       "alias": "风居住的街道",
@@ -217,51 +261,7 @@
       "album": "風の住む街 (风居住的街道)",
       "durationMs": 285957,
       "playCount": 1,
-      "score": 12
-    },
-    {
-      "rank": 17,
-      "songId": 584155,
-      "title": "いつも何度でも",
-      "alias": "永远同在",
-      "artist": "伊藤サチコ",
-      "album": "ジブリを聴きながら、上を向いて歩こう",
-      "durationMs": 228306,
-      "playCount": 1,
-      "score": 12
-    },
-    {
-      "rank": 18,
-      "songId": 557579321,
-      "title": "ただ君に晴れ",
-      "alias": "仅予你的晴天",
-      "artist": "ヨルシカ",
-      "album": "負け犬にアンコールはいらない",
-      "durationMs": 198973,
-      "playCount": 1,
-      "score": 12
-    },
-    {
-      "rank": 19,
-      "songId": 555142,
-      "title": "そばにいるね",
-      "alias": "留在我身边",
-      "artist": "青山テルマ / SoulJa",
-      "album": "そばにいるね",
-      "durationMs": 304906,
-      "playCount": 1,
-      "score": 12
-    },
-    {
-      "rank": 20,
-      "songId": 541853,
-      "title": "ふるさとの匂い",
-      "alias": "故乡的味道",
-      "artist": "吉森信",
-      "album": "続 夏目友人帳 音楽集 いとうるわしきもの【Selected Edition】",
-      "durationMs": 181640,
-      "playCount": 1,
-      "score": 12
+      "score": 11
     }
   ],
   "allTime": [
@@ -284,7 +284,7 @@
       "artist": "Vaundy",
       "album": "踊り子",
       "durationMs": 230109,
-      "playCount": 459,
+      "playCount": 461,
       "score": 84
     },
     {
@@ -295,7 +295,7 @@
       "artist": "ヨルシカ",
       "album": "DARMA GRAND PRIX",
       "durationMs": 259866,
-      "playCount": 315,
+      "playCount": 316,
       "score": 57
     },
     {
