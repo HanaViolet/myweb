@@ -3,7 +3,7 @@
   "profileUrl": "https://music.163.com/#/user/home?id=1441471952",
   "source": "NetEase Cloud Music play record API (Cookie) + public fallback",
   "endpoint": "/api/v1/play/record",
-  "updatedAt": "2026-08-29T00:33:45.924Z",
+  "updatedAt": "2026-08-29T19:24:27.070Z",
   "timezone": "Asia/Shanghai",
   "rankLimit": 20,
   "scrape": {
@@ -15,7 +15,7 @@
     "message": "Cookie 页面抓取未成功，但 Cookie 接口读取成功；公开接口用于字段补全。"
   },
   "duration": {
-    "weeklyMinutes": 435,
+    "weeklyMinutes": 498,
     "allTimeMinutes": 126371,
     "available": true,
     "source": "netease-listen-data",
@@ -62,8 +62,8 @@
       "artist": "宇多田ヒカル",
       "album": "This Is The One",
       "durationMs": 237946,
-      "playCount": 8,
-      "score": 88
+      "playCount": 9,
+      "score": 100
     },
     {
       "rank": 3,
@@ -73,8 +73,8 @@
       "artist": "李荣浩",
       "album": "戒烟",
       "durationMs": 293875,
-      "playCount": 7,
-      "score": 77
+      "playCount": 8,
+      "score": 88
     },
     {
       "rank": 4,
@@ -84,8 +84,8 @@
       "artist": "ヨルシカ",
       "album": "二人称",
       "durationMs": 220711,
-      "playCount": 5,
-      "score": 55
+      "playCount": 6,
+      "score": 66
     },
     {
       "rank": 5,
@@ -95,11 +95,22 @@
       "artist": "LOVE PSYCHEDELICO",
       "album": "This is LOVE PSYCHEDELICO",
       "durationMs": 300973,
+      "playCount": 4,
+      "score": 44
+    },
+    {
+      "rank": 6,
+      "songId": 26217033,
+      "title": "Highway Driving Car",
+      "alias": "",
+      "artist": "etsuco",
+      "album": "わすれもの",
+      "durationMs": 228920,
       "playCount": 3,
       "score": 33
     },
     {
-      "rank": 6,
+      "rank": 7,
       "songId": 1888864514,
       "title": "踊り子",
       "alias": "舞女",
@@ -110,7 +121,7 @@
       "score": 33
     },
     {
-      "rank": 7,
+      "rank": 8,
       "songId": 1854474192,
       "title": "あいつら全員同窓会",
       "alias": "那些家伙们的校友会 (PC游戏《PSO2:NGS》合作曲)",
@@ -121,7 +132,18 @@
       "score": 33
     },
     {
-      "rank": 8,
+      "rank": 9,
+      "songId": 1332473896,
+      "title": "mother's piano",
+      "alias": "",
+      "artist": "DADARAY",
+      "album": "Tandoor",
+      "durationMs": 229064,
+      "playCount": 3,
+      "score": 33
+    },
+    {
+      "rank": 10,
       "songId": 422429165,
       "title": "飞雪玉花-净友钢琴版",
       "alias": "",
@@ -132,7 +154,7 @@
       "score": 22
     },
     {
-      "rank": 9,
+      "rank": 11,
       "songId": 3355479290,
       "title": "太陽",
       "alias": "",
@@ -143,18 +165,18 @@
       "score": 22
     },
     {
-      "rank": 10,
-      "songId": 26217033,
-      "title": "Highway Driving Car",
-      "alias": "",
-      "artist": "etsuco",
-      "album": "わすれもの",
-      "durationMs": 228920,
+      "rank": 12,
+      "songId": 3337367763,
+      "title": "AIZO",
+      "alias": "TV动画《咒术回战：死灭回游 前篇》片头曲",
+      "artist": "King Gnu",
+      "album": "AIZO",
+      "durationMs": 215922,
       "playCount": 2,
       "score": 22
     },
     {
-      "rank": 11,
+      "rank": 13,
       "songId": 19572271,
       "title": "Gotta Have You",
       "alias": "",
@@ -165,7 +187,7 @@
       "score": 22
     },
     {
-      "rank": 12,
+      "rank": 14,
       "songId": 1449537101,
       "title": "何なんw",
       "alias": "什么啊w",
@@ -176,18 +198,7 @@
       "score": 22
     },
     {
-      "rank": 13,
-      "songId": 1332473896,
-      "title": "mother's piano",
-      "alias": "",
-      "artist": "DADARAY",
-      "album": "Tandoor",
-      "durationMs": 229064,
-      "playCount": 2,
-      "score": 22
-    },
-    {
-      "rank": 14,
+      "rank": 15,
       "songId": 874229,
       "title": "さくらの季節",
       "alias": "樱花的季节",
@@ -198,7 +209,7 @@
       "score": 11
     },
     {
-      "rank": 15,
+      "rank": 16,
       "songId": 784516,
       "title": "ヒナタvsネジ",
       "alias": "雏田vs 宁次",
@@ -209,7 +220,7 @@
       "score": 11
     },
     {
-      "rank": 16,
+      "rank": 17,
       "songId": 756112,
       "title": "桜道",
       "alias": "",
@@ -220,7 +231,7 @@
       "score": 11
     },
     {
-      "rank": 17,
+      "rank": 18,
       "songId": 730631,
       "title": "歳月-雲流れ-",
       "alias": "岁月-层云流动-",
@@ -231,7 +242,7 @@
       "score": 11
     },
     {
-      "rank": 18,
+      "rank": 19,
       "songId": 643034,
       "title": "風になる",
       "alias": "幻化成风",
@@ -242,24 +253,13 @@
       "score": 11
     },
     {
-      "rank": 19,
+      "rank": 20,
       "songId": 642871,
       "title": "歌舞伎町の女王",
       "alias": "歌舞伎町的女王",
       "artist": "椎名林檎",
       "album": "歌舞伎町の女王",
       "durationMs": 171160,
-      "playCount": 1,
-      "score": 11
-    },
-    {
-      "rank": 20,
-      "songId": 586299,
-      "title": "風の住む街",
-      "alias": "风居住的街道",
-      "artist": "磯村由紀子",
-      "album": "風の住む街 (风居住的街道)",
-      "durationMs": 285957,
       "playCount": 1,
       "score": 11
     }
@@ -328,8 +328,8 @@
       "artist": "Aimer",
       "album": "daydream",
       "durationMs": 207934,
-      "playCount": 240,
-      "score": 43
+      "playCount": 241,
+      "score": 44
     },
     {
       "rank": 7,
@@ -394,7 +394,7 @@
       "artist": "ヨルシカ",
       "album": "夏草が邪魔をする",
       "durationMs": 188429,
-      "playCount": 190,
+      "playCount": 191,
       "score": 34
     },
     {
@@ -427,7 +427,7 @@
       "artist": "ヨルシカ",
       "album": "盗作",
       "durationMs": 162834,
-      "playCount": 177,
+      "playCount": 178,
       "score": 32
     },
     {
