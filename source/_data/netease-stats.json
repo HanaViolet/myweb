@@ -3,7 +3,7 @@
   "profileUrl": "https://music.163.com/#/user/home?id=1441471952",
   "source": "NetEase Cloud Music play record API (Cookie) + public fallback",
   "endpoint": "/api/v1/play/record",
-  "updatedAt": "2026-08-29T19:24:27.070Z",
+  "updatedAt": "2026-08-30T19:19:02.896Z",
   "timezone": "Asia/Shanghai",
   "rankLimit": 20,
   "scrape": {
@@ -15,8 +15,8 @@
     "message": "Cookie 页面抓取未成功，但 Cookie 接口读取成功；公开接口用于字段补全。"
   },
   "duration": {
-    "weeklyMinutes": 498,
-    "allTimeMinutes": 126371,
+    "weeklyMinutes": 44,
+    "allTimeMinutes": 126434,
     "available": true,
     "source": "netease-listen-data",
     "endpoints": {
@@ -31,7 +31,7 @@
       "allTime": {
         "path": "totalDuration",
         "unit": "seconds",
-        "rawValue": 7582297
+        "rawValue": 7586080
       }
     },
     "validation": {
@@ -45,36 +45,36 @@
   "weekly": [
     {
       "rank": 1,
-      "songId": 31654343,
-      "title": "不将就",
-      "alias": "电影《何以笙箫默》片尾主题曲",
-      "artist": "李荣浩",
-      "album": "有理想",
-      "durationMs": 312997,
-      "playCount": 9,
-      "score": 100
-    },
-    {
-      "rank": 2,
-      "songId": 1361336636,
-      "title": "Come Back To Me",
-      "alias": "",
-      "artist": "宇多田ヒカル",
-      "album": "This Is The One",
-      "durationMs": 237946,
-      "playCount": 9,
-      "score": 100
-    },
-    {
-      "rank": 3,
       "songId": 518686034,
       "title": "戒烟",
       "alias": "",
       "artist": "李荣浩",
       "album": "戒烟",
       "durationMs": 293875,
-      "playCount": 8,
-      "score": 88
+      "playCount": 7,
+      "score": 100
+    },
+    {
+      "rank": 2,
+      "songId": 31654343,
+      "title": "不将就",
+      "alias": "电影《何以笙箫默》片尾主题曲",
+      "artist": "李荣浩",
+      "album": "有理想",
+      "durationMs": 312997,
+      "playCount": 6,
+      "score": 85
+    },
+    {
+      "rank": 3,
+      "songId": 1361336636,
+      "title": "Come Back To Me",
+      "alias": "",
+      "artist": "宇多田ヒカル",
+      "album": "This Is The One",
+      "durationMs": 237946,
+      "playCount": 6,
+      "score": 85
     },
     {
       "rank": 4,
@@ -84,8 +84,8 @@
       "artist": "ヨルシカ",
       "album": "二人称",
       "durationMs": 220711,
-      "playCount": 6,
-      "score": 66
+      "playCount": 5,
+      "score": 71
     },
     {
       "rank": 5,
@@ -95,8 +95,8 @@
       "artist": "LOVE PSYCHEDELICO",
       "album": "This is LOVE PSYCHEDELICO",
       "durationMs": 300973,
-      "playCount": 4,
-      "score": 44
+      "playCount": 3,
+      "score": 42
     },
     {
       "rank": 6,
@@ -107,10 +107,21 @@
       "album": "わすれもの",
       "durationMs": 228920,
       "playCount": 3,
-      "score": 33
+      "score": 42
     },
     {
       "rank": 7,
+      "songId": 19572271,
+      "title": "Gotta Have You",
+      "alias": "",
+      "artist": "The Weepies",
+      "album": "Say I Am You",
+      "durationMs": 199786,
+      "playCount": 3,
+      "score": 42
+    },
+    {
+      "rank": 8,
       "songId": 1888864514,
       "title": "踊り子",
       "alias": "舞女",
@@ -118,10 +129,10 @@
       "album": "踊り子",
       "durationMs": 230109,
       "playCount": 3,
-      "score": 33
+      "score": 42
     },
     {
-      "rank": 8,
+      "rank": 9,
       "songId": 1854474192,
       "title": "あいつら全員同窓会",
       "alias": "那些家伙们的校友会 (PC游戏《PSO2:NGS》合作曲)",
@@ -129,18 +140,7 @@
       "album": "あいつら全員同窓会",
       "durationMs": 254533,
       "playCount": 3,
-      "score": 33
-    },
-    {
-      "rank": 9,
-      "songId": 1332473896,
-      "title": "mother's piano",
-      "alias": "",
-      "artist": "DADARAY",
-      "album": "Tandoor",
-      "durationMs": 229064,
-      "playCount": 3,
-      "score": 33
+      "score": 42
     },
     {
       "rank": 10,
@@ -151,7 +151,7 @@
       "album": "闻琴榭-净友翻奏作品集",
       "durationMs": 111098,
       "playCount": 2,
-      "score": 22
+      "score": 28
     },
     {
       "rank": 11,
@@ -162,7 +162,7 @@
       "album": "二人称",
       "durationMs": 265608,
       "playCount": 2,
-      "score": 22
+      "score": 28
     },
     {
       "rank": 12,
@@ -173,32 +173,43 @@
       "album": "AIZO",
       "durationMs": 215922,
       "playCount": 2,
-      "score": 22
+      "score": 28
     },
     {
       "rank": 13,
-      "songId": 19572271,
-      "title": "Gotta Have You",
+      "songId": 22711357,
+      "title": "Darlin'",
       "alias": "",
-      "artist": "The Weepies",
-      "album": "Say I Am You",
-      "durationMs": 199786,
+      "artist": "BENI",
+      "album": "MTV UNplugged",
+      "durationMs": 267540,
       "playCount": 2,
-      "score": 22
+      "score": 28
     },
     {
       "rank": 14,
-      "songId": 1449537101,
-      "title": "何なんw",
-      "alias": "什么啊w",
-      "artist": "藤井風",
-      "album": "HELP EVER HURT NEVER",
-      "durationMs": 320642,
+      "songId": 2154219378,
+      "title": "はいよろこんで",
+      "alias": "乐意效劳",
+      "artist": "こっちのけんと",
+      "album": "はいよろこんで",
+      "durationMs": 161632,
       "playCount": 2,
-      "score": 22
+      "score": 28
     },
     {
       "rank": 15,
+      "songId": 1966162262,
+      "title": "未定",
+      "alias": "Mitei",
+      "artist": "chilldspot",
+      "album": "ingredients",
+      "durationMs": 200248,
+      "playCount": 2,
+      "score": 28
+    },
+    {
+      "rank": 16,
       "songId": 874229,
       "title": "さくらの季節",
       "alias": "樱花的季节",
@@ -206,10 +217,10 @@
       "album": "うたかた",
       "durationMs": 164000,
       "playCount": 1,
-      "score": 11
+      "score": 14
     },
     {
-      "rank": 16,
+      "rank": 17,
       "songId": 784516,
       "title": "ヒナタvsネジ",
       "alias": "雏田vs 宁次",
@@ -217,10 +228,10 @@
       "album": "NARUTO-ナルト-オリジナルサウンドトラックII",
       "durationMs": 193493,
       "playCount": 1,
-      "score": 11
+      "score": 14
     },
     {
-      "rank": 17,
+      "rank": 18,
       "songId": 756112,
       "title": "桜道",
       "alias": "",
@@ -228,10 +239,10 @@
       "album": "千年の戀",
       "durationMs": 240000,
       "playCount": 1,
-      "score": 11
+      "score": 14
     },
     {
-      "rank": 18,
+      "rank": 19,
       "songId": 730631,
       "title": "歳月-雲流れ-",
       "alias": "岁月-层云流动-",
@@ -239,10 +250,10 @@
       "album": "なつかぜメモリア",
       "durationMs": 129293,
       "playCount": 1,
-      "score": 11
+      "score": 14
     },
     {
-      "rank": 19,
+      "rank": 20,
       "songId": 643034,
       "title": "風になる",
       "alias": "幻化成风",
@@ -250,18 +261,7 @@
       "album": "恋恋風歌",
       "durationMs": 276600,
       "playCount": 1,
-      "score": 11
-    },
-    {
-      "rank": 20,
-      "songId": 642871,
-      "title": "歌舞伎町の女王",
-      "alias": "歌舞伎町的女王",
-      "artist": "椎名林檎",
-      "album": "歌舞伎町の女王",
-      "durationMs": 171160,
-      "playCount": 1,
-      "score": 11
+      "score": 14
     }
   ],
   "allTime": [
@@ -350,7 +350,7 @@
       "artist": "chilldspot",
       "album": "ingredients",
       "durationMs": 200248,
-      "playCount": 225,
+      "playCount": 226,
       "score": 41
     },
     {
