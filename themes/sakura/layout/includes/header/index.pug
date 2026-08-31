@@ -33,7 +33,7 @@ header#page-header(class=`${headerClassName + isFixedClass}` style=bg_img)
       include ./post-info.pug
     else if globalPageType === 'home'
       #site-info
-        h1#site-title=config.title
+        p#site-title=config.title
         if theme.subtitle.enable
           - var loadSubJs = true
           #site-subtitle

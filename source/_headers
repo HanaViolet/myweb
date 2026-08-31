@@ -1,21 +1,25 @@
 # Cloudflare Pages HTTP Headers Rules
 
-# 针对图片与媒体资源开启 Cloudflare 边缘 1 年强缓存
+# 图片与媒体使用中期缓存；文件名没有内容哈希，因此保留重新验证能力。
 /img/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
 /posts/*/*.jpg
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
 /posts/*/*.png
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+/music/*
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
 
-# 静态 CSS 和 JS 资源缓存
+# CSS/JS 使用固定文件名，缓存一天并允许重新验证，避免老访客长期停留在旧版。
 /css/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=86400, must-revalidate
 /js/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=86400, must-revalidate
 
 # 统一安全响应头
 /*
   X-Frame-Options: SAMEORIGIN
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=31536000
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()

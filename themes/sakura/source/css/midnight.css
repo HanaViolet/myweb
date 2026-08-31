@@ -10,6 +10,31 @@
   --midnight-sans: Inter, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
+/* Keyboard users can bypass the persistent navigation and player. */
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 100000;
+  padding: 10px 14px;
+  border: 1px solid var(--midnight-accent);
+  color: #07100b !important;
+  background: var(--midnight-accent);
+  font-size: 14px;
+  font-weight: 600;
+  transform: translateY(-160%);
+  transition: transform 160ms ease;
+}
+
+.skip-link:focus { transform: translateY(0); }
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--midnight-accent);
+  outline-offset: 3px;
+}
+
 html,
 html[data-theme="light"],
 html[data-theme="dark"] {
@@ -188,6 +213,16 @@ body::before {
   display: block;
 }
 
+#nav .nav-action {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+}
+
 #nav .menus_items {
   display: flex !important;
   align-items: center;
@@ -206,7 +241,7 @@ body::before {
   height: 100%;
   padding: 0 13px;
   color: #aab2ad !important;
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.1em;
   transition: color 180ms ease, background 180ms ease;
 }
@@ -214,7 +249,7 @@ body::before {
 #nav #search-button .site-page::before,
 #nav .menus_items > .menus_item > .site-page::before {
   color: #59625e;
-  font-size: 6px;
+  font-size: 9px;
   letter-spacing: 0.08em;
 }
 
@@ -269,7 +304,7 @@ body::before {
 }
 
 #nav .menus_item_child li:last-child { border-bottom: 0; }
-#nav .menus_item_child .site-page { display: flex; align-items: center; min-height: 42px; padding: 0 13px; color: #959e99 !important; font-size: 9px; letter-spacing: 0.1em; }
+#nav .menus_item_child .site-page { display: flex; align-items: center; min-height: 44px; padding: 0 13px; color: #959e99 !important; font-size: 12px; letter-spacing: 0.08em; }
 #nav .menus_item_child .site-page i { width: 18px; color: #5f6964; font-size: 9px; }
 #nav .menus_item_child .site-page:hover { color: var(--midnight-accent) !important; background: rgba(185, 216, 194, 0.045); }
 
@@ -1432,11 +1467,28 @@ body.has-sakura-player #rightside { bottom: 100px; }
 
 #footer .footer_custom_text {
   display: flex;
+  flex-wrap: wrap;
   gap: 22px;
   align-items: center;
+  justify-content: flex-end;
   color: #69726d;
   font-size: 7px;
   letter-spacing: 0.18em;
+}
+
+#footer .footer-media-notice {
+  flex-basis: 100%;
+  color: #88928d;
+  font-size: 11px;
+  line-height: 1.65;
+  letter-spacing: 0.04em;
+  text-align: right;
+}
+
+#footer .footer-media-notice a {
+  color: var(--midnight-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 #footer .footer_custom_text span:first-child {
@@ -2508,7 +2560,7 @@ body.has-sakura-player #rightside { bottom: 100px; }
   #nav #menus { gap: 5px; }
   #nav #search-button .site-page {
     justify-content: center;
-    width: 38px;
+    width: 44px;
     padding: 0;
     font-size: 0;
   }
@@ -2518,7 +2570,7 @@ body.has-sakura-player #rightside { bottom: 100px; }
     display: flex !important;
     align-items: center;
     justify-content: center;
-    width: 34px;
+    width: 44px;
     height: 100%;
     padding: 0;
   }
@@ -2926,7 +2978,7 @@ html.is-mobile-device #nav .menus_items { display: none !important; }
 html.is-mobile-device #nav #menus { flex: 0 0 auto; gap: 4px; }
 html.is-mobile-device #nav #search-button .site-page {
   justify-content: center;
-  width: 36px;
+  width: 44px;
   padding: 0;
   font-size: 0;
 }
@@ -2936,7 +2988,7 @@ html.is-mobile-device #nav #toggle-menu {
   display: flex !important;
   align-items: center;
   justify-content: center;
-  width: 34px;
+  width: 44px;
   height: 100%;
   padding: 0;
 }
@@ -2985,8 +3037,8 @@ html.is-mobile-device #sidebar #sidebar-menus .sidebar-mobile-close {
   right: 14px;
   z-index: 1;
   display: flex;
-  width: 30px;
-  height: 30px;
+  width: 44px;
+  height: 44px;
   align-items: center;
   justify-content: center;
   padding: 0;
@@ -3318,8 +3370,8 @@ html.is-mobile-device .sakura-player__transport {
   justify-content: flex-end;
 }
 html.is-mobile-device .sakura-player__transport .sakura-player__play {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
 }
 html.is-mobile-device .sakura-player__timeline {
   grid-area: timeline;
@@ -3336,6 +3388,7 @@ html.is-mobile-device body.has-sakura-player #body-wrap {
 }
 
 @media (max-width: 600px) {
+  #footer .footer-media-notice { text-align: left; }
   .about-netease { margin-top: 46px; padding: 24px 20px; }
   .about-netease__header { align-items: flex-start; flex-direction: column; gap: 20px; padding-bottom: 24px; }
   .about-netease__header p { margin-bottom: 12px; }

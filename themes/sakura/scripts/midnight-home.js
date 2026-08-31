@@ -5,6 +5,7 @@ const path = require('node:path')
 
 const NETEASE_PLAYLIST_URL = 'https://music.163.com/#/playlist?id=2203036705'
 const NETEASE_PROFILE_URL = 'https://music.163.com/#/user/home?id=1441471952'
+const CURRENT_YEAR = new Date().getFullYear()
 
 const HOME_HERO = `
 <section class="midnight-hero" aria-labelledby="midnight-title">
@@ -49,6 +50,18 @@ const escapeHtml = (value = '') => String(value).replace(/[&<>'"]/g, (character)
   '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
 }[character]))
 
+const formatShanghaiDate = (value) => {
+  if (!value) return ''
+  const date = new Date(value)
+  if (Number.isNaN(date.getTime())) return ''
+  return new Intl.DateTimeFormat('zh-CN', {
+    timeZone: 'Asia/Shanghai',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  }).format(date).replace(/\//g, '-')
+}
+
 const formatCommentLikes = (value) => {
   const number = Number(value)
   if (!Number.isFinite(number) || number <= 0) return '—'
@@ -62,7 +75,7 @@ const formatCommentLikes = (value) => {
 const renderTrackComments = (track) => {
   const payload = track?.neteaseComments || {}
   const comments = Array.isArray(payload.comments) ? payload.comments.slice(0, 4) : []
-  const updated = payload.updatedAt ? String(payload.updatedAt).slice(0, 10) : ''
+  const updated = formatShanghaiDate(payload.updatedAt)
   const commentItems = comments.map((comment) => `
       <blockquote>
         <p>${escapeHtml(comment.content || '')}</p>
@@ -102,7 +115,7 @@ const renderListeningRoom = (tracks) => {
   return `
 <section class="listening-room" id="listening-room" aria-labelledby="listening-title">
   <div class="listening-room__heading">
-    <p>PERSONAL SELECTION / 2026</p>
+    <p>PERSONAL SELECTION / ${CURRENT_YEAR}</p>
     <h2 id="listening-title">夜晚适合把世界<br>调成静音，只留下音乐。</h2>
   </div>
   <div class="listening-selection">
@@ -397,7 +410,7 @@ const renderNeteaseStats = () => {
   const allTimeMinutes = available ? formatMinutes(readDurationMinutes(duration, 'allTimeMinutes', 'allTime')) : '—'
   const weekly = Array.isArray(stats.weekly) ? stats.weekly : []
   const allTime = Array.isArray(stats.allTime) ? stats.allTime : []
-  const updated = stats.updatedAt ? String(stats.updatedAt).slice(0, 10) : '等待首次同步'
+  const updated = formatShanghaiDate(stats.updatedAt) || '等待首次同步'
   const note = duration.message || stats.notes || '排行榜会由 GitHub Actions 每日同步。'
   const scrape = stats.scrape || {}
   const sourceLabel = String(duration.source || '').includes('profile-visible')
@@ -453,8 +466,10 @@ hexo.extend.filter.register('after_render:html', function (html, data) {
     result = result.replace('</header><main', `${HOME_HERO}</header>${renderListeningRoom(tracks)}<main`)
     result = result.replace('<div class="recent-posts', `${NOTES_HEADING}<div class="recent-posts`)
     result = result.replace('</main><footer', `</main>${HOME_CODA}<footer`)
-    result = result.replace(/(<meta property="og:image" content=")[^"]+("\s*\/?>)/, '$1https://sakura.luxe/img/og.png$2')
-    result = result.replace(/(<meta name="twitter:image" content=")[^"]+("\s*\/?>)/, '$1https://sakura.luxe/img/og.png$2')
+    const siteUrl = String(hexo.config.url || '').replace(/\/$/, '')
+    const socialImage = `${siteUrl}/img/og.png`
+    result = result.replace(/(<meta property="og:image" content=")[^"]+("\s*\/?>)/, `$1${socialImage}$2`)
+    result = result.replace(/(<meta name="twitter:image" content=")[^"]+("\s*\/?>)/, `$1${socialImage}$2`)
   }
 
   if (!result.includes('window.__SAKURA_TRACKS')) {

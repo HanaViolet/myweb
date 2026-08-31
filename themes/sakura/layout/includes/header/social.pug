@@ -4,5 +4,5 @@ each url, icon in theme.social
     const href = url_for(link)
     const iconStyle = color ? `color: ${color.replace(/[\'\"]/g, '')};` : ''
     const iconTitle = title || ''
-  a.social-icon(href=href target="_blank" title=iconTitle)
+  a.social-icon(href=href target="_blank" rel="noopener noreferrer" title=iconTitle aria-label=iconTitle)
     i(class=icon style=iconStyle)

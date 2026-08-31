@@ -14,13 +14,13 @@ nav#nav
 
   #menus
     if theme.search.use
-      #search-button
+      button#search-button.nav-action(type='button' aria-label=_p('search.title'))
         span.site-page.social-icon.search
           i.fas.fa-search.fa-fw
           span= ' ' + _p('search.title')
     if theme.menu
       != partial('includes/header/menu_item', {}, {cache: true})
 
-      #toggle-menu
+      button#toggle-menu.nav-action(type='button' aria-label='打开菜单')
         span.site-page
           i.fas.fa-bars.fa-fw

@@ -14,7 +14,7 @@ if nav
                 if subitem.html
                   div!= subitem.html
                 else if subitem.url
-                  a(href=url_for(subitem.url), target='_blank' title=subitem.title)= subitem.title
+                  a(href=url_for(subitem.url), target='_blank' rel='noopener noreferrer' title=subitem.title)= subitem.title
                 else if subitem.title
                   div!= subitem.title
 .footer-other

@@ -37,14 +37,38 @@ jobs:
         run: npm run netease:comments
 
       - name: Commit updated comments
+        id: publish
         shell: bash
         run: |
           if git diff --quiet -- source/_data/netease-comments.json; then
             echo "No NetEase comment changes."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
+          updated_at=$(node -p "require('./source/_data/netease-comments.json').updatedAt")
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add source/_data/netease-comments.json
           git commit -m "chore: update NetEase hot comments"
-          git push
+          pushed=false
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then
+              pushed=true
+              break
+            fi
+            echo "Push attempt ${attempt} failed; rebasing on the latest main branch."
+            git pull --rebase origin main
+          done
+          if [ "$pushed" != "true" ]; then
+            echo "Unable to push NetEase comments after three attempts." >&2
+            exit 1
+          fi
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "marker=$updated_at" >> "$GITHUB_OUTPUT"
+
+      - name: Verify Cloudflare Pages deployment
+        if: steps.publish.outputs.changed == 'true'
+        env:
+          CLOUDFLARE_SITE_URL: https://sakura.luxe/about/
+          CLOUDFLARE_EXPECTED_MARKER: ${{ steps.publish.outputs.marker }}
+        run: node tools/verify-cloudflare-deployment.mjs

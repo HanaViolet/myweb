@@ -47,6 +47,18 @@
     '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
   }[character]))
 
+  const formatShanghaiDate = (value) => {
+    if (!value) return ''
+    const date = new Date(value)
+    if (Number.isNaN(date.getTime())) return ''
+    return new Intl.DateTimeFormat('zh-CN', {
+      timeZone: 'Asia/Shanghai',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    }).format(date).replace(/\//g, '-')
+  }
+
   const formatCommentLikes = (value) => {
     const number = Number(value)
     if (!Number.isFinite(number) || number <= 0) return '—'
@@ -123,7 +135,7 @@
   const renderTrackComments = (track) => {
     const payload = track?.neteaseComments || {}
     const comments = Array.isArray(payload.comments) ? payload.comments.slice(0, 4) : []
-    const updated = payload.updatedAt ? String(payload.updatedAt).slice(0, 10) : ''
+    const updated = formatShanghaiDate(payload.updatedAt)
     const commentItems = comments.map((comment) => `
         <blockquote>
           <p>${escapeHtml(comment.content || '')}</p>

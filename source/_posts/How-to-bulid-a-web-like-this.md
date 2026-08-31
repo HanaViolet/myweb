@@ -1,5 +1,5 @@
 ---
-title: How to bulid a web like this
+title: How to build a website like this
 tags:
   - Hexo
   - Netlify
@@ -7,7 +7,7 @@ tags:
 categories:
   - 技术杂谈
 cover: /img/cover1.jpg
-description: 记录我是如何从手写 Vue 博客转向使用 Hexo + Butterfly 主题，并成功部署到 Netlify 的全过程。
+description: 记录我如何从手写 Vue 博客迁移到 Hexo，并把 Butterfly 改造成独立 Sakura 主题、部署到 Cloudflare Pages。
 abbrlink: c029052
 date: 2026-01-16 14:00:00
 ---

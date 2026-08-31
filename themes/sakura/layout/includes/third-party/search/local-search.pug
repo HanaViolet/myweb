@@ -3,7 +3,7 @@
     nav.search-nav
       span.search-dialog-title= _p('search.title')
       i.fas.fa-spinner.fa-pulse#loading-status(hidden)
-      button.search-close-button
+      button.search-close-button(type='button' aria-label='关闭搜索')
         i.fas.fa-times
 
     #loading-database.text-center
@@ -11,7 +11,7 @@
       span= '  ' + _p("search.load_data")
 
     .local-search-input
-      input(placeholder=theme.search.placeholder || _p("search.input_placeholder") type="text")
+      input(placeholder=theme.search.placeholder || _p("search.input_placeholder") type="search" aria-label=_p("search.input_placeholder"))
 
     hr
 

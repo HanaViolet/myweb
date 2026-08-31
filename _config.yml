@@ -8,7 +8,7 @@
 title: Sakura Listening Room  # 网站标题
 subtitle: 'Music for the quiet hours' # 副标题
 description: 'Sakura 的私人聆听室：记录音乐、代码、游戏与生活。' # 网站描述
-keywords: Vue, Hexo, Python, AI, 编程, 随笔 # 网站关键词
+keywords: 音乐, J-POP, 阅读, 游戏, Hexo, 编程, 生活随笔 # 网站关键词
 author: sakura                # 文章作者名
 language: zh-CN               # 语言
 timezone: 'Asia/Shanghai'     # 时区
@@ -21,8 +21,8 @@ url: https://sakura.luxe
 permalink: posts/:abbrlink/   # 推荐：文章链接格式 (如果没装 hexo-abbrlink 插件，请改回 :year/:month/:day/:title/)
 permalink_defaults:
 pretty_urls:
-  trailing_index: true
-  trailing_html: true
+  trailing_index: false
+  trailing_html: false
 
 # =========================================================
 # 3. 目录设置 (Directory)
@@ -34,7 +34,12 @@ archive_dir: archives
 category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
+# Cloudflare Pages 需要在最终发布目录中读取 `_headers`。Hexo 默认忽略
+# 下划线开头的文件，因此需要显式包含并跳过渲染。
+include:
+  - _headers
 skip_render:
+  - _headers
 
 # =========================================================
 # 4. 文章写作设置 (Writing)
@@ -51,7 +56,7 @@ render_drafts: false
 # ⚠️ 资源文件夹：建议改为 true。这样新建文章时会自动创建同名文件夹用于存放图片
 post_asset_folder: true
 relative_link: false
-future: true
+future: false
 
 # 代码高亮设置 (配合 Sakura 主题的本地渲染层)
 syntax_highlighter: highlight.js
@@ -67,6 +72,11 @@ prismjs:
   preprocess: true
   line_number: true
   tab_replace: ''
+
+# 让标准 Markdown 图片语法正确解析文章资源文件夹，并保留 alt 文本。
+marked:
+  prependRoot: true
+  postAsset: true
 
 # =========================================================
 # 5. 首页分页设置 (Home page setting)
@@ -93,7 +103,9 @@ meta_generator: true
 # =========================================================
 date_format: YYYY-MM-DD
 time_format: HH:mm:ss
-updated_option: 'mtime'
+# 未显式设置 updated 时使用文章发布日期，避免 CI 每次 checkout 都把
+# 文件 mtime 误当成内容更新时间。
+updated_option: 'date'
 
 # =========================================================
 # 9. 分页 (Pagination)

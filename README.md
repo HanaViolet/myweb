@@ -100,11 +100,11 @@ npx hexo new post "文章标题"
 
 ## 🔐 发布与隐私
 
-Cloudflare Pages 负责从 GitHub 构建并发布站点，仓库本身不保存部署密钥。若将音频迁移到 R2，建议使用公开只读对象 URL，并把管理凭据放在 Cloudflare Secrets 中；不要把 API Token、私有歌单或未获授权的音频提交到公开仓库。
+Cloudflare Pages 通过 Git 集成监听 `main` 分支并构建站点，因此普通提交和 `github-actions[bot]` 生成的数据提交都会自动触发生产部署。网易云更新任务在推送后还会轮询线上关于页，最多等待 10 分钟，只有确认本次 `updatedAt` 已经出现在 `https://sakura.luxe/about/` 才算完整成功；该校验不需要 Cloudflare API Token 或 Deploy Hook。若将音频迁移到 R2，建议使用公开只读对象 URL，并把管理凭据放在 Cloudflare Secrets 中；不要把 API Token、私有歌单或未获授权的音频提交到公开仓库。
 
-`.github/workflows/update-netease-stats.yml` 会每天按北京时间 00:17 更新 `source/_data/netease-stats.json` 并提交变更，Cloudflare Pages 随后自动重新构建。脚本会请求公开排行；如果配置了 GitHub Actions Secret `NETEASE_COOKIE`，会优先用无头 Chrome 打开个人页，并把同一登录态传给排行接口，以读取登录后页面或接口返回的播放次数。同时，脚本会并行调用同一组网易云听歌足迹接口：`/api/content/activity/listen/data/realtime/report`（`type=week`）获取本周值，`/api/content/activity/listen/data/total` 获取累计值。个人页明确展示的“本周收听时长”和“总时长”会优先作为两项的可见值，接口作为备用；不会再使用 Top 20 播放次数估算冒充账户总时长。累计接口的 `totalDuration` 是秒，脚本会统一转换为分钟；旧快照若曾把原始秒数写进 `*Minutes` 字段，页面会临时兼容并在下次同步后被替换。累计值如果小于本周值会被拒绝写入。生成文件会保留脱敏的字段路径、单位和校验状态，便于接口变更时排查。Cookie 只在 Actions 运行时注入，不会写入仓库或生成数据文件；过期后删除 / 更新该 Secret 即可。
+`.github/workflows/update-netease-stats.yml` 会每天按北京时间 00:17 更新 `source/_data/netease-stats.json` 并提交变更，Cloudflare Pages 随后自动重新构建。GitHub 定时任务可能延迟执行，页面会把 ISO 时间按 `Asia/Shanghai` 转换后显示。脚本会请求公开排行；如果配置了 GitHub Actions Secret `NETEASE_COOKIE`，会优先用无头 Chrome 打开个人页，并把同一登录态传给排行接口，以读取登录后页面或接口返回的播放次数。同时，脚本会并行调用同一组网易云听歌足迹接口：`/api/content/activity/listen/data/realtime/report`（`type=week`）获取本周值，`/api/content/activity/listen/data/total` 获取累计值。个人页明确展示的“本周收听时长”和“总时长”会优先作为两项的可见值，接口作为备用；不会再使用 Top 20 播放次数估算冒充账户总时长。累计接口的 `totalDuration` 是秒，脚本会统一转换为分钟；旧快照若曾把原始秒数写进 `*Minutes` 字段，页面会临时兼容并在下次同步后被替换。累计值如果小于本周值会被拒绝写入。生成文件会保留脱敏的字段路径、单位和校验状态，便于接口变更时排查。Cookie 只在 Actions 运行时注入，不会写入仓库或生成数据文件；过期后删除 / 更新该 Secret 即可。
 
-`.github/workflows/update-netease-comments.yml` 会每周按北京时间周日 00:31 更新 `source/_data/netease-comments.json`。它按 `tracks.json` 中的 `neteaseId` 请求热门评论，每首只缓存少量摘录，并保留网易云歌曲页链接；请求失败时会继续展示上一次缓存，不会让构建中断。评论内容来自网易云公开页面 / 接口，页面只展示必要的署名、获赞数和日期。
+`.github/workflows/update-netease-comments.yml` 会每周按北京时间周一 00:31 更新 `source/_data/netease-comments.json`。它按 `tracks.json` 中的 `neteaseId` 请求热门评论，每首只缓存少量摘录，并保留网易云歌曲页链接；请求失败时会继续展示上一次缓存，不会让构建中断。评论内容来自网易云公开页面 / 接口，页面只展示必要的署名、获赞数和日期。
 
 热评抓取的资源路径与流程参考了 [《抓取网易云音乐热门评论》](https://chengjun.github.io/mybook/04-crawler-netease-music.html)；本项目改为在 Actions 中低频执行并生成静态数据，避免访客浏览器直接请求网易云。
 

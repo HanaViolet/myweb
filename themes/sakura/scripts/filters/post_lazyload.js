@@ -10,10 +10,16 @@ const urlFor = require('hexo-util').url_for.bind(hexo)
 
 const lazyload = htmlContent => {
   if (hexo.theme.config.lazyload.native) {
-    // Use more precise replacement: only replace img tags in HTML, not content inside script tags
-    return htmlContent.replace(/(<img(?![^>]*?\bloading=)(?:\s[^>]*?)?>)(?![^<]*<\/script>)/gi, match => {
-      return match.replace(/>$/, ' loading=\'lazy\'>')
-    })
+    // Process markup outside <script> blocks and normalize Pug's self-closing
+    // syntax before adding the native loading attribute.
+    return htmlContent.split(/(<script\b[\s\S]*?<\/script>)/gi).map(fragment => {
+      if (/^<script\b/i.test(fragment)) return fragment
+      return fragment.replace(/<img\b([^>]*?)\/?\s*>/gi, (match, attributes) => {
+        if (/\bloading\s*=/i.test(attributes)) return match
+        const normalized = attributes.replace(/\s*\/\s*$/, '').trimEnd()
+        return `<img${normalized} loading="lazy">`
+      })
+    }).join('')
   }
 
   const bg = hexo.theme.config.lazyload.placeholder ? urlFor(hexo.theme.config.lazyload.placeholder) : 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
