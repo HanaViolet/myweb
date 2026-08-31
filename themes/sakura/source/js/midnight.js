@@ -5,6 +5,7 @@
   const NETEASE_PLAYLIST_URL = 'https://music.163.com/#/playlist?id=2203036705'
   const PLAYER_STORAGE_KEY = 'sakura-player-state-v2'
   const LEGACY_PLAYER_STORAGE_KEY = 'sakura-player-state-v1'
+  let heroScrollExitCleanup = null
 
   const getPlayerStorages = () => {
     const storages = []
@@ -130,6 +131,63 @@
     })
     writeGallerySelection(selectionKey)
     strip.dataset.galleryReady = 'true'
+  }
+
+  const initHeroScrollExit = (hero) => {
+    heroScrollExitCleanup?.()
+    heroScrollExitCleanup = null
+
+    const root = document.documentElement
+    let animationFrame = 0
+
+    const render = () => {
+      animationFrame = 0
+      const motionAllowed = !window.matchMedia('(prefers-reduced-motion: reduce)').matches && !window.matchMedia('(max-width: 900px)').matches
+      root.classList.toggle('has-hero-scroll-motion', motionAllowed)
+      if (!motionAllowed) {
+        hero.removeAttribute('style')
+        return
+      }
+
+      const header = hero.closest('#page-header') || hero
+      const distance = Math.max(hero.offsetHeight * 0.74, window.innerHeight * 0.58, 1)
+      const rawProgress = Math.min(1, Math.max(0, -header.getBoundingClientRect().top / distance))
+      const progress = rawProgress * rawProgress * (3 - (2 * rawProgress))
+      const width = Math.min(window.innerWidth, 1600)
+      const left = -width * progress
+      const right = width * progress
+
+      hero.style.setProperty('--hero-eyebrow-x', `${left * 0.22}px`)
+      hero.style.setProperty('--hero-title-x', `${left * 0.48}px`)
+      hero.style.setProperty('--hero-intro-x', `${left * 0.34}px`)
+      hero.style.setProperty('--hero-actions-x', `${left * 0.25}px`)
+      hero.style.setProperty('--hero-record-x', `${right * 0.42}px`)
+      hero.style.setProperty('--hero-record-y', `${progress * 18}px`)
+      hero.style.setProperty('--hero-record-scale', String(1 - (progress * 0.045)))
+      hero.style.setProperty('--hero-scroll-x', `${left * 0.16}px`)
+      hero.style.setProperty('--hero-eyebrow-opacity', String(Math.max(0, 1 - (progress * 1.5))))
+      hero.style.setProperty('--hero-title-opacity', String(Math.max(0, 1 - (progress * 1.08))))
+      hero.style.setProperty('--hero-intro-opacity', String(Math.max(0, 1 - (progress * 1.3))))
+      hero.style.setProperty('--hero-actions-opacity', String(Math.max(0, 1 - (progress * 1.45))))
+      hero.style.setProperty('--hero-record-opacity', String(Math.max(0, 1 - (progress * 1.1))))
+      hero.style.setProperty('--hero-scroll-opacity', String(Math.max(0, 1 - (progress * 1.7))))
+    }
+
+    const requestRender = () => {
+      if (!animationFrame) animationFrame = window.requestAnimationFrame(render)
+    }
+
+    window.addEventListener('scroll', requestRender, { passive: true })
+    window.addEventListener('resize', requestRender)
+    render()
+
+    heroScrollExitCleanup = () => {
+      window.removeEventListener('scroll', requestRender)
+      window.removeEventListener('resize', requestRender)
+      if (animationFrame) window.cancelAnimationFrame(animationFrame)
+      root.classList.remove('has-hero-scroll-motion')
+      hero.removeAttribute('style')
+    }
   }
 
   const renderTrackComments = (track) => {
@@ -525,7 +583,7 @@
     detail.classList.remove('is-changing')
     void detail.offsetWidth
     detail.innerHTML = `
-      <div class="listening-note__index"><span>${String(index).padStart(2, '0')}</span><small>ABOUT THE TRACK</small></div>
+      <div class="listening-note__index"><span>${String(index).padStart(2, '0')}</span><small>LINER NOTES / SIDE A</small></div>
       <div class="listening-note__copy">
         <p class="listening-note__meta">${escapeHtml(track.meta)}</p>
         <h3>${escapeHtml(track.title)}</h3>
@@ -541,9 +599,15 @@
     const player = initPlayer()
     const hero = document.querySelector('.midnight-hero')
     document.body.classList.toggle('is-midnight-home', Boolean(hero))
-    if (!hero) return
+    if (!hero) {
+      heroScrollExitCleanup?.()
+      heroScrollExitCleanup = null
+      document.documentElement.classList.remove('has-hero-scroll-motion')
+      return
+    }
 
     initRandomGallery()
+    initHeroScrollExit(hero)
 
     const playButton = hero.querySelector('.midnight-play')
     if (playButton && !playButton.dataset.ready) {

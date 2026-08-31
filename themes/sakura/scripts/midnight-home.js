@@ -22,24 +22,59 @@ const HOME_HERO = `
     </div>
   </div>
   <div class="midnight-record-stage" aria-hidden="true">
-    <p class="midnight-record-caption">NOW SPINNING<br>YORUSHIKA / SELECTION</p>
     <div class="midnight-record">
-      <div class="midnight-record__grooves"></div>
-      <div class="midnight-record__label">
-        <span>SAKURA</span>
-        <small>夜の選曲</small>
-      </div>
+      <svg class="midnight-record__tree" viewBox="0 0 500 500" role="presentation">
+        <defs>
+          <radialGradient id="midnight-tree-core" cx="46%" cy="43%" r="62%">
+            <stop offset="0" stop-color="#1d2421"></stop>
+            <stop offset="0.52" stop-color="#0b100f"></stop>
+            <stop offset="1" stop-color="#050807"></stop>
+          </radialGradient>
+          <linearGradient id="midnight-bark-edge" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#a8c0ad" stop-opacity=".52"></stop>
+            <stop offset=".46" stop-color="#425149" stop-opacity=".78"></stop>
+            <stop offset="1" stop-color="#c0d8c6" stop-opacity=".34"></stop>
+          </linearGradient>
+        </defs>
+        <path class="midnight-record__bark" d="M248 11 C282 8 303 21 333 19 C364 18 382 37 407 49 C433 62 438 88 454 111 C472 137 462 166 476 193 C490 221 478 249 482 279 C486 309 465 330 456 358 C447 388 419 398 400 420 C379 445 349 445 321 459 C294 472 265 462 236 475 C207 486 181 466 151 462 C120 457 105 432 80 416 C54 399 53 370 39 346 C23 320 33 292 24 264 C15 236 31 210 31 181 C31 150 53 132 64 105 C76 76 104 69 127 50 C150 31 178 36 207 23 C222 16 235 13 248 11 Z"></path>
+        <g id="midnight-tree-rings" class="midnight-record__rings">
+          <path d="M248 24 C282 21 307 34 337 31 C369 28 385 53 410 67 C434 81 435 108 449 132 C463 157 450 184 462 211 C474 238 459 263 464 291 C468 319 447 338 438 364 C428 391 401 398 382 418 C362 438 333 435 307 448 C280 460 254 449 226 461 C197 469 177 449 149 445 C121 439 109 416 87 400 C64 383 64 356 52 333 C40 309 50 285 42 260 C34 234 48 212 47 185 C48 157 68 140 78 116 C89 91 113 84 134 67 C155 50 181 54 207 41 C222 33 235 28 248 24 Z"></path>
+          <path d="M247 39 C275 35 300 48 327 45 C356 42 374 62 398 76 C421 89 423 115 436 137 C450 161 438 184 449 208 C461 232 447 257 451 282 C455 308 435 325 427 349 C418 374 393 382 375 400 C356 419 330 417 305 428 C281 440 256 430 230 440 C204 448 183 430 158 426 C132 422 120 400 99 386 C77 370 77 345 66 324 C55 301 64 279 57 256 C49 233 62 212 61 188 C62 162 81 147 90 124 C100 101 123 94 141 80 C161 64 184 68 208 56 C222 49 235 43 247 39 Z"></path>
+          <path d="M246 57 C273 54 293 64 319 61 C346 59 362 77 385 88 C407 100 409 123 421 144 C433 165 422 188 432 210 C442 233 430 253 433 278 C436 301 419 317 411 339 C402 361 379 369 363 386 C345 403 321 400 299 411 C276 421 253 412 230 420 C207 428 188 411 166 408 C142 403 132 384 113 371 C94 356 94 334 84 314 C74 294 83 274 76 253 C70 231 81 213 81 191 C81 169 98 154 106 134 C115 114 135 108 152 94 C169 81 190 83 211 73 C223 66 236 60 246 57 Z"></path>
+          <path d="M246 75 C269 72 289 81 311 79 C336 76 352 92 372 103 C392 113 394 135 405 153 C416 173 406 193 415 213 C424 233 413 252 416 273 C419 294 403 309 396 328 C388 348 368 355 352 370 C337 385 315 382 295 392 C275 401 254 393 233 400 C212 407 196 393 176 389 C155 386 144 369 127 356 C110 344 110 323 101 306 C92 287 100 270 94 251 C88 232 98 215 97 196 C98 175 113 162 121 145 C129 127 146 121 162 109 C177 97 196 99 215 90 C226 84 237 78 246 75 Z"></path>
+          <path d="M246 94 C266 91 282 99 303 97 C324 95 338 109 356 118 C374 128 376 146 385 162 C395 180 386 197 394 215 C402 233 392 249 395 268 C398 287 384 299 377 316 C370 334 352 340 338 353 C324 366 306 364 288 372 C270 380 253 373 235 379 C216 386 202 373 185 370 C167 367 157 352 142 341 C127 330 127 313 119 297 C111 281 118 266 113 250 C107 233 116 219 115 202 C116 184 129 173 136 157 C143 141 158 136 171 126 C185 115 202 117 218 109 C228 103 238 98 246 94 Z"></path>
+          <path d="M245 114 C262 111 277 118 294 116 C313 115 325 126 341 135 C357 143 360 158 368 173 C376 188 369 203 376 218 C383 234 375 248 377 264 C380 280 367 291 362 306 C355 321 340 326 328 337 C316 348 300 346 284 353 C269 360 253 354 238 360 C222 365 210 354 195 351 C179 348 171 335 158 326 C145 317 145 302 138 289 C132 275 138 262 133 248 C129 234 136 221 136 207 C136 191 148 182 154 168 C160 155 173 150 184 141 C196 132 210 134 224 127 C232 122 239 117 245 114 Z"></path>
+          <path d="M245 135 C259 133 271 138 286 137 C301 135 311 145 325 151 C338 158 340 171 347 183 C354 196 348 208 354 221 C360 234 353 246 356 259 C357 273 347 282 342 294 C337 307 324 311 314 320 C304 330 290 328 278 334 C265 340 253 335 240 339 C227 344 217 335 204 333 C191 330 184 320 173 312 C163 304 163 291 157 280 C152 269 157 258 153 247 C149 235 156 225 155 214 C156 201 165 194 170 183 C175 172 186 168 195 160 C204 153 216 155 227 149 C234 145 240 139 245 135 Z"></path>
+          <path d="M245 156 C256 154 267 159 278 158 C291 157 300 165 311 170 C323 176 324 187 330 197 C336 208 331 218 336 229 C341 240 335 250 338 261 C339 272 331 280 327 290 C323 301 312 304 304 312 C295 320 284 318 274 323 C263 328 253 324 242 328 C231 332 223 324 212 322 C201 320 195 311 186 305 C177 298 178 288 172 278 C168 269 172 260 169 251 C165 241 171 232 170 223 C171 212 179 206 183 197 C187 188 196 184 203 178 C211 172 221 173 231 168 C236 164 241 159 245 156 Z"></path>
+          <path d="M245 178 C254 177 262 181 271 180 C281 179 288 185 297 190 C306 194 307 203 312 211 C317 220 313 228 317 237 C321 246 316 254 318 263 C319 272 313 278 309 286 C306 294 298 297 291 303 C284 309 276 307 267 311 C259 315 251 312 243 315 C234 318 228 312 219 310 C210 309 206 301 199 297 C192 291 192 283 188 276 C184 268 188 261 185 254 C182 246 187 239 186 232 C187 223 193 219 196 212 C200 205 207 202 213 197 C219 192 227 194 234 190 C239 187 242 182 245 178 Z"></path>
+          <path d="M245 200 C252 198 257 202 264 201 C272 200 277 205 284 208 C291 212 292 219 296 225 C300 232 296 238 300 245 C303 252 299 258 301 265 C301 272 296 277 294 283 C291 289 285 291 279 296 C274 301 268 299 261 302 C255 305 249 302 243 305 C236 307 232 302 225 301 C219 300 215 294 210 290 C205 286 205 280 202 274 C199 268 202 263 200 257 C197 251 201 246 200 240 C201 233 206 230 208 225 C211 219 216 217 221 213 C225 209 231 211 237 207 C240 205 243 202 245 200 Z"></path>
+        </g>
+        <use class="midnight-record__rings-copy" href="#midnight-tree-rings" transform="translate(8 8) scale(.968)"></use>
+        <g class="midnight-record__cracks">
+          <path d="M248 252 C263 242 270 228 285 220 L293 208"></path>
+          <path d="M248 252 C238 266 226 272 220 289 L209 299"></path>
+          <path d="M248 252 C252 236 247 224 254 210 L252 198"></path>
+          <path d="M248 252 C264 260 276 273 292 277 L304 286"></path>
+        </g>
+        <circle class="midnight-record__heart" cx="248" cy="252" r="4"></circle>
+      </svg>
     </div>
     <svg class="midnight-tonearm" viewBox="0 0 500 500" aria-hidden="true">
       <g class="midnight-tonearm__assembly">
-        <circle class="midnight-tonearm__pivot-halo" cx="440" cy="68" r="19"></circle>
-        <circle class="midnight-tonearm__pivot" cx="440" cy="68" r="9"></circle>
-        <circle class="midnight-tonearm__pivot-core" cx="440" cy="68" r="2.5"></circle>
-        <path class="midnight-tonearm__arm-shadow" d="M440 68 C456 132 454 212 435 273 C423 314 413 342 397 364"></path>
-        <path class="midnight-tonearm__arm" d="M440 68 C456 132 454 212 435 273 C423 314 413 342 397 364"></path>
-        <path class="midnight-tonearm__arm-highlight" d="M440 68 C456 132 454 212 435 273 C423 314 413 342 397 364"></path>
-        <path class="midnight-tonearm__headshell" d="M397 364 L382 371 L388 381 L404 373 Z"></path>
-        <path class="midnight-tonearm__needle" d="M388 379 L383 394"></path>
+        <circle class="midnight-tonearm__base-shadow" cx="431" cy="69" r="31"></circle>
+        <circle class="midnight-tonearm__base" cx="431" cy="69" r="26"></circle>
+        <circle class="midnight-tonearm__base-ring" cx="431" cy="69" r="19"></circle>
+        <path class="midnight-tonearm__base-detail" d="M431 50 V88 M412 69 H450"></path>
+        <circle class="midnight-tonearm__pivot-halo" cx="431" cy="69" r="10"></circle>
+        <circle class="midnight-tonearm__pivot" cx="431" cy="69" r="5.5"></circle>
+        <circle class="midnight-tonearm__pivot-core" cx="431" cy="69" r="2.5"></circle>
+        <path class="midnight-tonearm__counterweight" d="M423 58 L425 16 Q425 12 429 12 L437 14 Q440 15 439 19 L435 60 Z"></path>
+        <path class="midnight-tonearm__arm-shadow" d="M431 69 C444 128 453 187 441 237 C431 282 405 327 371 365"></path>
+        <path class="midnight-tonearm__arm" d="M431 69 C444 128 453 187 441 237 C431 282 405 327 371 365"></path>
+        <path class="midnight-tonearm__arm-highlight" d="M431 69 C444 128 453 187 441 237 C431 282 405 327 371 365"></path>
+        <path class="midnight-tonearm__headshell" d="M373 358 L346 371 Q342 373 345 378 L353 389 Q356 393 360 389 L380 369 Z"></path>
+        <path class="midnight-tonearm__headshell-detail" d="M350 374 L365 367 M354 380 L369 373"></path>
+        <path class="midnight-tonearm__needle" d="M353 387 L346 403"></path>
       </g>
     </svg>
   </div>
@@ -92,7 +127,7 @@ const renderTrackComments = (track) => {
 }
 
 const renderTrackDetail = (track, index) => `
-  <div class="listening-note__index"><span>${String(index + 1).padStart(2, '0')}</span><small>ABOUT THE TRACK</small></div>
+  <div class="listening-note__index"><span>${String(index + 1).padStart(2, '0')}</span><small>LINER NOTES / SIDE A</small></div>
   <div class="listening-note__copy">
     <p class="listening-note__meta">${escapeHtml(track.meta)}</p>
     <h3>${escapeHtml(track.title)}</h3>
@@ -113,22 +148,32 @@ const renderListeningRoom = (tracks) => {
         </button>
       </li>`).join('')
   return `
-<section class="listening-room" id="listening-room" aria-labelledby="listening-title">
+<section class="listening-room listening-room--gatefold" id="listening-room" aria-labelledby="listening-title">
   <div class="listening-room__heading">
     <p>PERSONAL SELECTION / ${CURRENT_YEAR}</p>
     <h2 id="listening-title">夜晚适合把世界<br>调成静音，只留下音乐。</h2>
   </div>
-  <div class="listening-selection">
-    <div class="listening-selection__label"><span>SAKURA'S ${selection.length} PICKS</span><span>CLICK TO LISTEN</span></div>
-    <ol class="listening-tracks" aria-label="Sakura 的代表曲目">${list}
-    </ol>
-    <a class="listening-collection" href="${NETEASE_PLAYLIST_URL}" target="_blank" rel="noopener">
-      <span class="listening-collection__mark" aria-hidden="true">♬</span>
-      <span><small>FULL COLLECTION / NETEASE CLOUD MUSIC</small><strong>我的网易云收藏歌单</strong></span>
-      <span class="listening-collection__open">OPEN PLAYLIST ↗</span>
-    </a>
+  <div class="listening-gatefold">
+    <div class="listening-gatefold__folio" aria-hidden="true">
+      <span>SAKURA LISTENING ARCHIVE</span>
+      <span>CAT. NO. SKR-${String(selection.length).padStart(2, '0')} / ${CURRENT_YEAR}</span>
+    </div>
+    <div class="listening-gatefold__page listening-gatefold__page--index">
+      <div class="listening-selection">
+        <div class="listening-selection__label"><span>SIDE A / ${selection.length} TRACKS</span><span>SELECT A TRACK</span></div>
+        <ol class="listening-tracks" aria-label="Sakura 的代表曲目">${list}
+        </ol>
+        <a class="listening-collection" href="${NETEASE_PLAYLIST_URL}" target="_blank" rel="noopener">
+          <span class="listening-collection__mark" aria-hidden="true">♬</span>
+          <span><small>FULL COLLECTION / NETEASE CLOUD MUSIC</small><strong>我的网易云收藏歌单</strong></span>
+          <span class="listening-collection__open">OPEN PLAYLIST ↗</span>
+        </a>
+      </div>
+    </div>
+    <div class="listening-gatefold__page listening-gatefold__page--notes">
+      <div class="listening-note" data-track-detail aria-live="polite">${renderTrackDetail(first, 0)}</div>
+    </div>
   </div>
-  <div class="listening-note" data-track-detail aria-live="polite">${renderTrackDetail(first, 0)}</div>
 </section>`
 }
 
