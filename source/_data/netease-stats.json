@@ -3,7 +3,7 @@
   "profileUrl": "https://music.163.com/#/user/home?id=1441471952",
   "source": "NetEase Cloud Music play record API (Cookie) + public fallback",
   "endpoint": "/api/v1/play/record",
-  "updatedAt": "2026-08-30T19:19:02.896Z",
+  "updatedAt": "2026-08-31T21:28:56.670Z",
   "timezone": "Asia/Shanghai",
   "rankLimit": 20,
   "scrape": {
@@ -15,8 +15,8 @@
     "message": "Cookie 页面抓取未成功，但 Cookie 接口读取成功；公开接口用于字段补全。"
   },
   "duration": {
-    "weeklyMinutes": 44,
-    "allTimeMinutes": 126434,
+    "weeklyMinutes": 66,
+    "allTimeMinutes": 126479,
     "available": true,
     "source": "netease-listen-data",
     "endpoints": {
@@ -31,7 +31,7 @@
       "allTime": {
         "path": "totalDuration",
         "unit": "seconds",
-        "rawValue": 7586080
+        "rawValue": 7588769
       }
     },
     "validation": {
@@ -51,22 +51,11 @@
       "artist": "李荣浩",
       "album": "戒烟",
       "durationMs": 293875,
-      "playCount": 7,
+      "playCount": 6,
       "score": 100
     },
     {
       "rank": 2,
-      "songId": 31654343,
-      "title": "不将就",
-      "alias": "电影《何以笙箫默》片尾主题曲",
-      "artist": "李荣浩",
-      "album": "有理想",
-      "durationMs": 312997,
-      "playCount": 6,
-      "score": 85
-    },
-    {
-      "rank": 3,
       "songId": 1361336636,
       "title": "Come Back To Me",
       "alias": "",
@@ -74,10 +63,10 @@
       "album": "This Is The One",
       "durationMs": 237946,
       "playCount": 6,
-      "score": 85
+      "score": 100
     },
     {
-      "rank": 4,
+      "rank": 3,
       "songId": 3355480210,
       "title": "花も騒めく",
       "alias": "花亦喧嚣",
@@ -85,7 +74,18 @@
       "album": "二人称",
       "durationMs": 220711,
       "playCount": 5,
-      "score": 71
+      "score": 83
+    },
+    {
+      "rank": 4,
+      "songId": 31654343,
+      "title": "不将就",
+      "alias": "电影《何以笙箫默》片尾主题曲",
+      "artist": "李荣浩",
+      "album": "有理想",
+      "durationMs": 312997,
+      "playCount": 4,
+      "score": 66
     },
     {
       "rank": 5,
@@ -96,7 +96,7 @@
       "album": "This is LOVE PSYCHEDELICO",
       "durationMs": 300973,
       "playCount": 3,
-      "score": 42
+      "score": 50
     },
     {
       "rank": 6,
@@ -107,7 +107,7 @@
       "album": "わすれもの",
       "durationMs": 228920,
       "playCount": 3,
-      "score": 42
+      "score": 50
     },
     {
       "rank": 7,
@@ -118,7 +118,7 @@
       "album": "Say I Am You",
       "durationMs": 199786,
       "playCount": 3,
-      "score": 42
+      "score": 50
     },
     {
       "rank": 8,
@@ -129,32 +129,10 @@
       "album": "踊り子",
       "durationMs": 230109,
       "playCount": 3,
-      "score": 42
+      "score": 50
     },
     {
       "rank": 9,
-      "songId": 1854474192,
-      "title": "あいつら全員同窓会",
-      "alias": "那些家伙们的校友会 (PC游戏《PSO2:NGS》合作曲)",
-      "artist": "ずっと真夜中でいいのに。",
-      "album": "あいつら全員同窓会",
-      "durationMs": 254533,
-      "playCount": 3,
-      "score": 42
-    },
-    {
-      "rank": 10,
-      "songId": 422429165,
-      "title": "飞雪玉花-净友钢琴版",
-      "alias": "",
-      "artist": "净友",
-      "album": "闻琴榭-净友翻奏作品集",
-      "durationMs": 111098,
-      "playCount": 2,
-      "score": 28
-    },
-    {
-      "rank": 11,
       "songId": 3355479290,
       "title": "太陽",
       "alias": "",
@@ -162,10 +140,10 @@
       "album": "二人称",
       "durationMs": 265608,
       "playCount": 2,
-      "score": 28
+      "score": 33
     },
     {
-      "rank": 12,
+      "rank": 10,
       "songId": 3337367763,
       "title": "AIZO",
       "alias": "TV动画《咒术回战：死灭回游 前篇》片头曲",
@@ -173,10 +151,10 @@
       "album": "AIZO",
       "durationMs": 215922,
       "playCount": 2,
-      "score": 28
+      "score": 33
     },
     {
-      "rank": 13,
+      "rank": 11,
       "songId": 22711357,
       "title": "Darlin'",
       "alias": "",
@@ -184,10 +162,10 @@
       "album": "MTV UNplugged",
       "durationMs": 267540,
       "playCount": 2,
-      "score": 28
+      "score": 33
     },
     {
-      "rank": 14,
+      "rank": 12,
       "songId": 2154219378,
       "title": "はいよろこんで",
       "alias": "乐意效劳",
@@ -195,10 +173,10 @@
       "album": "はいよろこんで",
       "durationMs": 161632,
       "playCount": 2,
-      "score": 28
+      "score": 33
     },
     {
-      "rank": 15,
+      "rank": 13,
       "songId": 1966162262,
       "title": "未定",
       "alias": "Mitei",
@@ -206,10 +184,10 @@
       "album": "ingredients",
       "durationMs": 200248,
       "playCount": 2,
-      "score": 28
+      "score": 33
     },
     {
-      "rank": 16,
+      "rank": 14,
       "songId": 874229,
       "title": "さくらの季節",
       "alias": "樱花的季节",
@@ -217,10 +195,10 @@
       "album": "うたかた",
       "durationMs": 164000,
       "playCount": 1,
-      "score": 14
+      "score": 16
     },
     {
-      "rank": 17,
+      "rank": 15,
       "songId": 784516,
       "title": "ヒナタvsネジ",
       "alias": "雏田vs 宁次",
@@ -228,10 +206,10 @@
       "album": "NARUTO-ナルト-オリジナルサウンドトラックII",
       "durationMs": 193493,
       "playCount": 1,
-      "score": 14
+      "score": 16
     },
     {
-      "rank": 18,
+      "rank": 16,
       "songId": 756112,
       "title": "桜道",
       "alias": "",
@@ -239,10 +217,10 @@
       "album": "千年の戀",
       "durationMs": 240000,
       "playCount": 1,
-      "score": 14
+      "score": 16
     },
     {
-      "rank": 19,
+      "rank": 17,
       "songId": 730631,
       "title": "歳月-雲流れ-",
       "alias": "岁月-层云流动-",
@@ -250,10 +228,10 @@
       "album": "なつかぜメモリア",
       "durationMs": 129293,
       "playCount": 1,
-      "score": 14
+      "score": 16
     },
     {
-      "rank": 20,
+      "rank": 18,
       "songId": 643034,
       "title": "風になる",
       "alias": "幻化成风",
@@ -261,7 +239,29 @@
       "album": "恋恋風歌",
       "durationMs": 276600,
       "playCount": 1,
-      "score": 14
+      "score": 16
+    },
+    {
+      "rank": 19,
+      "songId": 531051690,
+      "title": "The Middle",
+      "alias": "",
+      "artist": "Zedd / Grey / Maren Morris",
+      "album": "The Middle",
+      "durationMs": 184732,
+      "playCount": 1,
+      "score": 16
+    },
+    {
+      "rank": 20,
+      "songId": 509728841,
+      "title": "Moshi Moshi",
+      "alias": "",
+      "artist": "Poppy",
+      "album": "Poppy.Computer",
+      "durationMs": 221592,
+      "playCount": 1,
+      "score": 16
     }
   ],
   "allTime": [
