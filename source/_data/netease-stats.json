@@ -3,7 +3,7 @@
   "profileUrl": "https://music.163.com/#/user/home?id=1441471952",
   "source": "NetEase Cloud Music play record API (Cookie) + public fallback",
   "endpoint": "/api/v1/play/record",
-  "updatedAt": "2026-09-01T19:23:42.209Z",
+  "updatedAt": "2026-09-02T19:23:17.643Z",
   "timezone": "Asia/Shanghai",
   "rankLimit": 20,
   "scrape": {
@@ -15,8 +15,8 @@
     "message": "Cookie 页面抓取未成功，但 Cookie 接口读取成功；公开接口用于字段补全。"
   },
   "duration": {
-    "weeklyMinutes": 115,
-    "allTimeMinutes": 126498,
+    "weeklyMinutes": 272,
+    "allTimeMinutes": 126551,
     "available": true,
     "source": "netease-listen-data",
     "endpoints": {
@@ -31,7 +31,7 @@
       "allTime": {
         "path": "totalDuration",
         "unit": "seconds",
-        "rawValue": 7589896
+        "rawValue": 7593115
       }
     },
     "validation": {
@@ -51,107 +51,107 @@
       "artist": "李荣浩",
       "album": "戒烟",
       "durationMs": 293875,
-      "playCount": 7,
+      "playCount": 9,
       "score": 100
     },
     {
       "rank": 2,
-      "songId": 1361336636,
-      "title": "Come Back To Me",
-      "alias": "",
-      "artist": "宇多田ヒカル",
-      "album": "This Is The One",
-      "durationMs": 237946,
-      "playCount": 6,
-      "score": 85
-    },
-    {
-      "rank": 3,
-      "songId": 3355480210,
-      "title": "花も騒めく",
-      "alias": "花亦喧嚣",
-      "artist": "ヨルシカ",
-      "album": "二人称",
-      "durationMs": 220711,
-      "playCount": 4,
-      "score": 57
-    },
-    {
-      "rank": 4,
       "songId": 32619064,
       "title": "年轮",
       "alias": "电视剧《花千骨》插曲",
       "artist": "张碧晨",
       "album": "花千骨 电视原声带",
       "durationMs": 274504,
-      "playCount": 4,
-      "score": 57
+      "playCount": 9,
+      "score": 100
     },
     {
-      "rank": 5,
+      "rank": 3,
+      "songId": 1361336636,
+      "title": "Come Back To Me",
+      "alias": "",
+      "artist": "宇多田ヒカル",
+      "album": "This Is The One",
+      "durationMs": 237946,
+      "playCount": 7,
+      "score": 77
+    },
+    {
+      "rank": 4,
       "songId": 31654343,
       "title": "不将就",
       "alias": "电影《何以笙箫默》片尾主题曲",
       "artist": "李荣浩",
       "album": "有理想",
       "durationMs": 312997,
-      "playCount": 4,
-      "score": 57
+      "playCount": 6,
+      "score": 66
     },
     {
-      "rank": 6,
-      "songId": 26217033,
-      "title": "Highway Driving Car",
-      "alias": "",
-      "artist": "etsuco",
-      "album": "わすれもの",
-      "durationMs": 228920,
-      "playCount": 3,
-      "score": 42
-    },
-    {
-      "rank": 7,
-      "songId": 19572271,
-      "title": "Gotta Have You",
-      "alias": "",
-      "artist": "The Weepies",
-      "album": "Say I Am You",
-      "durationMs": 199786,
-      "playCount": 3,
-      "score": 42
-    },
-    {
-      "rank": 8,
-      "songId": 1888864514,
-      "title": "踊り子",
-      "alias": "舞女",
-      "artist": "Vaundy",
-      "album": "踊り子",
-      "durationMs": 230109,
-      "playCount": 3,
-      "score": 42
-    },
-    {
-      "rank": 9,
-      "songId": 769651,
-      "title": "Standing Bird",
-      "alias": "",
-      "artist": "LOVE PSYCHEDELICO",
-      "album": "This is LOVE PSYCHEDELICO",
-      "durationMs": 300973,
-      "playCount": 2,
-      "score": 28
-    },
-    {
-      "rank": 10,
+      "rank": 5,
       "songId": 34613621,
       "title": "Vagrant",
       "alias": "",
       "artist": "Feint / Veela",
       "album": "Vagrant",
       "durationMs": 268571,
-      "playCount": 2,
-      "score": 28
+      "playCount": 5,
+      "score": 55
+    },
+    {
+      "rank": 6,
+      "songId": 3355480210,
+      "title": "花も騒めく",
+      "alias": "花亦喧嚣",
+      "artist": "ヨルシカ",
+      "album": "二人称",
+      "durationMs": 220711,
+      "playCount": 5,
+      "score": 55
+    },
+    {
+      "rank": 7,
+      "songId": 1888864514,
+      "title": "踊り子",
+      "alias": "舞女",
+      "artist": "Vaundy",
+      "album": "踊り子",
+      "durationMs": 230109,
+      "playCount": 5,
+      "score": 55
+    },
+    {
+      "rank": 8,
+      "songId": 26217033,
+      "title": "Highway Driving Car",
+      "alias": "",
+      "artist": "etsuco",
+      "album": "わすれもの",
+      "durationMs": 228920,
+      "playCount": 4,
+      "score": 44
+    },
+    {
+      "rank": 9,
+      "songId": 19572271,
+      "title": "Gotta Have You",
+      "alias": "",
+      "artist": "The Weepies",
+      "album": "Say I Am You",
+      "durationMs": 199786,
+      "playCount": 4,
+      "score": 44
+    },
+    {
+      "rank": 10,
+      "songId": 769651,
+      "title": "Standing Bird",
+      "alias": "",
+      "artist": "LOVE PSYCHEDELICO",
+      "album": "This is LOVE PSYCHEDELICO",
+      "durationMs": 300973,
+      "playCount": 3,
+      "score": 33
     },
     {
       "rank": 11,
@@ -161,8 +161,8 @@
       "artist": "BENI",
       "album": "MTV UNplugged",
       "durationMs": 267540,
-      "playCount": 2,
-      "score": 28
+      "playCount": 3,
+      "score": 33
     },
     {
       "rank": 12,
@@ -172,11 +172,88 @@
       "artist": "こっちのけんと",
       "album": "はいよろこんで",
       "durationMs": 161632,
-      "playCount": 2,
-      "score": 28
+      "playCount": 3,
+      "score": 33
     },
     {
       "rank": 13,
+      "songId": 487527979,
+      "title": "カトレア",
+      "alias": "卡特兰 Cattleya",
+      "artist": "ヨルシカ",
+      "album": "夏草が邪魔をする",
+      "durationMs": 188429,
+      "playCount": 2,
+      "score": 22
+    },
+    {
+      "rank": 14,
+      "songId": 3400022208,
+      "title": "さよならモルテン",
+      "alias": "",
+      "artist": "ヨルシカ",
+      "album": "幻燈",
+      "durationMs": 295377,
+      "playCount": 2,
+      "score": 22
+    },
+    {
+      "rank": 15,
+      "songId": 3355479297,
+      "title": "千鳥",
+      "alias": "",
+      "artist": "ヨルシカ",
+      "album": "二人称",
+      "durationMs": 252115,
+      "playCount": 2,
+      "score": 22
+    },
+    {
+      "rank": 16,
+      "songId": 3319483197,
+      "title": "DARMA GRAND PRIX",
+      "alias": "",
+      "artist": "ヨルシカ",
+      "album": "DARMA GRAND PRIX",
+      "durationMs": 259866,
+      "playCount": 2,
+      "score": 22
+    },
+    {
+      "rank": 17,
+      "songId": 2702969612,
+      "title": "火星人",
+      "alias": "TVアニメ『小市民シリーズ』第2期オープニングテーマ",
+      "artist": "ヨルシカ",
+      "album": "火星人",
+      "durationMs": 234929,
+      "playCount": 2,
+      "score": 22
+    },
+    {
+      "rank": 18,
+      "songId": 2111695133,
+      "title": "遠吠え",
+      "alias": "远吠",
+      "artist": "chilldspot",
+      "album": "まだらもよう",
+      "durationMs": 217213,
+      "playCount": 2,
+      "score": 22
+    },
+    {
+      "rank": 19,
+      "songId": 1967786901,
+      "title": "S.S.S.",
+      "alias": "",
+      "artist": "佐藤千亜妃",
+      "album": "S.S.S.",
+      "durationMs": 201683,
+      "playCount": 2,
+      "score": 22
+    },
+    {
+      "rank": 20,
       "songId": 1966162262,
       "title": "未定",
       "alias": "Mitei",
@@ -184,84 +261,7 @@
       "album": "ingredients",
       "durationMs": 200248,
       "playCount": 2,
-      "score": 28
-    },
-    {
-      "rank": 14,
-      "songId": 874229,
-      "title": "さくらの季節",
-      "alias": "樱花的季节",
-      "artist": "38BEETS",
-      "album": "うたかた",
-      "durationMs": 164000,
-      "playCount": 1,
-      "score": 14
-    },
-    {
-      "rank": 15,
-      "songId": 784516,
-      "title": "ヒナタvsネジ",
-      "alias": "雏田vs 宁次",
-      "artist": "六三四Musashi",
-      "album": "NARUTO-ナルト-オリジナルサウンドトラックII",
-      "durationMs": 193493,
-      "playCount": 1,
-      "score": 14
-    },
-    {
-      "rank": 16,
-      "songId": 756112,
-      "title": "桜道",
-      "alias": "",
-      "artist": "Jusqu'à Grand-Père",
-      "album": "千年の戀",
-      "durationMs": 240000,
-      "playCount": 1,
-      "score": 14
-    },
-    {
-      "rank": 17,
-      "songId": 730631,
-      "title": "歳月-雲流れ-",
-      "alias": "岁月-层云流动-",
-      "artist": "Foxtail-Grass Studio",
-      "album": "なつかぜメモリア",
-      "durationMs": 129293,
-      "playCount": 1,
-      "score": 14
-    },
-    {
-      "rank": 18,
-      "songId": 643034,
-      "title": "風になる",
-      "alias": "幻化成风",
-      "artist": "つじあやの",
-      "album": "恋恋風歌",
-      "durationMs": 276600,
-      "playCount": 1,
-      "score": 14
-    },
-    {
-      "rank": 19,
-      "songId": 531051690,
-      "title": "The Middle",
-      "alias": "",
-      "artist": "Zedd / Grey / Maren Morris",
-      "album": "The Middle",
-      "durationMs": 184732,
-      "playCount": 1,
-      "score": 14
-    },
-    {
-      "rank": 20,
-      "songId": 509728841,
-      "title": "Moshi Moshi",
-      "alias": "",
-      "artist": "Poppy",
-      "album": "Poppy.Computer",
-      "durationMs": 221592,
-      "playCount": 1,
-      "score": 14
+      "score": 22
     }
   ],
   "allTime": [
@@ -284,7 +284,7 @@
       "artist": "Vaundy",
       "album": "踊り子",
       "durationMs": 230109,
-      "playCount": 461,
+      "playCount": 463,
       "score": 84
     },
     {
@@ -295,8 +295,8 @@
       "artist": "ヨルシカ",
       "album": "DARMA GRAND PRIX",
       "durationMs": 259866,
-      "playCount": 316,
-      "score": 57
+      "playCount": 317,
+      "score": 58
     },
     {
       "rank": 4,
@@ -394,8 +394,8 @@
       "artist": "ヨルシカ",
       "album": "夏草が邪魔をする",
       "durationMs": 188429,
-      "playCount": 191,
-      "score": 34
+      "playCount": 192,
+      "score": 35
     },
     {
       "rank": 13,
@@ -454,6 +454,17 @@
     },
     {
       "rank": 18,
+      "songId": 2061225325,
+      "title": "灰かぶり",
+      "alias": "灰姑娘",
+      "artist": "十明",
+      "album": "灰かぶり",
+      "durationMs": 220714,
+      "playCount": 166,
+      "score": 30
+    },
+    {
+      "rank": 19,
       "songId": 1810759765,
       "title": "春泥棒",
       "alias": "盗春者",
@@ -461,17 +472,6 @@
       "album": "春泥棒",
       "durationMs": 290279,
       "playCount": 166,
-      "score": 30
-    },
-    {
-      "rank": 19,
-      "songId": 2061225325,
-      "title": "灰かぶり",
-      "alias": "灰姑娘",
-      "artist": "十明",
-      "album": "灰かぶり",
-      "durationMs": 220714,
-      "playCount": 165,
       "score": 30
     },
     {
