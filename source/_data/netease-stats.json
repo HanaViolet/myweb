@@ -3,7 +3,7 @@
   "profileUrl": "https://music.163.com/#/user/home?id=1441471952",
   "source": "NetEase Cloud Music play record API (Cookie) + public fallback",
   "endpoint": "/api/v1/play/record",
-  "updatedAt": "2026-09-10T19:07:46.653Z",
+  "updatedAt": "2026-09-11T19:09:43.277Z",
   "timezone": "Asia/Shanghai",
   "rankLimit": 20,
   "scrape": {
@@ -15,8 +15,8 @@
     "message": "Cookie 页面抓取未成功，但 Cookie 接口读取成功；公开接口用于字段补全。"
   },
   "duration": {
-    "weeklyMinutes": 437,
-    "allTimeMinutes": 127402,
+    "weeklyMinutes": 515,
+    "allTimeMinutes": 127496,
     "available": true,
     "source": "netease-listen-data",
     "endpoints": {
@@ -31,7 +31,7 @@
       "allTime": {
         "path": "totalDuration",
         "unit": "seconds",
-        "rawValue": 7644137
+        "rawValue": 7649819
       }
     },
     "validation": {
@@ -51,41 +51,41 @@
       "artist": "Lotus Juice / 高橋あず美 / アトラスサウンドチーム / ATLUS GAME MUSIC",
       "album": "ペルソナ3 リロード オリジナル・サウンドトラック",
       "durationMs": 227240,
-      "playCount": 14,
+      "playCount": 15,
       "score": 100
     },
     {
       "rank": 2,
-      "songId": 32619064,
-      "title": "年轮",
-      "alias": "电视剧《花千骨》插曲",
-      "artist": "张碧晨",
-      "album": "花千骨 电视原声带",
-      "durationMs": 274504,
-      "playCount": 7,
-      "score": 50
-    },
-    {
-      "rank": 3,
       "songId": 3355480210,
       "title": "花も騒めく",
       "alias": "花亦喧嚣",
       "artist": "ヨルシカ",
       "album": "二人称",
       "durationMs": 220711,
-      "playCount": 6,
-      "score": 42
+      "playCount": 5,
+      "score": 33
+    },
+    {
+      "rank": 3,
+      "songId": 32619064,
+      "title": "年轮",
+      "alias": "电视剧《花千骨》插曲",
+      "artist": "张碧晨",
+      "album": "花千骨 电视原声带",
+      "durationMs": 274504,
+      "playCount": 5,
+      "score": 33
     },
     {
       "rank": 4,
-      "songId": 1361336636,
-      "title": "Come Back To Me",
-      "alias": "",
-      "artist": "宇多田ヒカル",
-      "album": "This Is The One",
-      "durationMs": 237946,
+      "songId": 1878036176,
+      "title": "花は買わない",
+      "alias": "我不买花",
+      "artist": "DADARAY",
+      "album": "ガーラ",
+      "durationMs": 273000,
       "playCount": 5,
-      "score": 35
+      "score": 33
     },
     {
       "rank": 5,
@@ -96,7 +96,7 @@
       "album": "This is LOVE PSYCHEDELICO",
       "durationMs": 300973,
       "playCount": 4,
-      "score": 28
+      "score": 26
     },
     {
       "rank": 6,
@@ -107,29 +107,29 @@
       "album": "Say I Am You",
       "durationMs": 199786,
       "playCount": 4,
-      "score": 28
+      "score": 26
     },
     {
       "rank": 7,
-      "songId": 1878036176,
-      "title": "花は買わない",
-      "alias": "我不买花",
-      "artist": "DADARAY",
-      "album": "ガーラ",
-      "durationMs": 273000,
+      "songId": 1361336636,
+      "title": "Come Back To Me",
+      "alias": "",
+      "artist": "宇多田ヒカル",
+      "album": "This Is The One",
+      "durationMs": 237946,
       "playCount": 4,
-      "score": 28
+      "score": 26
     },
     {
       "rank": 8,
-      "songId": 426881505,
-      "title": "なんでもないや (movie edit)",
-      "alias": "没什么大不了",
-      "artist": "RADWIMPS",
-      "album": "君の名は。",
-      "durationMs": 195983,
+      "songId": 469772,
+      "title": "「籠のなか」",
+      "alias": "笼中",
+      "artist": "増田俊郎",
+      "album": "「蟲師」オリジナルサウンドトラック 蟲音(むしのね) 後",
+      "durationMs": 138200,
       "playCount": 3,
-      "score": 21
+      "score": 20
     },
     {
       "rank": 9,
@@ -140,7 +140,7 @@
       "album": "もう、見たくないよ、と言いつつそっと硝子の中に閉じ込めた展",
       "durationMs": 345000,
       "playCount": 3,
-      "score": 21
+      "score": 20
     },
     {
       "rank": 10,
@@ -151,7 +151,7 @@
       "album": "DARMA GRAND PRIX",
       "durationMs": 259866,
       "playCount": 3,
-      "score": 21
+      "score": 20
     },
     {
       "rank": 11,
@@ -162,7 +162,7 @@
       "album": "有理想",
       "durationMs": 312997,
       "playCount": 3,
-      "score": 21
+      "score": 20
     },
     {
       "rank": 12,
@@ -173,18 +173,18 @@
       "album": "MTV UNplugged",
       "durationMs": 267540,
       "playCount": 3,
-      "score": 21
+      "score": 20
     },
     {
       "rank": 13,
-      "songId": 760058,
-      "title": "Bloom of Youth",
-      "alias": "风华正茂",
-      "artist": "清水淳一 / Key Sounds Label",
-      "album": "クドわふたー オリジナル サウンドトラック",
-      "durationMs": 148013,
-      "playCount": 2,
-      "score": 14
+      "songId": 2100202477,
+      "title": "Biri-Biri",
+      "alias": "游戏《宝可梦 朱紫》一周年纪念合作曲",
+      "artist": "YOASOBI",
+      "album": "Biri-Biri",
+      "durationMs": 187325,
+      "playCount": 3,
+      "score": 20
     },
     {
       "rank": 14,
@@ -195,21 +195,32 @@
       "album": "罪と罰",
       "durationMs": 272625,
       "playCount": 2,
-      "score": 14
+      "score": 13
     },
     {
       "rank": 15,
-      "songId": 469772,
-      "title": "「籠のなか」",
-      "alias": "笼中",
-      "artist": "増田俊郎",
-      "album": "「蟲師」オリジナルサウンドトラック 蟲音(むしのね) 後",
-      "durationMs": 138200,
+      "songId": 557581318,
+      "title": "夏、バス停、君を待つ",
+      "alias": "夏日、巴士站、静待你的身影",
+      "artist": "ヨルシカ",
+      "album": "負け犬にアンコールはいらない",
+      "durationMs": 116053,
       "playCount": 2,
-      "score": 14
+      "score": 13
     },
     {
       "rank": 16,
+      "songId": 512359198,
+      "title": "春雷",
+      "alias": "",
+      "artist": "米津玄師",
+      "album": "BOOTLEG",
+      "durationMs": 288949,
+      "playCount": 2,
+      "score": 13
+    },
+    {
+      "rank": 17,
       "songId": 464553281,
       "title": "ヒマワリが咲く予定",
       "alias": "向日葵将绽放",
@@ -217,10 +228,10 @@
       "album": "NIPPONNO ONNAWO UTAU Vol.4",
       "durationMs": 318253,
       "playCount": 2,
-      "score": 14
+      "score": 13
     },
     {
-      "rank": 17,
+      "rank": 18,
       "songId": 441491828,
       "title": "水星记",
       "alias": "",
@@ -228,10 +239,10 @@
       "album": "飞行器的执行周期",
       "durationMs": 325266,
       "playCount": 2,
-      "score": 14
+      "score": 13
     },
     {
-      "rank": 18,
+      "rank": 19,
       "songId": 426881506,
       "title": "なんでもないや (movie ver.)",
       "alias": "没什么大不了",
@@ -239,29 +250,18 @@
       "album": "君の名は。",
       "durationMs": 341891,
       "playCount": 2,
-      "score": 14
-    },
-    {
-      "rank": 19,
-      "songId": 3355479297,
-      "title": "千鳥",
-      "alias": "",
-      "artist": "ヨルシカ",
-      "album": "二人称",
-      "durationMs": 252115,
-      "playCount": 2,
-      "score": 14
+      "score": 13
     },
     {
       "rank": 20,
-      "songId": 3355479288,
-      "title": "雲になる",
-      "alias": "化云",
-      "artist": "ヨルシカ",
-      "album": "二人称",
-      "durationMs": 246829,
+      "songId": 426881505,
+      "title": "なんでもないや (movie edit)",
+      "alias": "没什么大不了",
+      "artist": "RADWIMPS",
+      "album": "君の名は。",
+      "durationMs": 195983,
       "playCount": 2,
-      "score": 14
+      "score": 13
     }
   ],
   "allTime": [
@@ -372,7 +372,7 @@
       "artist": "米津玄師",
       "album": "BOOTLEG",
       "durationMs": 288949,
-      "playCount": 203,
+      "playCount": 204,
       "score": 37
     },
     {
