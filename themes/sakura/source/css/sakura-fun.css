@@ -1,0 +1,151 @@
+/* Small interactive objects that connect Sakura's music, images and notes. */
+
+.music-street { position: relative; }
+.music-street__hotspots { position: absolute; inset: 0; pointer-events: none; }
+.music-street__hotspots button {
+  position: absolute;
+  display: grid;
+  gap: 2px;
+  min-width: 92px;
+  padding: 7px 10px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  color: #dcebdc;
+  background: rgba(11, 24, 16, .72);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, .2);
+  cursor: pointer;
+  opacity: .72;
+  pointer-events: auto;
+  text-align: left;
+  transform: translate(-50%, -50%);
+  transition: opacity .2s, transform .2s, border-color .2s, background .2s;
+}
+.music-street__hotspots button:nth-child(1) { left: 22%; top: 49%; }
+.music-street__hotspots button:nth-child(2) { left: 47%; top: 55%; }
+.music-street__hotspots button:nth-child(3) { left: 65%; top: 42%; }
+.music-street__hotspots button:nth-child(4) { left: 82%; top: 55%; }
+.music-street__hotspots button span { font: 8px/1.3 monospace; letter-spacing: .06em; }
+.music-street__hotspots button small { color: #a9c6ac; font-size: 10px; }
+.music-street__hotspots button:hover,
+.music-street__hotspots button[aria-pressed="true"] { opacity: 1; border-color: #9bc7a1; background: rgba(32, 63, 40, .9); transform: translate(-50%, -56%); }
+
+.room-mixtape {
+  width: min(1120px, calc(100% - 48px));
+  margin: 44px auto 0;
+  padding: clamp(24px, 4vw, 46px);
+  border: 1px solid rgba(185, 216, 194, .2);
+  border-radius: 22px;
+  color: #dce8dc;
+  background: linear-gradient(145deg, #101b15, #0d1411);
+  box-shadow: inset 0 1px 0 rgba(230, 244, 230, .06), 0 20px 60px rgba(0, 0, 0, .2);
+}
+.room-mixtape__header { display: flex; align-items: end; justify-content: space-between; gap: 28px; margin-bottom: 26px; }
+.room-mixtape__header p:first-child { margin: 0 0 10px; color: #89a690; font: 9px/1.5 monospace; letter-spacing: .18em; }
+.room-mixtape__header h2 { margin: 0; color: #e9f2e7; font: 400 clamp(24px, 3vw, 38px)/1.25 var(--midnight-serif); }
+.room-mixtape__header > p { max-width: 290px; margin: 0; color: #92a496; font-size: 12px; line-height: 1.8; }
+.room-mixtape__builder { display: grid; grid-template-columns: minmax(200px, .72fr) minmax(0, 1fr); gap: 24px; }
+.room-mixtape__identity { padding: 18px; border: 1px solid #2d4635; border-radius: 14px; background: #142219; }
+.room-mixtape__identity > label { display: block; color: #8ea690; font: 9px/1.5 monospace; letter-spacing: .12em; }
+.room-mixtape__identity input { box-sizing: border-box; width: 100%; margin-top: 9px; padding: 10px 0; border: 0; border-bottom: 1px solid #486550; outline: 0; color: #e7f1e4; background: transparent; font: 500 17px/1.4 var(--midnight-sans); }
+.room-mixtape__identity input:focus { border-bottom-color: #b9d8c2; }
+.room-mixtape__identity > p { min-height: 36px; margin: 12px 0 16px; color: #91a897; font-size: 11px; line-height: 1.6; }
+.room-mixtape__actions { display: flex; flex-wrap: wrap; gap: 7px; }
+.room-mixtape__actions button,
+.visual-postcard__actions button { min-height: 36px; padding: 8px 12px; border: 1px solid #496c53; border-radius: 24px; color: #cbe3cc; background: transparent; cursor: pointer; font-size: 10px; }
+.room-mixtape__actions button:first-child { color: #102016; background: #b9d8c2; }
+.room-mixtape__actions button:hover,
+.visual-postcard__actions button:hover { border-color: #b9d8c2; }
+.room-mixtape__share { margin-top: 12px; }
+.room-mixtape__share label { display: block; color: #9aad9d; font-size: 10px; }
+.room-mixtape__share input { box-sizing: border-box; width: 100%; margin-top: 5px; padding: 7px; border: 1px solid #3d5845; color: #dce8dc; background: #0b130e; font-size: 10px; }
+.room-mixtape__slots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; grid-column: 2; }
+.room-mixtape__slot { min-height: 120px; padding: 16px 13px; border: 1px solid #2d4635; border-radius: 12px; background: radial-gradient(circle at 75% 15%, #345642, #142219 64%); }
+.room-mixtape__slot span { display: block; color: #95bd9c; font: 9px monospace; letter-spacing: .12em; }
+.room-mixtape__slot strong { display: block; margin-top: 22px; overflow: hidden; color: #e2efe2; font-size: 12px; font-weight: 500; text-overflow: ellipsis; white-space: nowrap; }
+.room-mixtape__slot small { display: block; margin-top: 4px; color: #90a292; font-size: 9px; }
+.room-mixtape__tracks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; grid-column: 2; }
+.room-mixtape__tracks button { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 9px; width: 100%; padding: 9px 10px; border: 1px solid #263c2e; border-radius: 8px; color: #a9bdab; background: #111c15; cursor: pointer; text-align: left; }
+.room-mixtape__tracks button:hover, .room-mixtape__tracks button[aria-pressed="true"] { border-color: #91bb96; color: #e0f0df; background: #203827; }
+.room-mixtape__tracks button > span { color: #76937c; font: 9px monospace; }
+.room-mixtape__tracks strong, .room-mixtape__tracks small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.room-mixtape__tracks strong { font-size: 11px; font-weight: 500; }
+.room-mixtape__tracks small { margin-top: 3px; color: #809582; font-size: 9px; }
+.room-mixtape__saved { display: flex; flex-wrap: wrap; align-items: baseline; gap: 9px 16px; margin-top: 18px; padding-top: 13px; border-top: 1px solid #2a4132; }
+.room-mixtape__saved span { color: #829c88; font: 8px monospace; letter-spacing: .15em; }
+.room-mixtape__saved strong { font-size: 12px; font-weight: 500; }
+.room-mixtape__saved small { color: #8ea392; font-size: 10px; }
+
+.visual-postcard-builder { margin-top: 14px; padding: 14px; border: 1px solid #385543; border-radius: 13px; background: #101b14; }
+.visual-postcard__preview { display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 12px; min-height: 90px; padding: 8px; background: #19281e; }
+.visual-postcard__preview img { width: 90px; height: 90px; object-fit: cover; }
+.visual-postcard__preview small { color: #91b096; font: 7px monospace; letter-spacing: .12em; }
+.visual-postcard__preview strong { display: block; margin-top: 11px; overflow: hidden; color: #e5efe3; font: 500 14px/1.4 var(--midnight-serif); text-overflow: ellipsis; white-space: nowrap; }
+.visual-postcard__preview p { margin: 6px 0; color: #adbeae; font: 11px/1.5 var(--midnight-serif); }
+.visual-postcard__preview span { display: block; overflow: hidden; color: #86a28b; font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
+.visual-postcard-builder > label { display: block; margin-top: 12px; color: #8ea690; font-size: 10px; }
+.visual-postcard-builder select, .visual-postcard-builder textarea { box-sizing: border-box; width: 100%; margin-top: 5px; padding: 8px; border: 1px solid #37523f; border-radius: 5px; color: #dce8dc; background: #0c1510; font: inherit; font-size: 11px; }
+.visual-postcard-builder textarea { resize: vertical; line-height: 1.5; }
+.visual-postcard__actions { display: flex; gap: 8px; align-items: center; margin-top: 10px; }
+.visual-postcard__actions input { min-width: 0; flex: 1; padding: 7px; border: 1px solid #385541; color: #dce8dc; background: #0b130e; font-size: 9px; }
+.visual-postcard-builder > p { min-height: 14px; margin: 8px 0 0; color: #a7c8aa; font-size: 10px; }
+
+.sakura-now { margin: 58px auto; padding: clamp(24px, 4vw, 46px); border: 1px solid rgba(185, 216, 194, .17); border-radius: 20px; background: linear-gradient(145deg, #111c17, #0d1511); }
+.sakura-now__header { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 22px; }
+.sakura-now__header p { margin: 0 0 9px; color: #8eaa93; font: 9px monospace; letter-spacing: .18em; }
+#article-container .sakura-now__header h2 { margin: 0; padding: 0; color: #e5eee3; font: 400 clamp(24px, 3vw, 36px)/1.3 var(--midnight-serif); }
+.sakura-now__header > span { max-width: 260px; color: #8da090; font-size: 11px; line-height: 1.7; }
+.sakura-now__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.sakura-now__item { min-height: 158px; padding: 18px; border: 1px solid #2b4433; border-radius: 13px; background: #142119; cursor: pointer; transition: transform .2s, border-color .2s, background .2s; }
+.sakura-now__item:hover, .sakura-now__item.is-open { border-color: #8db494; background: #1c3022; transform: translateY(-3px); }
+.sakura-now__item > span { color: #83a38a; font: 9px monospace; letter-spacing: .13em; }
+.sakura-now__item strong { display: block; margin-top: 27px; overflow: hidden; color: #e2ede1; font-size: 14px; font-weight: 500; text-overflow: ellipsis; white-space: nowrap; }
+.sakura-now__item small { display: block; margin-top: 6px; color: #91a493; font-size: 10px; line-height: 1.5; }
+.sakura-now__item p { display: none; margin: 13px 0 0; color: #b6c8b7; font: 12px/1.7 var(--midnight-serif); }
+.sakura-now__item.is-open p { display: block; }
+.sakura-now__item a { color: #b9d8c2; font-size: 10px; }
+
+#footer .music-receipt-trigger { display: block; margin: 14px auto 0; padding: 7px 13px; border: 1px solid #365541; border-radius: 20px; color: #91ae97; background: transparent; cursor: pointer; font-size: 10px; }
+#footer .music-receipt-trigger:hover { border-color: #a6cbaa; color: #d9ecd9; }
+.music-receipt { width: min(430px, calc(100vw - 28px)); padding: 0; border: 1px solid #3a5742; border-radius: 19px; color: #dfeadf; background: #111c16; box-shadow: 0 24px 100px #000b; }
+.music-receipt::backdrop { background: #020704c7; backdrop-filter: blur(9px); }
+.music-receipt__top { display: flex; align-items: start; justify-content: space-between; gap: 18px; padding: 22px 22px 15px; }
+.music-receipt__top span { color: #8dac92; font: 8px monospace; letter-spacing: .16em; }
+.music-receipt__top h2 { margin: 8px 0 0; color: #e9f2e7; font: 400 23px/1.3 var(--midnight-serif); }
+.music-receipt__top button { width: 34px; height: 34px; border: 1px solid #45634b; border-radius: 50%; color: #c6dac7; background: transparent; cursor: pointer; font-size: 19px; }
+.music-receipt__paper { margin: 0 15px 17px; padding: 18px; border: 1px dashed #49664e; background: #17271c; }
+.music-receipt__date { margin: 0 0 18px; color: #8aa38e; font: 9px monospace; letter-spacing: .1em; }
+.music-receipt__paper dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 0; }
+.music-receipt__paper dt { color: #78937e; font: 8px monospace; letter-spacing: .1em; }
+.music-receipt__paper dd { margin: 6px 0 0; color: #e6f0e4; font-size: 15px; }
+.music-receipt__tracks { min-height: 37px; margin: 20px 0 8px; color: #c3d4c4; font: 12px/1.7 var(--midnight-serif); }
+.music-receipt__note { margin: 0; color: #91a695; font-size: 10px; line-height: 1.7; }
+.music-receipt__paper footer { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 18px; padding-top: 12px; border-top: 1px dashed #45614b; color: #78937d; font: 8px monospace; }
+.music-receipt__paper footer button { padding: 5px 8px; border: 1px solid #45634b; border-radius: 14px; color: #bdd6bf; background: transparent; cursor: pointer; font-size: 9px; }
+.music-receipt__status { min-height: 15px; margin: 0 22px 17px; color: #add0af; font-size: 10px; }
+
+@media (max-width: 760px) {
+  .music-street__hotspots button { min-width: 66px; padding: 5px 6px; }
+  .music-street__hotspots button span { font-size: 6px; }
+  .music-street__hotspots button small { font-size: 8px; }
+  .room-mixtape { width: calc(100% - 36px); margin-top: 30px; padding: 22px 18px; }
+  .room-mixtape__header { display: block; }
+  .room-mixtape__header > p { margin-top: 14px; }
+  .room-mixtape__builder { grid-template-columns: 1fr; }
+  .room-mixtape__slots, .room-mixtape__tracks { grid-column: 1; }
+  .room-mixtape__slot { min-height: 105px; padding: 12px 9px; }
+  .room-mixtape__slot strong { margin-top: 17px; font-size: 10px; }
+  .room-mixtape__tracks { grid-template-columns: 1fr; }
+  .visual-postcard__preview { grid-template-columns: 72px minmax(0, 1fr); }
+  .visual-postcard__preview img { width: 72px; height: 72px; }
+  .visual-postcard__preview strong { margin-top: 6px; font-size: 12px; }
+  .sakura-now { margin: 38px 0; padding: 22px 18px; }
+  .sakura-now__header { display: block; }
+  .sakura-now__header > span { display: block; margin-top: 13px; }
+  .sakura-now__grid { grid-template-columns: 1fr; }
+  .sakura-now__item { min-height: auto; }
+  .sakura-now__item strong { margin-top: 14px; }
+  .music-receipt__paper dl { gap: 4px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .music-street__hotspots button, .sakura-now__item { transition: none; }
+}

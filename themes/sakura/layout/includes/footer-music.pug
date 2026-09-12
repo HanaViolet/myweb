@@ -32,6 +32,19 @@ section.music-neighborhood(aria-labelledby='music-neighborhood-title' data-music
   .music-street
     .music-street__art(aria-hidden='true')
       include footer-street.svg
+    .music-street__hotspots(role='group' aria-label='点击建筑切换音乐频道')
+      button(type='button' data-discovery-mood='reading' aria-label='钢琴室：纸页之间')
+        span PIANO ROOM
+        small 纸页之间
+      button(type='button' data-discovery-mood='gallery' aria-label='环境唱片店：光影漫游')
+        span AMBIENT RECORDS
+        small 光影漫游
+      button(type='button' data-discovery-mood='coding' aria-label='夜间电台：夜间编码')
+        span NIGHT RADIO
+        small 夜间编码
+      button(type='button' data-discovery-mood='wandering' aria-label='爵士街角：街角偶遇')
+        span JAZZ CORNER
+        small 街角偶遇
     .music-street__channels(role='group' aria-label='选择音乐街区频道')
       button(type='button' data-discovery-mood='reading' aria-pressed='false')
         span 01 / PIANO ROOM
@@ -46,5 +59,30 @@ section.music-neighborhood(aria-labelledby='music-neighborhood-title' data-music
         span 04 / JAZZ CORNER
         strong 街角偶遇
   p.music-neighborhood__fineprint(data-discovery-caption) 一条小小的音乐街区。点击店名，逛逛不同的声音。
+  button.music-receipt-trigger(type='button' data-visit-receipt-trigger) 保存今晚的小票 ↗
+  dialog.music-receipt(data-visit-receipt-dialog aria-labelledby='visit-receipt-title')
+    .music-receipt__top
+      div
+        span SAKURA / VISIT RECEIPT
+        h2#visit-receipt-title 今晚在这里听过。
+      button(type='button' data-visit-receipt-close aria-label='关闭访问小票') ×
+    .music-receipt__paper
+      p.music-receipt__date(data-receipt-date)
+      dl
+        div
+          dt LISTENED
+          dd(data-receipt-track-count) 0 首
+        div
+          dt VISITED
+          dd(data-receipt-page-count) 0 页
+        div
+          dt STAYED
+          dd(data-receipt-duration) 1 分钟
+      p.music-receipt__tracks(data-receipt-tracks) 还没有播放记录，先放一首吧。
+      p.music-receipt__note(data-receipt-note) 音乐会在页面之间继续。
+      footer
+        span MUSIC FOR THE QUIET HOURS
+        button(type='button' data-visit-receipt-copy) 复制小票文字
+    p.music-receipt__status(data-receipt-status role='status')
   noscript
     p 探索电台需要 JavaScript。你也可以前往 <a href="https://archive.org/details/audio">Internet Archive</a> 寻找开放音乐。

@@ -25,6 +25,27 @@ description: 关于音乐、代码，以及我愿意留在这里的生活片段�
   </div>
 </section>
 
+<section class="sakura-now" data-sakura-now aria-labelledby="sakura-now-title">
+  <header class="sakura-now__header">
+    <div><p>SMALL THINGS / 05</p><h2 id="sakura-now-title">最近在这里发生。</h2></div>
+    <span>一些正在循环、阅读和慢慢完成的事。点击卡片，翻到它的背面。</span>
+  </header>
+  <div class="sakura-now__grid">
+    <article class="sakura-now__item" data-now-card tabindex="0" aria-expanded="false">
+      <span>ON REPEAT</span><strong data-now-track>正在从唱机里播放</strong><small data-now-track-meta>跨页持续播放的当前曲目</small>
+      <p>音乐是这个房间的第一盏灯。<a href="/listening/">去听歌室 ↗</a></p>
+    </article>
+    <article class="sakura-now__item" data-now-card tabindex="0" aria-expanded="false">
+      <span>READING</span><strong>把旧文章重新翻出来</strong><small>最近的文字，仍然值得再读一次</small>
+      <p>有些文章写完以后才开始变成自己的记忆。<a href="/archives/">去归档 ↗</a></p>
+    </article>
+    <article class="sakura-now__item" data-now-card tabindex="0" aria-expanded="false">
+      <span>BUILDING</span><strong>把网站做成一间房间</strong><small>代码、页面和一点点不必要的浪漫</small>
+      <p>最近在整理音乐、图库和阅读之间的入口，让它们彼此听得见。<a href="/gallery/">去图库 ↗</a></p>
+    </article>
+  </div>
+</section>
+
 <section class="about-interests" aria-labelledby="about-interests-title">
   <header><p>PERSONAL INDEX / 02</p><h2 id="about-interests-title">构成我的三条声轨</h2></header>
   <div class="about-interest-list">

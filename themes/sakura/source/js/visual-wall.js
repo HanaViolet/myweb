@@ -14,6 +14,16 @@
     const image = wall.querySelector('[data-wall-detail-image]')
     const grid = wall.querySelector('[data-wall-grid]')
     const stage = wall.querySelector('[data-wall-stage]')
+    const tracks = Array.isArray(window.__SAKURA_TRACKS) ? window.__SAKURA_TRACKS : []
+    const postcardBuilder = wall.querySelector('[data-wall-postcard-builder]')
+    const postcardTrack = wall.querySelector('[data-wall-postcard-track]')
+    const postcardNote = wall.querySelector('[data-wall-postcard-note]')
+    const postcardPreviewImage = wall.querySelector('[data-wall-postcard-preview-image]')
+    const postcardPreviewTitle = wall.querySelector('[data-wall-postcard-preview-title]')
+    const postcardPreviewNote = wall.querySelector('[data-wall-postcard-preview-note]')
+    const postcardPreviewTrack = wall.querySelector('[data-wall-postcard-preview-track]')
+    const postcardUrl = wall.querySelector('[data-wall-postcard-url]')
+    const postcardStatus = wall.querySelector('[data-wall-postcard-status]')
     if (!stage) return // Retain the plain gallery if older cached HTML is served.
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)')
     let mode = 'orbit'
@@ -102,12 +112,33 @@
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !element.animate) return
       animation = element.animate([{ opacity: .35, transform: 'translateY(8px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 240, easing: 'ease-out' })
     }
+    const byTrack = id => tracks.find(track => track.id === id)
+    const postcardTrackValue = () => byTrack(postcardTrack?.value) || tracks[0]
+    const syncPostcard = card => {
+      if (!card || !postcardBuilder) return
+      const current = postcardTrackValue() || window.__sakuraPlayer?.currentTrack
+      if (postcardPreviewImage) { postcardPreviewImage.src = card.href; postcardPreviewImage.alt = card.dataset.wallTitle }
+      if (postcardPreviewTitle) postcardPreviewTitle.textContent = card.dataset.wallTitle
+      if (postcardPreviewNote) postcardPreviewNote.textContent = postcardNote?.value.trim() || '这张画面，也适合被一首歌记住。'
+      if (postcardPreviewTrack) postcardPreviewTrack.textContent = current ? `${current.title} · ${current.artist}` : '到听歌室选择一首歌'
+      if (postcardTrack && !postcardTrack.options.length) {
+        tracks.slice(0, 30).forEach(track => {
+          const option = document.createElement('option')
+          option.value = track.id
+          option.textContent = `${track.title} · ${track.artist}`
+          postcardTrack.append(option)
+        })
+        if (window.__sakuraPlayer?.currentTrack) postcardTrack.value = window.__sakuraPlayer.currentTrack.id
+      }
+    }
     const music = () => {
       const player = window.__sakuraPlayer
       const button = wall.querySelector('[data-wall-music]')
       button.disabled = !player
-      wall.querySelector('[data-wall-track]').textContent = player?.currentTrack ? `${player.currentTrack.title} · ${player.currentTrack.artist}` : '到听歌室选择一首歌'
-      button.textContent = player && !player.audio.paused ? '暂停音乐' : '播放音乐'
+      const current = postcardTrackValue() || player?.currentTrack
+      wall.querySelector('[data-wall-track]').textContent = current ? `${current.title} · ${current.artist}` : '到听歌室选择一首歌'
+      button.textContent = player && current?.id === player.currentTrack?.id && !player.audio.paused ? '暂停音乐' : '播放音乐'
+      syncPostcard(visible[selected])
     }
     const render = () => {
       const card = visible[selected]
@@ -119,7 +150,9 @@
       wall.querySelector('[data-wall-position]').textContent = `${selected + 1} / ${visible.length} · ${card.dataset.wallSeries}`
       wall.querySelector('[data-wall-original]').href = card.href
       animate(image)
+      syncPostcard(card)
       music()
+      document.dispatchEvent(new CustomEvent('sakura:galleryview', { detail: { title: card.dataset.wallTitle, src: card.href } }))
     }
     const unlock = () => {
       if (!locked) return
@@ -172,7 +205,40 @@
       if (event.target.closest('[data-wall-close]')) close()
       if (event.target.closest('[data-wall-prev]')) { selected = (selected - 1 + visible.length) % visible.length; render() }
       if (event.target.closest('[data-wall-next]')) { selected = (selected + 1) % visible.length; render() }
-      if (event.target.closest('[data-wall-music]')) document.querySelector('[data-player-play]')?.click()
+      if (event.target.closest('[data-wall-music]')) {
+        const selectedTrack = postcardTrackValue()
+        const player = window.__sakuraPlayer
+        if (player && selectedTrack) {
+          if (player.currentTrack?.id === selectedTrack.id && !player.audio.paused) player.pause()
+          else player.selectById(selectedTrack.id)
+        }
+      }
+      if (event.target.closest('[data-wall-postcard]')) {
+        if (postcardBuilder) {
+          postcardBuilder.hidden = !postcardBuilder.hidden
+          if (!postcardBuilder.hidden) { syncPostcard(visible[selected]); postcardNote?.focus() }
+        }
+      }
+      if (event.target.closest('[data-wall-postcard-share]')) {
+        const card = visible[selected]
+        const current = postcardTrackValue()
+        if (!card) return
+        const url = new URL('/gallery/', window.location.origin)
+        url.searchParams.set('frame', card.dataset.wallTitle)
+        if (current) url.searchParams.set('music', current.id)
+        if (postcardNote?.value.trim()) url.searchParams.set('note', postcardNote.value.trim())
+        const value = url.href
+        if (postcardUrl) { postcardUrl.hidden = false; postcardUrl.value = value }
+        const clipboardTask = navigator.clipboard?.writeText(value) || Promise.reject(new Error('clipboard unavailable'))
+        clipboardTask.then(() => {
+          if (postcardStatus) postcardStatus.textContent = '明信片链接已复制，可以发给朋友。'
+        }).catch(() => {
+          if (postcardStatus) postcardStatus.textContent = '请从下方输入框复制明信片链接。'
+          postcardUrl?.select()
+        })
+      }
+      if (event.target.closest('[data-wall-postcard-track]')) { syncPostcard(visible[selected]); music() }
+      if (event.target.closest('[data-wall-postcard-note]')) syncPostcard(visible[selected])
     }, true)
     listen(dialog, 'click', event => {
       if (event.target !== dialog) return
@@ -224,6 +290,8 @@
       render()
     })
     listen(image, 'error', () => { wall.querySelector('[data-wall-image-error]').hidden = false })
+    if (postcardTrack) listen(postcardTrack, 'change', () => { syncPostcard(visible[selected]); music() })
+    if (postcardNote) listen(postcardNote, 'input', () => syncPostcard(visible[selected]))
     listen(document, 'sakura:trackchange', music)
     listen(document, 'sakura:playbackchange', music)
     wall.querySelector('[data-wall-views]').hidden = false
@@ -231,6 +299,22 @@
     // All movement starts only on request; reduced-motion users retain manual controls.
     syncMotionButton()
     layout()
+    const shared = new URLSearchParams(location.search)
+    const sharedFrame = shared.get('frame')
+    const sharedCard = sharedFrame && cards.find(card => card.dataset.wallTitle === sharedFrame)
+    if (sharedCard && typeof dialog.showModal === 'function') {
+      selected = cards.indexOf(sharedCard)
+      render()
+      if (postcardNote && shared.get('note')) postcardNote.value = shared.get('note')
+      if (postcardTrack && shared.get('music') && byTrack(shared.get('music'))) postcardTrack.value = shared.get('music')
+      syncPostcard(sharedCard)
+      if (postcardBuilder) postcardBuilder.hidden = false
+      dialog.showModal()
+      previousOverflow = document.body.style.overflow
+      locked = true
+      document.body.style.overflow = 'hidden'
+      stopFrame()
+    }
     cleanup = () => { controller.abort(); stopFrame(); clearTimeout(modeSwitchTimer); visibilityObserver.disconnect(); animation?.cancel(); if (dialog.open) dialog.close(); unlock() }
   }
   document.addEventListener('DOMContentLoaded', init)

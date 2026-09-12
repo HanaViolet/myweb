@@ -195,6 +195,34 @@ const renderRoomPostcard = () => `
   <div class="room-postcard__actions"><button type="button" data-room-discover>抽一张听歌签 <span aria-hidden="true">↝</span></button><p data-room-pairing role="status">一首私人选曲，一篇随手翻到的旧文。</p><a href="/about/">认识房间的主人 ↗</a></div>
 </section>`
 
+const renderMixTape = () => `
+<section class="room-mixtape" data-mixtape aria-labelledby="mixtape-title">
+  <header class="room-mixtape__header">
+    <div><p>PERSONAL MIXTAPE / SIDE C</p><h2 id="mixtape-title">把今晚录成一盘带。</h2></div>
+    <p>挑三首歌，给它一个名字。它会留在这台浏览器里，也可以带走一个分享链接。</p>
+  </header>
+  <div class="room-mixtape__builder">
+    <div class="room-mixtape__identity">
+      <label for="mixtape-name">磁带标题</label>
+      <input id="mixtape-name" data-mixtape-name type="text" maxlength="36" value="SAKURA / AFTER HOURS" autocomplete="off">
+      <p data-mixtape-status role="status">先选一首，慢慢把今晚的声音放进去。</p>
+      <div class="room-mixtape__actions">
+        <button type="button" data-mixtape-random>↝ 随手选三首</button>
+        <button type="button" data-mixtape-save>保存这盘带</button>
+        <button type="button" data-mixtape-share>↗ 分享</button>
+      </div>
+      <div class="room-mixtape__share" data-mixtape-share-fallback hidden><label>复制磁带链接 <input type="text" readonly data-mixtape-share-url></label></div>
+    </div>
+    <div class="room-mixtape__slots" data-mixtape-slots aria-label="磁带曲目">
+      <div class="room-mixtape__slot" data-mixtape-slot="0"><span>A1</span><strong>留一个位置</strong><small>点击右侧曲目</small></div>
+      <div class="room-mixtape__slot" data-mixtape-slot="1"><span>A2</span><strong>留一个位置</strong><small>点击右侧曲目</small></div>
+      <div class="room-mixtape__slot" data-mixtape-slot="2"><span>A3</span><strong>留一个位置</strong><small>点击右侧曲目</small></div>
+    </div>
+    <div class="room-mixtape__tracks" data-mixtape-track-list role="list" aria-label="可选曲目"></div>
+  </div>
+  <div class="room-mixtape__saved" data-mixtape-saved hidden><span>LAST SAVED TAPE</span><strong data-mixtape-saved-name></strong><small data-mixtape-saved-tracks></small></div>
+</section>`
+
 const PERSISTENT_PLAYER = `
 <aside class="sakura-player" id="sakura-player" aria-label="Sakura 的持续音乐播放器">
   <audio preload="metadata"></audio>
@@ -527,10 +555,10 @@ hexo.extend.filter.register('after_render:html', function (html, data) {
       result = result.replace('<section class="about-interests"', `${renderNeteaseStats()}<section class="about-interests"`)
     }
     if (data.path === 'listening/index.html') {
-      result = result.replace('<div data-listening-page></div>', `<div class="listening-page">${renderListeningRoom(tracks)}${renderRoomPostcard()}</div>`)
+      result = result.replace('<div data-listening-page></div>', `<div class="listening-page">${renderListeningRoom(tracks)}${renderRoomPostcard()}${renderMixTape()}</div>`)
     }
   } else {
-    result = result.replace('</header><main', `${HOME_HERO}</header>${renderListeningRoom(tracks)}${renderRoomPostcard()}<main`)
+    result = result.replace('</header><main', `${HOME_HERO}</header>${renderListeningRoom(tracks)}${renderRoomPostcard()}${renderMixTape()}<main`)
     result = result.replace('<div class="recent-posts', `${NOTES_HEADING}<div class="recent-posts`)
     result = result.replace('</main><footer', `</main>${HOME_CODA}<footer`)
     const siteUrl = String(hexo.config.url || '').replace(/\/$/, '')

@@ -32,7 +32,17 @@ hexo.extend.tag.register('visualWall', (args, content) => {
       <div class="visual-detail__top"><div><span>SAKURA'S COLLECTION</span><h2 id="visual-detail-title" data-wall-detail-title></h2></div><button type="button" data-wall-close aria-label="关闭图片">×</button></div>
       <div class="visual-detail__image"><img class="no-lightbox" data-wall-detail-image alt=""><p data-wall-image-error hidden>图片暂时无法加载，可以尝试查看原图。</p></div>
       <div class="visual-detail__bottom"><button type="button" data-wall-prev aria-label="上一张图片">←</button><span data-wall-position role="status"></span><button type="button" data-wall-next aria-label="下一张图片">→</button><a data-wall-original target="_blank" rel="noopener">查看原图 ↗</a></div>
-      <div class="visual-detail__music"><span aria-hidden="true">♫</span><div><small>LET THE MUSIC STAY</small><strong data-wall-track></strong></div><button type="button" data-wall-music>播放音乐</button></div>
+      <div class="visual-detail__music"><span aria-hidden="true">♫</span><div><small>LET THE MUSIC STAY</small><strong data-wall-track></strong></div><button type="button" data-wall-music>播放音乐</button><button type="button" data-wall-postcard>做成明信片</button></div>
+      <section class="visual-postcard-builder" data-wall-postcard-builder hidden aria-label="制作音乐明信片">
+        <div class="visual-postcard__preview" data-wall-postcard-preview>
+          <img data-wall-postcard-preview-image alt="">
+          <div><small>SAKURA / VISUAL FREQUENCY</small><strong data-wall-postcard-preview-title></strong><p data-wall-postcard-preview-note>这张画面，也适合被一首歌记住。</p><span data-wall-postcard-preview-track></span></div>
+        </div>
+        <label>配一首歌<select data-wall-postcard-track aria-label="为明信片选择歌曲"></select></label>
+        <label>写一句话<textarea data-wall-postcard-note maxlength="80" rows="2" placeholder="例如：在这段旋律里，夜色刚好停了一下。"></textarea></label>
+        <div class="visual-postcard__actions"><button type="button" data-wall-postcard-share>复制明信片链接</button><input type="text" readonly data-wall-postcard-url aria-label="明信片链接" hidden></div>
+        <p data-wall-postcard-status role="status"></p>
+      </section>
     </dialog>
   </section>`
 }, { ends: true })
