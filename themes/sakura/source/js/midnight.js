@@ -6,6 +6,7 @@
   const PLAYER_STORAGE_KEY = 'sakura-player-state-v2'
   const LEGACY_PLAYER_STORAGE_KEY = 'sakura-player-state-v1'
   let heroScrollExitCleanup = null
+  let revealObserver = null
 
   const getPlayerStorages = () => {
     const storages = []
@@ -285,12 +286,30 @@
       const track = tracks[currentIndex]
       title.textContent = track.title
       subline.textContent = formatPlayerSubline(track)
+      const credit = root.querySelector('.sakura-player__eyebrow')
+      root.dataset.openMusic = String(Boolean(track.sourceUrl))
+      credit.replaceChildren()
+      if (track.sourceUrl) {
+        const source = document.createElement('a')
+        source.href = track.sourceUrl
+        source.target = '_blank'
+        source.rel = 'noopener noreferrer'
+        source.textContent = `${track.source} ↗`
+        source.setAttribute('aria-label', `作品来源：${track.title} / ${track.artist}`)
+        const license = document.createElement('a')
+        license.href = track.licenseUrl
+        license.target = '_blank'
+        license.rel = 'noopener noreferrer'
+        license.textContent = track.licenseLabel
+        credit.append(source, document.createTextNode(' · '), license)
+      } else credit.textContent = 'CURRENT TRACK · FULL LENGTH'
       root.dataset.playerState = audio.paused ? 'paused' : 'playing'
       document.querySelectorAll('.track-trigger').forEach((button) => {
         const active = button.dataset.trackId === track.id
         button.classList.toggle('is-active', active)
         button.setAttribute('aria-pressed', String(active))
       })
+      document.dispatchEvent(new CustomEvent('sakura:trackchange', { detail: { track } }))
     }
 
     const updatePlaybackUI = () => {
@@ -298,6 +317,7 @@
       playButton.querySelector('span').textContent = playing ? 'Ⅱ' : '▶'
       playButton.setAttribute('aria-label', playing ? '暂停' : '播放')
       root.dataset.playerState = playing ? 'playing' : 'paused'
+      document.dispatchEvent(new CustomEvent('sakura:playbackchange'))
     }
 
     const loadTrack = (index, shouldPlay = false) => {
@@ -572,7 +592,13 @@
         updateProgressUI(clampedTime, savedDuration)
       }
     }
-    window.__sakuraPlayer = { audio, selectById, syncTrackUI: updateTrackUI, get currentTrack () { return tracks[currentIndex] } }
+    const pause = () => {
+      resumeOnReturn = false
+      pendingGestureResume = null
+      audio.pause()
+      saveState(true)
+    }
+    window.__sakuraPlayer = { audio, selectById, pause, syncTrackUI: updateTrackUI, get currentTrack () { return tracks[currentIndex] } }
     return window.__sakuraPlayer
   }
 
@@ -580,6 +606,10 @@
     const detail = document.querySelector('[data-track-detail]')
     if (!detail || !track) return
     const index = tracks.indexOf(track) + 1
+    if (track.sourceUrl) {
+      detail.innerHTML = `<div class="listening-note__index"><span>FM</span><small>OPEN MUSIC / DISCOVERY</small></div><div class="listening-note__copy"><p class="listening-note__meta">${escapeHtml(track.meta)}</p><h3>${escapeHtml(track.title)}</h3><p class="listening-note__about">${escapeHtml(track.artist)} · ${escapeHtml(track.about)}</p><p>开放音乐，保留作品署名。音频由 ${escapeHtml(track.source)} 提供，未经修改。</p><div class="listening-note__actions"><button type="button" data-detail-play="${escapeHtml(track.id)}">PLAY FULL TRACK ▶</button><a href="${escapeHtml(track.sourceUrl)}" target="_blank" rel="noopener">作品与作者 ↗</a><a href="${escapeHtml(track.licenseUrl)}" target="_blank" rel="noopener">${escapeHtml(track.licenseLabel)}</a></div></div>`
+      return
+    }
     detail.classList.remove('is-changing')
     void detail.offsetWidth
     detail.innerHTML = `
@@ -596,6 +626,8 @@
   }
 
   const initMidnight = () => {
+    revealObserver?.disconnect()
+    revealObserver = null
     const player = initPlayer()
     const hero = document.querySelector('.midnight-hero')
     document.body.classList.toggle('is-midnight-home', Boolean(hero))
@@ -603,18 +635,16 @@
       heroScrollExitCleanup?.()
       heroScrollExitCleanup = null
       document.documentElement.classList.remove('has-hero-scroll-motion')
-      return
+    } else {
+      initRandomGallery()
+      initHeroScrollExit(hero)
     }
-
-    initRandomGallery()
-    initHeroScrollExit(hero)
-
-    const playButton = hero.querySelector('.midnight-play')
+    const playButton = hero?.querySelector('.midnight-play')
     if (playButton && !playButton.dataset.ready) {
       playButton.dataset.ready = 'true'
       playButton.addEventListener('click', () => {
         const target = document.querySelector(playButton.dataset.midnightTarget)
-        target?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        target?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' })
       })
     }
 
@@ -636,18 +666,18 @@
     if (player?.currentTrack) renderTrackDetail(player.currentTrack)
     player?.syncTrackUI?.()
 
-    const revealTargets = document.querySelectorAll('.listening-room__heading, .listening-tracks li, .listening-note, .midnight-section-title, .recent-post-item, .midnight-coda__heading, .midnight-filmstrip figure, .midnight-manifesto')
+    const revealTargets = document.querySelectorAll('.listening-room__heading, .listening-tracks li, .listening-note, .room-postcard, .midnight-section-title, .recent-post-item, .midnight-coda__heading, .midnight-filmstrip figure, .midnight-manifesto, .about-interest-list article, .resource-group')
     revealTargets.forEach((element) => element.classList.add('midnight-reveal'))
 
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
-      const observer = new IntersectionObserver((entries) => {
+      revealObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return
           entry.target.classList.add('is-visible')
-          observer.unobserve(entry.target)
+          revealObserver?.unobserve(entry.target)
         })
       }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 })
-      revealTargets.forEach((element) => observer.observe(element))
+      revealTargets.forEach((element) => revealObserver.observe(element))
     } else {
       revealTargets.forEach((element) => element.classList.add('is-visible'))
     }

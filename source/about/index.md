@@ -21,6 +21,7 @@ description: 关于音乐、代码，以及我愿意留在这里的生活片段�
       <p>我喜欢 J-POP，尤其是 Yorushika。比起热闹的表达，我更偏爱夜色、文学感和旋律里没有被直接说出的情绪。</p>
     </div>
     <p class="about-signature">SAKURA <span>— Music for the quiet hours.</span></p>
+    <a class="about-room-link" href="/listening/">先听一首，再慢慢认识我 ↗</a>
   </div>
 </section>
 

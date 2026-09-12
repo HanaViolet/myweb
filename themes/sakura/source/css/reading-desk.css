@@ -1,0 +1,84 @@
+/* A shared set of small controls for browsing and reading Sakura's collection. */
+.desk-segment { display: inline-flex; flex-wrap: wrap; gap: 4px; padding: 4px; border: 1px solid var(--midnight-line); border-radius: 28px; background: #111713; }
+.desk-segment button { min-height: 40px; padding: 9px 18px; border: 0; border-radius: 24px; background: transparent; color: #9eaaa1; cursor: pointer; font: 12px/1.5 var(--midnight-sans); transition: background 180ms, color 180ms; }
+.desk-segment button[aria-pressed="true"] { background: #c5d9c6; color: #172019; }
+.desk-segment button:hover:not([aria-pressed="true"]) { background: #ffffff09; color: #e5ece4; }
+.notes-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 0 0 28px; }
+.notes-toolbar__label { color: #8d9b90; font: 12px/1.8 var(--midnight-sans); }
+.note-edition { display: flex; justify-content: space-between; gap: 12px; margin: 0 0 15px; color: #7d9080; font: 9px/1.6 var(--midnight-sans); letter-spacing: .13em; }
+.page #recent-posts .recent-post-item > .post_cover { border-radius: 15px; }
+.page #recent-posts .article-meta-wrap { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+.page #recent-posts .note-open { display: flex; justify-content: space-between; align-items: center; min-height: 44px; margin-top: 22px; padding-top: 10px; border-top: 1px solid var(--midnight-line); color: #aabfaa; font-size: 11px; }
+.note-open > span:last-child { display: grid; place-items: center; width: 30px; height: 30px; border: 1px solid var(--midnight-line); border-radius: 50%; transition: transform 180ms, background 180ms; }
+.note-open:hover > span:last-child { transform: rotate(45deg); background: #b9d8c216; }
+.page #recent-posts[data-notes-view="list"] > .recent-post-items { display: flex; flex-direction: column; gap: 0; }
+.page #recent-posts[data-notes-view="list"] .recent-post-item:nth-child(n) { display: grid; grid-template-columns: 180px minmax(0, 1fr); align-items: center; gap: 28px; padding: 24px 0; margin: 0; }
+.page #recent-posts[data-notes-view="list"] .recent-post-item:nth-child(n) > .post_cover { height: 138px; margin: 0; border-radius: 12px; }
+.page #recent-posts[data-notes-view="list"] .recent-post-info { padding: 0; }
+.page #recent-posts[data-notes-view="list"] .recent-post-info.no-cover { grid-column: 1 / -1; }
+.page #recent-posts[data-notes-view="list"] .article-title { font-size: clamp(20px, 2vw, 27px); }
+.page #recent-posts[data-notes-view="list"] .note-edition { margin-bottom: 8px; }
+.page #recent-posts[data-notes-view="list"] .article-meta-wrap { margin-top: 10px; }
+.page #recent-posts[data-notes-view="list"] .content, .page #recent-posts[data-notes-view="list"] .note-open { display: none; }
+
+.resource-finder { margin: 34px 0 70px; padding: clamp(20px, 3vw, 36px); border: 1px solid #a9c0aa30; border-radius: 22px; background: radial-gradient(ellipse at top left, #29433560, transparent 70%), #101712; }
+.resource-finder__search label { display: flex; align-items: baseline; flex-wrap: wrap; gap: 14px; color: #9db499; font: 9px/1.8 var(--midnight-sans); letter-spacing: .13em; }
+.resource-finder__search label span { color: #c8d4c6; font-size: 14px; letter-spacing: 0; }
+.resource-finder__search > div { display: flex; gap: 12px; align-items: center; margin-top: 18px; }
+.resource-finder input { flex: 1; min-width: 0; min-height: 52px; padding: 14px 18px; border: 1px solid #98b39830; border-radius: 12px; color: #edf0e8; background: #070d0990; font: 15px/1.5 var(--midnight-sans); }
+.resource-finder input::placeholder { color: #748579; }
+.resource-finder__search button { min-height: 44px; padding: 8px 12px; background: none; border: 0; color: #a8bcaa; cursor: pointer; font: 12px/1.5 var(--midnight-sans); }
+.resource-finder button:disabled { opacity: .4; cursor: default; }
+.resource-finder__bottom { display: flex; align-items: center; justify-content: space-between; gap: 15px; margin-top: 24px; }
+.resource-finder__bottom > span { white-space: nowrap; color: #8a9e8b; font: 11px/1.8 var(--midnight-sans); }
+#article-container .resource-finder__status { margin: 12px 0 0; color: #b4d5b8; font: 12px/1.8 var(--midnight-sans); }
+.resource-finder__status:empty { display: none; }
+#article-container .resource-finder__empty { margin: 26px 0 0; padding: 24px; border: 1px dashed #a9c0aa40; border-radius: 12px; color: #aebdaa; font: 14px/1.8 var(--midnight-sans); }
+.type-resources .resource-item { border-radius: 18px; min-height: 270px; }
+.type-resources .resource-item__footer { flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.type-resources .resource-item__footer a { min-height: 44px; display: inline-flex; align-items: center; }
+.type-resources [data-resource-copy] { min-height: 44px; padding: 8px 12px; border: 1px solid var(--midnight-line); border-radius: 20px; color: #b2cbb5; background: #b9d8c208; font: 10px/1.6 var(--midnight-sans); cursor: pointer; }
+.type-resources [data-resource-copy]:hover { background: #b9d8c21c; }
+.type-resources .resource-group { margin-bottom: 90px; }
+.type-resources .resource-intro { padding-bottom: 55px; }
+
+.reading-desk { position: sticky; top: 82px; z-index: 12; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 12px; border-bottom: 1px solid var(--midnight-line); background: #0b110ef2; backdrop-filter: blur(16px); }
+/* Keep the document as the scroll container so sticky controls work on narrow screens. */
+body:has(> #body-wrap.post) { overflow-x: clip; overflow-y: visible; }
+.reading-desk__progress { flex: 1; min-width: 150px; display: flex; align-items: center; gap: 10px; }
+.reading-desk__progress > span { color: #8fa28f; font: 8px/1.5 var(--midnight-sans); letter-spacing: .12em; white-space: nowrap; }
+.reading-desk progress { appearance: none; width: 70px; min-width: 30px; max-width: 120px; flex: 1; height: 3px; overflow: hidden; border: 0; border-radius: 4px; background: #273129; accent-color: #b9d8c2; }
+.reading-desk progress::-webkit-progress-bar { background: #273129; }
+.reading-desk progress::-webkit-progress-value { background: #b9d8c2; }
+.reading-desk progress::-moz-progress-bar { background: #b9d8c2; }
+.reading-desk small { width: 30px; font: 9px/1.5 var(--midnight-sans); color: #93a48f; }
+.reading-desk__controls { display: flex; gap: 6px; }
+.reading-desk button { min-height: 40px; min-width: 40px; padding: 8px 10px; border: 1px solid #b9d8c22b; border-radius: 22px; background: transparent; color: #c7d7c6; font: 12px/1.5 var(--midnight-sans); cursor: pointer; }
+.reading-desk button[aria-pressed="true"] { background: #c5d9c6; color: #172019; }
+.reading-desk button:disabled { opacity: .35; cursor: default; }
+.post.desk-focus #content-inner.layout { display: block; width: min(980px, 100%); }
+.post.desk-focus #aside-content { display: none; }
+.post.desk-focus #post { max-width: 820px; margin: 0 auto; }
+.post.desk-focus #article-container { color: #d3dbd1; }
+.post #article-container :is(h2, h3, h4) { scroll-margin-top: 175px; }
+
+.notes-toolbar[hidden], .reading-desk[hidden], [data-resource-finder][hidden], [data-resource-nav][hidden], .resource-group[hidden], .resource-item[hidden], [data-resource-empty][hidden] { display: none !important; }
+@media (max-width: 700px) {
+  .notes-toolbar { align-items: flex-start; flex-direction: column; gap: 14px; }
+  .page #recent-posts[data-notes-view="list"] .recent-post-item:nth-child(n) { grid-template-columns: 92px minmax(0, 1fr); gap: 16px; padding: 22px 0; margin-bottom: 0; }
+  .page #recent-posts[data-notes-view="list"] .recent-post-item:nth-child(n) > .post_cover { height: 110px; }
+  .page #recent-posts[data-notes-view="list"] .article-title { font-size: 19px; }
+  .page #recent-posts[data-notes-view="list"] .note-edition > span:last-child { display: none; }
+  .resource-finder__bottom { align-items: flex-start; flex-direction: column; }
+  .resource-finder .desk-segment { border-radius: 16px; }
+  .resource-finder .desk-segment button { padding-inline: 12px; }
+  .reading-desk { top: 68px; padding: 10px 6px; }
+  .reading-desk__progress { min-width: 120px; }
+  .reading-desk__progress > span { display: none; }
+  .reading-desk__controls { margin-left: auto; }
+  .type-resources .resource-group { margin-bottom: 56px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .desk-segment button, .note-open > span:last-child { transition: none; }
+  .note-open:hover > span:last-child { transform: none; }
+}

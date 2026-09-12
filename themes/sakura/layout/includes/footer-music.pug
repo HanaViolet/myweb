@@ -1,0 +1,50 @@
+section.music-neighborhood(aria-labelledby='music-neighborhood-title' data-music-neighborhood)
+  .music-neighborhood__top
+    div
+      p.music-neighborhood__eyebrow SAKURA / AFTER HOURS
+      h2#music-neighborhood-title 再坐一会儿，<br>听首没听过的歌。
+      p.music-neighborhood__intro 这里有我反复听的收藏，也有偶然路过的旋律。
+    nav.music-neighborhood__links(aria-label='页脚导航')
+      div
+        span MY LITTLE WORLD
+        a(href='/listening/') 私人唱片架 ↗
+        a(href='/gallery/') 光影收藏 ↗
+        a(href='/archives/') 文字存档 ↗
+      div
+        span SAY HELLO
+        a(href='/about/') 关于 Sakura ↗
+        a(href='/link/') 朋友们 ↗
+        a(href='mailto:ljh118@qq.com') 写一封信 ↗
+  .neighborhood-radio(data-discovery-radio hidden)
+    .neighborhood-radio__dial(aria-hidden='true')
+      span FM
+    .neighborhood-radio__info
+      span(data-discovery-channel) 探索电台
+      strong(data-discovery-title) 给今天换一段旋律
+      small(data-discovery-artist)
+      .neighborhood-radio__credits
+        a(data-discovery-source target='_blank' rel='noopener noreferrer') 作品与作者 ↗
+        a(data-discovery-license target='_blank' rel='noopener noreferrer') CC BY
+    .neighborhood-radio__actions
+      button(type='button' data-discovery-play) ▶ 播放这首
+      button(type='button' data-discovery-next) ↻ 换一首
+    p.neighborhood-radio__status(data-discovery-status role='status')
+  .music-street
+    .music-street__art(aria-hidden='true')
+      include footer-street.svg
+    .music-street__channels(role='group' aria-label='选择音乐街区频道')
+      button(type='button' data-discovery-mood='reading' aria-pressed='false')
+        span 01 / PIANO ROOM
+        strong 纸页之间
+      button(type='button' data-discovery-mood='gallery' aria-pressed='false')
+        span 02 / AMBIENT RECORDS
+        strong 光影漫游
+      button(type='button' data-discovery-mood='coding' aria-pressed='false')
+        span 03 / NIGHT RADIO
+        strong 夜间编码
+      button(type='button' data-discovery-mood='wandering' aria-pressed='false')
+        span 04 / JAZZ CORNER
+        strong 街角偶遇
+  p.music-neighborhood__fineprint(data-discovery-caption) 一条小小的音乐街区。点击店名，逛逛不同的声音。
+  noscript
+    p 探索电台需要 JavaScript。你也可以前往 <a href="https://archive.org/details/audio">Internet Archive</a> 寻找开放音乐。

@@ -5,10 +5,10 @@ type: "gallery"
 top_img: /img/gallery/小缘02.jpg
 aside: false
 comments: false
-description: 照片与插画是另一种记忆方式。
+description: 把瞬间放进旋律。在环形影像唱片中浏览 Sakura 的照片与插画，也可以切换平铺收藏墙。
 ---
 
-{% gallery %}
+{% visualWall %}
 ![小缘00](/img/gallery/小缘00.jpg)
 ![小缘01](/img/gallery/小缘01.jpg)
 ![小缘02](/img/gallery/小缘02.jpg)
@@ -60,4 +60,4 @@ description: 照片与插画是另一种记忆方式。
 ![季12](/img/gallery/季12.jpg)
 ![季13](/img/gallery/季13.jpg)
 
-{% endgallery %}
+{% endvisualWall %}

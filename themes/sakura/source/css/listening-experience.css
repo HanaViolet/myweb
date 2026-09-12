@@ -1,0 +1,72 @@
+/* Small rituals around the existing record sleeve. */
+.listening-tools { margin: 0 0 28px; padding: 20px 0; border-top: 1px solid var(--midnight-line); border-bottom: 1px solid var(--midnight-line); }
+.listening-tools__buttons, .listening-tools__saved { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+.listening-tools button, .room-postcard button {
+  min-height: 44px; padding: 10px 18px; border: 1px solid var(--midnight-line);
+  border-radius: 2px; background: transparent; color: var(--midnight-text); font: inherit; font-size: 12px;
+  cursor: pointer; transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+.listening-tools button:hover, .room-postcard button:hover { background: #b9d8c212; border-color: var(--midnight-accent); transform: translateY(-2px); }
+.listening-tools button[aria-pressed="true"] { color: var(--midnight-accent); border-color: var(--midnight-accent); }
+.listening-tools [data-room-shuffle] { background: var(--midnight-accent); color: #101513; border-color: var(--midnight-accent); }
+.listening-tools [data-room-shuffle]:hover { background: #cee8d5; color: #101513; }
+.listening-tools p, #article-container .listening-tools p { margin: 12px 0; color: var(--midnight-muted); font-size: 12px; line-height: 1.8; }
+.listening-tools__saved > span { color: var(--midnight-muted); font-size: 11px; }
+.listening-tools__saved button { padding: 5px 12px; font-size: 11px; border-radius: 30px; }
+.listening-tools__share { margin-top: 14px; }
+.listening-tools__share[hidden] { display: none; }
+.listening-tools__share label { display: grid; gap: 8px; color: var(--midnight-muted); font-size: 12px; }
+.listening-tools__share input { width: 100%; min-width: 0; padding: 12px; background: var(--midnight-bg); border: 1px solid var(--midnight-line); color: var(--midnight-text); }
+.room-postcard {
+  display: grid; grid-template-columns: 110px minmax(0, 1fr) minmax(180px, .48fr); gap: clamp(24px, 4vw, 60px);
+  max-width: 1440px; margin: 0 auto 56px; padding: 40px clamp(24px, 5.5vw, 90px);
+  border-block: 1px solid var(--midnight-line); background: linear-gradient(120deg, #15201a80, transparent 65%);
+}
+.room-postcard__identity { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
+.room-postcard__identity img { border-radius: 50%; filter: saturate(.65); }
+.room-postcard__identity span { color: var(--midnight-muted); font-size: 9px; line-height: 1.8; letter-spacing: .16em; }
+.room-postcard p, #article-container .room-postcard p { margin: 0 0 18px; color: var(--midnight-muted); font-size: 13px; line-height: 2; }
+.room-postcard__copy > p:first-child { font-size: 10px; color: var(--midnight-accent); letter-spacing: .18em; }
+.room-postcard h2, #article-container .room-postcard h2 { margin: 0 0 18px; font: 400 clamp(23px, 2.5vw, 34px)/1.5 var(--midnight-serif); color: var(--midnight-text); }
+.room-postcard a, #article-container .room-postcard a { color: var(--midnight-accent); font-size: 12px; text-decoration: none; border-bottom: 1px solid var(--midnight-line); padding-bottom: 5px; overflow-wrap: anywhere; }
+.room-postcard__actions { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding-left: 24px; border-left: 1px dashed var(--midnight-line); }
+.room-postcard__actions p { margin-bottom: 0; font-size: 11px; }
+.room-postcard__actions > a { margin-top: auto; }
+.about-room-link { display: inline-block; margin-top: 20px; color: var(--midnight-accent) !important; }
+.is-listening-page #page { padding: 0; border: 0; background: transparent; box-shadow: none; }
+.is-listening-page #article-container { font-family: var(--midnight-sans); }
+.is-listening-page #content-inner { max-width: 1440px; }
+.is-listening-page .listening-room.listening-room--gatefold { width: 100%; margin: 0; padding: 32px 0 56px; }
+.is-listening-page .room-postcard { padding-inline: 24px; }
+.is-listening-page #article-container ol { padding: 0; }
+.is-listening-page #article-container .listening-note h3 { margin-top: 0; }
+.is-listening-page #article-container button { font-family: var(--midnight-sans); }
+.is-listening-page #article-container a { text-decoration: none; }
+.is-listening-page #article-container .listening-note__copy > blockquote { border-left: 0; }
+.nav-frequency { max-width: 235px; }
+#nav .menus_items > .menus_item:nth-child(4) > .site-page::before { content: "04"; }
+.nav-frequency small { max-width: 220px; overflow: hidden; text-overflow: ellipsis; }
+body:not(.room-is-playing) .nav-frequency > i { opacity: .4; box-shadow: none; }
+body:not(.room-is-playing) .nav-frequency > i::after { animation-play-state: paused; }
+html::after { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 2px; z-index: 100001; background: var(--midnight-accent); transform: scaleX(0); transform-origin: left; pointer-events: none; }
+html.room-is-navigating::after { animation: room-loading 1.6s ease-out infinite; }
+.room-page-enter { animation: room-page-enter 420ms ease-out both; }
+@keyframes room-page-enter { from { opacity: .65; } to { opacity: 1; } }
+@keyframes room-loading { from { transform: scaleX(.08); opacity: .5; } to { transform: scaleX(.92); opacity: 1; } }
+@media (max-width: 1100px) { .nav-frequency { display: none; } }
+@media (max-width: 700px) {
+  .room-postcard { grid-template-columns: 1fr; gap: 24px; margin-bottom: 32px; padding: 30px 22px; }
+  .room-postcard__identity { flex-direction: row; align-items: center; }
+  .room-postcard__identity img { width: 44px; height: 44px; }
+  .room-postcard__actions { border-left: 0; border-top: 1px dashed var(--midnight-line); padding: 22px 0 0; }
+  .listening-tools__buttons { gap: 8px; }
+  .listening-tools__buttons button { flex: 1 1 auto; padding: 10px 12px; }
+  .is-listening-page .listening-room.listening-room--gatefold { padding-top: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .listening-note.is-changing .listening-note__copy, .nav-frequency > i::after { animation: none; }
+  .room-page-enter, html.room-is-navigating::after { animation: none; }
+  html.room-is-navigating::after { transform: scaleX(1); }
+  .listening-tools button, .room-postcard button { transition: none; }
+  .listening-tools button:hover, .room-postcard button:hover { transform: none; }
+}

@@ -5,6 +5,15 @@ block content
     if top_img === false
       include includes/header/post-info.pug
 
+    .reading-desk(data-reading-desk hidden)
+      .reading-desk__progress
+        span SIDE B / READING
+        progress(max='100' value='0' data-reading-progress aria-label='正文阅读进度')
+        small(data-reading-percent) 0%
+      .reading-desk__controls
+        button(type='button' data-reading-size='smaller' aria-label='缩小正文字号') A−
+        button(type='button' data-reading-size='larger' aria-label='放大正文字号') A+
+        button(type='button' data-reading-focus aria-pressed='false') 沉浸阅读
     article#article-container.container.post-content
       if theme.noticeOutdate.enable && page.noticeOutdate !== false
         include includes/post/outdate-notice.pug

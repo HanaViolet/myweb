@@ -153,6 +153,17 @@ const renderListeningRoom = (tracks) => {
     <p>PERSONAL SELECTION / ${CURRENT_YEAR}</p>
     <h2 id="listening-title">夜晚适合把世界<br>调成静音，只留下音乐。</h2>
   </div>
+  <div class="listening-tools" data-listening-tools>
+    <div class="listening-tools__buttons">
+      <button type="button" data-room-shuffle>↝ 随手放一首</button>
+      <button type="button" data-room-favorite aria-pressed="false">♡ 收藏这首</button>
+      <button type="button" data-room-share>↗ 分享这首</button>
+    </div>
+    <p data-room-feedback role="status">从私人收藏与开放音乐里，找到今晚的声音。</p>
+    <a class="room-explore-link" href="#music-neighborhood-title">去音乐街区，探索更多声音 ↘</a>
+    <div class="listening-tools__saved" data-room-saved aria-label="我收藏的选曲"></div>
+    <div class="listening-tools__share" data-room-share-fallback hidden><label>复制歌曲链接 <input type="text" readonly data-room-share-url></label></div>
+  </div>
   <div class="listening-gatefold">
     <div class="listening-gatefold__folio" aria-hidden="true">
       <span>SAKURA LISTENING ARCHIVE</span>
@@ -177,6 +188,13 @@ const renderListeningRoom = (tracks) => {
 </section>`
 }
 
+const renderRoomPostcard = () => `
+<section class="room-postcard" aria-labelledby="room-postcard-title">
+  <div class="room-postcard__identity"><img src="/img/avatar.jpg" alt="Sakura 的头像" width="64" height="64" loading="lazy"><span>A NOTE FROM<br>SAKURA</span></div>
+  <div class="room-postcard__copy"><p>一首歌的时间 / SIDE B</p><h2 id="room-postcard-title">让声音，带你翻到某一页。</h2><p>这里也放着我读过的书、玩过的游戏，和慢慢写出来的代码。听歌的时候，可以顺路读一篇。</p><a data-room-note href="/archives/">去看看我的旧文 ↗</a></div>
+  <div class="room-postcard__actions"><button type="button" data-room-discover>抽一张听歌签 <span aria-hidden="true">↝</span></button><p data-room-pairing role="status">一首私人选曲，一篇随手翻到的旧文。</p><a href="/about/">认识房间的主人 ↗</a></div>
+</section>`
+
 const PERSISTENT_PLAYER = `
 <aside class="sakura-player" id="sakura-player" aria-label="Sakura 的持续音乐播放器">
   <audio preload="metadata"></audio>
@@ -198,7 +216,7 @@ const PERSISTENT_PLAYER = `
       <span data-player-duration>—:—</span>
     </div>
     <div class="sakura-player__links">
-      <a href="${NETEASE_PLAYLIST_URL}" target="_blank" rel="noopener">NETEASE LIST ↗</a>
+      <a href="/listening/">听歌室 ↗</a>
     </div>
   </div>
   <p class="sakura-player__status" data-player-status aria-live="polite">选择一首歌，音乐会在页面之间继续播放。</p>
@@ -283,6 +301,7 @@ const HOME_CODA = `
 </section>`
 
 const PAGE_INTROS = {
+  'listening/index.html': ['THE LISTENING ROOM / SIDE A', '由 Sakura 选曲。挑一首喜欢的，让音乐陪你翻过下一页。'],
   'resources/index.html': ['RESOURCE ARCHIVE / 04', '课程、代码与学习资料，被整理成一座可以慢慢浏览的档案馆。'],
   'about/index.html': ['ABOUT SAKURA / PROFILE', '关于音乐、代码，以及我愿意留在这里的生活片段。'],
   'gallery/index.html': ['VISUAL FRAGMENTS / 05', '照片与插画是另一种记忆方式。'],
@@ -507,8 +526,11 @@ hexo.extend.filter.register('after_render:html', function (html, data) {
     if (data.path === 'about/index.html') {
       result = result.replace('<section class="about-interests"', `${renderNeteaseStats()}<section class="about-interests"`)
     }
+    if (data.path === 'listening/index.html') {
+      result = result.replace('<div data-listening-page></div>', `<div class="listening-page">${renderListeningRoom(tracks)}${renderRoomPostcard()}</div>`)
+    }
   } else {
-    result = result.replace('</header><main', `${HOME_HERO}</header>${renderListeningRoom(tracks)}<main`)
+    result = result.replace('</header><main', `${HOME_HERO}</header>${renderListeningRoom(tracks)}${renderRoomPostcard()}<main`)
     result = result.replace('<div class="recent-posts', `${NOTES_HEADING}<div class="recent-posts`)
     result = result.replace('</main><footer', `</main>${HOME_CODA}<footer`)
     const siteUrl = String(hexo.config.url || '').replace(/\/$/, '')
@@ -518,7 +540,13 @@ hexo.extend.filter.register('after_render:html', function (html, data) {
   }
 
   if (!result.includes('window.__SAKURA_TRACKS')) {
-    result = result.replace('</head>', `<script>window.__SAKURA_TRACKS=${serializeTrackData(tracks)};</script></head>`)
+    const discovery = (hexo.locals.get('data') || {}).discovery || {}
+    const catalogue = Array.isArray(discovery.tracks) ? discovery.tracks : []
+    result = result.replace('</head>', `<script>window.__SAKURA_TRACKS=${serializeTrackData([...tracks, ...catalogue])};</script></head>`)
+  }
+  if (!result.includes('window.__SAKURA_NOTES=')) {
+    const notes = hexo.locals.get('posts').sort('date', -1).toArray().filter(post => post.published !== false).map(post => ({ title: post.title, url: `/${post.path}` }))
+    result = result.replace('</head>', `<script>window.__SAKURA_NOTES=${serializeTrackData(notes)};</script></head>`)
   }
   // The inline gallery initializer references the global name too. Check for
   // the actual assignment so it cannot suppress the data payload injection.

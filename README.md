@@ -37,6 +37,15 @@ npm run listening:chart
 
 ## 🎧 音乐与内容
 
+- 图库默认提供环形影像视图，参考 [Andrianjaka Tony 的作品演示](https://x.com/Andrianja_tony/status/2095223517495111818)：CSS 三维透视、拖动空白处旋转与倾斜、手动开启自动旋转、12 张一组浏览；保留暗绿配色、系列筛选、平铺模式和大图音乐控制。减少动态效果时禁用自动旋转，离开视口或页面时清理动画。
+
+- 音乐街区页脚：微缩钢琴房、唱片店、电台塔和爵士店，按页面类型推荐开放音乐。公开曲库来自 Internet Archive，运行 `npm run music:update` 更新元数据，原有私人选曲保持独立展示；接口、署名和维护说明见 [开放音乐说明](docs/open-music.md)。
+
+- `/listening/`：独立听歌室，支持随机播放、浏览器收藏和歌曲直达分享链接（`?track=music`）。首页与听歌室的「听歌签」从现有文章和选曲中随机搭配；抽签后可分别播放或阅读。
+- 本轮页面梳理、验证结果和后续方向：[`docs/site-review-2026-09-12.md`](docs/site-review-2026-09-12.md)。
+- `/gallery/`：参考 [ohwow.design](https://ohwow.design/) 的瀑布流、圆角卡片与虚化详情弹窗，改为 Sakura 的视觉收藏墙。保留原有图片清单，支持系列筛选、方向键切图、Esc 关闭和弹窗音乐控制；界面由本地 `visualWall` 标签、CSS 与原生 JavaScript 实现。
+- 首页文章支持「封面 / 目录」切换；资源页支持关键词与分类组合筛选、空结果提示和提取码复制；文章页有正文阅读进度、16–24px 字号调节与沉浸阅读。展示方式和阅读偏好保存在当前浏览器；工具由 `reading-desk.js` / `reading-desk.css` 维护，并在 Pjax 导航时清理监听与观察器。
+
 - `source/_data/tracks.json`：选曲元数据（日文标题、中文标题、专辑信息、短笺和音频路径）。
 - `source/music/`：本地播放器使用的音频文件；只应提交你拥有或获准发布的音频，后续可迁移到 Cloudflare R2。
 - `source/_data/netease-comments.json`：每首选曲缓存的少量网易云热门评论；首页切换歌曲时会显示对应热评，并提供原页面链接。

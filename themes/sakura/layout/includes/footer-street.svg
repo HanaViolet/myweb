@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 310" fill="none">
+ <defs>
+  <pattern id="street-bricks" width="25" height="16" patternUnits="userSpaceOnUse"><path d="M0 16H25M12 0V16" stroke="#263e35" stroke-opacity=".1"/></pattern>
+  <pattern id="street-keys" width="15" height="58" patternUnits="userSpaceOnUse"><path d="M0 0H14V58H0Z" fill="#ecebdc"/><path d="M9 0H15V34H9Z" fill="#33443e"/></pattern>
+  <pattern id="street-windows" width="42" height="47" patternUnits="userSpaceOnUse"><path d="M9 5H29V35H9Z" fill="#3c5148"/><path d="M12 8H26V32H12Z" fill="#d9d6ac"/><path d="M19 8V32M12 20H26" stroke="#73877a" stroke-width="2"/></pattern>
+  <linearGradient id="street-ground" x2="0" y2="1"><stop stop-color="#c8c9b9"/><stop offset="1" stop-color="#e4e4d8"/></linearGradient>
+ </defs>
+ <ellipse cx="547" cy="286" rx="473" ry="18" fill="#2c4437" opacity=".09"/>
+ <path d="M55 257L972 242 1060 279 150 301Z" fill="url(#street-ground)"/>
+ <path d="M150 301L1060 279V285L150 307 55 264V257Z" fill="#b5bbae"/>
+ <!-- Piano room: ivory keys become an architectural facade. -->
+ <path d="M135 120L254 120V272H135Z" fill="#bcb69e"/>
+ <path d="M254 120L287 102V254L254 272Z" fill="#969e8c"/>
+ <path d="M135 120L168 102H287L254 120Z" fill="#d6d3bd"/>
+ <path d="M145 109V74H242V109" fill="#c1c9b7"/>
+ <path d="M242 74L264 64V97L242 109Z" fill="#91a38f"/>
+ <path d="M145 74L167 64H264L242 74Z" fill="#dce0cd"/>
+ <path d="M153 85H232V100H153Z" fill="#405b4d"/>
+ <text x="193" y="95" fill="#e8e8d6" font-size="8" font-family="monospace" text-anchor="middle" letter-spacing="2">PIANO ROOM</text>
+ <path d="M150 136H240V191H150Z" fill="url(#street-keys)"/>
+ <path d="M147 202H243V211H147Z" fill="#ddd9c7"/>
+ <path d="M155 219H188V265H155ZM201 219H234V265H201Z" fill="#465b50"/>
+ <path d="M160 224H183V249H160ZM206 224H229V249H206Z" fill="#ced3b5"/>
+ <path d="M158 255H185M204 255H231" stroke="#bfc4ab"/>
+ <!-- Record shop, with a giant vinyl on the rooftop. -->
+ <path d="M310 149H524V283H310Z" fill="#90aa99"/>
+ <path d="M524 149L558 130V265L524 283Z" fill="#5d7b69"/>
+ <path d="M303 146L341 125H561L524 146Z" fill="#b1c5ae"/>
+ <path d="M303 146H531V154H303Z" fill="#ccd3bd"/>
+ <path d="M316 157H516V278H316Z" fill="url(#street-bricks)"/>
+ <g transform="translate(418 95)">
+  <circle r="60" fill="#23352e"/>
+  <circle r="54" stroke="#506556"/><circle r="47" stroke="#40584b"/><circle r="40" stroke="#506556"/><circle r="33" stroke="#40584b"/>
+  <g class="street-vinyl"><circle r="23" fill="#cfb89c"/><path d="M-21-7A23 23 0 0 1 21 7H-21Z" fill="#ece5ca"/><text y="4" text-anchor="middle" font-size="7" font-family="monospace" fill="#23352e">SAKURA</text><circle r="3" fill="#23352e"/></g>
+ </g>
+ <path d="M328 169H506V192H328Z" fill="#344d40"/>
+ <text x="418" y="184" fill="#e2e5cc" font-size="11" font-family="monospace" text-anchor="middle" letter-spacing="3">AMBIENT RECORDS</text>
+ <path d="M324 201H511L522 216H314Z" fill="#ede4c9"/>
+ <path d="M343 201H360L356 216H338ZM381 201H398V216H378ZM421 201H438L441 216H422ZM461 201H478L485 216H466" fill="#9cab90"/>
+ <path d="M332 220H395V267H332ZM445 220H508V267H445Z" fill="#3d5547"/>
+ <path d="M405 215H433V280H405Z" fill="#2e453a"/>
+ <path d="M409 220H429V255H409Z" fill="#bdcbb1"/>
+ <circle cx="428" cy="263" r="2" fill="#decb9f"/>
+ <g fill="#d3ba96"><circle cx="349" cy="244" r="13"/><circle cx="377" cy="244" r="13"/><circle cx="463" cy="244" r="13"/><circle cx="491" cy="244" r="13"/></g>
+ <g fill="#4b5f4d"><circle cx="349" cy="244" r="5"/><circle cx="377" cy="244" r="5"/><circle cx="463" cy="244" r="5"/><circle cx="491" cy="244" r="5"/></g>
+ <!-- The radio tower. -->
+ <path d="M592 86H704V270H592Z" fill="#718e7c"/>
+ <path d="M704 86L738 65V251L704 270Z" fill="#496b58"/>
+ <path d="M583 80L620 59H747L710 80Z" fill="#c4cdb7"/>
+ <path d="M583 80H711V90H583Z" fill="#9fb39a"/>
+ <path d="M610 103H688V221H610Z" fill="url(#street-windows)"/>
+ <path d="M605 230H693V252H605Z" fill="#304b3e"/>
+ <text x="649" y="244" fill="#e8dfb9" font-size="9" font-family="monospace" text-anchor="middle" letter-spacing="2">NIGHT RADIO</text>
+ <path d="M637 60L650 9 663 60M641 47H659M646 28H654M637 60L659 47 646 28" stroke="#718776" stroke-width="3"/>
+ <circle cx="650" cy="9" r="4" fill="#bc7d57"/>
+ <g class="street-signal" stroke="#8b9e83" stroke-width="2"><path d="M630 7Q619 19 630 30M670 7Q681 19 670 30"/><path d="M618 0Q599 19 618 39M682 0Q701 19 682 39" opacity=".5"/></g>
+ <!-- Jazz corner and the small rooftop garden. -->
+ <path d="M771 150H918V263H771Z" fill="#c4a78c"/>
+ <path d="M918 150L948 133V246L918 263Z" fill="#9f917b"/>
+ <path d="M765 145L797 126H955L923 145Z" fill="#d1c3a6"/>
+ <path d="M765 145H924V155H765Z" fill="#e0d0b0"/>
+ <path d="M791 123V102H893V123Z" fill="#849b84"/>
+ <path d="M789 102L806 93H913L894 102Z" fill="#adbaa0"/>
+ <path d="M893 102L913 93V114L893 123Z" fill="#627e67"/>
+ <path d="M784 168H906V190H784Z" fill="#5d6450"/>
+ <text x="845" y="183" fill="#efdfbd" font-size="11" font-family="monospace" text-anchor="middle" letter-spacing="2">JAZZ CORNER</text>
+ <path d="M789 259V220a20 20 0 0 1 40 0V259ZM850 259V220a20 20 0 0 1 40 0V259Z" fill="#4d6150"/>
+ <path d="M796 243V221a13 13 0 0 1 26 0V243ZM857 243V221a13 13 0 0 1 26 0V243Z" fill="#d9c896"/>
+ <path d="M809 209V258M870 209V258" stroke="#73856a" stroke-width="3"/>
+ <!-- Street trees, benches and a warm lamp. -->
+ <g stroke="#758773" stroke-width="5"><path d="M103 266V194M982 262V189"/></g>
+ <g fill="#9aad91"><ellipse cx="103" cy="192" rx="28" ry="40"/><ellipse cx="982" cy="185" rx="25" ry="40"/></g>
+ <g fill="#b6c1a2"><ellipse cx="94" cy="181" rx="17" ry="27"/><ellipse cx="974" cy="173" rx="15" ry="24"/></g>
+ <path d="M94 264H114L111 276H97ZM971 258H992L989 270H974Z" fill="#b0a38a"/>
+ <path d="M562 268V181Q562 170 573 170H578" stroke="#657c69" stroke-width="4"/>
+ <path d="M569 169H588L584 181H573Z" fill="#e1c891"/>
+ <circle class="street-lamp" cx="578" cy="177" r="16" fill="#e1c891" opacity=".15"/>
+ <path d="M738 259H769V264H738ZM742 250H765V256H742Z" fill="#8b8b70"/>
+ <path d="M742 264V275M765 264V275" stroke="#5f7462" stroke-width="3"/>
+</svg>

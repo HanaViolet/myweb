@@ -10,6 +10,7 @@
     "check": "npm run build && npm run check:links",
     "check:links": "node tools/check-local-links.mjs",
     "listening:chart": "node tools/generate-listening-chart.mjs",
+    "music:update": "node tools/update-discovery-music.mjs",
     "netease:update": "node tools/update-netease-stats.mjs",
     "netease:comments": "node tools/update-netease-comments.mjs"
   },
@@ -33,6 +34,7 @@
     "hexo-wordcount": "^6.0.1"
   },
   "devDependencies": {
+    "https-proxy-agent": "^7.0.6",
     "playwright-core": "^1.62.1"
   }
 }

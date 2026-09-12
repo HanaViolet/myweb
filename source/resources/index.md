@@ -19,7 +19,14 @@ description: 课程、代码与学习资料，被整理成一座可以慢慢浏�
   </div>
 </section>
 
-<nav class="resource-nav" aria-label="资源分类">
+<section class="resource-finder" data-resource-finder aria-label="查找资源" hidden>
+  <div class="resource-finder__search"><label for="resource-query">FIND SOMETHING USEFUL <span>找一份现在用得上的资料。</span></label><div><input id="resource-query" type="search" placeholder="搜索课程、技术或关键词…" autocomplete="off"><button type="button" data-resource-clear>清空</button></div></div>
+  <div class="resource-finder__bottom"><div class="desk-segment" role="group" aria-label="筛选资源分类"><button type="button" data-resource-filter="all" aria-pressed="true">全部</button><button type="button" data-resource-filter="foundation" aria-pressed="false">基础与通识</button><button type="button" data-resource-filter="computing" aria-pressed="false">计算机科学</button><button type="button" data-resource-filter="data-ai" aria-pressed="false">数据与智能</button></div><span data-resource-count role="status">共 10 份资料</span></div>
+  <p class="resource-finder__status" data-resource-feedback role="status"></p>
+  <p class="resource-finder__empty" data-resource-empty hidden>没有找到匹配的资料。换个关键词，或清空筛选再看看。</p>
+</section>
+
+<nav class="resource-nav" aria-label="资源分类" data-resource-nav>
   <a href="#foundation"><span>01</span>基础与通识</a>
   <a href="#computing"><span>02</span>计算机科学</a>
   <a href="#data-ai"><span>03</span>数据与智能</a>
