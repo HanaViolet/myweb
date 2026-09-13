@@ -3,7 +3,7 @@
   "profileUrl": "https://music.163.com/#/user/home?id=1441471952",
   "source": "NetEase Cloud Music play record API (Cookie) + public fallback",
   "endpoint": "/api/v1/play/record",
-  "updatedAt": "2026-09-12T18:22:44.525Z",
+  "updatedAt": "2026-09-13T18:47:19.177Z",
   "timezone": "Asia/Shanghai",
   "rankLimit": 20,
   "scrape": {
@@ -15,8 +15,8 @@
     "message": "Cookie 页面抓取未成功，但 Cookie 接口读取成功；公开接口用于字段补全。"
   },
   "duration": {
-    "weeklyMinutes": 646,
-    "allTimeMinutes": 127566,
+    "weeklyMinutes": 103,
+    "allTimeMinutes": 127709,
     "available": true,
     "source": "netease-listen-data",
     "endpoints": {
@@ -31,7 +31,7 @@
       "allTime": {
         "path": "totalDuration",
         "unit": "seconds",
-        "rawValue": 7653976
+        "rawValue": 7662598
       }
     },
     "validation": {
@@ -51,22 +51,11 @@
       "artist": "Lotus Juice / 高橋あず美 / アトラスサウンドチーム / ATLUS GAME MUSIC",
       "album": "ペルソナ3 リロード オリジナル・サウンドトラック",
       "durationMs": 227240,
-      "playCount": 18,
+      "playCount": 15,
       "score": 100
     },
     {
       "rank": 2,
-      "songId": 769651,
-      "title": "Standing Bird",
-      "alias": "",
-      "artist": "LOVE PSYCHEDELICO",
-      "album": "This is LOVE PSYCHEDELICO",
-      "durationMs": 300973,
-      "playCount": 5,
-      "score": 27
-    },
-    {
-      "rank": 3,
       "songId": 32619064,
       "title": "年轮",
       "alias": "电视剧《花千骨》插曲",
@@ -74,7 +63,18 @@
       "album": "花千骨 电视原声带",
       "durationMs": 274504,
       "playCount": 5,
-      "score": 27
+      "score": 33
+    },
+    {
+      "rank": 3,
+      "songId": 769651,
+      "title": "Standing Bird",
+      "alias": "",
+      "artist": "LOVE PSYCHEDELICO",
+      "album": "This is LOVE PSYCHEDELICO",
+      "durationMs": 300973,
+      "playCount": 4,
+      "score": 26
     },
     {
       "rank": 4,
@@ -84,8 +84,8 @@
       "artist": "李荣浩",
       "album": "有理想",
       "durationMs": 312997,
-      "playCount": 5,
-      "score": 27
+      "playCount": 4,
+      "score": 26
     },
     {
       "rank": 5,
@@ -95,22 +95,11 @@
       "artist": "The Weepies",
       "album": "Say I Am You",
       "durationMs": 199786,
-      "playCount": 5,
-      "score": 27
+      "playCount": 4,
+      "score": 26
     },
     {
       "rank": 6,
-      "songId": 3355480210,
-      "title": "花も騒めく",
-      "alias": "花亦喧嚣",
-      "artist": "ヨルシカ",
-      "album": "二人称",
-      "durationMs": 220711,
-      "playCount": 4,
-      "score": 22
-    },
-    {
-      "rank": 7,
       "songId": 1878036176,
       "title": "花は買わない",
       "alias": "我不买花",
@@ -118,29 +107,40 @@
       "album": "ガーラ",
       "durationMs": 273000,
       "playCount": 4,
-      "score": 22
+      "score": 26
+    },
+    {
+      "rank": 7,
+      "songId": 557581318,
+      "title": "夏、バス停、君を待つ",
+      "alias": "夏日、巴士站、静待你的身影",
+      "artist": "ヨルシカ",
+      "album": "負け犬にアンコールはいらない",
+      "durationMs": 116053,
+      "playCount": 3,
+      "score": 20
     },
     {
       "rank": 8,
-      "songId": 1361336636,
-      "title": "Come Back To Me",
+      "songId": 518686034,
+      "title": "戒烟",
       "alias": "",
-      "artist": "宇多田ヒカル",
-      "album": "This Is The One",
-      "durationMs": 237946,
-      "playCount": 4,
-      "score": 22
+      "artist": "李荣浩",
+      "album": "戒烟",
+      "durationMs": 293875,
+      "playCount": 3,
+      "score": 20
     },
     {
       "rank": 9,
-      "songId": 464553281,
-      "title": "ヒマワリが咲く予定",
-      "alias": "向日葵将绽放",
-      "artist": "NakamuraEmi",
-      "album": "NIPPONNO ONNAWO UTAU Vol.4",
-      "durationMs": 318253,
+      "songId": 441491828,
+      "title": "水星记",
+      "alias": "",
+      "artist": "郭顶",
+      "album": "飞行器的执行周期",
+      "durationMs": 325266,
       "playCount": 3,
-      "score": 16
+      "score": 20
     },
     {
       "rank": 10,
@@ -151,7 +151,7 @@
       "album": "君の名は。",
       "durationMs": 341891,
       "playCount": 3,
-      "score": 16
+      "score": 20
     },
     {
       "rank": 11,
@@ -162,7 +162,7 @@
       "album": "もう、見たくないよ、と言いつつそっと硝子の中に閉じ込めた展",
       "durationMs": 345000,
       "playCount": 3,
-      "score": 16
+      "score": 20
     },
     {
       "rank": 12,
@@ -173,10 +173,21 @@
       "album": "MTV UNplugged",
       "durationMs": 267540,
       "playCount": 3,
-      "score": 16
+      "score": 20
     },
     {
       "rank": 13,
+      "songId": 1361336636,
+      "title": "Come Back To Me",
+      "alias": "",
+      "artist": "宇多田ヒカル",
+      "album": "This Is The One",
+      "durationMs": 237946,
+      "playCount": 3,
+      "score": 20
+    },
+    {
+      "rank": 14,
       "songId": 1332473896,
       "title": "mother's piano",
       "alias": "",
@@ -184,43 +195,10 @@
       "album": "Tandoor",
       "durationMs": 229064,
       "playCount": 3,
-      "score": 16
-    },
-    {
-      "rank": 14,
-      "songId": 571340719,
-      "title": "グルグル",
-      "alias": "翻滚",
-      "artist": "藤原さくら",
-      "album": "green",
-      "durationMs": 245200,
-      "playCount": 2,
-      "score": 11
+      "score": 20
     },
     {
       "rank": 15,
-      "songId": 557581318,
-      "title": "夏、バス停、君を待つ",
-      "alias": "夏日、巴士站、静待你的身影",
-      "artist": "ヨルシカ",
-      "album": "負け犬にアンコールはいらない",
-      "durationMs": 116053,
-      "playCount": 2,
-      "score": 11
-    },
-    {
-      "rank": 16,
-      "songId": 518686034,
-      "title": "戒烟",
-      "alias": "",
-      "artist": "李荣浩",
-      "album": "戒烟",
-      "durationMs": 293875,
-      "playCount": 2,
-      "score": 11
-    },
-    {
-      "rank": 17,
       "songId": 469772,
       "title": "「籠のなか」",
       "alias": "笼中",
@@ -228,40 +206,62 @@
       "album": "「蟲師」オリジナルサウンドトラック 蟲音(むしのね) 後",
       "durationMs": 138200,
       "playCount": 2,
-      "score": 11
+      "score": 13
+    },
+    {
+      "rank": 16,
+      "songId": 464553281,
+      "title": "ヒマワリが咲く予定",
+      "alias": "向日葵将绽放",
+      "artist": "NakamuraEmi",
+      "album": "NIPPONNO ONNAWO UTAU Vol.4",
+      "durationMs": 318253,
+      "playCount": 2,
+      "score": 13
+    },
+    {
+      "rank": 17,
+      "songId": 431259256,
+      "title": "カタオモイ",
+      "alias": "单相思",
+      "artist": "Aimer",
+      "album": "daydream",
+      "durationMs": 207934,
+      "playCount": 2,
+      "score": 13
     },
     {
       "rank": 18,
-      "songId": 441491828,
-      "title": "水星记",
-      "alias": "",
-      "artist": "郭顶",
-      "album": "飞行器的执行周期",
-      "durationMs": 325266,
+      "songId": 3355480210,
+      "title": "花も騒めく",
+      "alias": "花亦喧嚣",
+      "artist": "ヨルシカ",
+      "album": "二人称",
+      "durationMs": 220711,
       "playCount": 2,
-      "score": 11
+      "score": 13
     },
     {
       "rank": 19,
-      "songId": 426881505,
-      "title": "なんでもないや (movie edit)",
-      "alias": "没什么大不了",
-      "artist": "RADWIMPS",
-      "album": "君の名は。",
-      "durationMs": 195983,
+      "songId": 2686604594,
+      "title": "Drunk",
+      "alias": "烂醉",
+      "artist": "パミレド",
+      "album": "Drunk",
+      "durationMs": 128571,
       "playCount": 2,
-      "score": 11
+      "score": 13
     },
     {
       "rank": 20,
-      "songId": 3355479297,
-      "title": "千鳥",
-      "alias": "",
-      "artist": "ヨルシカ",
-      "album": "二人称",
-      "durationMs": 252115,
+      "songId": 22652528,
+      "title": "I miss you",
+      "alias": "I miss you",
+      "artist": "LOVE PSYCHEDELICO",
+      "album": "THE GREATEST HITS",
+      "durationMs": 253433,
       "playCount": 2,
-      "score": 11
+      "score": 13
     }
   ],
   "allTime": [
@@ -328,7 +328,7 @@
       "artist": "Aimer",
       "album": "daydream",
       "durationMs": 207934,
-      "playCount": 242,
+      "playCount": 243,
       "score": 44
     },
     {
