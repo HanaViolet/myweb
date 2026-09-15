@@ -3,7 +3,7 @@
   "profileUrl": "https://music.163.com/#/user/home?id=1441471952",
   "source": "NetEase Cloud Music play record API (Cookie) + public fallback",
   "endpoint": "/api/v1/play/record",
-  "updatedAt": "2026-09-14T20:18:19.780Z",
+  "updatedAt": "2026-09-15T19:41:56.642Z",
   "timezone": "Asia/Shanghai",
   "rankLimit": 20,
   "scrape": {
@@ -15,8 +15,8 @@
     "message": "Cookie 页面抓取未成功，但 Cookie 接口读取成功；公开接口用于字段补全。"
   },
   "duration": {
-    "weeklyMinutes": 111,
-    "allTimeMinutes": 127813,
+    "weeklyMinutes": 202,
+    "allTimeMinutes": 127821,
     "available": true,
     "source": "netease-listen-data",
     "endpoints": {
@@ -31,7 +31,7 @@
       "allTime": {
         "path": "totalDuration",
         "unit": "seconds",
-        "rawValue": 7668790
+        "rawValue": 7669294
       }
     },
     "validation": {
@@ -78,17 +78,6 @@
     },
     {
       "rank": 4,
-      "songId": 19572271,
-      "title": "Gotta Have You",
-      "alias": "",
-      "artist": "The Weepies",
-      "album": "Say I Am You",
-      "durationMs": 199786,
-      "playCount": 4,
-      "score": 26
-    },
-    {
-      "rank": 5,
       "songId": 1878036176,
       "title": "花は買わない",
       "alias": "我不买花",
@@ -99,7 +88,7 @@
       "score": 26
     },
     {
-      "rank": 6,
+      "rank": 5,
       "songId": 769651,
       "title": "Standing Bird",
       "alias": "",
@@ -110,7 +99,7 @@
       "score": 20
     },
     {
-      "rank": 7,
+      "rank": 6,
       "songId": 557581318,
       "title": "夏、バス停、君を待つ",
       "alias": "夏日、巴士站、静待你的身影",
@@ -121,7 +110,7 @@
       "score": 20
     },
     {
-      "rank": 8,
+      "rank": 7,
       "songId": 518686034,
       "title": "戒烟",
       "alias": "",
@@ -132,7 +121,7 @@
       "score": 20
     },
     {
-      "rank": 9,
+      "rank": 8,
       "songId": 441491828,
       "title": "水星记",
       "alias": "",
@@ -143,7 +132,7 @@
       "score": 20
     },
     {
-      "rank": 10,
+      "rank": 9,
       "songId": 426881506,
       "title": "なんでもないや (movie ver.)",
       "alias": "没什么大不了",
@@ -154,7 +143,7 @@
       "score": 20
     },
     {
-      "rank": 11,
+      "rank": 10,
       "songId": 421807900,
       "title": "空気椅子",
       "alias": "空气椅子",
@@ -165,18 +154,18 @@
       "score": 20
     },
     {
-      "rank": 12,
-      "songId": 22711357,
-      "title": "Darlin'",
+      "rank": 11,
+      "songId": 19572271,
+      "title": "Gotta Have You",
       "alias": "",
-      "artist": "BENI",
-      "album": "MTV UNplugged",
-      "durationMs": 267540,
+      "artist": "The Weepies",
+      "album": "Say I Am You",
+      "durationMs": 199786,
       "playCount": 3,
       "score": 20
     },
     {
-      "rank": 13,
+      "rank": 12,
       "songId": 1361336636,
       "title": "Come Back To Me",
       "alias": "",
@@ -187,7 +176,7 @@
       "score": 20
     },
     {
-      "rank": 14,
+      "rank": 13,
       "songId": 1332473896,
       "title": "mother's piano",
       "alias": "",
@@ -198,18 +187,7 @@
       "score": 20
     },
     {
-      "rank": 15,
-      "songId": 469772,
-      "title": "「籠のなか」",
-      "alias": "笼中",
-      "artist": "増田俊郎",
-      "album": "「蟲師」オリジナルサウンドトラック 蟲音(むしのね) 後",
-      "durationMs": 138200,
-      "playCount": 2,
-      "score": 13
-    },
-    {
-      "rank": 16,
+      "rank": 14,
       "songId": 464553281,
       "title": "ヒマワリが咲く予定",
       "alias": "向日葵将绽放",
@@ -220,7 +198,7 @@
       "score": 13
     },
     {
-      "rank": 17,
+      "rank": 15,
       "songId": 431259256,
       "title": "カタオモイ",
       "alias": "单相思",
@@ -231,7 +209,18 @@
       "score": 13
     },
     {
-      "rank": 18,
+      "rank": 16,
+      "songId": 34613621,
+      "title": "Vagrant",
+      "alias": "",
+      "artist": "Feint / Veela",
+      "album": "Vagrant",
+      "durationMs": 268571,
+      "playCount": 2,
+      "score": 13
+    },
+    {
+      "rank": 17,
       "songId": 3355480210,
       "title": "花も騒めく",
       "alias": "花亦喧嚣",
@@ -242,7 +231,7 @@
       "score": 13
     },
     {
-      "rank": 19,
+      "rank": 18,
       "songId": 2686604594,
       "title": "Drunk",
       "alias": "烂醉",
@@ -253,13 +242,24 @@
       "score": 13
     },
     {
-      "rank": 20,
+      "rank": 19,
       "songId": 22652528,
       "title": "I miss you",
       "alias": "I miss you",
       "artist": "LOVE PSYCHEDELICO",
       "album": "THE GREATEST HITS",
       "durationMs": 253433,
+      "playCount": 2,
+      "score": 13
+    },
+    {
+      "rank": 20,
+      "songId": 1859879652,
+      "title": "Hotel",
+      "alias": "",
+      "artist": "Claire Rosinkranz",
+      "album": "6 Of A Billion",
+      "durationMs": 134781,
       "playCount": 2,
       "score": 13
     }
@@ -295,7 +295,7 @@
       "artist": "ヨルシカ",
       "album": "DARMA GRAND PRIX",
       "durationMs": 259866,
-      "playCount": 321,
+      "playCount": 322,
       "score": 58
     },
     {
@@ -405,7 +405,7 @@
       "artist": "三浦透子 / RADWIMPS",
       "album": "天気の子",
       "durationMs": 188066,
-      "playCount": 190,
+      "playCount": 191,
       "score": 34
     },
     {
