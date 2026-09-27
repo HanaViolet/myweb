@@ -1,22 +1,22 @@
 {
   "userId": "1441471952",
   "profileUrl": "https://music.163.com/#/user/home?id=1441471952",
-  "source": "NetEase Cloud Music play record API (Cookie) + public fallback",
+  "source": "NetEase Cloud Music public play record API",
   "endpoint": "/api/v1/play/record",
-  "updatedAt": "2026-09-24T19:59:14.769Z",
+  "updatedAt": "2026-09-27T19:46:35.574Z",
   "timezone": "Asia/Shanghai",
   "rankLimit": 20,
   "scrape": {
-    "mode": "listen-data+cookie-api+public-api",
+    "mode": "listen-data+public-api",
     "attempted": true,
-    "succeeded": true,
-    "publicApiAuthenticated": true,
+    "succeeded": false,
+    "publicApiAuthenticated": false,
     "listenDataAuthenticated": true,
-    "message": "Cookie 页面抓取未成功，但 Cookie 接口读取成功；公开接口用于字段补全。"
+    "message": "Cookie 页面和接口均未返回播放次数，已回退公开接口。"
   },
   "duration": {
-    "weeklyMinutes": 444,
-    "allTimeMinutes": 128761,
+    "weeklyMinutes": 81,
+    "allTimeMinutes": 128999,
     "available": true,
     "source": "netease-listen-data",
     "endpoints": {
@@ -31,7 +31,7 @@
       "allTime": {
         "path": "totalDuration",
         "unit": "seconds",
-        "rawValue": 7725665
+        "rawValue": 7739980
       }
     },
     "validation": {
@@ -45,13 +45,13 @@
   "weekly": [
     {
       "rank": 1,
-      "songId": 2123807718,
-      "title": "Color Your Night",
-      "alias": "染上夜色",
-      "artist": "Lotus Juice / 高橋あず美 / アトラスサウンドチーム / ATLUS GAME MUSIC",
-      "album": "ペルソナ3 リロード オリジナル・サウンドトラック",
-      "durationMs": 227240,
-      "playCount": 6,
+      "songId": 3355480210,
+      "title": "花も騒めく",
+      "alias": "花亦喧嚣",
+      "artist": "ヨルシカ",
+      "album": "二人称",
+      "durationMs": 220711,
+      "playCount": 0,
       "score": 100
     },
     {
@@ -62,30 +62,30 @@
       "artist": "The Weepies",
       "album": "Say I Am You",
       "durationMs": 199786,
-      "playCount": 6,
+      "playCount": 0,
       "score": 100
     },
     {
       "rank": 3,
-      "songId": 3355480210,
-      "title": "花も騒めく",
-      "alias": "花亦喧嚣",
-      "artist": "ヨルシカ",
-      "album": "二人称",
-      "durationMs": 220711,
-      "playCount": 5,
-      "score": 83
+      "songId": 518686034,
+      "title": "戒烟",
+      "alias": "",
+      "artist": "李荣浩",
+      "album": "戒烟",
+      "durationMs": 293875,
+      "playCount": 0,
+      "score": 85
     },
     {
       "rank": 4,
-      "songId": 32619064,
-      "title": "年轮",
-      "alias": "电视剧《花千骨》插曲",
-      "artist": "张碧晨",
-      "album": "花千骨 电视原声带",
-      "durationMs": 274504,
-      "playCount": 4,
-      "score": 66
+      "songId": 31654343,
+      "title": "不将就",
+      "alias": "电影《何以笙箫默》片尾主题曲",
+      "artist": "李荣浩",
+      "album": "有理想",
+      "durationMs": 312997,
+      "playCount": 0,
+      "score": 85
     },
     {
       "rank": 5,
@@ -95,173 +95,173 @@
       "artist": "宇多田ヒカル",
       "album": "This Is The One",
       "durationMs": 237946,
-      "playCount": 4,
-      "score": 66
+      "playCount": 0,
+      "score": 85
     },
     {
       "rank": 6,
-      "songId": 518686034,
-      "title": "戒烟",
-      "alias": "",
-      "artist": "李荣浩",
-      "album": "戒烟",
-      "durationMs": 293875,
-      "playCount": 3,
-      "score": 50
+      "songId": 32619064,
+      "title": "年轮",
+      "alias": "电视剧《花千骨》插曲",
+      "artist": "张碧晨",
+      "album": "花千骨 电视原声带",
+      "durationMs": 274504,
+      "playCount": 0,
+      "score": 71
     },
     {
       "rank": 7,
-      "songId": 3319483197,
-      "title": "DARMA GRAND PRIX",
-      "alias": "",
-      "artist": "ヨルシカ",
-      "album": "DARMA GRAND PRIX",
-      "durationMs": 259866,
-      "playCount": 3,
-      "score": 50
+      "songId": 2123807718,
+      "title": "Color Your Night",
+      "alias": "染上夜色",
+      "artist": "Lotus Juice / 高橋あず美 / アトラスサウンドチーム / ATLUS GAME MUSIC",
+      "album": "ペルソナ3 リロード オリジナル・サウンドトラック",
+      "durationMs": 227240,
+      "playCount": 0,
+      "score": 71
     },
     {
       "rank": 8,
-      "songId": 31654343,
-      "title": "不将就",
-      "alias": "电影《何以笙箫默》片尾主题曲",
-      "artist": "李荣浩",
-      "album": "有理想",
-      "durationMs": 312997,
-      "playCount": 3,
-      "score": 50
-    },
-    {
-      "rank": 9,
       "songId": 2702969612,
       "title": "火星人",
       "alias": "TVアニメ『小市民シリーズ』第2期オープニングテーマ",
       "artist": "ヨルシカ",
       "album": "火星人",
       "durationMs": 234929,
-      "playCount": 3,
-      "score": 50
+      "playCount": 0,
+      "score": 42
+    },
+    {
+      "rank": 9,
+      "songId": 22711357,
+      "title": "Darlin'",
+      "alias": "",
+      "artist": "BENI",
+      "album": "MTV UNplugged",
+      "durationMs": 267540,
+      "playCount": 0,
+      "score": 42
     },
     {
       "rank": 10,
+      "songId": 2104742789,
+      "title": "ハレハレヤ（朗朗晴天）",
+      "alias": "",
+      "artist": "芝麻Mochi",
+      "album": "ハレハレヤ（朗朗晴天）",
+      "durationMs": 210264,
+      "playCount": 0,
+      "score": 42
+    },
+    {
+      "rank": 11,
       "songId": 1815109506,
       "title": "強盗と花束",
       "alias": "强盗与花束",
       "artist": "ヨルシカ",
       "album": "創作",
       "durationMs": 190319,
-      "playCount": 3,
-      "score": 50
+      "playCount": 0,
+      "score": 42
     },
     {
-      "rank": 11,
+      "rank": 12,
+      "songId": 1399788805,
+      "title": "正義",
+      "alias": "正义",
+      "artist": "ずっと真夜中でいいのに。",
+      "album": "潜潜話",
+      "durationMs": 271573,
+      "playCount": 0,
+      "score": 42
+    },
+    {
+      "rank": 13,
+      "songId": 1361336637,
+      "title": "Merry Christmas Mr. Lawrence - FYI",
+      "alias": "メリークリスマス・ミスター・ローレンス-FYI",
+      "artist": "宇多田ヒカル",
+      "album": "This Is The One",
+      "durationMs": 229560,
+      "playCount": 0,
+      "score": 42
+    },
+    {
+      "rank": 14,
       "songId": 1357953768,
       "title": "だから僕は音楽を辞めた",
       "alias": "所以我放弃了音乐",
       "artist": "ヨルシカ",
       "album": "だから僕は音楽を辞めた",
       "durationMs": 242973,
-      "playCount": 3,
-      "score": 50
+      "playCount": 0,
+      "score": 42
     },
     {
-      "rank": 12,
+      "rank": 15,
       "songId": 769651,
       "title": "Standing Bird",
       "alias": "",
       "artist": "LOVE PSYCHEDELICO",
       "album": "This is LOVE PSYCHEDELICO",
       "durationMs": 300973,
-      "playCount": 2,
-      "score": 33
+      "playCount": 0,
+      "score": 28
     },
     {
-      "rank": 13,
+      "rank": 16,
+      "songId": 642723,
+      "title": "17",
+      "alias": "",
+      "artist": "椎名林檎",
+      "album": "罪と罰",
+      "durationMs": 272625,
+      "playCount": 0,
+      "score": 28
+    },
+    {
+      "rank": 17,
       "songId": 587778,
       "title": "クルマレテ",
       "alias": "覆盖",
       "artist": "KOKIA",
       "album": "心ばかり",
       "durationMs": 282758,
-      "playCount": 2,
-      "score": 33
+      "playCount": 0,
+      "score": 28
     },
     {
-      "rank": 14,
-      "songId": 488388943,
-      "title": "光",
-      "alias": "",
-      "artist": "當山みれい",
-      "album": "願い E.P.",
-      "durationMs": 224954,
-      "playCount": 2,
-      "score": 33
-    },
-    {
-      "rank": 15,
+      "rank": 18,
       "songId": 440208977,
       "title": "202 (New Mix)",
       "alias": "",
       "artist": "ラブリーサマーちゃん / 泉まくら",
       "album": "LSC",
       "durationMs": 330933,
-      "playCount": 2,
-      "score": 33
+      "playCount": 0,
+      "score": 28
     },
     {
-      "rank": 16,
-      "songId": 421423808,
-      "title": "虚拟",
-      "alias": "",
-      "artist": "陈粒",
-      "album": "小梦大半",
-      "durationMs": 240626,
-      "playCount": 2,
-      "score": 33
-    },
-    {
-      "rank": 17,
-      "songId": 34613621,
-      "title": "Vagrant",
-      "alias": "",
-      "artist": "Feint / Veela",
-      "album": "Vagrant",
-      "durationMs": 268571,
-      "playCount": 2,
-      "score": 33
-    },
-    {
-      "rank": 18,
+      "rank": 19,
       "songId": 3355479295,
       "title": "啄木鳥",
       "alias": "",
       "artist": "ヨルシカ",
       "album": "二人称",
       "durationMs": 215782,
-      "playCount": 2,
-      "score": 33
-    },
-    {
-      "rank": 19,
-      "songId": 32358160,
-      "title": "初恋",
-      "alias": "林志美“初戀”原曲",
-      "artist": "村下孝蔵",
-      "album": "七夕夜想曲~村下孝蔵最高選曲集 其の壱",
-      "durationMs": 221216,
-      "playCount": 2,
-      "score": 33
+      "playCount": 0,
+      "score": 28
     },
     {
       "rank": 20,
-      "songId": 2695154034,
-      "title": "UP",
+      "songId": 3319483197,
+      "title": "DARMA GRAND PRIX",
       "alias": "",
-      "artist": "chilldspot",
-      "album": "UP",
-      "durationMs": 215467,
-      "playCount": 2,
-      "score": 33
+      "artist": "ヨルシカ",
+      "album": "DARMA GRAND PRIX",
+      "durationMs": 259866,
+      "playCount": 0,
+      "score": 28
     }
   ],
   "allTime": [
@@ -273,7 +273,7 @@
       "artist": "ヨルシカ",
       "album": "だから僕は音楽を辞めた",
       "durationMs": 242973,
-      "playCount": 549,
+      "playCount": 0,
       "score": 100
     },
     {
@@ -284,7 +284,7 @@
       "artist": "Vaundy",
       "album": "踊り子",
       "durationMs": 230109,
-      "playCount": 465,
+      "playCount": 0,
       "score": 84
     },
     {
@@ -295,7 +295,7 @@
       "artist": "ヨルシカ",
       "album": "DARMA GRAND PRIX",
       "durationMs": 259866,
-      "playCount": 326,
+      "playCount": 0,
       "score": 59
     },
     {
@@ -306,7 +306,7 @@
       "artist": "ヨルシカ",
       "album": "だから僕は音楽を辞めた",
       "durationMs": 185132,
-      "playCount": 297,
+      "playCount": 0,
       "score": 54
     },
     {
@@ -317,7 +317,7 @@
       "artist": "ヨルシカ",
       "album": "老人と海",
       "durationMs": 255468,
-      "playCount": 261,
+      "playCount": 0,
       "score": 47
     },
     {
@@ -328,7 +328,7 @@
       "artist": "Aimer",
       "album": "daydream",
       "durationMs": 207934,
-      "playCount": 243,
+      "playCount": 0,
       "score": 44
     },
     {
@@ -339,7 +339,7 @@
       "artist": "ヨルシカ",
       "album": "創作",
       "durationMs": 190319,
-      "playCount": 239,
+      "playCount": 0,
       "score": 43
     },
     {
@@ -350,7 +350,7 @@
       "artist": "chilldspot",
       "album": "ingredients",
       "durationMs": 200248,
-      "playCount": 229,
+      "playCount": 0,
       "score": 41
     },
     {
@@ -361,7 +361,7 @@
       "artist": "ヨルシカ",
       "album": "思想犯",
       "durationMs": 252056,
-      "playCount": 222,
+      "playCount": 0,
       "score": 40
     },
     {
@@ -372,7 +372,7 @@
       "artist": "米津玄師",
       "album": "BOOTLEG",
       "durationMs": 288949,
-      "playCount": 205,
+      "playCount": 0,
       "score": 37
     },
     {
@@ -383,7 +383,7 @@
       "artist": "ミイナ・オカベ",
       "album": "エヴリー・セカンド (ジャパニーズ・ヴァージョン)",
       "durationMs": 182500,
-      "playCount": 194,
+      "playCount": 0,
       "score": 35
     },
     {
@@ -394,7 +394,7 @@
       "artist": "ヨルシカ",
       "album": "夏草が邪魔をする",
       "durationMs": 188429,
-      "playCount": 193,
+      "playCount": 0,
       "score": 35
     },
     {
@@ -405,7 +405,7 @@
       "artist": "三浦透子 / RADWIMPS",
       "album": "天気の子",
       "durationMs": 188066,
-      "playCount": 192,
+      "playCount": 0,
       "score": 34
     },
     {
@@ -416,7 +416,7 @@
       "artist": "ヨルシカ",
       "album": "又三郎",
       "durationMs": 227731,
-      "playCount": 187,
+      "playCount": 0,
       "score": 34
     },
     {
@@ -427,7 +427,7 @@
       "artist": "ヨルシカ",
       "album": "盗作",
       "durationMs": 162834,
-      "playCount": 178,
+      "playCount": 0,
       "score": 32
     },
     {
@@ -438,8 +438,8 @@
       "artist": "RADWIMPS",
       "album": "×と○と罪と",
       "durationMs": 287240,
-      "playCount": 175,
-      "score": 31
+      "playCount": 0,
+      "score": 32
     },
     {
       "rank": 17,
@@ -449,7 +449,7 @@
       "artist": "ヨルシカ",
       "album": "負け犬にアンコールはいらない",
       "durationMs": 234293,
-      "playCount": 168,
+      "playCount": 0,
       "score": 30
     },
     {
@@ -460,7 +460,7 @@
       "artist": "ヨルシカ",
       "album": "春泥棒",
       "durationMs": 290279,
-      "playCount": 167,
+      "playCount": 0,
       "score": 30
     },
     {
@@ -471,7 +471,7 @@
       "artist": "十明",
       "album": "灰かぶり",
       "durationMs": 220714,
-      "playCount": 166,
+      "playCount": 0,
       "score": 30
     },
     {
@@ -482,7 +482,7 @@
       "artist": "ずっと真夜中でいいのに。",
       "album": "眩しいDNAだけ",
       "durationMs": 227173,
-      "playCount": 165,
+      "playCount": 0,
       "score": 30
     }
   ],
