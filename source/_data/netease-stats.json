@@ -3,7 +3,7 @@
   "profileUrl": "https://music.163.com/#/user/home?id=1441471952",
   "source": "NetEase Cloud Music public play record API",
   "endpoint": "/api/v1/play/record",
-  "updatedAt": "2026-09-27T19:46:35.574Z",
+  "updatedAt": "2026-09-30T20:48:42.441Z",
   "timezone": "Asia/Shanghai",
   "rankLimit": 20,
   "scrape": {
@@ -15,8 +15,8 @@
     "message": "Cookie 页面和接口均未返回播放次数，已回退公开接口。"
   },
   "duration": {
-    "weeklyMinutes": 81,
-    "allTimeMinutes": 128999,
+    "weeklyMinutes": 283,
+    "allTimeMinutes": 129255,
     "available": true,
     "source": "netease-listen-data",
     "endpoints": {
@@ -31,7 +31,7 @@
       "allTime": {
         "path": "totalDuration",
         "unit": "seconds",
-        "rawValue": 7739980
+        "rawValue": 7755300
       }
     },
     "validation": {
@@ -56,12 +56,12 @@
     },
     {
       "rank": 2,
-      "songId": 19572271,
-      "title": "Gotta Have You",
+      "songId": 1361336636,
+      "title": "Come Back To Me",
       "alias": "",
-      "artist": "The Weepies",
-      "album": "Say I Am You",
-      "durationMs": 199786,
+      "artist": "宇多田ヒカル",
+      "album": "This Is The One",
+      "durationMs": 237946,
       "playCount": 0,
       "score": 100
     },
@@ -74,43 +74,10 @@
       "album": "戒烟",
       "durationMs": 293875,
       "playCount": 0,
-      "score": 85
-    },
-    {
-      "rank": 4,
-      "songId": 31654343,
-      "title": "不将就",
-      "alias": "电影《何以笙箫默》片尾主题曲",
-      "artist": "李荣浩",
-      "album": "有理想",
-      "durationMs": 312997,
-      "playCount": 0,
-      "score": 85
-    },
-    {
-      "rank": 5,
-      "songId": 1361336636,
-      "title": "Come Back To Me",
-      "alias": "",
-      "artist": "宇多田ヒカル",
-      "album": "This Is The One",
-      "durationMs": 237946,
-      "playCount": 0,
-      "score": 85
-    },
-    {
-      "rank": 6,
-      "songId": 32619064,
-      "title": "年轮",
-      "alias": "电视剧《花千骨》插曲",
-      "artist": "张碧晨",
-      "album": "花千骨 电视原声带",
-      "durationMs": 274504,
-      "playCount": 0,
       "score": 71
     },
     {
-      "rank": 7,
+      "rank": 4,
       "songId": 2123807718,
       "title": "Color Your Night",
       "alias": "染上夜色",
@@ -121,29 +88,40 @@
       "score": 71
     },
     {
-      "rank": 8,
-      "songId": 2702969612,
-      "title": "火星人",
-      "alias": "TVアニメ『小市民シリーズ』第2期オープニングテーマ",
-      "artist": "ヨルシカ",
-      "album": "火星人",
-      "durationMs": 234929,
+      "rank": 5,
+      "songId": 32619064,
+      "title": "年轮",
+      "alias": "电视剧《花千骨》插曲",
+      "artist": "张碧晨",
+      "album": "花千骨 电视原声带",
+      "durationMs": 274504,
       "playCount": 0,
-      "score": 42
+      "score": 57
     },
     {
-      "rank": 9,
-      "songId": 22711357,
-      "title": "Darlin'",
+      "rank": 6,
+      "songId": 31654343,
+      "title": "不将就",
+      "alias": "电影《何以笙箫默》片尾主题曲",
+      "artist": "李荣浩",
+      "album": "有理想",
+      "durationMs": 312997,
+      "playCount": 0,
+      "score": 57
+    },
+    {
+      "rank": 7,
+      "songId": 19572271,
+      "title": "Gotta Have You",
       "alias": "",
-      "artist": "BENI",
-      "album": "MTV UNplugged",
-      "durationMs": 267540,
+      "artist": "The Weepies",
+      "album": "Say I Am You",
+      "durationMs": 199786,
       "playCount": 0,
-      "score": 42
+      "score": 57
     },
     {
-      "rank": 10,
+      "rank": 8,
       "songId": 2104742789,
       "title": "ハレハレヤ（朗朗晴天）",
       "alias": "",
@@ -154,29 +132,18 @@
       "score": 42
     },
     {
-      "rank": 11,
-      "songId": 1815109506,
-      "title": "強盗と花束",
-      "alias": "强盗与花束",
+      "rank": 9,
+      "songId": 1387098936,
+      "title": "雨晴るる",
+      "alias": "雨后天晴",
       "artist": "ヨルシカ",
-      "album": "創作",
-      "durationMs": 190319,
+      "album": "エルマ",
+      "durationMs": 222756,
       "playCount": 0,
       "score": 42
     },
     {
-      "rank": 12,
-      "songId": 1399788805,
-      "title": "正義",
-      "alias": "正义",
-      "artist": "ずっと真夜中でいいのに。",
-      "album": "潜潜話",
-      "durationMs": 271573,
-      "playCount": 0,
-      "score": 42
-    },
-    {
-      "rank": 13,
+      "rank": 10,
       "songId": 1361336637,
       "title": "Merry Christmas Mr. Lawrence - FYI",
       "alias": "メリークリスマス・ミスター・ローレンス-FYI",
@@ -187,18 +154,7 @@
       "score": 42
     },
     {
-      "rank": 14,
-      "songId": 1357953768,
-      "title": "だから僕は音楽を辞めた",
-      "alias": "所以我放弃了音乐",
-      "artist": "ヨルシカ",
-      "album": "だから僕は音楽を辞めた",
-      "durationMs": 242973,
-      "playCount": 0,
-      "score": 42
-    },
-    {
-      "rank": 15,
+      "rank": 11,
       "songId": 769651,
       "title": "Standing Bird",
       "alias": "",
@@ -209,59 +165,103 @@
       "score": 28
     },
     {
-      "rank": 16,
-      "songId": 642723,
-      "title": "17",
+      "rank": 12,
+      "songId": 553755659,
+      "title": "可不可以",
       "alias": "",
-      "artist": "椎名林檎",
-      "album": "罪と罰",
-      "durationMs": 272625,
+      "artist": "张紫豪",
+      "album": "可不可以",
+      "durationMs": 240889,
+      "playCount": 0,
+      "score": 28
+    },
+    {
+      "rank": 13,
+      "songId": 2702969612,
+      "title": "火星人",
+      "alias": "TVアニメ『小市民シリーズ』第2期オープニングテーマ",
+      "artist": "ヨルシカ",
+      "album": "火星人",
+      "durationMs": 234929,
+      "playCount": 0,
+      "score": 28
+    },
+    {
+      "rank": 14,
+      "songId": 22711357,
+      "title": "Darlin'",
+      "alias": "",
+      "artist": "BENI",
+      "album": "MTV UNplugged",
+      "durationMs": 267540,
+      "playCount": 0,
+      "score": 28
+    },
+    {
+      "rank": 15,
+      "songId": 2009678542,
+      "title": "B∀LK",
+      "alias": "",
+      "artist": "SawanoHiroyuki[nZk] / suis",
+      "album": "V",
+      "durationMs": 161291,
+      "playCount": 0,
+      "score": 28
+    },
+    {
+      "rank": 16,
+      "songId": 1878036176,
+      "title": "花は買わない",
+      "alias": "我不买花",
+      "artist": "DADARAY",
+      "album": "ガーラ",
+      "durationMs": 273000,
       "playCount": 0,
       "score": 28
     },
     {
       "rank": 17,
-      "songId": 587778,
-      "title": "クルマレテ",
-      "alias": "覆盖",
-      "artist": "KOKIA",
-      "album": "心ばかり",
-      "durationMs": 282758,
+      "songId": 1815109506,
+      "title": "強盗と花束",
+      "alias": "强盗与花束",
+      "artist": "ヨルシカ",
+      "album": "創作",
+      "durationMs": 190319,
       "playCount": 0,
       "score": 28
     },
     {
       "rank": 18,
-      "songId": 440208977,
-      "title": "202 (New Mix)",
-      "alias": "",
-      "artist": "ラブリーサマーちゃん / 泉まくら",
-      "album": "LSC",
-      "durationMs": 330933,
+      "songId": 1500152567,
+      "title": "ハルカ",
+      "alias": "遥",
+      "artist": "YOASOBI",
+      "album": "ハルカ",
+      "durationMs": 243613,
       "playCount": 0,
       "score": 28
     },
     {
       "rank": 19,
-      "songId": 3355479295,
-      "title": "啄木鳥",
-      "alias": "",
+      "songId": 1336075843,
+      "title": "藍二乗",
+      "alias": "靛蓝二次方",
       "artist": "ヨルシカ",
-      "album": "二人称",
-      "durationMs": 215782,
+      "album": "藍二乗",
+      "durationMs": 245968,
       "playCount": 0,
       "score": 28
     },
     {
       "rank": 20,
-      "songId": 3319483197,
-      "title": "DARMA GRAND PRIX",
-      "alias": "",
-      "artist": "ヨルシカ",
-      "album": "DARMA GRAND PRIX",
-      "durationMs": 259866,
+      "songId": 809268,
+      "title": "sweets parade",
+      "alias": "TV动画《妖狐×仆SS》第6集片尾曲",
+      "artist": "花澤香菜",
+      "album": "妖狐×僕SS ENDING SONG Vol.3",
+      "durationMs": 239480,
       "playCount": 0,
-      "score": 28
+      "score": 14
     }
   ],
   "allTime": [
