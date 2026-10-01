@@ -3,7 +3,7 @@
   "profileUrl": "https://music.163.com/#/user/home?id=1441471952",
   "source": "NetEase Cloud Music public play record API",
   "endpoint": "/api/v1/play/record",
-  "updatedAt": "2026-09-30T20:48:42.441Z",
+  "updatedAt": "2026-10-01T21:01:27.441Z",
   "timezone": "Asia/Shanghai",
   "rankLimit": 20,
   "scrape": {
@@ -15,8 +15,8 @@
     "message": "Cookie 页面和接口均未返回播放次数，已回退公开接口。"
   },
   "duration": {
-    "weeklyMinutes": 283,
-    "allTimeMinutes": 129255,
+    "weeklyMinutes": 329,
+    "allTimeMinutes": 129284,
     "available": true,
     "source": "netease-listen-data",
     "endpoints": {
@@ -31,7 +31,7 @@
       "allTime": {
         "path": "totalDuration",
         "unit": "seconds",
-        "rawValue": 7755300
+        "rawValue": 7757082
       }
     },
     "validation": {
@@ -45,17 +45,6 @@
   "weekly": [
     {
       "rank": 1,
-      "songId": 3355480210,
-      "title": "花も騒めく",
-      "alias": "花亦喧嚣",
-      "artist": "ヨルシカ",
-      "album": "二人称",
-      "durationMs": 220711,
-      "playCount": 0,
-      "score": 100
-    },
-    {
-      "rank": 2,
       "songId": 1361336636,
       "title": "Come Back To Me",
       "alias": "",
@@ -66,7 +55,7 @@
       "score": 100
     },
     {
-      "rank": 3,
+      "rank": 2,
       "songId": 518686034,
       "title": "戒烟",
       "alias": "",
@@ -74,32 +63,21 @@
       "album": "戒烟",
       "durationMs": 293875,
       "playCount": 0,
-      "score": 71
+      "score": 87
+    },
+    {
+      "rank": 3,
+      "songId": 3355480210,
+      "title": "花も騒めく",
+      "alias": "花亦喧嚣",
+      "artist": "ヨルシカ",
+      "album": "二人称",
+      "durationMs": 220711,
+      "playCount": 0,
+      "score": 75
     },
     {
       "rank": 4,
-      "songId": 2123807718,
-      "title": "Color Your Night",
-      "alias": "染上夜色",
-      "artist": "Lotus Juice / 高橋あず美 / アトラスサウンドチーム / ATLUS GAME MUSIC",
-      "album": "ペルソナ3 リロード オリジナル・サウンドトラック",
-      "durationMs": 227240,
-      "playCount": 0,
-      "score": 71
-    },
-    {
-      "rank": 5,
-      "songId": 32619064,
-      "title": "年轮",
-      "alias": "电视剧《花千骨》插曲",
-      "artist": "张碧晨",
-      "album": "花千骨 电视原声带",
-      "durationMs": 274504,
-      "playCount": 0,
-      "score": 57
-    },
-    {
-      "rank": 6,
       "songId": 31654343,
       "title": "不将就",
       "alias": "电影《何以笙箫默》片尾主题曲",
@@ -107,7 +85,29 @@
       "album": "有理想",
       "durationMs": 312997,
       "playCount": 0,
-      "score": 57
+      "score": 62
+    },
+    {
+      "rank": 5,
+      "songId": 2123807718,
+      "title": "Color Your Night",
+      "alias": "染上夜色",
+      "artist": "Lotus Juice / 高橋あず美 / アトラスサウンドチーム / ATLUS GAME MUSIC",
+      "album": "ペルソナ3 リロード オリジナル・サウンドトラック",
+      "durationMs": 227240,
+      "playCount": 0,
+      "score": 62
+    },
+    {
+      "rank": 6,
+      "songId": 32619064,
+      "title": "年轮",
+      "alias": "电视剧《花千骨》插曲",
+      "artist": "张碧晨",
+      "album": "花千骨 电视原声带",
+      "durationMs": 274504,
+      "playCount": 0,
+      "score": 50
     },
     {
       "rank": 7,
@@ -118,18 +118,18 @@
       "album": "Say I Am You",
       "durationMs": 199786,
       "playCount": 0,
-      "score": 57
+      "score": 37
     },
     {
       "rank": 8,
-      "songId": 2104742789,
-      "title": "ハレハレヤ（朗朗晴天）",
-      "alias": "",
-      "artist": "芝麻Mochi",
-      "album": "ハレハレヤ（朗朗晴天）",
-      "durationMs": 210264,
+      "songId": 1500152567,
+      "title": "ハルカ",
+      "alias": "遥",
+      "artist": "YOASOBI",
+      "album": "ハルカ",
+      "durationMs": 243613,
       "playCount": 0,
-      "score": 42
+      "score": 37
     },
     {
       "rank": 9,
@@ -140,7 +140,7 @@
       "album": "エルマ",
       "durationMs": 222756,
       "playCount": 0,
-      "score": 42
+      "score": 37
     },
     {
       "rank": 10,
@@ -151,7 +151,7 @@
       "album": "This Is The One",
       "durationMs": 229560,
       "playCount": 0,
-      "score": 42
+      "score": 37
     },
     {
       "rank": 11,
@@ -162,7 +162,7 @@
       "album": "This is LOVE PSYCHEDELICO",
       "durationMs": 300973,
       "playCount": 0,
-      "score": 28
+      "score": 25
     },
     {
       "rank": 12,
@@ -173,10 +173,21 @@
       "album": "可不可以",
       "durationMs": 240889,
       "playCount": 0,
-      "score": 28
+      "score": 25
     },
     {
       "rank": 13,
+      "songId": 3319483197,
+      "title": "DARMA GRAND PRIX",
+      "alias": "",
+      "artist": "ヨルシカ",
+      "album": "DARMA GRAND PRIX",
+      "durationMs": 259866,
+      "playCount": 0,
+      "score": 25
+    },
+    {
+      "rank": 14,
       "songId": 2702969612,
       "title": "火星人",
       "alias": "TVアニメ『小市民シリーズ』第2期オープニングテーマ",
@@ -184,10 +195,21 @@
       "album": "火星人",
       "durationMs": 234929,
       "playCount": 0,
-      "score": 28
+      "score": 25
     },
     {
-      "rank": 14,
+      "rank": 15,
+      "songId": 2695154034,
+      "title": "UP",
+      "alias": "",
+      "artist": "chilldspot",
+      "album": "UP",
+      "durationMs": 215467,
+      "playCount": 0,
+      "score": 25
+    },
+    {
+      "rank": 16,
       "songId": 22711357,
       "title": "Darlin'",
       "alias": "",
@@ -195,10 +217,43 @@
       "album": "MTV UNplugged",
       "durationMs": 267540,
       "playCount": 0,
-      "score": 28
+      "score": 25
     },
     {
-      "rank": 15,
+      "rank": 17,
+      "songId": 2154219378,
+      "title": "はいよろこんで",
+      "alias": "乐意效劳",
+      "artist": "こっちのけんと",
+      "album": "はいよろこんで",
+      "durationMs": 161632,
+      "playCount": 0,
+      "score": 25
+    },
+    {
+      "rank": 18,
+      "songId": 2119517202,
+      "title": "Moshi Moshi (feat. 百足)",
+      "alias": "",
+      "artist": "Nozomi Kitay / GAL D",
+      "album": "Moshi Moshi (feat. 百足)",
+      "durationMs": 176952,
+      "playCount": 0,
+      "score": 25
+    },
+    {
+      "rank": 19,
+      "songId": 2104742789,
+      "title": "ハレハレヤ（朗朗晴天）",
+      "alias": "",
+      "artist": "芝麻Mochi",
+      "album": "ハレハレヤ（朗朗晴天）",
+      "durationMs": 210264,
+      "playCount": 0,
+      "score": 25
+    },
+    {
+      "rank": 20,
       "songId": 2009678542,
       "title": "B∀LK",
       "alias": "",
@@ -206,62 +261,7 @@
       "album": "V",
       "durationMs": 161291,
       "playCount": 0,
-      "score": 28
-    },
-    {
-      "rank": 16,
-      "songId": 1878036176,
-      "title": "花は買わない",
-      "alias": "我不买花",
-      "artist": "DADARAY",
-      "album": "ガーラ",
-      "durationMs": 273000,
-      "playCount": 0,
-      "score": 28
-    },
-    {
-      "rank": 17,
-      "songId": 1815109506,
-      "title": "強盗と花束",
-      "alias": "强盗与花束",
-      "artist": "ヨルシカ",
-      "album": "創作",
-      "durationMs": 190319,
-      "playCount": 0,
-      "score": 28
-    },
-    {
-      "rank": 18,
-      "songId": 1500152567,
-      "title": "ハルカ",
-      "alias": "遥",
-      "artist": "YOASOBI",
-      "album": "ハルカ",
-      "durationMs": 243613,
-      "playCount": 0,
-      "score": 28
-    },
-    {
-      "rank": 19,
-      "songId": 1336075843,
-      "title": "藍二乗",
-      "alias": "靛蓝二次方",
-      "artist": "ヨルシカ",
-      "album": "藍二乗",
-      "durationMs": 245968,
-      "playCount": 0,
-      "score": 28
-    },
-    {
-      "rank": 20,
-      "songId": 809268,
-      "title": "sweets parade",
-      "alias": "TV动画《妖狐×仆SS》第6集片尾曲",
-      "artist": "花澤香菜",
-      "album": "妖狐×僕SS ENDING SONG Vol.3",
-      "durationMs": 239480,
-      "playCount": 0,
-      "score": 14
+      "score": 25
     }
   ],
   "allTime": [
