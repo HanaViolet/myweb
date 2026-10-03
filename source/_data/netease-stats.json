@@ -3,7 +3,7 @@
   "profileUrl": "https://music.163.com/#/user/home?id=1441471952",
   "source": "NetEase Cloud Music public play record API",
   "endpoint": "/api/v1/play/record",
-  "updatedAt": "2026-10-01T21:01:27.441Z",
+  "updatedAt": "2026-10-03T19:12:44.462Z",
   "timezone": "Asia/Shanghai",
   "rankLimit": 20,
   "scrape": {
@@ -15,8 +15,8 @@
     "message": "Cookie 页面和接口均未返回播放次数，已回退公开接口。"
   },
   "duration": {
-    "weeklyMinutes": 329,
-    "allTimeMinutes": 129284,
+    "weeklyMinutes": 440,
+    "allTimeMinutes": 129386,
     "available": true,
     "source": "netease-listen-data",
     "endpoints": {
@@ -31,7 +31,7 @@
       "allTime": {
         "path": "totalDuration",
         "unit": "seconds",
-        "rawValue": 7757082
+        "rawValue": 7763212
       }
     },
     "validation": {
@@ -45,17 +45,6 @@
   "weekly": [
     {
       "rank": 1,
-      "songId": 1361336636,
-      "title": "Come Back To Me",
-      "alias": "",
-      "artist": "宇多田ヒカル",
-      "album": "This Is The One",
-      "durationMs": 237946,
-      "playCount": 0,
-      "score": 100
-    },
-    {
-      "rank": 2,
       "songId": 518686034,
       "title": "戒烟",
       "alias": "",
@@ -63,10 +52,10 @@
       "album": "戒烟",
       "durationMs": 293875,
       "playCount": 0,
-      "score": 87
+      "score": 100
     },
     {
-      "rank": 3,
+      "rank": 2,
       "songId": 3355480210,
       "title": "花も騒めく",
       "alias": "花亦喧嚣",
@@ -74,10 +63,10 @@
       "album": "二人称",
       "durationMs": 220711,
       "playCount": 0,
-      "score": 75
+      "score": 100
     },
     {
-      "rank": 4,
+      "rank": 3,
       "songId": 31654343,
       "title": "不将就",
       "alias": "电影《何以笙箫默》片尾主题曲",
@@ -85,10 +74,10 @@
       "album": "有理想",
       "durationMs": 312997,
       "playCount": 0,
-      "score": 62
+      "score": 83
     },
     {
-      "rank": 5,
+      "rank": 4,
       "songId": 2123807718,
       "title": "Color Your Night",
       "alias": "染上夜色",
@@ -96,131 +85,21 @@
       "album": "ペルソナ3 リロード オリジナル・サウンドトラック",
       "durationMs": 227240,
       "playCount": 0,
-      "score": 62
+      "score": 83
+    },
+    {
+      "rank": 5,
+      "songId": 1361336636,
+      "title": "Come Back To Me",
+      "alias": "",
+      "artist": "宇多田ヒカル",
+      "album": "This Is The One",
+      "durationMs": 237946,
+      "playCount": 0,
+      "score": 83
     },
     {
       "rank": 6,
-      "songId": 32619064,
-      "title": "年轮",
-      "alias": "电视剧《花千骨》插曲",
-      "artist": "张碧晨",
-      "album": "花千骨 电视原声带",
-      "durationMs": 274504,
-      "playCount": 0,
-      "score": 50
-    },
-    {
-      "rank": 7,
-      "songId": 19572271,
-      "title": "Gotta Have You",
-      "alias": "",
-      "artist": "The Weepies",
-      "album": "Say I Am You",
-      "durationMs": 199786,
-      "playCount": 0,
-      "score": 37
-    },
-    {
-      "rank": 8,
-      "songId": 1500152567,
-      "title": "ハルカ",
-      "alias": "遥",
-      "artist": "YOASOBI",
-      "album": "ハルカ",
-      "durationMs": 243613,
-      "playCount": 0,
-      "score": 37
-    },
-    {
-      "rank": 9,
-      "songId": 1387098936,
-      "title": "雨晴るる",
-      "alias": "雨后天晴",
-      "artist": "ヨルシカ",
-      "album": "エルマ",
-      "durationMs": 222756,
-      "playCount": 0,
-      "score": 37
-    },
-    {
-      "rank": 10,
-      "songId": 1361336637,
-      "title": "Merry Christmas Mr. Lawrence - FYI",
-      "alias": "メリークリスマス・ミスター・ローレンス-FYI",
-      "artist": "宇多田ヒカル",
-      "album": "This Is The One",
-      "durationMs": 229560,
-      "playCount": 0,
-      "score": 37
-    },
-    {
-      "rank": 11,
-      "songId": 769651,
-      "title": "Standing Bird",
-      "alias": "",
-      "artist": "LOVE PSYCHEDELICO",
-      "album": "This is LOVE PSYCHEDELICO",
-      "durationMs": 300973,
-      "playCount": 0,
-      "score": 25
-    },
-    {
-      "rank": 12,
-      "songId": 553755659,
-      "title": "可不可以",
-      "alias": "",
-      "artist": "张紫豪",
-      "album": "可不可以",
-      "durationMs": 240889,
-      "playCount": 0,
-      "score": 25
-    },
-    {
-      "rank": 13,
-      "songId": 3319483197,
-      "title": "DARMA GRAND PRIX",
-      "alias": "",
-      "artist": "ヨルシカ",
-      "album": "DARMA GRAND PRIX",
-      "durationMs": 259866,
-      "playCount": 0,
-      "score": 25
-    },
-    {
-      "rank": 14,
-      "songId": 2702969612,
-      "title": "火星人",
-      "alias": "TVアニメ『小市民シリーズ』第2期オープニングテーマ",
-      "artist": "ヨルシカ",
-      "album": "火星人",
-      "durationMs": 234929,
-      "playCount": 0,
-      "score": 25
-    },
-    {
-      "rank": 15,
-      "songId": 2695154034,
-      "title": "UP",
-      "alias": "",
-      "artist": "chilldspot",
-      "album": "UP",
-      "durationMs": 215467,
-      "playCount": 0,
-      "score": 25
-    },
-    {
-      "rank": 16,
-      "songId": 22711357,
-      "title": "Darlin'",
-      "alias": "",
-      "artist": "BENI",
-      "album": "MTV UNplugged",
-      "durationMs": 267540,
-      "playCount": 0,
-      "score": 25
-    },
-    {
-      "rank": 17,
       "songId": 2154219378,
       "title": "はいよろこんで",
       "alias": "乐意效劳",
@@ -228,40 +107,161 @@
       "album": "はいよろこんで",
       "durationMs": 161632,
       "playCount": 0,
-      "score": 25
+      "score": 50
+    },
+    {
+      "rank": 7,
+      "songId": 769651,
+      "title": "Standing Bird",
+      "alias": "",
+      "artist": "LOVE PSYCHEDELICO",
+      "album": "This is LOVE PSYCHEDELICO",
+      "durationMs": 300973,
+      "playCount": 0,
+      "score": 33
+    },
+    {
+      "rank": 8,
+      "songId": 3355479297,
+      "title": "千鳥",
+      "alias": "",
+      "artist": "ヨルシカ",
+      "album": "二人称",
+      "durationMs": 252115,
+      "playCount": 0,
+      "score": 33
+    },
+    {
+      "rank": 9,
+      "songId": 32619064,
+      "title": "年轮",
+      "alias": "电视剧《花千骨》插曲",
+      "artist": "张碧晨",
+      "album": "花千骨 电视原声带",
+      "durationMs": 274504,
+      "playCount": 0,
+      "score": 33
+    },
+    {
+      "rank": 10,
+      "songId": 2695154034,
+      "title": "UP",
+      "alias": "",
+      "artist": "chilldspot",
+      "album": "UP",
+      "durationMs": 215467,
+      "playCount": 0,
+      "score": 33
+    },
+    {
+      "rank": 11,
+      "songId": 22711357,
+      "title": "Darlin'",
+      "alias": "",
+      "artist": "BENI",
+      "album": "MTV UNplugged",
+      "durationMs": 267540,
+      "playCount": 0,
+      "score": 33
+    },
+    {
+      "rank": 12,
+      "songId": 19572271,
+      "title": "Gotta Have You",
+      "alias": "",
+      "artist": "The Weepies",
+      "album": "Say I Am You",
+      "durationMs": 199786,
+      "playCount": 0,
+      "score": 33
+    },
+    {
+      "rank": 13,
+      "songId": 1500152567,
+      "title": "ハルカ",
+      "alias": "遥",
+      "artist": "YOASOBI",
+      "album": "ハルカ",
+      "durationMs": 243613,
+      "playCount": 0,
+      "score": 33
+    },
+    {
+      "rank": 14,
+      "songId": 1441993917,
+      "title": "不可幸力",
+      "alias": "",
+      "artist": "Vaundy",
+      "album": "不可幸力",
+      "durationMs": 200241,
+      "playCount": 0,
+      "score": 33
+    },
+    {
+      "rank": 15,
+      "songId": 1428153831,
+      "title": "夜行",
+      "alias": "Night Journey",
+      "artist": "ヨルシカ",
+      "album": "夜行",
+      "durationMs": 203941,
+      "playCount": 0,
+      "score": 33
+    },
+    {
+      "rank": 16,
+      "songId": 1387098936,
+      "title": "雨晴るる",
+      "alias": "雨后天晴",
+      "artist": "ヨルシカ",
+      "album": "エルマ",
+      "durationMs": 222756,
+      "playCount": 0,
+      "score": 33
+    },
+    {
+      "rank": 17,
+      "songId": 1308819650,
+      "title": "フロントメモリー",
+      "alias": "前台记忆",
+      "artist": "鈴木瑛美子",
+      "album": "フロントメモリー",
+      "durationMs": 240053,
+      "playCount": 0,
+      "score": 33
     },
     {
       "rank": 18,
-      "songId": 2119517202,
-      "title": "Moshi Moshi (feat. 百足)",
-      "alias": "",
-      "artist": "Nozomi Kitay / GAL D",
-      "album": "Moshi Moshi (feat. 百足)",
-      "durationMs": 176952,
+      "songId": 809268,
+      "title": "sweets parade",
+      "alias": "TV动画《妖狐×仆SS》第6集片尾曲",
+      "artist": "花澤香菜",
+      "album": "妖狐×僕SS ENDING SONG Vol.3",
+      "durationMs": 239480,
       "playCount": 0,
-      "score": 25
+      "score": 16
     },
     {
       "rank": 19,
-      "songId": 2104742789,
-      "title": "ハレハレヤ（朗朗晴天）",
-      "alias": "",
-      "artist": "芝麻Mochi",
-      "album": "ハレハレヤ（朗朗晴天）",
-      "durationMs": 210264,
+      "songId": 642871,
+      "title": "歌舞伎町の女王",
+      "alias": "歌舞伎町的女王",
+      "artist": "椎名林檎",
+      "album": "歌舞伎町の女王",
+      "durationMs": 171160,
       "playCount": 0,
-      "score": 25
+      "score": 16
     },
     {
       "rank": 20,
-      "songId": 2009678542,
-      "title": "B∀LK",
+      "songId": 561877,
+      "title": "Lie Lie Lie",
       "alias": "",
-      "artist": "SawanoHiroyuki[nZk] / suis",
-      "album": "V",
-      "durationMs": 161291,
+      "artist": "BONNIE PINK",
+      "album": "Bonnie's Kitchen #1",
+      "durationMs": 239866,
       "playCount": 0,
-      "score": 25
+      "score": 16
     }
   ],
   "allTime": [
@@ -476,12 +476,12 @@
     },
     {
       "rank": 20,
-      "songId": 1348704277,
-      "title": "眩しいDNAだけ",
-      "alias": "只是耀眼的DNA",
-      "artist": "ずっと真夜中でいいのに。",
-      "album": "眩しいDNAだけ",
-      "durationMs": 227173,
+      "songId": 1387098936,
+      "title": "雨晴るる",
+      "alias": "雨后天晴",
+      "artist": "ヨルシカ",
+      "album": "エルマ",
+      "durationMs": 222756,
       "playCount": 0,
       "score": 30
     }
