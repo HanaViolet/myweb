@@ -8,9 +8,11 @@
   let saved = new Set()
   let lastNote = ''
   let lastDrawnTrack = ''
+  let activeTheme = 'all'
   let revealTimer = 0
   let navigationTimer = 0
   const player = () => window.__sakuraPlayer
+  const themeNames = { all: '随手', books: '读书', games: '游戏', web: '做网站', life: '生活' }
   const escape = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]))
   const pick = (items, previous, key) => {
     const candidates = items.filter(item => item[key] !== previous)
@@ -78,15 +80,39 @@
     }
   }
 
+  const noteMatchesTheme = note => {
+    if (activeTheme === 'all') return true
+    const tags = Array.isArray(note.tags) ? note.tags : []
+    const categories = Array.isArray(note.categories) ? note.categories : []
+    const book = tags.includes('书籍')
+    const game = tags.includes('游戏')
+    const website = categories.includes('技术杂谈') || tags.some(tag => ['Hexo', '教程', '网站更新'].includes(tag))
+    if (activeTheme === 'books') return book
+    if (activeTheme === 'games') return game
+    if (activeTheme === 'web') return website
+    if (activeTheme === 'life') return categories.includes('流水账') && !book && !game && !website
+    return true
+  }
+
+  const syncThemeButtons = () => {
+    document.querySelectorAll('[data-room-theme]').forEach(button => {
+      button.setAttribute('aria-pressed', String(button.dataset.roomTheme === activeTheme))
+    })
+  }
+
   const discover = () => {
     const track = pick(tracks, lastDrawnTrack || player()?.currentTrack?.id, 'id')
-    const note = pick(notes, lastNote, 'url')
+    const matchingNotes = notes.filter(noteMatchesTheme)
+    const note = pick(matchingNotes.length ? matchingNotes : notes, lastNote, 'url')
     if (!track || !note) return
     lastDrawnTrack = track.id
     lastNote = note.url
     // Drawing a card previews a pairing; only an explicit play control starts audio.
     document.querySelectorAll('[data-room-pairing]').forEach(element => {
-      element.textContent = `${track.title} / ${track.artist}。一首歌，陪一段文字。`
+      const theme = themeNames[activeTheme] || themeNames.all
+      element.textContent = matchingNotes.length
+        ? `「${theme}」签：${track.title} / ${track.artist}，配一篇旧文。`
+        : `「${theme}」主题还没有文章，先为你抽到一篇旧文和 ${track.title}。`
     })
     document.querySelectorAll('[data-room-note]').forEach(link => {
       link.textContent = `${note.title} ↗`
@@ -121,7 +147,10 @@
       feedback('这首歌已放上唱机，点击播放开始聆听。')
     }
     sync()
-    if (document.querySelector('.room-postcard')) discover()
+    if (document.querySelector('.room-postcard')) {
+      syncThemeButtons()
+      discover()
+    }
     const body = document.querySelector('#body-wrap')
     if (!motion.matches && body) {
       body.classList.remove('room-page-enter')
@@ -139,6 +168,11 @@
     if (button.matches('[data-room-saved-track]')) select(tracks.find(track => track.id === button.dataset.roomSavedTrack))
     if (button.matches('[data-room-pair-play]')) select(tracks.find(track => track.id === button.dataset.roomPairPlay))
     if (button.matches('[data-room-share]')) share()
+    if (button.matches('[data-room-theme]')) {
+      activeTheme = themeNames[button.dataset.roomTheme] ? button.dataset.roomTheme : 'all'
+      syncThemeButtons()
+      discover()
+    }
     if (button.matches('[data-room-discover]')) discover()
     if (button.matches('[data-room-favorite]')) {
       const current = player()?.currentTrack

@@ -644,6 +644,8 @@
       playButton.dataset.ready = 'true'
       playButton.addEventListener('click', () => {
         const target = document.querySelector(playButton.dataset.midnightTarget)
+        const cabinet = target?.closest('details')
+        if (cabinet) cabinet.open = true
         target?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' })
       })
     }

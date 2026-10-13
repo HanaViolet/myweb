@@ -3656,7 +3656,6 @@ html.is-mobile-device .midnight-hero {
 }
 html.is-mobile-device .midnight-hero__copy { position: relative; z-index: 2; min-width: 0; }
 html.is-mobile-device .midnight-eyebrow span:last-child,
-html.is-mobile-device .midnight-actions > a,
 html.is-mobile-device .midnight-tonearm,
 html.is-mobile-device .midnight-scroll { display: none; }
 html.is-mobile-device .midnight-hero h1 {
@@ -3669,6 +3668,12 @@ html.is-mobile-device .midnight-intro {
   font-size: clamp(15px, 2.6vw, 19px);
 }
 html.is-mobile-device .midnight-actions { gap: 18px; }
+html.is-mobile-device .midnight-actions > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  margin-left: 62px;
+}
 html.is-mobile-device .midnight-record-stage {
   position: absolute;
   right: clamp(-130px, -10vw, -60px);

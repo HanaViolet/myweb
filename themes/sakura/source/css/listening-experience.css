@@ -31,6 +31,10 @@
 .room-postcard a, #article-container .room-postcard a { color: var(--midnight-accent); font-size: 12px; text-decoration: none; border-bottom: 1px solid var(--midnight-line); padding-bottom: 5px; overflow-wrap: anywhere; }
 .room-postcard__actions { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding-left: 24px; border-left: 1px dashed var(--midnight-line); }
 .room-postcard__actions p { margin-bottom: 0; font-size: 11px; }
+.room-postcard__actions .room-postcard__theme-prompt { margin: 0; color: var(--midnight-muted); font-size: 10px; }
+.room-postcard__themes { display: flex; flex-wrap: wrap; gap: 6px; }
+.room-postcard__themes button { min-height: 32px; padding: 6px 10px; border-radius: 20px; color: var(--midnight-muted); font-size: 10px; }
+.room-postcard__themes button[aria-pressed="true"] { border-color: var(--midnight-accent); color: var(--midnight-accent); background: #b9d8c212; }
 .room-postcard__actions > a { margin-top: auto; }
 .about-room-link { display: inline-block; margin-top: 20px; color: var(--midnight-accent) !important; }
 .is-listening-page #page { padding: 0; border: 0; background: transparent; box-shadow: none; }

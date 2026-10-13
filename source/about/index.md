@@ -36,8 +36,8 @@ description: 关于音乐、代码，以及我愿意留在这里的生活片段�
       <p>音乐是这个房间的第一盏灯。<a href="/listening/">去听歌室 ↗</a></p>
     </article>
     <article class="sakura-now__item" data-now-card tabindex="0" aria-expanded="false">
-      <span>READING</span><strong>把旧文章重新翻出来</strong><small>最近的文字，仍然值得再读一次</small>
-      <p>有些文章写完以后才开始变成自己的记忆。<a href="/archives/">去归档 ↗</a></p>
+      <span>READING</span><strong data-now-latest-title>最近写下的一篇</strong><small data-now-latest-meta>打开看看最近的文字</small>
+      <p>翻到最近写下的内容。<a data-now-latest-link href="/archives/">阅读这篇文章 ↗</a></p>
     </article>
     <article class="sakura-now__item" data-now-card tabindex="0" aria-expanded="false">
       <span>BUILDING</span><strong>把网站做成一间房间</strong><small>代码、页面和一点点不必要的浪漫</small>

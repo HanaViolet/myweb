@@ -14,6 +14,8 @@ block content
         button(type='button' data-reading-size='smaller' aria-label='缩小正文字号') A−
         button(type='button' data-reading-size='larger' aria-label='放大正文字号') A+
         button(type='button' data-reading-focus aria-pressed='false') 沉浸阅读
+        button(type='button' data-sonic-bookmark hidden) ＋ 声音书签
+    != sonic_reading(page)
     article#article-container.container.post-content
       if theme.noticeOutdate.enable && page.noticeOutdate !== false
         include includes/post/outdate-notice.pug

@@ -2,6 +2,7 @@
 
 (() => {
   const tracks = Array.isArray(window.__SAKURA_TRACKS) ? window.__SAKURA_TRACKS.filter(track => track && track.id && track.title) : []
+  const notes = Array.isArray(window.__SAKURA_NOTES) ? window.__SAKURA_NOTES.filter(note => note && note.title && note.url) : []
   const byId = new Map(tracks.map(track => [track.id, track]))
   const MIXTAPE_KEY = 'sakura-mixtape-v1'
   const VISIT_KEY = 'sakura-visit-v1'
@@ -109,6 +110,17 @@
       const meta = root.querySelector('[data-now-track-meta]')
       if (title) title.textContent = current?.title || '等待下一首歌'
       if (meta) meta.textContent = current ? `${current.artist} · ${!player()?.audio.paused ? '正在播放' : '已放在唱机上'}` : '跨页持续播放的当前曲目'
+
+      const latest = notes[0]
+      const latestTitle = root.querySelector('[data-now-latest-title]')
+      const latestMeta = root.querySelector('[data-now-latest-meta]')
+      const latestLink = root.querySelector('[data-now-latest-link]')
+      if (latestTitle) latestTitle.textContent = latest?.title || '最近写下的一篇'
+      if (latestMeta) latestMeta.textContent = latest?.categories?.[0] ? `最新收录 · ${latest.categories[0]}` : '打开看看最近的文字'
+      if (latestLink) {
+        latestLink.href = latest?.url || '/archives/'
+        latestLink.textContent = latest ? '阅读这篇文章 ↗' : '去归档看看 ↗'
+      }
     }
     root.addEventListener('click', event => {
       const card = event.target.closest('[data-now-card]')

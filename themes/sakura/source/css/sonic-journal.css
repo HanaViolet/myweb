@@ -1,0 +1,91 @@
+/* A small analogue radio between the listening room and the written page. */
+.sonic-radio {
+  --sonic-accent: #bad6bd;
+  width: min(1280px, calc(100% - 96px));
+  margin: 0 auto;
+  padding: 104px 0 56px;
+  color: var(--midnight-text);
+}
+.sonic-radio [hidden], .sonic-reading[hidden], .sonic-reading [hidden] { display: none !important; }
+.listening-page .sonic-radio { width: 100%; }
+.sonic-console__body > *, .sonic-tuner > *, .sonic-pair > * { min-width: 0; }
+.sonic-tuner__display { overflow: hidden; }
+.sonic-radio button, .sonic-reading button { font: inherit; cursor: pointer; }
+.sonic-radio button:focus-visible, .sonic-radio a:focus-visible, .sonic-reading button:focus-visible { outline: 2px solid var(--sonic-accent, #bad6bd); outline-offset: 5px; }
+.sonic-radio__heading { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 38px; }
+.sonic-radio .sonic-label, .sonic-reading .sonic-label { margin: 0; font: 10px/1.6 var(--midnight-sans); letter-spacing: .18em; color: var(--sonic-accent, #bad6bd); }
+.sonic-radio__heading h2 { margin: 14px 0 0; font: 400 clamp(28px, 3.2vw, 44px)/1.4 var(--midnight-serif); }
+.sonic-radio__heading h2 em { font-style: normal; color: var(--sonic-accent); }
+.sonic-radio__heading > p { margin: 0 0 4px; font-size: 13px; line-height: 1.9; color: #a6afa9; }
+.sonic-console { position: relative; border: 1px solid #384039; border-radius: 5px; padding: 24px 32px 0; background: linear-gradient(135deg, #1b211d, #111613 50%, #171c19); box-shadow: 0 24px 70px #0003, inset 0 1px #ffffff0b; }
+.sonic-console::before, .sonic-console::after { position: absolute; top: 12px; width: 5px; height: 5px; content: ''; border: 1px solid #737c70; border-radius: 50%; }
+.sonic-console::before { left: 12px; }.sonic-console::after { right: 12px; }
+.sonic-console__top, .sonic-console__footer { display: flex; justify-content: space-between; align-items: center; gap: 18px; }
+.sonic-console__top { padding: 0 0 20px; font: 10px/1.6 var(--midnight-sans); letter-spacing: .13em; color: #bbc1b8; }
+.sonic-console__top > :last-child { color: var(--sonic-accent); font-size: 9px; }
+.sonic-stations { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid #3b433c; border-radius: 3px; overflow: hidden; }
+.sonic-stations button { position: relative; text-align: left; padding: 17px 22px; color: #c1c8c0; background: #0d120f; border: 0; border-right: 1px solid #3b433c; transition: background .3s, color .3s; }
+.sonic-stations button:last-child { border-right: 0; }
+.sonic-stations button small { display: block; font-size: 9px; letter-spacing: .13em; opacity: .7; }
+.sonic-stations button span { display: block; margin-top: 3px; font: 22px/1.5 var(--midnight-serif); }
+.sonic-stations button i { position: absolute; right: 20px; bottom: 20px; font-style: normal; opacity: .5; }
+.sonic-stations button:hover { background: #273329; }
+.sonic-stations button[aria-pressed="true"] { background: var(--sonic-accent); color: #172017; }
+.sonic-console__body { display: grid; grid-template-columns: minmax(240px, .78fr) minmax(0, 1.22fr); gap: 40px; padding: 36px 0; }
+.sonic-tuner { display: grid; grid-template-columns: 1fr 108px; align-content: center; align-items: center; gap: 22px; min-width: 0; }
+.sonic-tuner__display { grid-column: 1 / -1; padding: 28px 28px 24px; background: #090e0b; border: 1px solid #354137; box-shadow: inset 0 5px 20px #0008; border-radius: 4px; color: var(--sonic-accent); }
+.sonic-tuner__display > p { margin: 6px 0 12px; display: flex; align-items: baseline; gap: 14px; }
+.sonic-tuner__display strong { font: 300 clamp(56px, 6vw, 82px)/1.15 'Courier New', monospace; letter-spacing: -.07em; font-variant-numeric: tabular-nums; }
+.sonic-tuner__display small { font: 11px/1.5 monospace; opacity: .65; }
+.sonic-spectrum { display: flex; align-items: center; gap: 4px; height: 42px; border-bottom: 1px solid #bad6bd20; }
+.sonic-spectrum i { flex: 1; min-width: 1px; height: var(--height); background: var(--sonic-accent); opacity: .45; transform: scaleY(.35); animation: sonic-signal 1.2s ease-in-out var(--delay) infinite alternate; animation-play-state: paused; }
+.is-on-air .sonic-spectrum i { animation-play-state: running; opacity: .8; }
+.sonic-dial { grid-column: 2; grid-row: 2; text-align: center; }
+.sonic-dial button { display: block; width: 74px; height: 74px; margin: 0 auto; padding: 0; border: 1px solid #707a6b; border-radius: 50%; background: repeating-conic-gradient(#343c32 0deg 3deg, #232b23 3deg 6deg); box-shadow: 0 5px 12px #0009; }
+.sonic-dial button span { position: relative; display: block; margin: 5px; height: 62px; border-radius: 50%; background: linear-gradient(120deg, #4c5746, #1e281f); border: 1px solid #68725e; transform: rotate(var(--dial-angle, -45deg)); transition: transform .7s cubic-bezier(.2,.8,.2,1); }
+.sonic-dial button span::before { content: ''; position: absolute; left: 28px; top: 7px; height: 14px; width: 3px; border-radius: 3px; background: var(--sonic-accent); box-shadow: 0 0 6px #bad6bd45; }
+.sonic-dial p { margin: 12px 0 0; font: 8px/1.7 monospace; letter-spacing: .1em; color: #b3bcb0; }.sonic-dial p span { font-size: 10px; letter-spacing: 0; }
+.sonic-tuner__line { grid-column: 1; grid-row: 2; margin: 0; padding-right: 16px; font: 18px/1.9 var(--midnight-serif); color: #c1c8be; }
+.sonic-pair { display: flex; flex-direction: column; justify-content: center; min-width: 0; border-left: 1px solid #354137; padding-left: 36px; gap: 28px; }
+.sonic-pair__art { position: relative; align-self: start; width: 100%; aspect-ratio: 1; overflow: hidden; border-radius: 5px; background: #18251d; }
+.sonic-pair__art img { width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; filter: saturate(.65); transition: transform .8s; }
+.sonic-pair:hover .sonic-pair__art img { transform: scale(1.06); }
+.sonic-pair__music, .sonic-pair__story { min-width: 0; }
+.sonic-pair__song { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 14px; }
+.sonic-pair__song strong { display: block; font: 22px/1.5 var(--midnight-serif); overflow-wrap: anywhere; }.sonic-pair__song small { display: block; margin-top: 6px; color: #a1ad9e; font: 10px/1.6 monospace; letter-spacing: .1em; }
+.sonic-pair__song button { width: 44px; height: 44px; flex-shrink: 0; border: 1px solid var(--sonic-accent); border-radius: 50%; color: var(--sonic-accent); background: transparent; transition: background .2s, color .2s; }.sonic-pair__song button:hover { background: var(--sonic-accent); color: #0e170f; }
+.sonic-pair__note { display: grid; grid-template-columns: 136px minmax(0, 1fr); align-items: start; gap: 24px; padding-top: 28px; border-top: 1px solid #3b453b; }
+.sonic-pair__note a { display: block; margin-top: 12px; color: #edf0e8; font: 20px/1.65 var(--midnight-serif); text-decoration: none; overflow-wrap: anywhere; text-wrap: pretty; }.sonic-pair__note a:hover { color: var(--sonic-accent); }
+.sonic-pair__story > p:last-child { margin: 12px 0 0; font-size: 12px; line-height: 2; color: #abb5a7; }
+.sonic-console__footer { border-top: 1px solid #384037; padding: 16px 0; }.sonic-console__footer p { margin: 0; color: #aab3a5; font-size: 11px; }.sonic-console__footer button { flex-shrink: 0; background: transparent; border: 0; color: var(--sonic-accent); font-size: 12px; padding: 8px 0 8px 12px; }.sonic-console__footer button span { margin-left: 15px; }
+.midnight-record-stage { transition: rotate .35s ease-out, translate .35s ease-out; transform-style: preserve-3d; }
+.sonic-reading { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin: 20px 0 34px; padding: 24px; border: 1px solid #38473c; border-radius: 3px; background: linear-gradient(110deg, #17221b, #101612); }
+.sonic-reading__disc { display: grid; place-items: center; width: 64px; height: 64px; flex-shrink: 0; border-radius: 50%; border: 1px solid #435044; background: repeating-radial-gradient(circle, #121a14 0 2px, #28332a 3px 4px); animation: sonic-disc 12s linear infinite; animation-play-state: paused; }.sonic-reading__disc i { display: block; width: 21px; height: 21px; background: #bad6bd; border-radius: 50%; border: 8px solid #72876c; }.sonic-reading.is-playing .sonic-reading__disc { animation-play-state: running; }
+.sonic-reading__copy { flex: 1; min-width: 150px; }.sonic-reading__copy strong { display: block; margin: 6px 0; font-size: 15px; font-weight: 400; }.sonic-reading__copy small { display: block; color: #a4b29f; font-size: 11px; }
+.sonic-reading__actions { display: flex; flex-wrap: wrap; gap: 8px; }.sonic-reading__actions button { background: #1e2d22; border: 1px solid #52614f; border-radius: 3px; color: #d5e3d0; padding: 9px 12px; font-size: 11px; }.sonic-reading__actions button:hover { background: #304535; }.sonic-reading > p { flex-basis: 100%; color: #b4c6ac; font-size: 11px; margin: 0; }.sonic-reading > p:empty { display: none; }
+.sonic-page-hidden .sonic-spectrum i, .sonic-page-hidden .sonic-reading__disc { animation-play-state: paused; }
+.sonic-radio:not(.sonic-in-view) .sonic-spectrum i, .sonic-reading:not(.sonic-in-view) .sonic-reading__disc { animation-play-state: paused; }
+.reading-desk__controls { flex-wrap: wrap; }
+@keyframes sonic-signal { from { transform: scaleY(.3); } to { transform: scaleY(1); } }
+@keyframes sonic-disc { to { transform: rotate(360deg); } }
+@media (max-width: 1100px) { .sonic-console__body { gap: 28px; }.sonic-pair { padding-left: 28px; }.sonic-pair__note { grid-template-columns: 104px minmax(0, 1fr); gap: 20px; } }
+@media (max-width: 900px) {
+  .sonic-console__body { grid-template-columns: minmax(0, 1fr); gap: 30px; }
+  .sonic-tuner { grid-template-columns: minmax(0, 1fr) 108px; }
+  .sonic-tuner__display { grid-column: 1; }.sonic-dial { grid-row: 1; }.sonic-tuner__line { grid-column: 1 / -1; grid-row: 2; }
+  .sonic-pair { border-left: 0; padding-left: 0; padding-top: 28px; border-top: 1px solid #354137; }
+  .sonic-pair__note { grid-template-columns: 144px minmax(0, 1fr); }
+}
+@media (max-width: 700px) {
+  .sonic-radio { width: calc(100% - 40px); padding: 64px 0 24px; }.sonic-radio__heading { display: block; margin-bottom: 26px; }.sonic-radio__heading > p { margin-top: 18px; }.sonic-radio__heading h2 { font-size: 29px; }.sonic-radio__heading h2 em { display: block; }
+  .sonic-console { padding: 22px 18px 0; }.sonic-console__top { font-size: 8px; letter-spacing: .07em; }.sonic-console__top > :last-child { font-size: 8px; }.sonic-stations button { padding: 13px 10px; }.sonic-stations button small { font-size: 8px; letter-spacing: 0; }.sonic-stations button span { font-size: 20px; }.sonic-stations button i { display: none; }
+  .sonic-console__body { grid-template-columns: 1fr; padding: 26px 0; gap: 26px; }.sonic-tuner { grid-template-columns: minmax(0, 1fr) 88px; gap: 18px; }.sonic-tuner__display { grid-column: 1; padding: 20px; }.sonic-tuner__display strong { font-size: clamp(36px, 10vw, 62px); }.sonic-tuner__display .sonic-label { font-size: 8px; letter-spacing: .1em; }.sonic-dial { grid-row: 1; }.sonic-tuner__line { grid-column: 1 / -1; grid-row: 2; font-size: 16px; }.sonic-spectrum { gap: 2px; height: 30px; }
+  .sonic-pair { gap: 24px; }.sonic-pair__song strong { font-size: 20px; }.sonic-pair__note { padding-top: 24px; }.sonic-pair__note a { font-size: 19px; }.sonic-console__footer { align-items: start; }.sonic-console__footer p { font-size: 10px; }.sonic-console__footer button { font-size: 11px; padding-top: 0; }.sonic-console__footer button span { margin-left: 3px; }
+  .sonic-reading { padding: 18px; gap: 14px; }.sonic-reading__disc { width: 48px; height: 48px; }.sonic-reading__actions { flex-basis: 100%; }
+}
+@media (max-width: 540px) { .sonic-pair__note { grid-template-columns: minmax(0, 1fr); gap: 22px; }.sonic-pair__art { aspect-ratio: 16 / 9; } }
+@media (max-width: 380px) { .sonic-radio { width: calc(100% - 28px); }.sonic-console { padding-inline: 12px; }.sonic-tuner { grid-template-columns: minmax(0, 1fr) 74px; gap: 12px; }.sonic-tuner__display { padding: 16px; } }
+@media (prefers-reduced-motion: reduce) {
+  .sonic-radio *, .sonic-reading *, .midnight-record-stage { animation: none !important; transition: none !important; }
+  .sonic-pair:hover .sonic-pair__art img { transform: none; }
+}

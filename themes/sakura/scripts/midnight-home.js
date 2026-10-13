@@ -192,7 +192,19 @@ const renderRoomPostcard = () => `
 <section class="room-postcard" aria-labelledby="room-postcard-title">
   <div class="room-postcard__identity"><img src="/img/avatar.jpg" alt="Sakura 的头像" width="64" height="64" loading="lazy"><span>A NOTE FROM<br>SAKURA</span></div>
   <div class="room-postcard__copy"><p>一首歌的时间 / SIDE B</p><h2 id="room-postcard-title">让声音，带你翻到某一页。</h2><p>这里也放着我读过的书、玩过的游戏，和慢慢写出来的代码。听歌的时候，可以顺路读一篇。</p><a data-room-note href="/archives/">去看看我的旧文 ↗</a></div>
-  <div class="room-postcard__actions"><button type="button" data-room-discover>抽一张听歌签 <span aria-hidden="true">↝</span></button><p data-room-pairing role="status">一首私人选曲，一篇随手翻到的旧文。</p><a href="/about/">认识房间的主人 ↗</a></div>
+  <div class="room-postcard__actions">
+    <p class="room-postcard__theme-prompt">今晚想翻哪一面？</p>
+    <div class="room-postcard__themes" role="group" aria-label="听歌签主题">
+      <button type="button" data-room-theme="all" aria-pressed="true">随手</button>
+      <button type="button" data-room-theme="books" aria-pressed="false">读书</button>
+      <button type="button" data-room-theme="games" aria-pressed="false">游戏</button>
+      <button type="button" data-room-theme="web" aria-pressed="false">做网站</button>
+      <button type="button" data-room-theme="life" aria-pressed="false">生活</button>
+    </div>
+    <button type="button" data-room-discover>抽一张听歌签 <span aria-hidden="true">↝</span></button>
+    <p data-room-pairing role="status">一首私人选曲，一篇随手翻到的旧文。</p>
+    <a href="/about/">认识房间的主人 ↗</a>
+  </div>
 </section>`
 
 const renderMixTape = () => `
@@ -535,6 +547,14 @@ const renderNeteaseStats = () => {
 
 const serializeTrackData = (tracks) => JSON.stringify(tracks).replace(/</g, '\\u003c')
 const serializeGalleryData = (gallery) => JSON.stringify(gallery).replace(/</g, '\\u003c')
+const collectionNames = (collection) => {
+  const values = Array.isArray(collection)
+    ? collection
+    : Array.isArray(collection?.data)
+      ? collection.data
+      : (typeof collection?.toArray === 'function' ? collection.toArray() : [])
+  return values.map((item) => String(item?.name ?? item ?? '')).filter(Boolean)
+}
 
 hexo.extend.filter.register('after_render:html', function (html, data) {
   if (!data) return html
@@ -558,9 +578,9 @@ hexo.extend.filter.register('after_render:html', function (html, data) {
       result = result.replace('<div data-listening-page></div>', `<div class="listening-page">${renderListeningRoom(tracks)}${renderRoomPostcard()}${renderMixTape()}</div>`)
     }
   } else {
-    result = result.replace('</header><main', `${HOME_HERO}</header>${renderListeningRoom(tracks)}${renderRoomPostcard()}${renderMixTape()}<main`)
+    result = result.replace('</header><main', `${HOME_HERO}</header><main`)
     result = result.replace('<div class="recent-posts', `${NOTES_HEADING}<div class="recent-posts`)
-    result = result.replace('</main><footer', `</main>${HOME_CODA}<footer`)
+    result = result.replace('</main><footer', `</main><div data-home-radio></div><details class="journal-library" id="record-library"><summary><span>THE RECORD COLLECTION / 私人选曲</span><strong>打开唱片柜，翻翻每首歌背后的故事。</strong><i aria-hidden="true">＋</i></summary>${renderListeningRoom(tracks)}</details>${renderRoomPostcard()}${renderMixTape()}${HOME_CODA}<footer`)
     const siteUrl = String(hexo.config.url || '').replace(/\/$/, '')
     const socialImage = `${siteUrl}/img/og.png`
     result = result.replace(/(<meta property="og:image" content=")[^"]+("\s*\/?>)/, `$1${socialImage}$2`)
@@ -573,7 +593,12 @@ hexo.extend.filter.register('after_render:html', function (html, data) {
     result = result.replace('</head>', `<script>window.__SAKURA_TRACKS=${serializeTrackData([...tracks, ...catalogue])};</script></head>`)
   }
   if (!result.includes('window.__SAKURA_NOTES=')) {
-    const notes = hexo.locals.get('posts').sort('date', -1).toArray().filter(post => post.published !== false).map(post => ({ title: post.title, url: `/${post.path}` }))
+    const notes = hexo.locals.get('posts').sort('date', -1).toArray().filter(post => post.published !== false).map(post => ({
+      title: post.title,
+      url: `/${post.path}`,
+      categories: collectionNames(post.categories),
+      tags: collectionNames(post.tags)
+    }))
     result = result.replace('</head>', `<script>window.__SAKURA_NOTES=${serializeTrackData(notes)};</script></head>`)
   }
   // The inline gallery initializer references the global name too. Check for
