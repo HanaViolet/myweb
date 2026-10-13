@@ -3,7 +3,7 @@
   "profileUrl": "https://music.163.com/#/user/home?id=1441471952",
   "source": "NetEase Cloud Music public play record API",
   "endpoint": "/api/v1/play/record",
-  "updatedAt": "2026-10-09T20:52:27.032Z",
+  "updatedAt": "2026-10-13T21:14:45.917Z",
   "timezone": "Asia/Shanghai",
   "rankLimit": 20,
   "scrape": {
@@ -15,8 +15,8 @@
     "message": "Cookie 页面和接口均未返回播放次数，已回退公开接口。"
   },
   "duration": {
-    "weeklyMinutes": 417,
-    "allTimeMinutes": 129843,
+    "weeklyMinutes": 150,
+    "allTimeMinutes": 129973,
     "available": true,
     "source": "netease-listen-data",
     "endpoints": {
@@ -31,7 +31,7 @@
       "allTime": {
         "path": "totalDuration",
         "unit": "seconds",
-        "rawValue": 7790597
+        "rawValue": 7798409
       }
     },
     "validation": {
@@ -45,12 +45,12 @@
   "weekly": [
     {
       "rank": 1,
-      "songId": 2123807718,
-      "title": "Color Your Night",
-      "alias": "染上夜色",
-      "artist": "Lotus Juice / 高橋あず美 / アトラスサウンドチーム / ATLUS GAME MUSIC",
-      "album": "ペルソナ3 リロード オリジナル・サウンドトラック",
-      "durationMs": 227240,
+      "songId": 1293886117,
+      "title": "年少有为",
+      "alias": "",
+      "artist": "李荣浩",
+      "album": "耳朵",
+      "durationMs": 279196,
       "playCount": 0,
       "score": 100
     },
@@ -63,10 +63,21 @@
       "album": "二人称",
       "durationMs": 220711,
       "playCount": 0,
-      "score": 71
+      "score": 44
     },
     {
       "rank": 3,
+      "songId": 2123807718,
+      "title": "Color Your Night",
+      "alias": "染上夜色",
+      "artist": "Lotus Juice / 高橋あず美 / アトラスサウンドチーム / ATLUS GAME MUSIC",
+      "album": "ペルソナ3 リロード オリジナル・サウンドトラック",
+      "durationMs": 227240,
+      "playCount": 0,
+      "score": 44
+    },
+    {
+      "rank": 4,
       "songId": 518686034,
       "title": "戒烟",
       "alias": "",
@@ -74,10 +85,21 @@
       "album": "戒烟",
       "durationMs": 293875,
       "playCount": 0,
-      "score": 57
+      "score": 33
     },
     {
-      "rank": 4,
+      "rank": 5,
+      "songId": 31546854,
+      "title": "月光食堂",
+      "alias": "",
+      "artist": "古川本舗 / ちびた",
+      "album": "SINGALONG6",
+      "durationMs": 285049,
+      "playCount": 0,
+      "score": 33
+    },
+    {
+      "rank": 6,
       "songId": 769651,
       "title": "Standing Bird",
       "alias": "",
@@ -85,54 +107,10 @@
       "album": "This is LOVE PSYCHEDELICO",
       "durationMs": 300973,
       "playCount": 0,
-      "score": 42
-    },
-    {
-      "rank": 5,
-      "songId": 406475394,
-      "title": "Wonderful U (Demo Version)",
-      "alias": "",
-      "artist": "AGA",
-      "album": "Ginadoll",
-      "durationMs": 248551,
-      "playCount": 0,
-      "score": 42
-    },
-    {
-      "rank": 6,
-      "songId": 31654343,
-      "title": "不将就",
-      "alias": "电影《何以笙箫默》片尾主题曲",
-      "artist": "李荣浩",
-      "album": "有理想",
-      "durationMs": 312997,
-      "playCount": 0,
-      "score": 42
+      "score": 22
     },
     {
       "rank": 7,
-      "songId": 1361336636,
-      "title": "Come Back To Me",
-      "alias": "",
-      "artist": "宇多田ヒカル",
-      "album": "This Is The One",
-      "durationMs": 237946,
-      "playCount": 0,
-      "score": 42
-    },
-    {
-      "rank": 8,
-      "songId": 1357953768,
-      "title": "だから僕は音楽を辞めた",
-      "alias": "所以我放弃了音乐",
-      "artist": "ヨルシカ",
-      "album": "だから僕は音楽を辞めた",
-      "durationMs": 242973,
-      "playCount": 0,
-      "score": 42
-    },
-    {
-      "rank": 9,
       "songId": 740611,
       "title": "明日の朝には",
       "alias": "明日清晨",
@@ -140,65 +118,21 @@
       "album": "11のみじかい話",
       "durationMs": 182764,
       "playCount": 0,
-      "score": 28
+      "score": 22
     },
     {
-      "rank": 10,
-      "songId": 487527983,
-      "title": "靴の花火",
-      "alias": "靴上烟火",
-      "artist": "ヨルシカ",
-      "album": "夏草が邪魔をする",
-      "durationMs": 303299,
+      "rank": 8,
+      "songId": 31654343,
+      "title": "不将就",
+      "alias": "电影《何以笙箫默》片尾主题曲",
+      "artist": "李荣浩",
+      "album": "有理想",
+      "durationMs": 312997,
       "playCount": 0,
-      "score": 28
+      "score": 22
     },
     {
-      "rank": 11,
-      "songId": 487527981,
-      "title": "あの夏に咲け",
-      "alias": "在那个夏天绽放吧！",
-      "artist": "ヨルシカ",
-      "album": "夏草が邪魔をする",
-      "durationMs": 258880,
-      "playCount": 0,
-      "score": 28
-    },
-    {
-      "rank": 12,
-      "songId": 426881505,
-      "title": "なんでもないや (movie edit)",
-      "alias": "没什么大不了",
-      "artist": "RADWIMPS",
-      "album": "君の名は。",
-      "durationMs": 195983,
-      "playCount": 0,
-      "score": 28
-    },
-    {
-      "rank": 13,
-      "songId": 3355479297,
-      "title": "千鳥",
-      "alias": "",
-      "artist": "ヨルシカ",
-      "album": "二人称",
-      "durationMs": 252115,
-      "playCount": 0,
-      "score": 28
-    },
-    {
-      "rank": 14,
-      "songId": 3355479296,
-      "title": "ヒッチコック (Re-Recording)",
-      "alias": "希区柯克",
-      "artist": "ヨルシカ",
-      "album": "二人称",
-      "durationMs": 225144,
-      "playCount": 0,
-      "score": 28
-    },
-    {
-      "rank": 15,
+      "rank": 9,
       "songId": 2702969612,
       "title": "火星人",
       "alias": "TVアニメ『小市民シリーズ』第2期オープニングテーマ",
@@ -206,43 +140,32 @@
       "album": "火星人",
       "durationMs": 234929,
       "playCount": 0,
-      "score": 28
+      "score": 22
     },
     {
-      "rank": 16,
-      "songId": 2141838426,
-      "title": "エヴリー・セカンド (ジャパニーズ・ヴァージョン)",
-      "alias": "每一秒",
-      "artist": "ミイナ・オカベ",
-      "album": "エヴリー・セカンド (ジャパニーズ・ヴァージョン)",
-      "durationMs": 182500,
+      "rank": 10,
+      "songId": 2607716396,
+      "title": "忘れてください",
+      "alias": "还请遗忘",
+      "artist": "ヨルシカ",
+      "album": "忘れてください",
+      "durationMs": 217682,
       "playCount": 0,
-      "score": 28
+      "score": 22
     },
     {
-      "rank": 17,
-      "songId": 2049291275,
-      "title": "Baby you",
-      "alias": "",
-      "artist": "芝麻Mochi",
-      "album": "Baby you",
-      "durationMs": 164042,
+      "rank": 11,
+      "songId": 1930545400,
+      "title": "もうすぐ春なのに",
+      "alias": "尽管春天即将来临",
+      "artist": "熊木杏里",
+      "album": "もうすぐ春なのに",
+      "durationMs": 248000,
       "playCount": 0,
-      "score": 28
+      "score": 22
     },
     {
-      "rank": 18,
-      "songId": 1956712935,
-      "title": "知らないままで",
-      "alias": "依然一无所知",
-      "artist": "ロクデナシ",
-      "album": "知らないままで",
-      "durationMs": 134221,
-      "playCount": 0,
-      "score": 28
-    },
-    {
-      "rank": 19,
+      "rank": 12,
       "songId": 1854474192,
       "title": "あいつら全員同窓会",
       "alias": "那些家伙们的校友会 (PC游戏《PSO2:NGS》合作曲)",
@@ -250,18 +173,95 @@
       "album": "あいつら全員同窓会",
       "durationMs": 254533,
       "playCount": 0,
-      "score": 28
+      "score": 22
+    },
+    {
+      "rank": 13,
+      "songId": 1829811265,
+      "title": "Rainy proof",
+      "alias": "落雨为我证明",
+      "artist": "HACHI",
+      "album": "Rainy proof",
+      "durationMs": 269480,
+      "playCount": 0,
+      "score": 22
+    },
+    {
+      "rank": 14,
+      "songId": 1397345903,
+      "title": "悬溺",
+      "alias": "",
+      "artist": "葛东琪",
+      "album": "第二街区",
+      "durationMs": 197083,
+      "playCount": 0,
+      "score": 22
+    },
+    {
+      "rank": 15,
+      "songId": 1361336636,
+      "title": "Come Back To Me",
+      "alias": "",
+      "artist": "宇多田ヒカル",
+      "album": "This Is The One",
+      "durationMs": 237946,
+      "playCount": 0,
+      "score": 22
+    },
+    {
+      "rank": 16,
+      "songId": 762499,
+      "title": "波よせて",
+      "alias": "随波逐流",
+      "artist": "クラムボン",
+      "album": "LOVER ALBUM リマスター",
+      "durationMs": 310386,
+      "playCount": 0,
+      "score": 11
+    },
+    {
+      "rank": 17,
+      "songId": 740558,
+      "title": "今晩はお月さん",
+      "alias": "今晚月色真好",
+      "artist": "ハンバート ハンバート",
+      "album": "今晩はお月さん",
+      "durationMs": 224522,
+      "playCount": 0,
+      "score": 11
+    },
+    {
+      "rank": 18,
+      "songId": 642871,
+      "title": "歌舞伎町の女王",
+      "alias": "歌舞伎町的女王",
+      "artist": "椎名林檎",
+      "album": "歌舞伎町の女王",
+      "durationMs": 171160,
+      "playCount": 0,
+      "score": 11
+    },
+    {
+      "rank": 19,
+      "songId": 640866,
+      "title": "Secret",
+      "alias": "",
+      "artist": "茶太",
+      "album": "eclipse改",
+      "durationMs": 276000,
+      "playCount": 0,
+      "score": 11
     },
     {
       "rank": 20,
-      "songId": 1401024455,
-      "title": "愛にできることはまだあるかい",
-      "alias": "爱能做到的还有什么呢",
-      "artist": "RADWIMPS",
-      "album": "天気の子 complete version",
-      "durationMs": 414373,
+      "songId": 587778,
+      "title": "クルマレテ",
+      "alias": "覆盖",
+      "artist": "KOKIA",
+      "album": "心ばかり",
+      "durationMs": 282758,
       "playCount": 0,
-      "score": 28
+      "score": 11
     }
   ],
   "allTime": [
@@ -417,7 +417,7 @@
       "album": "又三郎",
       "durationMs": 227731,
       "playCount": 0,
-      "score": 34
+      "score": 33
     },
     {
       "rank": 15,
