@@ -15,6 +15,7 @@
     const chapters = [...document.querySelectorAll('[data-journal-chapter]')]
     const scene = document.querySelector('.journal-scene')
     const covers = [...document.querySelectorAll('[data-journal-cover]')]
+    const routeButtons = [...document.querySelectorAll('[data-journal-route]')]
     const nav = document.querySelector('.journal-nav')
     const anchors = [...document.querySelectorAll('[data-journal-anchor]')]
     const sections = anchors.map(anchor => document.getElementById(anchor.dataset.journalAnchor))
@@ -43,6 +44,12 @@
           active = nearest
           chapters.forEach((chapter, index) => chapter.classList.toggle('is-current', index === active))
           covers.forEach((cover, index) => cover.classList.toggle('is-current', index === active))
+          routeButtons.forEach((button, index) => {
+            if (index === active) button.setAttribute('aria-current', 'location')
+            else button.removeAttribute('aria-current')
+          })
+          scene.style.setProperty('--route-progress', String(active / Math.max(1, chapters.length - 1)))
+          scene.dataset.activeChapter = String(active)
           scene.style.setProperty('--scene-accent', chapters[active].dataset.journalColor)
           scene.querySelector('[data-journal-scene-label]').textContent = chapters[active].querySelector('.journal-kicker').textContent
         }
@@ -79,6 +86,21 @@
       // Keep keyboard navigation at the chosen section rather than in the rail.
       target.setAttribute('tabindex', '-1')
       target.focus({ preventScroll: true })
+    })
+    routeButtons.forEach((button, index) => {
+      on(button, 'click', () => {
+        const target = chapters[index]
+        if (!target) return
+        target.scrollIntoView({ behavior: motion.matches ? 'instant' : 'smooth', block: 'center' })
+        target.setAttribute('tabindex', '-1')
+        target.focus({ preventScroll: true })
+      })
+      on(button, 'keydown', event => {
+        if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) return
+        event.preventDefault()
+        const delta = ['ArrowUp', 'ArrowLeft'].includes(event.key) ? -1 : 1
+        routeButtons[(index + delta + routeButtons.length) % routeButtons.length]?.focus()
+      })
     })
     document.querySelectorAll('[data-journal-play]').forEach(button => {
       button.hidden = false

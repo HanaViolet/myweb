@@ -427,3 +427,81 @@ html[data-theme="light"] .atlas-theme { color-scheme: light; }
   .atlas-theme .journal-chapter h3 { animation: none; }
 }
 
+/* V2: turn the record illustration into a keyboard-accessible route map. */
+.atlas-theme .journal-scene__route {
+  position: absolute;
+  z-index: 6;
+  top: 19%;
+  right: 1%;
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+}
+.atlas-theme .journal-scene__route > span {
+  color: var(--atlas-blue);
+  font: 7px/1.4 monospace;
+  letter-spacing: .12em;
+  writing-mode: vertical-rl;
+  rotate: 180deg;
+}
+.atlas-theme .journal-scene__route > div {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(22px, 4vh, 34px);
+  align-items: center;
+}
+.atlas-theme .journal-scene__route > div::before,
+.atlas-theme .journal-scene__route > div::after {
+  position: absolute;
+  z-index: -1;
+  top: 14px;
+  bottom: 14px;
+  left: 50%;
+  width: 1px;
+  content: "";
+  transform: translateX(-50%);
+}
+.atlas-theme .journal-scene__route > div::before {
+  border-left: 1px dashed rgba(32, 33, 29, .5);
+}
+.atlas-theme .journal-scene__route > div::after {
+  bottom: auto;
+  height: calc((100% - 28px) * var(--route-progress, 0));
+  background: var(--atlas-red);
+  transition: height .55s cubic-bezier(.2, .8, .2, 1);
+}
+.atlas-theme .journal-scene__route button {
+  display: grid;
+  place-items: center;
+  width: 29px;
+  height: 29px;
+  padding: 0;
+  border: 1px solid var(--atlas-ink);
+  border-radius: 50%;
+  color: var(--atlas-ink);
+  background: var(--atlas-paper);
+  box-shadow: 2px 2px 0 rgba(231, 104, 76, .45);
+  cursor: pointer;
+  transition: color .22s, background .22s, border-color .22s, transform .22s;
+}
+.atlas-theme .journal-scene__route button span { font: 8px/1 monospace; }
+.atlas-theme .journal-scene__route button:hover,
+.atlas-theme .journal-scene__route button[aria-current="location"] {
+  border-color: var(--atlas-blue);
+  color: white;
+  background: var(--atlas-blue);
+  transform: scale(1.12);
+}
+.atlas-theme .journal-scene__route button:focus-visible { outline: 2px solid var(--atlas-red); outline-offset: 3px; }
+@media (max-width: 760px) {
+  .atlas-theme .journal-scene__route { top: 17%; right: 1%; gap: 7px; }
+  .atlas-theme .journal-scene__route > span { font-size: 6px; }
+  .atlas-theme .journal-scene__route > div { gap: 20px; }
+  .atlas-theme .journal-scene__route button { width: 26px; height: 26px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .atlas-theme .journal-scene__route button,
+  .atlas-theme .journal-scene__route > div::after { transition: none; }
+}
+
