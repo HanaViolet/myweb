@@ -3,7 +3,7 @@
   "profileUrl": "https://music.163.com/#/user/home?id=1441471952",
   "source": "NetEase Cloud Music public play record API",
   "endpoint": "/api/v1/play/record",
-  "updatedAt": "2026-10-13T21:14:45.917Z",
+  "updatedAt": "2026-10-14T20:11:52.264Z",
   "timezone": "Asia/Shanghai",
   "rankLimit": 20,
   "scrape": {
@@ -15,8 +15,8 @@
     "message": "Cookie 页面和接口均未返回播放次数，已回退公开接口。"
   },
   "duration": {
-    "weeklyMinutes": 150,
-    "allTimeMinutes": 129973,
+    "weeklyMinutes": 195,
+    "allTimeMinutes": 130033,
     "available": true,
     "source": "netease-listen-data",
     "endpoints": {
@@ -31,7 +31,7 @@
       "allTime": {
         "path": "totalDuration",
         "unit": "seconds",
-        "rawValue": 7798409
+        "rawValue": 7801998
       }
     },
     "validation": {
@@ -56,39 +56,6 @@
     },
     {
       "rank": 2,
-      "songId": 3355480210,
-      "title": "花も騒めく",
-      "alias": "花亦喧嚣",
-      "artist": "ヨルシカ",
-      "album": "二人称",
-      "durationMs": 220711,
-      "playCount": 0,
-      "score": 44
-    },
-    {
-      "rank": 3,
-      "songId": 2123807718,
-      "title": "Color Your Night",
-      "alias": "染上夜色",
-      "artist": "Lotus Juice / 高橋あず美 / アトラスサウンドチーム / ATLUS GAME MUSIC",
-      "album": "ペルソナ3 リロード オリジナル・サウンドトラック",
-      "durationMs": 227240,
-      "playCount": 0,
-      "score": 44
-    },
-    {
-      "rank": 4,
-      "songId": 518686034,
-      "title": "戒烟",
-      "alias": "",
-      "artist": "李荣浩",
-      "album": "戒烟",
-      "durationMs": 293875,
-      "playCount": 0,
-      "score": 33
-    },
-    {
-      "rank": 5,
       "songId": 31546854,
       "title": "月光食堂",
       "alias": "",
@@ -99,29 +66,40 @@
       "score": 33
     },
     {
-      "rank": 6,
-      "songId": 769651,
-      "title": "Standing Bird",
+      "rank": 3,
+      "songId": 3355480210,
+      "title": "花も騒めく",
+      "alias": "花亦喧嚣",
+      "artist": "ヨルシカ",
+      "album": "二人称",
+      "durationMs": 220711,
+      "playCount": 0,
+      "score": 25
+    },
+    {
+      "rank": 4,
+      "songId": 2123807718,
+      "title": "Color Your Night",
+      "alias": "染上夜色",
+      "artist": "Lotus Juice / 高橋あず美 / アトラスサウンドチーム / ATLUS GAME MUSIC",
+      "album": "ペルソナ3 リロード オリジナル・サウンドトラック",
+      "durationMs": 227240,
+      "playCount": 0,
+      "score": 25
+    },
+    {
+      "rank": 5,
+      "songId": 518686034,
+      "title": "戒烟",
       "alias": "",
-      "artist": "LOVE PSYCHEDELICO",
-      "album": "This is LOVE PSYCHEDELICO",
-      "durationMs": 300973,
+      "artist": "李荣浩",
+      "album": "戒烟",
+      "durationMs": 293875,
       "playCount": 0,
-      "score": 22
+      "score": 16
     },
     {
-      "rank": 7,
-      "songId": 740611,
-      "title": "明日の朝には",
-      "alias": "明日清晨",
-      "artist": "ハンバート ハンバート",
-      "album": "11のみじかい話",
-      "durationMs": 182764,
-      "playCount": 0,
-      "score": 22
-    },
-    {
-      "rank": 8,
+      "rank": 6,
       "songId": 31654343,
       "title": "不将就",
       "alias": "电影《何以笙箫默》片尾主题曲",
@@ -129,21 +107,10 @@
       "album": "有理想",
       "durationMs": 312997,
       "playCount": 0,
-      "score": 22
+      "score": 16
     },
     {
-      "rank": 9,
-      "songId": 2702969612,
-      "title": "火星人",
-      "alias": "TVアニメ『小市民シリーズ』第2期オープニングテーマ",
-      "artist": "ヨルシカ",
-      "album": "火星人",
-      "durationMs": 234929,
-      "playCount": 0,
-      "score": 22
-    },
-    {
-      "rank": 10,
+      "rank": 7,
       "songId": 2607716396,
       "title": "忘れてください",
       "alias": "还请遗忘",
@@ -151,10 +118,10 @@
       "album": "忘れてください",
       "durationMs": 217682,
       "playCount": 0,
-      "score": 22
+      "score": 16
     },
     {
-      "rank": 11,
+      "rank": 8,
       "songId": 1930545400,
       "title": "もうすぐ春なのに",
       "alias": "尽管春天即将来临",
@@ -162,21 +129,10 @@
       "album": "もうすぐ春なのに",
       "durationMs": 248000,
       "playCount": 0,
-      "score": 22
+      "score": 16
     },
     {
-      "rank": 12,
-      "songId": 1854474192,
-      "title": "あいつら全員同窓会",
-      "alias": "那些家伙们的校友会 (PC游戏《PSO2:NGS》合作曲)",
-      "artist": "ずっと真夜中でいいのに。",
-      "album": "あいつら全員同窓会",
-      "durationMs": 254533,
-      "playCount": 0,
-      "score": 22
-    },
-    {
-      "rank": 13,
+      "rank": 9,
       "songId": 1829811265,
       "title": "Rainy proof",
       "alias": "落雨为我证明",
@@ -184,10 +140,10 @@
       "album": "Rainy proof",
       "durationMs": 269480,
       "playCount": 0,
-      "score": 22
+      "score": 16
     },
     {
-      "rank": 14,
+      "rank": 10,
       "songId": 1397345903,
       "title": "悬溺",
       "alias": "",
@@ -195,10 +151,10 @@
       "album": "第二街区",
       "durationMs": 197083,
       "playCount": 0,
-      "score": 22
+      "score": 16
     },
     {
-      "rank": 15,
+      "rank": 11,
       "songId": 1361336636,
       "title": "Come Back To Me",
       "alias": "",
@@ -206,21 +162,32 @@
       "album": "This Is The One",
       "durationMs": 237946,
       "playCount": 0,
-      "score": 22
+      "score": 16
     },
     {
-      "rank": 16,
-      "songId": 762499,
-      "title": "波よせて",
-      "alias": "随波逐流",
-      "artist": "クラムボン",
-      "album": "LOVER ALBUM リマスター",
-      "durationMs": 310386,
+      "rank": 12,
+      "songId": 769651,
+      "title": "Standing Bird",
+      "alias": "",
+      "artist": "LOVE PSYCHEDELICO",
+      "album": "This is LOVE PSYCHEDELICO",
+      "durationMs": 300973,
       "playCount": 0,
-      "score": 11
+      "score": 8
     },
     {
-      "rank": 17,
+      "rank": 13,
+      "songId": 740611,
+      "title": "明日の朝には",
+      "alias": "明日清晨",
+      "artist": "ハンバート ハンバート",
+      "album": "11のみじかい話",
+      "durationMs": 182764,
+      "playCount": 0,
+      "score": 8
+    },
+    {
+      "rank": 14,
       "songId": 740558,
       "title": "今晩はお月さん",
       "alias": "今晚月色真好",
@@ -228,21 +195,10 @@
       "album": "今晩はお月さん",
       "durationMs": 224522,
       "playCount": 0,
-      "score": 11
+      "score": 8
     },
     {
-      "rank": 18,
-      "songId": 642871,
-      "title": "歌舞伎町の女王",
-      "alias": "歌舞伎町的女王",
-      "artist": "椎名林檎",
-      "album": "歌舞伎町の女王",
-      "durationMs": 171160,
-      "playCount": 0,
-      "score": 11
-    },
-    {
-      "rank": 19,
+      "rank": 15,
       "songId": 640866,
       "title": "Secret",
       "alias": "",
@@ -250,10 +206,21 @@
       "album": "eclipse改",
       "durationMs": 276000,
       "playCount": 0,
-      "score": 11
+      "score": 8
     },
     {
-      "rank": 20,
+      "rank": 16,
+      "songId": 609005,
+      "title": "愛の実験",
+      "alias": "爱的实验",
+      "artist": "Salyu",
+      "album": "呼吸",
+      "durationMs": 326706,
+      "playCount": 0,
+      "score": 8
+    },
+    {
+      "rank": 17,
       "songId": 587778,
       "title": "クルマレテ",
       "alias": "覆盖",
@@ -261,7 +228,40 @@
       "album": "心ばかり",
       "durationMs": 282758,
       "playCount": 0,
-      "score": 11
+      "score": 8
+    },
+    {
+      "rank": 18,
+      "songId": 557581315,
+      "title": "ヒッチコック",
+      "alias": "希区柯克 Hitchcock",
+      "artist": "ヨルシカ",
+      "album": "負け犬にアンコールはいらない",
+      "durationMs": 222813,
+      "playCount": 0,
+      "score": 8
+    },
+    {
+      "rank": 19,
+      "songId": 555142,
+      "title": "そばにいるね",
+      "alias": "留在我身边",
+      "artist": "青山テルマ / SoulJa",
+      "album": "そばにいるね",
+      "durationMs": 304906,
+      "playCount": 0,
+      "score": 8
+    },
+    {
+      "rank": 20,
+      "songId": 536622304,
+      "title": "Lemon",
+      "alias": "日剧《非自然死亡》主题曲",
+      "artist": "米津玄師",
+      "album": "Lemon",
+      "durationMs": 256000,
+      "playCount": 0,
+      "score": 8
     }
   ],
   "allTime": [
