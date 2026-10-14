@@ -10,15 +10,15 @@ const CURRENT_YEAR = new Date().getFullYear()
 const HOME_HERO = `
 <section class="midnight-hero" aria-labelledby="midnight-title">
   <div class="midnight-hero__copy">
-    <p class="midnight-eyebrow"><span>SAKURA.LUXE</span><span>LISTENING ROOM / 01</span></p>
-    <h1 id="midnight-title">Music for<br><em>the quiet hours.</em></h1>
-    <p class="midnight-intro">在代码、音乐与生活之间，<br>收集那些值得被反复播放的瞬间。</p>
+    <p class="midnight-eyebrow"><span>SAKURA / FIELD NOTES</span><span>SOUND ATLAS / MAP 01</span></p>
+    <h1 id="midnight-title">循着声音，<br><em>去生活里漫游。</em></h1>
+    <p class="midnight-intro">一首歌是路标，文字、游戏与日常，<br>是沿途的风景。</p>
     <div class="midnight-actions">
       <button class="midnight-play" type="button" data-midnight-target="#listening-room" aria-label="前往我的音乐歌单">
         <span class="midnight-play__icon" aria-hidden="true">&#9654;</span>
-        <span>OPEN PLAYLIST</span>
+        <span>从一首歌开始</span>
       </button>
-      <a href="#recent-posts">READ THE NOTES <span aria-hidden="true">&#8599;</span></a>
+      <a href="#recent-posts">翻开沿途手记 <span aria-hidden="true">&#8599;</span></a>
     </div>
   </div>
   <div class="midnight-record-stage" aria-hidden="true">

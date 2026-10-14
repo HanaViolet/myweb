@@ -1917,7 +1917,8 @@ body.has-sakura-player #rightside { bottom: 100px; }
 
 /* Inner pages share the same quiet, editorial reading surface. */
 #page-header.not-home-page {
-  background-image: linear-gradient(rgba(5, 7, 9, 0.64), rgba(5, 7, 9, 0.9)), url("/img/banner.jpg") !important;
+  background-color: var(--midnight-bg);
+  background-image: radial-gradient(circle at 85% 30%, rgba(58, 91, 194, 0.08), transparent 24%), repeating-linear-gradient(0deg, transparent 0 27px, rgba(34, 40, 43, 0.035) 28px) !important;
 }
 
 #page-header.not-home-page {

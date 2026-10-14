@@ -1,7 +1,7 @@
 /* Inspired by ohwow.design: a quiet masthead, masonry cards and a soft detail overlay.
    Sakura's images and music remain the content of this collection. */
-.type-gallery { --wall-paper: #0b100e; --wall-ink: #e2e8df; --wall-muted: #9aa99d; --wall-line: #29372f; color-scheme: dark; background: var(--wall-paper); }
-.type-gallery #page-header { height: 82px !important; min-height: 82px !important; background: #090b0d !important; }
+.type-gallery { --wall-paper: var(--atlas-paper, #0b100e); --wall-ink: var(--atlas-ink, #e2e8df); --wall-muted: var(--atlas-muted, #9aa99d); --wall-line: var(--atlas-line, #29372f); color-scheme: light; background: var(--wall-paper); }
+.type-gallery #page-header { height: 82px !important; min-height: 82px !important; background: var(--atlas-paper-shade, #090b0d) !important; }
 .type-gallery #page-header #page-site-info { display: none; }
 .page.type-gallery #content-inner { width: 100%; max-width: 1680px; margin: 0 auto; padding: 48px clamp(20px, 3.8vw, 64px) 0; }
 .type-gallery #page { width: 100%; padding: 0; border: 0; background: transparent; box-shadow: none; }
