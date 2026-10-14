@@ -20,7 +20,9 @@
     const anchors = [...document.querySelectorAll('[data-journal-anchor]')]
     const sections = anchors.map(anchor => document.getElementById(anchor.dataset.journalAnchor))
     const driftImages = [...document.querySelectorAll('.is-midnight-home .midnight-filmstrip img, .is-midnight-home .recent-post-item .post-bg')]
+    const revealItems = [...document.querySelectorAll('.journal-chapter, .recent-post-item, .sonic-console, .room-postcard, .room-mixtape, .midnight-filmstrip figure')]
     let active = -1
+    let revealObserver
     const paint = () => {
       frame = 0
       if (document.hidden) return
@@ -75,6 +77,19 @@
     const resize = new ResizeObserver(schedule)
     if (journey) resize.observe(journey)
     if (nav) resize.observe(document.body)
+    if (revealItems.length && !motion.matches && 'IntersectionObserver' in window) {
+      revealObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed')
+          revealObserver.unobserve(entry.target)
+        }
+      }), { rootMargin: '0px 0px -8% 0px', threshold: 0.08 })
+      revealItems.forEach((item, index) => {
+        item.style.setProperty('--reveal-delay', `${(index % 4) * 75}ms`)
+        revealObserver.observe(item)
+      })
+      document.body.classList.add('has-scroll-reveal')
+    }
     on(nav, 'click', event => {
       const link = event.target.closest('[data-journal-anchor]')
       if (!link || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return
@@ -170,7 +185,7 @@
     tape?.classList.toggle('journal-background', document.hidden)
     syncPlayback()
     paint()
-    cleanup = () => { abort.abort(); cancelAnimationFrame(frame); resize.disconnect(); inView.disconnect(); tapeObserver?.disconnect() }
+    cleanup = () => { abort.abort(); cancelAnimationFrame(frame); resize.disconnect(); inView.disconnect(); revealObserver?.disconnect(); tapeObserver?.disconnect(); document.body.classList.remove('has-scroll-reveal') }
   }
   document.addEventListener('DOMContentLoaded', init)
   document.addEventListener('pjax:send', () => cleanup())

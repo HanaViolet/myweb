@@ -8,77 +8,85 @@ const NETEASE_PROFILE_URL = 'https://music.163.com/#/user/home?id=1441471952'
 const CURRENT_YEAR = new Date().getFullYear()
 
 const HOME_HERO = `
-<section class="midnight-hero" aria-labelledby="midnight-title">
-  <div class="midnight-hero__copy">
-    <p class="midnight-eyebrow"><span>SAKURA / FIELD NOTES</span><span>SOUND ATLAS / MAP 01</span></p>
-    <h1 id="midnight-title">循着声音，<br><em>去生活里漫游。</em></h1>
-    <p class="midnight-intro">一首歌是路标，文字、游戏与日常，<br>是沿途的风景。</p>
+<section class="midnight-hero archive-hero" data-personal-archive aria-labelledby="midnight-title">
+  <div class="midnight-hero__copy archive-hero__copy" data-hero-layer="copy">
+    <p class="midnight-eyebrow"><span>SAKURA / PERSONAL ARCHIVE</span><span>FIELD INDEX / 001—004</span></p>
+    <h1 id="midnight-title">把日常，<br><em>调成一首歌。</em></h1>
+    <p class="midnight-intro">音乐是入口，故事在下一页。<br>读书、游戏、代码与生活，都被放进这册私人档案。</p>
     <div class="midnight-actions">
-      <button class="midnight-play" type="button" data-midnight-target="#listening-room" aria-label="前往我的音乐歌单">
+      <button class="midnight-play" type="button" data-midnight-target="#listening-room" aria-label="前往我的音乐收藏">
         <span class="midnight-play__icon" aria-hidden="true">&#9654;</span>
-        <span>从一首歌开始</span>
+        <span>打开唱片柜</span>
       </button>
-      <a href="#recent-posts">翻开沿途手记 <span aria-hidden="true">&#8599;</span></a>
+      <a href="#recent-posts">检索手记 <span aria-hidden="true">&#8599;</span></a>
+    </div>
+    <div class="archive-index" role="group" aria-label="个人档案分类">
+      <p class="archive-index__head"><span>PERSONAL ARCHIVE / CONTENTS</span><span>CHOOSE A FILE</span></p>
+      <div class="archive-index__items">
+        <a href="#mood-radio" data-archive-mode="sound" aria-current="true"><small>01</small><span>声音</span><i>FM / TRACKS</i></a>
+        <a href="#recent-posts" data-archive-mode="notes"><small>02</small><span>手记</span><i>TEXT / LOGS</i></a>
+        <a href="#fragments-title" data-archive-mode="frames"><small>03</small><span>影像</span><i>FRAME / 24</i></a>
+        <a href="/about/" data-archive-mode="about"><small>04</small><span>关于</span><i>PROFILE / SKR</i></a>
+      </div>
     </div>
   </div>
-  <div class="midnight-record-stage" aria-hidden="true">
-    <div class="midnight-record">
-      <svg class="midnight-record__tree" viewBox="0 0 500 500" role="presentation">
-        <defs>
-          <radialGradient id="midnight-tree-core" cx="46%" cy="43%" r="62%">
-            <stop offset="0" stop-color="#1d2421"></stop>
-            <stop offset="0.52" stop-color="#0b100f"></stop>
-            <stop offset="1" stop-color="#050807"></stop>
-          </radialGradient>
-          <linearGradient id="midnight-bark-edge" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#a8c0ad" stop-opacity=".52"></stop>
-            <stop offset=".46" stop-color="#425149" stop-opacity=".78"></stop>
-            <stop offset="1" stop-color="#c0d8c6" stop-opacity=".34"></stop>
-          </linearGradient>
-        </defs>
-        <path class="midnight-record__bark" d="M248 11 C282 8 303 21 333 19 C364 18 382 37 407 49 C433 62 438 88 454 111 C472 137 462 166 476 193 C490 221 478 249 482 279 C486 309 465 330 456 358 C447 388 419 398 400 420 C379 445 349 445 321 459 C294 472 265 462 236 475 C207 486 181 466 151 462 C120 457 105 432 80 416 C54 399 53 370 39 346 C23 320 33 292 24 264 C15 236 31 210 31 181 C31 150 53 132 64 105 C76 76 104 69 127 50 C150 31 178 36 207 23 C222 16 235 13 248 11 Z"></path>
-        <g id="midnight-tree-rings" class="midnight-record__rings">
-          <path d="M248 24 C282 21 307 34 337 31 C369 28 385 53 410 67 C434 81 435 108 449 132 C463 157 450 184 462 211 C474 238 459 263 464 291 C468 319 447 338 438 364 C428 391 401 398 382 418 C362 438 333 435 307 448 C280 460 254 449 226 461 C197 469 177 449 149 445 C121 439 109 416 87 400 C64 383 64 356 52 333 C40 309 50 285 42 260 C34 234 48 212 47 185 C48 157 68 140 78 116 C89 91 113 84 134 67 C155 50 181 54 207 41 C222 33 235 28 248 24 Z"></path>
-          <path d="M247 39 C275 35 300 48 327 45 C356 42 374 62 398 76 C421 89 423 115 436 137 C450 161 438 184 449 208 C461 232 447 257 451 282 C455 308 435 325 427 349 C418 374 393 382 375 400 C356 419 330 417 305 428 C281 440 256 430 230 440 C204 448 183 430 158 426 C132 422 120 400 99 386 C77 370 77 345 66 324 C55 301 64 279 57 256 C49 233 62 212 61 188 C62 162 81 147 90 124 C100 101 123 94 141 80 C161 64 184 68 208 56 C222 49 235 43 247 39 Z"></path>
-          <path d="M246 57 C273 54 293 64 319 61 C346 59 362 77 385 88 C407 100 409 123 421 144 C433 165 422 188 432 210 C442 233 430 253 433 278 C436 301 419 317 411 339 C402 361 379 369 363 386 C345 403 321 400 299 411 C276 421 253 412 230 420 C207 428 188 411 166 408 C142 403 132 384 113 371 C94 356 94 334 84 314 C74 294 83 274 76 253 C70 231 81 213 81 191 C81 169 98 154 106 134 C115 114 135 108 152 94 C169 81 190 83 211 73 C223 66 236 60 246 57 Z"></path>
-          <path d="M246 75 C269 72 289 81 311 79 C336 76 352 92 372 103 C392 113 394 135 405 153 C416 173 406 193 415 213 C424 233 413 252 416 273 C419 294 403 309 396 328 C388 348 368 355 352 370 C337 385 315 382 295 392 C275 401 254 393 233 400 C212 407 196 393 176 389 C155 386 144 369 127 356 C110 344 110 323 101 306 C92 287 100 270 94 251 C88 232 98 215 97 196 C98 175 113 162 121 145 C129 127 146 121 162 109 C177 97 196 99 215 90 C226 84 237 78 246 75 Z"></path>
-          <path d="M246 94 C266 91 282 99 303 97 C324 95 338 109 356 118 C374 128 376 146 385 162 C395 180 386 197 394 215 C402 233 392 249 395 268 C398 287 384 299 377 316 C370 334 352 340 338 353 C324 366 306 364 288 372 C270 380 253 373 235 379 C216 386 202 373 185 370 C167 367 157 352 142 341 C127 330 127 313 119 297 C111 281 118 266 113 250 C107 233 116 219 115 202 C116 184 129 173 136 157 C143 141 158 136 171 126 C185 115 202 117 218 109 C228 103 238 98 246 94 Z"></path>
-          <path d="M245 114 C262 111 277 118 294 116 C313 115 325 126 341 135 C357 143 360 158 368 173 C376 188 369 203 376 218 C383 234 375 248 377 264 C380 280 367 291 362 306 C355 321 340 326 328 337 C316 348 300 346 284 353 C269 360 253 354 238 360 C222 365 210 354 195 351 C179 348 171 335 158 326 C145 317 145 302 138 289 C132 275 138 262 133 248 C129 234 136 221 136 207 C136 191 148 182 154 168 C160 155 173 150 184 141 C196 132 210 134 224 127 C232 122 239 117 245 114 Z"></path>
-          <path d="M245 135 C259 133 271 138 286 137 C301 135 311 145 325 151 C338 158 340 171 347 183 C354 196 348 208 354 221 C360 234 353 246 356 259 C357 273 347 282 342 294 C337 307 324 311 314 320 C304 330 290 328 278 334 C265 340 253 335 240 339 C227 344 217 335 204 333 C191 330 184 320 173 312 C163 304 163 291 157 280 C152 269 157 258 153 247 C149 235 156 225 155 214 C156 201 165 194 170 183 C175 172 186 168 195 160 C204 153 216 155 227 149 C234 145 240 139 245 135 Z"></path>
-          <path d="M245 156 C256 154 267 159 278 158 C291 157 300 165 311 170 C323 176 324 187 330 197 C336 208 331 218 336 229 C341 240 335 250 338 261 C339 272 331 280 327 290 C323 301 312 304 304 312 C295 320 284 318 274 323 C263 328 253 324 242 328 C231 332 223 324 212 322 C201 320 195 311 186 305 C177 298 178 288 172 278 C168 269 172 260 169 251 C165 241 171 232 170 223 C171 212 179 206 183 197 C187 188 196 184 203 178 C211 172 221 173 231 168 C236 164 241 159 245 156 Z"></path>
-          <path d="M245 178 C254 177 262 181 271 180 C281 179 288 185 297 190 C306 194 307 203 312 211 C317 220 313 228 317 237 C321 246 316 254 318 263 C319 272 313 278 309 286 C306 294 298 297 291 303 C284 309 276 307 267 311 C259 315 251 312 243 315 C234 318 228 312 219 310 C210 309 206 301 199 297 C192 291 192 283 188 276 C184 268 188 261 185 254 C182 246 187 239 186 232 C187 223 193 219 196 212 C200 205 207 202 213 197 C219 192 227 194 234 190 C239 187 242 182 245 178 Z"></path>
-          <path d="M245 200 C252 198 257 202 264 201 C272 200 277 205 284 208 C291 212 292 219 296 225 C300 232 296 238 300 245 C303 252 299 258 301 265 C301 272 296 277 294 283 C291 289 285 291 279 296 C274 301 268 299 261 302 C255 305 249 302 243 305 C236 307 232 302 225 301 C219 300 215 294 210 290 C205 286 205 280 202 274 C199 268 202 263 200 257 C197 251 201 246 200 240 C201 233 206 230 208 225 C211 219 216 217 221 213 C225 209 231 211 237 207 C240 205 243 202 245 200 Z"></path>
-        </g>
-        <use class="midnight-record__rings-copy" href="#midnight-tree-rings" transform="translate(8 8) scale(.968)"></use>
-        <g class="midnight-record__cracks">
-          <path d="M248 252 C263 242 270 228 285 220 L293 208"></path>
-          <path d="M248 252 C238 266 226 272 220 289 L209 299"></path>
-          <path d="M248 252 C252 236 247 224 254 210 L252 198"></path>
-          <path d="M248 252 C264 260 276 273 292 277 L304 286"></path>
-        </g>
-        <circle class="midnight-record__heart" cx="248" cy="252" r="4"></circle>
-      </svg>
+  <div class="midnight-record-stage archive-stage" data-hero-layer="board">
+    <div class="archive-board" data-archive-board data-mode="sound">
+      <div class="archive-board__topline"><span>SAKURA <b>／</b> <span data-archive-system>SYNTHESIS / LISTENING OS</span></span><span>LOCAL RECORD <i>●</i></span></div>
+      <div class="archive-board__canvas" data-archive-canvas>
+        <svg class="archive-diagram" viewBox="0 0 720 580" aria-hidden="true" focusable="false">
+          <defs>
+            <pattern id="archive-dot-grid" width="11" height="11" patternUnits="userSpaceOnUse"><circle cx="1.2" cy="1.2" r=".8" fill="#28353a" fill-opacity=".16"></circle></pattern>
+            <radialGradient id="archive-disc-fill" cx="43%" cy="36%" r="72%"><stop offset="0" stop-color="#6f91f4"></stop><stop offset=".48" stop-color="#315fd2"></stop><stop offset="1" stop-color="#1d3d98"></stop></radialGradient>
+            <linearGradient id="archive-disc-sheen" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".22"></stop><stop offset=".55" stop-color="#ffffff" stop-opacity="0"></stop><stop offset="1" stop-color="#e68155" stop-opacity=".27"></stop></linearGradient>
+            <clipPath id="archive-disc-clip"><circle cx="392" cy="282" r="158"></circle></clipPath>
+          </defs>
+          <rect x="0" y="0" width="720" height="580" fill="url(#archive-dot-grid)"></rect>
+          <g class="archive-diagram__axis"><path d="M360 22V550M22 282H698"></path><circle cx="392" cy="282" r="206"></circle><circle cx="392" cy="282" r="244"></circle><ellipse cx="392" cy="282" rx="282" ry="166" transform="rotate(-26 392 282)"></ellipse></g>
+          <g class="archive-diagram__orbit"><circle cx="392" cy="282" r="178"></circle><circle cx="392" cy="282" r="194"></circle><circle cx="392" cy="282" r="228" stroke-dasharray="1 5"></circle><circle cx="392" cy="282" r="249" stroke-dasharray="45 4 8 4"></circle><path d="M139 392C215 349 253 176 381 132S557 246 640 175"></path><path d="M105 218C181 256 226 393 357 436S538 345 654 393"></path></g>
+          <g class="archive-diagram__ticks"><circle cx="392" cy="282" r="168" stroke-dasharray="1 5"></circle><circle cx="392" cy="282" r="216" stroke-dasharray="1 11"></circle><path d="M392 48v28m0 412v28M158 282h28m412 0h28M226 116l18 18m296 296 18 18M558 116l-18 18M244 430l-18 18"></path></g>
+          <circle class="archive-diagram__disc-shadow" cx="398" cy="290" r="162"></circle>
+          <circle class="archive-diagram__disc" cx="392" cy="282" r="158"></circle>
+          <g class="archive-diagram__grooves" clip-path="url(#archive-disc-clip)"><circle cx="392" cy="282" r="150"></circle><circle cx="392" cy="282" r="138"></circle><circle cx="392" cy="282" r="126"></circle><circle cx="392" cy="282" r="114"></circle><circle cx="392" cy="282" r="102"></circle><circle cx="392" cy="282" r="90"></circle><circle cx="392" cy="282" r="78"></circle><circle cx="392" cy="282" r="66"></circle><circle cx="392" cy="282" r="54"></circle><path d="M239 232H545M271 343H522M329 126V434M446 126V434"></path></g>
+          <circle class="archive-diagram__gloss" cx="392" cy="282" r="158"></circle>
+          <g class="archive-diagram__core"><circle cx="392" cy="282" r="46"></circle><circle cx="392" cy="282" r="38"></circle><path d="M392 249v66m-28-33h56M375 266l34 34m0-34-34 34"></path><circle cx="392" cy="282" r="4"></circle></g>
+          <g class="archive-diagram__route"><path d="M88 174C183 114 197 145 258 187S347 224 392 282 505 397 593 365 619 245 650 195"></path><circle cx="88" cy="174" r="3"></circle><circle cx="258" cy="187" r="3"></circle><circle cx="593" cy="365" r="3"></circle><circle cx="650" cy="195" r="3"></circle></g>
+          <g class="archive-diagram__labels"><text x="44" y="86">FIG. 01 / PERSONAL FREQUENCY</text><text x="511" y="80">SAKURA • 33⅓ RPM</text><text x="40" y="514">SOUND / MEMORY / DAILY LIFE</text><text x="537" y="510">ARCHIVE SYSTEM · 2026</text><text x="347" y="291">S</text></g>
+        </svg>
+        <div class="archive-board__avatar"><img src="/img/avatar.jpg" alt="" width="88" height="88" loading="eager"><span>SAKURA<br>INDEX 001</span></div>
+        <span class="archive-board__stamp" aria-hidden="true">SOUND<br>IS A<br>PLACE</span>
+        <a class="archive-pin archive-pin--one" href="#mood-radio" data-archive-mode="sound" aria-label="打开声音档案"><span>01</span><i>FREQUENCY</i></a>
+        <a class="archive-pin archive-pin--two" href="#recent-posts" data-archive-mode="notes" aria-label="打开文字手记"><span>02</span><i>FIELD NOTE</i></a>
+        <a class="archive-pin archive-pin--three" href="#fragments-title" data-archive-mode="frames" aria-label="打开影像图录"><span>03</span><i>FRAGMENTS</i></a>
+        <a class="archive-pin archive-pin--four" href="/about/" data-archive-mode="about" aria-label="打开关于我"><span>04</span><i>ABOUT</i></a>
+        <span class="archive-board__measurement archive-board__measurement--left" aria-hidden="true">02° 18′ / LISTEN</span>
+        <span class="archive-board__measurement archive-board__measurement--right" data-archive-progress aria-hidden="true">TRACE / 000%</span>
+        <span class="archive-board__scanline" aria-hidden="true"></span>
+      </div>
+      <div class="archive-board__readout" aria-live="polite" aria-atomic="true">
+        <div class="archive-board__readout-head"><span data-archive-label>FILE 01 / FREQUENCY</span><span class="archive-board__signal"><i></i> <b data-archive-signal>SYNTHESIS / READY</b></span></div>
+        <div class="archive-board__readout-body"><div><strong data-archive-title>此刻的你，在哪个频率？</strong><p data-archive-description>调到你的心情，让一首歌和一段文字在此相遇。</p></div><a data-archive-link href="#mood-radio"><span data-archive-cta>进入心情电台</span><span aria-hidden="true">↗</span></a></div>
+      </div>
+      <div class="archive-boot" data-archive-boot hidden aria-hidden="true">
+        <div class="archive-boot__top"><span>SAKURA / ARCHIVE INTERFACE</span><span>LOCAL ACCESS / NO ACCOUNT</span></div>
+        <div class="archive-boot__core">
+          <svg class="archive-boot__glyph" viewBox="0 0 120 72" aria-hidden="true" focusable="false">
+            <path d="M60 36C46 17 34 12 23 17 7 24 9 48 25 55c13 6 25-3 35-19 14-19 26-24 37-19 16 7 14 31-2 38-13 6-25-3-35-19Z"></path>
+            <path d="M60 13v46M38 36h44M48 24l24 24m0-24L48 48"></path>
+            <circle cx="60" cy="36" r="4"></circle>
+          </svg>
+          <p class="archive-boot__eyebrow">SIGNAL / PERSONAL FREQUENCY</p>
+          <h2 data-archive-boot-title>正在接入声音档案</h2>
+          <p class="archive-boot__step" data-archive-boot-step role="status" aria-live="polite">ESTABLISHING PERSONAL CHANNEL</p>
+          <div class="archive-boot__progress" data-archive-boot-progress role="progressbar" aria-label="档案接入进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div>
+          <span class="archive-boot__percent" data-archive-boot-percent>000%</span>
+        </div>
+        <div class="archive-boot__foot"><span>THIS IS A LOCAL VISUAL SEQUENCE</span><button type="button" data-archive-boot-close>取消进入 <b aria-hidden="true">×</b></button></div>
+      </div>
+      <div class="archive-board__foot"><span>AN INTERACTIVE INDEX OF SOUND & DAILY LIFE</span><span>MOVE / SELECT / LISTEN</span></div>
     </div>
-    <svg class="midnight-tonearm" viewBox="0 0 500 500" aria-hidden="true">
-      <g class="midnight-tonearm__assembly">
-        <circle class="midnight-tonearm__base-shadow" cx="431" cy="69" r="31"></circle>
-        <circle class="midnight-tonearm__base" cx="431" cy="69" r="26"></circle>
-        <circle class="midnight-tonearm__base-ring" cx="431" cy="69" r="19"></circle>
-        <path class="midnight-tonearm__base-detail" d="M431 50 V88 M412 69 H450"></path>
-        <circle class="midnight-tonearm__pivot-halo" cx="431" cy="69" r="10"></circle>
-        <circle class="midnight-tonearm__pivot" cx="431" cy="69" r="5.5"></circle>
-        <circle class="midnight-tonearm__pivot-core" cx="431" cy="69" r="2.5"></circle>
-        <path class="midnight-tonearm__counterweight" d="M423 58 L425 16 Q425 12 429 12 L437 14 Q440 15 439 19 L435 60 Z"></path>
-        <path class="midnight-tonearm__arm-shadow" d="M431 69 C444 128 453 187 441 237 C431 282 405 327 371 365"></path>
-        <path class="midnight-tonearm__arm" d="M431 69 C444 128 453 187 441 237 C431 282 405 327 371 365"></path>
-        <path class="midnight-tonearm__arm-highlight" d="M431 69 C444 128 453 187 441 237 C431 282 405 327 371 365"></path>
-        <path class="midnight-tonearm__headshell" d="M373 358 L346 371 Q342 373 345 378 L353 389 Q356 393 360 389 L380 369 Z"></path>
-        <path class="midnight-tonearm__headshell-detail" d="M350 374 L365 367 M354 380 L369 373"></path>
-        <path class="midnight-tonearm__needle" d="M353 387 L346 403"></path>
-      </g>
-    </svg>
   </div>
-  <p class="midnight-scroll">SCROLL TO LISTEN <span aria-hidden="true">&#8595;</span></p>
+  <p class="midnight-scroll archive-scroll">SCROLL TO EXPLORE <span aria-hidden="true">&#8595;</span></p>
 </section>`
 
 const escapeHtml = (value = '') => String(value).replace(/[&<>'"]/g, (character) => ({
