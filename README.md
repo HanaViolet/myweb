@@ -1,132 +1,44 @@
-# Sakura Listening Room
+# Sakura · Rhine Archive
 
-<p align="center">
-  <strong>Music for the quiet hours.</strong><br>
-  一个以音乐为线索的个人博客：记录代码、游戏、阅读与生活。
-</p>
+Sakura 的个人博客，直接使用 [LBEILC/RhineLabUI](https://github.com/LBEILC/RhineLabUI) 的 TypeScript + Three.js + Vite 实现。保留原版开场、莱茵生命品牌、玻璃档案模型、五列循环阵列、抽取 / 解密 / 360° 查看器、声音、明暗主题和画质设置，把博客接入原生阅读与检索界面。
 
-<p align="center">
-  <a href="https://sakura.luxe">在线访问</a> ·
-  <a href="https://music.163.com/#/playlist?id=2203036705">网易云歌单</a> ·
-  <a href="https://github.com/HanaViolet/MyWeb/issues">反馈问题</a>
-</p>
+## 本地运行
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Hexo-8.1.1-0f766e?style=flat-square&logo=hexo&logoColor=white" alt="Hexo 8.1.1">
-  <img src="https://img.shields.io/badge/Theme-Sakura%20Listening%20Room-9bbfae?style=flat-square" alt="Sakura Listening Room theme">
-  <img src="https://img.shields.io/badge/Hosted-Cloudflare%20Pages-f38020?style=flat-square&logo=cloudflare&logoColor=white" alt="Cloudflare Pages">
-</p>
+Node.js >= 20.19（推荐 22），npm：
 
-## ✨ 项目简介
-
-这是 Sakura 的个人博客源码。网站由 Hexo 构建、Cloudflare Pages 发布，视觉上采用固定暗色、留白和唱片纹理，首页围绕 YORUSHIKA 等 J-pop 选曲展开。文章、资源、关于我和播放器共享同一套响应式布局，页面切换使用 Pjax，播放状态会在导航和登录返回后尽量恢复。
-
-## 🎼 选曲档案图
-
-<p align="center">
-  <img src="./docs/listening-archive.svg" width="820" alt="Sakura Listening Room audio archive">
-</p>
-
-这张图展示歌单中每首音频的文件体积，数据直接从 [`source/_data/tracks.json`](source/_data/tracks.json) 和 `source/music/` 读取。它既能快速浏览这间 Listening Room 的声音库存，也能在迁移到 Cloudflare R2 前估算存储体积；不需要额外的统计权限或手工录入。
-
-```bash
-npm run listening:chart
+```sh
+npm ci
+npm run dev          # http://127.0.0.1:4000
+npm run check        # 内容转换、TypeScript、生产构建、内容完整性、站内链接
+npm run preview      # 预览生产构建
+npm run check:browser # 预览服务运行时执行 Chrome 端到端检查
 ```
 
-新增歌曲、替换音频或修改标题后重新运行命令，README 图表就会同步更新。缺失的音频会标记为“音频文件未找到”，不会悄悄填入估算值。
+`npm run server` 等价于开发预览。修改 `source/` 后运行 `npm run content:build`，Vite 会加载新生成的数据。开发与生产均支持 `?reader=1` 直接阅读。三维模式加载失败时提供直接阅读入口；生产 HTML 含完整正文，无 JavaScript 也能阅读。
 
-## 🎧 音乐与内容
+## 内容维护
 
-- 图库默认提供环形影像视图，参考 [Andrianjaka Tony 的作品演示](https://x.com/Andrianja_tony/status/2095223517495111818)：CSS 三维透视、拖动空白处旋转与倾斜、手动开启自动旋转、12 张一组浏览；保留暗绿配色、系列筛选、平铺模式和大图音乐控制。减少动态效果时禁用自动旋转，离开视口或页面时清理动画。
+- `source/_posts/*.md`：继续写 Markdown，保留原有 Front Matter。`abbrlink` 是稳定的文章地址，必须唯一，不要修改已发布文章的值。同名目录保存文章配图。
+- `source/gallery/index.md`：图库图片清单，系列从图片 alt 中提取。
+- `source/resources/index.md`：资源名称、说明、网盘地址与提取码。
+- `source/about/index.md`、`source/_data/link.yml`：个人介绍与友链。
+- `source/_data/tracks.json`、`source/music/`：私人选曲与音频。
+- `source/_data/discovery.json`、`netease-stats.json`、`netease-comments.json`：开放音乐、官方听歌记录和热评，原更新任务仍可使用。
+- `blog.config.json`：新站名称、域名、作者和 Giscus 配置。
+- `content/blog-ids.json`：稳定档案编号，由构建补充新条目，随新增内容提交；不要重排或删除已有编号。
 
-- 音乐街区页脚：微缩钢琴房、唱片店、电台塔和爵士店，按页面类型推荐开放音乐。公开曲库来自 Internet Archive，运行 `npm run music:update` 更新元数据，原有私人选曲保持独立展示；接口、署名和维护说明见 [开放音乐说明](docs/open-music.md)。
+五列分别为影像、音乐、文章、资源、个人档案。全文检索支持标题、标签与正文；原 `/posts/:abbrlink/`、归档、分类、标签、图库、听歌室、资源、关于和友链地址继续生成。音乐在站内导航时持续播放；选曲开始播放时暂时关闭终端环境音乐。评论沿用 GitHub Discussions 与原文章路径，通过“留言”加载。
 
-- `/listening/`：独立听歌室，支持随机播放、浏览器收藏和歌曲直达分享链接（`?track=music`）。首页与听歌室的「听歌签」从现有文章和选曲中随机搭配；抽签后可分别播放或阅读。
-- 本轮页面梳理、验证结果和后续方向：[`docs/site-review-2026-09-12.md`](docs/site-review-2026-09-12.md)。
-- `/gallery/`：参考 [ohwow.design](https://ohwow.design/) 的瀑布流、圆角卡片与虚化详情弹窗，改为 Sakura 的视觉收藏墙。保留原有图片清单，支持系列筛选、方向键切图、Esc 关闭和弹窗音乐控制；界面由本地 `visualWall` 标签、CSS 与原生 JavaScript 实现。
-- 首页文章支持「封面 / 目录」切换；资源页支持关键词与分类组合筛选、空结果提示和提取码复制；文章页有正文阅读进度、16–24px 字号调节与沉浸阅读。展示方式和阅读偏好保存在当前浏览器；工具由 `reading-desk.js` / `reading-desk.css` 维护，并在 Pjax 导航时清理监听与观察器。
+生成目录 `.generated/` 和 `public/` 不提交。旧主题、旧配置和旧工具保留为迁移历史，新的构建不再依赖 Hexo。此前站点说明保存在 [legacy-listening-room.md](docs/legacy-listening-room.md)。
 
-- `source/_data/tracks.json`：选曲元数据（日文标题、中文标题、专辑信息、短笺和音频路径）。
-- `source/music/`：本地播放器使用的音频文件；只应提交你拥有或获准发布的音频，后续可迁移到 Cloudflare R2。
-- `source/_data/netease-comments.json`：每首选曲缓存的少量网易云热门评论；首页切换歌曲时会显示对应热评，并提供原页面链接。
-- `source/_data/netease-stats.json`：网易云同步的每周 / 总榜前 20 首歌曲，以及关于我页面使用的官方听歌时长。排行默认走公开接口；配置 Cookie 后会读取登录接口，并单独请求“云村听歌足迹”的本周与累计总时长。
-- 网易云完整歌单：[Sakura 的收藏歌单](https://music.163.com/#/playlist?id=2203036705)。
-- 网易云个人页：[Sakura 的听歌排行](https://music.163.com/#/user/home?id=1441471952)。
-- `source/_posts/`：Markdown 文章；文章的 `cover` 会作为文章页顶部渐变背景。
+## 发布
 
-## 🧩 主题结构
+Cloudflare Pages 构建命令设置为 **`npm run build`**，输出目录仍为 **`public`**。如果后台仍配置 `npx hexo g`，需要先更新构建命令。线上更新状态以 Cloudflare Pages 的部署结果为准。
 
-当前主题代码统一位于 [`themes/sakura/`](themes/sakura/)，站点入口配置为 [`_config.sakura.yml`](_config.sakura.yml)。旧的根目录注入文件已迁入主题目录；Git 变更中看到旧路径删除，是代码搬迁而不是功能删除。播放器、Pjax、搜索、Giscus 评论和移动端布局都由 Sakura 主题维护。
+站点生成静态页面、Atom RSS、sitemap、search.xml、逐档 TXT 导出、404 和 PWA。PWA 按版本缓存界面、模型、字体与正文；图库原图和私人音乐按需联网加载，不在首页预下载整套媒体库。网易云更新任务所需的 `/about/` 同步时间标记已保留。
 
-主题的渲染基础参考并改造自 [hexo-theme-butterfly 5.5.3](https://github.com/jerryc127/hexo-theme-butterfly)，原始 Apache-2.0 许可证和归属信息保留在 [`themes/sakura/LICENSE`](themes/sakura/LICENSE) 与 [`themes/sakura/NOTICE.md`](themes/sakura/NOTICE.md)。Sakura 的页面设计、音乐交互和适配代码为本项目新增内容。
+## 来源与改动边界
 
-## 📁 目录速览
+上游固定版本：`12cc5e4013acb9408f753ff71de6b8492299b7c8`。详细来源、可回退说明与验证记录见 [迁移说明](docs/rhine-migration.md)。上游 MIT 许可证、Rolling Number 许可、MiSans 许可及 PR #15 贡献署名保留于 `static/rhine/`。上游需要独立授权、未进入 Git 的 Novecento 字体没有抓取或打包，使用原项目自带的固定图形回退。
 
-```text
-.
-├─ source/                 # 文章、页面、图片与本地音乐
-│  ├─ _posts/              # Markdown 文章
-│  ├─ _data/tracks.json    # 播放器歌曲数据
-│  └─ music/               # 音频文件（可迁移至 R2）
-├─ themes/sakura/          # 独立主题：模板、样式、脚本与资源
-├─ scripts/                # Hexo 扩展脚本
-├─ tools/                  # README 图表等维护工具
-├─ docs/                   # README 图表
-├─ _config.yml             # Hexo 基础配置
-├─ _config.sakura.yml      # Sakura 主题配置
-└─ compress.py             # 图片/资源压缩工具
-```
-
-## 🛠️ 本地开发
-
-环境要求：Node.js `>= 20.19.0`（Hexo 8）与 npm。
-
-```bash
-git clone https://github.com/HanaViolet/MyWeb.git
-cd MyWeb
-npm install
-npm run server       # http://localhost:4000
-```
-
-常用命令：
-
-```bash
-npm run build         # 生成 public/
-npm run clean         # 清理生成目录
-npm run listening:chart # 从歌曲数据与音频文件生成 docs/listening-archive.svg
-npm run netease:update  # 同步网易云周榜 / 总榜（可选 Cookie 页面抓取）
-npm run netease:comments # 手动同步选曲的网易云热门评论
-python compress.py    # 按脚本说明压缩图片资源
-```
-
-新增文章：
-
-```bash
-npx hexo new post "文章标题"
-```
-
-文章需要封面时，将图片放入同名资源文件夹，并在 Front Matter 中设置 `cover: /img/your-cover.jpg`。提交前建议执行 `npm run clean; npm run build`，确认生成成功后再推送。
-
-## 🔐 发布与隐私
-
-Cloudflare Pages 通过 Git 集成监听 `main` 分支并构建站点，因此普通提交和 `github-actions[bot]` 生成的数据提交都会自动触发生产部署。网易云更新任务在推送后还会轮询线上关于页，最多等待 10 分钟，只有确认本次 `updatedAt` 已经出现在 `https://sakura.luxe/about/` 才算完整成功；该校验不需要 Cloudflare API Token 或 Deploy Hook。若将音频迁移到 R2，建议使用公开只读对象 URL，并把管理凭据放在 Cloudflare Secrets 中；不要把 API Token、私有歌单或未获授权的音频提交到公开仓库。
-
-`.github/workflows/update-netease-stats.yml` 会每天按北京时间 00:17 更新 `source/_data/netease-stats.json` 并提交变更，Cloudflare Pages 随后自动重新构建。GitHub 定时任务可能延迟执行，页面会把 ISO 时间按 `Asia/Shanghai` 转换后显示。脚本会请求公开排行；如果配置了 GitHub Actions Secret `NETEASE_COOKIE`，会优先用无头 Chrome 打开个人页，并把同一登录态传给排行接口，以读取登录后页面或接口返回的播放次数。同时，脚本会并行调用同一组网易云听歌足迹接口：`/api/content/activity/listen/data/realtime/report`（`type=week`）获取本周值，`/api/content/activity/listen/data/total` 获取累计值。个人页明确展示的“本周收听时长”和“总时长”会优先作为两项的可见值，接口作为备用；不会再使用 Top 20 播放次数估算冒充账户总时长。累计接口的 `totalDuration` 是秒，脚本会统一转换为分钟；旧快照若曾把原始秒数写进 `*Minutes` 字段，页面会临时兼容并在下次同步后被替换。累计值如果小于本周值会被拒绝写入。生成文件会保留脱敏的字段路径、单位和校验状态，便于接口变更时排查。Cookie 只在 Actions 运行时注入，不会写入仓库或生成数据文件；过期后删除 / 更新该 Secret 即可。
-
-`.github/workflows/update-netease-comments.yml` 会每周按北京时间周一 00:31 更新 `source/_data/netease-comments.json`。它按 `tracks.json` 中的 `neteaseId` 请求热门评论，每首只缓存少量摘录，并保留网易云歌曲页链接；请求失败时会继续展示上一次缓存，不会让构建中断。评论内容来自网易云公开页面 / 接口，页面只展示必要的署名、获赞数和日期。
-
-热评抓取的资源路径与流程参考了 [《抓取网易云音乐热门评论》](https://chengjun.github.io/mybook/04-crawler-netease-music.html)；本项目改为在 Actions 中低频执行并生成静态数据，避免访客浏览器直接请求网易云。
-
-### 配置 Cookie 页面抓取（可选）
-
-如果希望关于我页面显示网易云“云村听歌足迹”返回的本周与累计总时长：
-
-1. 在浏览器登录网易云音乐，只复制自己账号的 Cookie 请求头内容，不要把 Cookie 发到聊天或提交到 Git。
-2. 打开 GitHub 仓库的 **Settings → Secrets and variables → Actions**，新建 Secret，名称填写 `NETEASE_COOKIE`，值粘贴 Cookie 内容。
-3. 手动运行 `Update NetEase listening stats`，确认生成的 `netease-stats.json` 中 `duration.available` 为 `true`，并检查 `duration.weeklyMinutes` 与 `duration.allTimeMinutes`。个人页两项都可见时，`duration.source` 为 `netease-profile-visible`；只有接口返回时为 `netease-listen-data`，混合使用时会同时标记两者。如果接口字段发生变化、页面抓取失败或 Cookie 过期，对应指标会显示 `—`，不会用 Top 20 播放次数估算冒充账户总时长；Actions 日志只出现字段摘要，不会打印 Cookie。
-
-本地运行时可临时设置环境变量 `NETEASE_COOKIE`（PowerShell 示例：`$env:NETEASE_COOKIE = '这里粘贴 Cookie'`，运行后用 `Remove-Item Env:NETEASE_COOKIE` 清除），也可以设置 `NETEASE_STORAGE_STATE_FILE` 指向 Playwright 的登录态 JSON；这些文件已加入 `.gitignore`。需要自定义 Chrome 路径时设置 `NETEASE_BROWSER_PATH`。脚本只读取登录态可访问的网易云页面与听歌足迹数据，不绕过登录、付费或访问控制；如果接口没有返回官方总时长，会明确保留“暂不可读”，不会用猜测值冒充听歌时长。
-
-## 📄 许可证与致谢
-
-本站原创文章、Sakura 页面设计和项目代码按仓库实际文件声明使用。主题中由 Butterfly 改造而来的渲染层继续遵循 Apache-2.0；第三方字体、图标、Busuanzi、Giscus 与 CDN 服务各自遵循其许可和服务条款，详见 [`themes/sakura/NOTICE.md`](themes/sakura/NOTICE.md)。感谢 Butterfly 社区提供的 Hexo 主题基础。
+这是基于非官方《明日方舟》莱茵生命界面的个人博客改编，与鹰角网络无隶属关系。

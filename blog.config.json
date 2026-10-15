@@ -1,0 +1,13 @@
+{
+  "title": "Sakura · 档案终端",
+  "description": "Sakura 的个人档案：音乐、代码、游戏、阅读与生活。",
+  "url": "https://sakura.luxe",
+  "author": "Sakura",
+  "columns": ["影像档案", "音乐档案", "文章档案", "资源档案", "个人档案"],
+  "giscus": {
+    "repo": "HanaViolet/MyWeb",
+    "repoId": "R_kgDOQ7fNzw",
+    "category": "Announcements",
+    "categoryId": "DIC_kwDOQ7fNz84C1EAw"
+  }
+}

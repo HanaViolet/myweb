@@ -1,0 +1,4 @@
+# Preserve the imported RhineLabUI bytes on Windows and Linux. The migration
+# verifies upstream source/model SHA-256 hashes in CI.
+src/** -text
+static/rhine/** -text

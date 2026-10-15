@@ -1,0 +1,21 @@
+:root { color-scheme: light; font-family: 'Microsoft YaHei', system-ui, sans-serif; background: #e8e5e1; color: #252820; }
+body { margin: 0; }
+#static-content { max-width: 820px; margin: 0 auto; padding: 36px 24px 80px; line-height: 1.9; overflow-wrap: anywhere; }
+#static-content a { color: #78561f; text-underline-offset: 4px; }
+#static-content .reader-nav { display: flex; gap: 20px; flex-wrap: wrap; border-bottom: 1px solid #b7b3a7; padding-bottom: 20px; margin-bottom: 32px; }
+#static-content h1 { font-size: clamp(25px, 5vw, 40px); line-height: 1.4; }
+#static-content img { max-width: 100%; height: auto; }
+#static-content pre { padding: 20px; overflow: auto; background: #dcd9d0; }
+#static-content blockquote { margin: 20px 0; padding-left: 20px; border-left: 3px solid #b58c47; }
+#static-content table { display: block; overflow: auto; border-collapse: collapse; }
+#static-content td, #static-content th { padding: 8px; border: 1px solid #b7b3a7; }
+.blog-list { display: grid; gap: 16px; }
+.blog-list > a { display: grid; padding: 16px 0; border-bottom: 1px solid #b7b3a7; text-decoration: none; }
+.blog-list small, .blog-list span { font-size: 13px; }
+.blog-tags { display: flex; flex-wrap: wrap; gap: 14px; margin: 20px 0; }
+.blog-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.blog-gallery figure { margin: 0; }
+.blog-gallery img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+.blog-tracks section, .resource-item { padding: 18px 0; border-bottom: 1px solid #b7b3a7; }
+.about-profile__portrait img { width: 180px; }
+[hidden] { display: none !important; }

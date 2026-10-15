@@ -1,0 +1,50 @@
+import assert from 'node:assert/strict';
+import { chromium } from 'playwright-core';
+import { mkdir, writeFile } from 'node:fs/promises';
+const base = process.env.BLOG_TEST_URL || 'http://127.0.0.1:4000';
+await mkdir('artifacts/rhine', { recursive: true });
+const browser = await chromium.launch({ channel: 'chrome', headless: true });
+const context = await browser.newContext({ viewport: { width: 1600, height: 900 } });
+const page = await context.newPage();
+const errors = [], failed = [];
+page.on('pageerror', e => errors.push(e.message));
+page.on('response', r => { if (r.url().startsWith(base) && r.status() >= 400) failed.push(`${r.status()} ${r.url()}`); });
+try {
+  await page.goto(base);
+  await page.locator('.entry-start:not([disabled])').waitFor({ state: 'visible', timeout: 60000 });
+  await page.screenshot({ path: 'artifacts/rhine/entry-default.png' });
+  await page.locator('.entry-start').click();
+  await page.waitForFunction(() => window.rhine?.stats().startup === 'started');
+  await page.locator('#skip').click();
+  await page.waitForFunction(() => window.rhine?.stats().mode === 'archive');
+  await page.waitForTimeout(2000);
+  await page.screenshot({ path: 'artifacts/rhine/desktop-original-quality.png' });
+  await page.locator('.read-file').click();
+  await page.waitForTimeout(4500);
+  await page.screenshot({ path: 'artifacts/rhine/desktop-original-detail.png' });
+  const geometry = await page.evaluate(() => {
+    const read = document.querySelector('#detail-content').getBoundingClientRect();
+    const powered = document.querySelector('.powered').getBoundingClientRect();
+    return { readBottom: read.bottom, poweredTop: powered.top };
+  });
+  assert(geometry.readBottom <= geometry.poweredTop, 'Reading area must not overlap attribution');
+  await page.locator('[data-action="model-viewer"]').click();
+  await page.waitForTimeout(2500);
+  await page.screenshot({ path: 'artifacts/rhine/model-viewer.png' });
+  await page.keyboard.press('Escape');
+  await page.waitForTimeout(400);
+  await page.locator('[data-action="settings"]').click();
+  await page.locator('[data-color-theme="dark"]').click();
+  await page.locator('[data-action="close-modal"]').click();
+  await page.waitForTimeout(1800);
+  await page.screenshot({ path: 'artifacts/rhine/desktop-dark.png' });
+  // The offline worker must cache nested HTML, not substitute the homepage.
+  await page.waitForFunction(() => document.documentElement.dataset.offlineReady === 'true', null, { timeout: 60000 });
+  await context.setOffline(true);
+  await page.goto(base + '/posts/b8e4a61c/?reader=1');
+  assert((await page.locator('#static-content').textContent()).includes('留一盏灯'));
+  await context.setOffline(false);
+  assert.deepEqual(errors, []); assert.deepEqual(failed, []);
+  await writeFile('artifacts/rhine/visual-report.json', JSON.stringify({ success: true, geometry, errors, failed, checks: ['original startup gate', 'default rendering', 'decryption detail', 'model viewer', 'dark theme', 'nested route offline reading'] }, null, 2));
+  console.log('Visual smoke passed: original quality, startup, detail, viewer, dark mode and nested offline reading.');
+} finally { await browser.close(); }

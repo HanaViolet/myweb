@@ -1,0 +1,51 @@
+/* Blog-only reading and media surfaces; upstream scene, HUD and motion remain intact. */
+.tab-panel:has(.blog-prose) { height: auto; min-height: 180px; overflow: visible; }
+#stage[data-layout="desktop"] .detail-content { max-height: calc(100% - 455px); }
+.blog-prose { font-size: 16px; line-height: 1.9; overflow-wrap: anywhere; padding-bottom: 18px; }
+.blog-prose p { text-align: start; }
+.detail-content .blog-prose h2 { font-size: 23px; letter-spacing: 0; line-height: 1.6; margin: 28px 0 12px; }
+.blog-prose h3 { font-size: 19px; line-height: 1.6; margin: 22px 0 10px; }
+.blog-prose img { max-width: 100%; height: auto; display: block; }
+.blog-prose pre { overflow: auto; padding: 16px; background: rgb(100 94 76 / 10%); font-size: 13px; line-height: 1.7; }
+.blog-prose code { font-family: Consolas, monospace; }
+.blog-prose table { display: block; overflow: auto; border-collapse: collapse; }
+.blog-prose td, .blog-prose th { border: 1px solid #a49d8e; padding: 8px; }
+.blog-prose blockquote { margin: 20px 0; padding: 0 16px; border-left: 2px solid #ae935a; }
+.blog-prose blockquote footer { font-size: 12px; opacity: .7; }
+.blog-prose a { color: inherit; text-decoration-color: #ae935a; text-underline-offset: 4px; }
+.blog-prose button { border: 1px solid #a49d8e; padding: 7px 14px; font-size: 13px; margin: 6px 0; }
+.blog-list { display: grid; gap: 12px; }
+.blog-list > a { display: grid; padding: 16px 0; border-bottom: 1px solid #aaa393; text-decoration: none; gap: 6px; }
+.blog-list small, .blog-list span { font-size: 12px; opacity: .75; }
+.blog-tags { display: flex; gap: 12px; flex-wrap: wrap; margin: 15px 0; font-size: 13px; }
+.blog-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.blog-gallery figure { margin: 0; }
+.blog-gallery img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+.blog-gallery figcaption { font-size: 11px; }
+.blog-tracks section, .blog-prose .resource-item { padding: 14px 0; border-bottom: 1px solid #aaa393; }
+.blog-prose .resource-item__top, .blog-prose .resource-item__footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; font-size: 12px; }
+.blog-prose .resource-nav { display: flex; gap: 18px; flex-wrap: wrap; margin: 18px 0; font-size: 13px; }
+.blog-prose .about-profile__portrait { margin-bottom: 20px; }
+.blog-prose .about-profile__portrait figure { margin: 0; }
+.blog-prose .about-profile__portrait img { width: 150px; }
+.blog-prose .about-profile__portrait div { font-size: 11px; display: flex; gap: 20px; margin-top: 10px; }
+.blog-prose .about-contact nav { display: grid; gap: 15px; }
+.blog-prose .about-contact nav a { display: flex; flex-wrap: wrap; gap: 14px; font-size: 12px; }
+.blog-credit { font-size: 9px; margin-left: 15px; color: inherit; text-decoration: none; }
+.blog-player { position: absolute; left: 65px; bottom: 125px; width: 300px; z-index: 14; padding: 16px; border: 1px solid #aaa393; background: var(--blog-player-bg, rgb(232 229 225 / 92%)); backdrop-filter: blur(12px); pointer-events: auto; }
+.blog-player a { color: inherit; text-decoration: none; }
+.blog-player strong { display: block; font-size: 14px; }
+.blog-player small { font-size: 10px; opacity: .7; }
+.blog-player-controls { display: flex; gap: 22px; margin-top: 10px; }
+.blog-player button { min-height: 32px; font-size: 12px; }
+.blog-player input { accent-color: #a68a4c; }
+.blog-player [data-player-seek] { display: block; width: 100%; margin: 10px 0 5px; }
+.blog-player label { display: inline-flex; align-items: center; font-size: 10px; margin-left: 14px; gap: 5px; }
+.blog-player [data-player-volume] { width: 65px; }
+#stage[data-mode="boot"] .blog-player { display: none; }
+:root[data-dark-surface="true"] .blog-player { --blog-player-bg: rgb(32 34 29 / 94%); }
+#stage[data-layout="portrait"] .blog-player { left: var(--edge); bottom: auto; top: 95px; width: min(290px, calc(100% - 2 * var(--edge))); }
+#stage[data-layout="compact"] .blog-player { left: var(--edge); bottom: 90px; width: 260px; }
+.entry-reader { color: inherit; font-size: 12px; margin-top: 18px; display: block; text-underline-offset: 4px; }
+.file-ticks button[hidden] { display: none !important; }
+.detail-title-cn { flex-wrap: wrap; }
