@@ -3,7 +3,7 @@
   "profileUrl": "https://music.163.com/#/user/home?id=1441471952",
   "source": "NetEase Cloud Music public play record API",
   "endpoint": "/api/v1/play/record",
-  "updatedAt": "2026-10-14T20:11:52.264Z",
+  "updatedAt": "2026-10-17T18:28:48.624Z",
   "timezone": "Asia/Shanghai",
   "rankLimit": 20,
   "scrape": {
@@ -15,8 +15,8 @@
     "message": "Cookie 页面和接口均未返回播放次数，已回退公开接口。"
   },
   "duration": {
-    "weeklyMinutes": 195,
-    "allTimeMinutes": 130033,
+    "weeklyMinutes": 343,
+    "allTimeMinutes": 130147,
     "available": true,
     "source": "netease-listen-data",
     "endpoints": {
@@ -31,7 +31,7 @@
       "allTime": {
         "path": "totalDuration",
         "unit": "seconds",
-        "rawValue": 7801998
+        "rawValue": 7808866
       }
     },
     "validation": {
@@ -63,7 +63,7 @@
       "album": "SINGALONG6",
       "durationMs": 285049,
       "playCount": 0,
-      "score": 33
+      "score": 28
     },
     {
       "rank": 3,
@@ -74,43 +74,21 @@
       "album": "二人称",
       "durationMs": 220711,
       "playCount": 0,
-      "score": 25
+      "score": 21
     },
     {
       "rank": 4,
-      "songId": 2123807718,
-      "title": "Color Your Night",
-      "alias": "染上夜色",
-      "artist": "Lotus Juice / 高橋あず美 / アトラスサウンドチーム / ATLUS GAME MUSIC",
-      "album": "ペルソナ3 リロード オリジナル・サウンドトラック",
-      "durationMs": 227240,
+      "songId": 487527980,
+      "title": "言って。",
+      "alias": "说吧。",
+      "artist": "ヨルシカ",
+      "album": "夏草が邪魔をする",
+      "durationMs": 242230,
       "playCount": 0,
-      "score": 25
+      "score": 14
     },
     {
       "rank": 5,
-      "songId": 518686034,
-      "title": "戒烟",
-      "alias": "",
-      "artist": "李荣浩",
-      "album": "戒烟",
-      "durationMs": 293875,
-      "playCount": 0,
-      "score": 16
-    },
-    {
-      "rank": 6,
-      "songId": 31654343,
-      "title": "不将就",
-      "alias": "电影《何以笙箫默》片尾主题曲",
-      "artist": "李荣浩",
-      "album": "有理想",
-      "durationMs": 312997,
-      "playCount": 0,
-      "score": 16
-    },
-    {
-      "rank": 7,
       "songId": 2607716396,
       "title": "忘れてください",
       "alias": "还请遗忘",
@@ -118,87 +96,32 @@
       "album": "忘れてください",
       "durationMs": 217682,
       "playCount": 0,
-      "score": 16
+      "score": 14
+    },
+    {
+      "rank": 6,
+      "songId": 2154219378,
+      "title": "はいよろこんで",
+      "alias": "乐意效劳",
+      "artist": "こっちのけんと",
+      "album": "はいよろこんで",
+      "durationMs": 161632,
+      "playCount": 0,
+      "score": 14
+    },
+    {
+      "rank": 7,
+      "songId": 1878036176,
+      "title": "花は買わない",
+      "alias": "我不买花",
+      "artist": "DADARAY",
+      "album": "ガーラ",
+      "durationMs": 273000,
+      "playCount": 0,
+      "score": 14
     },
     {
       "rank": 8,
-      "songId": 1930545400,
-      "title": "もうすぐ春なのに",
-      "alias": "尽管春天即将来临",
-      "artist": "熊木杏里",
-      "album": "もうすぐ春なのに",
-      "durationMs": 248000,
-      "playCount": 0,
-      "score": 16
-    },
-    {
-      "rank": 9,
-      "songId": 1829811265,
-      "title": "Rainy proof",
-      "alias": "落雨为我证明",
-      "artist": "HACHI",
-      "album": "Rainy proof",
-      "durationMs": 269480,
-      "playCount": 0,
-      "score": 16
-    },
-    {
-      "rank": 10,
-      "songId": 1397345903,
-      "title": "悬溺",
-      "alias": "",
-      "artist": "葛东琪",
-      "album": "第二街区",
-      "durationMs": 197083,
-      "playCount": 0,
-      "score": 16
-    },
-    {
-      "rank": 11,
-      "songId": 1361336636,
-      "title": "Come Back To Me",
-      "alias": "",
-      "artist": "宇多田ヒカル",
-      "album": "This Is The One",
-      "durationMs": 237946,
-      "playCount": 0,
-      "score": 16
-    },
-    {
-      "rank": 12,
-      "songId": 769651,
-      "title": "Standing Bird",
-      "alias": "",
-      "artist": "LOVE PSYCHEDELICO",
-      "album": "This is LOVE PSYCHEDELICO",
-      "durationMs": 300973,
-      "playCount": 0,
-      "score": 8
-    },
-    {
-      "rank": 13,
-      "songId": 740611,
-      "title": "明日の朝には",
-      "alias": "明日清晨",
-      "artist": "ハンバート ハンバート",
-      "album": "11のみじかい話",
-      "durationMs": 182764,
-      "playCount": 0,
-      "score": 8
-    },
-    {
-      "rank": 14,
-      "songId": 740558,
-      "title": "今晩はお月さん",
-      "alias": "今晚月色真好",
-      "artist": "ハンバート ハンバート",
-      "album": "今晩はお月さん",
-      "durationMs": 224522,
-      "playCount": 0,
-      "score": 8
-    },
-    {
-      "rank": 15,
       "songId": 640866,
       "title": "Secret",
       "alias": "",
@@ -206,10 +129,21 @@
       "album": "eclipse改",
       "durationMs": 276000,
       "playCount": 0,
-      "score": 8
+      "score": 7
     },
     {
-      "rank": 16,
+      "rank": 9,
+      "songId": 618325,
+      "title": "絆",
+      "alias": "",
+      "artist": "miu-clips",
+      "album": "Rhythm of My Heart",
+      "durationMs": 270893,
+      "playCount": 0,
+      "score": 7
+    },
+    {
+      "rank": 10,
       "songId": 609005,
       "title": "愛の実験",
       "alias": "爱的实验",
@@ -217,32 +151,21 @@
       "album": "呼吸",
       "durationMs": 326706,
       "playCount": 0,
-      "score": 8
+      "score": 7
     },
     {
-      "rank": 17,
-      "songId": 587778,
-      "title": "クルマレテ",
-      "alias": "覆盖",
-      "artist": "KOKIA",
-      "album": "心ばかり",
-      "durationMs": 282758,
-      "playCount": 0,
-      "score": 8
-    },
-    {
-      "rank": 18,
-      "songId": 557581315,
-      "title": "ヒッチコック",
-      "alias": "希区柯克 Hitchcock",
+      "rank": 11,
+      "songId": 557583335,
+      "title": "爆弾魔",
+      "alias": "炸弹魔",
       "artist": "ヨルシカ",
       "album": "負け犬にアンコールはいらない",
-      "durationMs": 222813,
+      "durationMs": 217026,
       "playCount": 0,
-      "score": 8
+      "score": 7
     },
     {
-      "rank": 19,
+      "rank": 12,
       "songId": 555142,
       "title": "そばにいるね",
       "alias": "留在我身边",
@@ -250,10 +173,10 @@
       "album": "そばにいるね",
       "durationMs": 304906,
       "playCount": 0,
-      "score": 8
+      "score": 7
     },
     {
-      "rank": 20,
+      "rank": 13,
       "songId": 536622304,
       "title": "Lemon",
       "alias": "日剧《非自然死亡》主题曲",
@@ -261,7 +184,84 @@
       "album": "Lemon",
       "durationMs": 256000,
       "playCount": 0,
-      "score": 8
+      "score": 7
+    },
+    {
+      "rank": 14,
+      "songId": 518686034,
+      "title": "戒烟",
+      "alias": "",
+      "artist": "李荣浩",
+      "album": "戒烟",
+      "durationMs": 293875,
+      "playCount": 0,
+      "score": 7
+    },
+    {
+      "rank": 15,
+      "songId": 493451293,
+      "title": "あの娘シークレット（Cover 初音ミク）",
+      "alias": "",
+      "artist": "Sawako碎花",
+      "album": "あの娘シークレット",
+      "durationMs": 232597,
+      "playCount": 0,
+      "score": 7
+    },
+    {
+      "rank": 16,
+      "songId": 487527984,
+      "title": "雲と幽霊",
+      "alias": "云与幽灵",
+      "artist": "ヨルシカ",
+      "album": "夏草が邪魔をする",
+      "durationMs": 315535,
+      "playCount": 0,
+      "score": 7
+    },
+    {
+      "rank": 17,
+      "songId": 487527983,
+      "title": "靴の花火",
+      "alias": "靴上烟火",
+      "artist": "ヨルシカ",
+      "album": "夏草が邪魔をする",
+      "durationMs": 303299,
+      "playCount": 0,
+      "score": 7
+    },
+    {
+      "rank": 18,
+      "songId": 474739593,
+      "title": "カサネテク",
+      "alias": "千层套路",
+      "artist": "中村千尋",
+      "album": "カサネテク",
+      "durationMs": 262235,
+      "playCount": 0,
+      "score": 7
+    },
+    {
+      "rank": 19,
+      "songId": 431259256,
+      "title": "カタオモイ",
+      "alias": "单相思",
+      "artist": "Aimer",
+      "album": "daydream",
+      "durationMs": 207934,
+      "playCount": 0,
+      "score": 7
+    },
+    {
+      "rank": 20,
+      "songId": 426881487,
+      "title": "前前前世 (movie ver.)",
+      "alias": "动画电影《你的名字。》主题曲",
+      "artist": "RADWIMPS",
+      "album": "君の名は。",
+      "durationMs": 284405,
+      "playCount": 0,
+      "score": 7
     }
   ],
   "allTime": [
@@ -417,7 +417,7 @@
       "album": "又三郎",
       "durationMs": 227731,
       "playCount": 0,
-      "score": 33
+      "score": 34
     },
     {
       "rank": 15,
@@ -443,23 +443,23 @@
     },
     {
       "rank": 17,
-      "songId": 557581314,
-      "title": "負け犬にアンコールはいらない",
-      "alias": "败犬不需要安可",
-      "artist": "ヨルシカ",
-      "album": "負け犬にアンコールはいらない",
-      "durationMs": 234293,
-      "playCount": 0,
-      "score": 30
-    },
-    {
-      "rank": 18,
       "songId": 1810759765,
       "title": "春泥棒",
       "alias": "盗春者",
       "artist": "ヨルシカ",
       "album": "春泥棒",
       "durationMs": 290279,
+      "playCount": 0,
+      "score": 30
+    },
+    {
+      "rank": 18,
+      "songId": 557581314,
+      "title": "負け犬にアンコールはいらない",
+      "alias": "败犬不需要安可",
+      "artist": "ヨルシカ",
+      "album": "負け犬にアンコールはいらない",
+      "durationMs": 234293,
       "playCount": 0,
       "score": 30
     },
@@ -483,7 +483,7 @@
       "album": "エルマ",
       "durationMs": 222756,
       "playCount": 0,
-      "score": 29
+      "score": 30
     }
   ],
   "notes": "本周和累计听歌时长来自网易云“云村听歌足迹”接口。"
