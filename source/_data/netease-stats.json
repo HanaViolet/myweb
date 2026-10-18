@@ -3,7 +3,7 @@
   "profileUrl": "https://music.163.com/#/user/home?id=1441471952",
   "source": "NetEase Cloud Music public play record API",
   "endpoint": "/api/v1/play/record",
-  "updatedAt": "2026-10-17T18:28:48.624Z",
+  "updatedAt": "2026-10-18T18:37:43.356Z",
   "timezone": "Asia/Shanghai",
   "rankLimit": 20,
   "scrape": {
@@ -15,8 +15,8 @@
     "message": "Cookie 页面和接口均未返回播放次数，已回退公开接口。"
   },
   "duration": {
-    "weeklyMinutes": 343,
-    "allTimeMinutes": 130147,
+    "weeklyMinutes": 0,
+    "allTimeMinutes": 130227,
     "available": true,
     "source": "netease-listen-data",
     "endpoints": {
@@ -31,7 +31,7 @@
       "allTime": {
         "path": "totalDuration",
         "unit": "seconds",
-        "rawValue": 7808866
+        "rawValue": 7813638
       }
     },
     "validation": {
@@ -67,23 +67,23 @@
     },
     {
       "rank": 3,
-      "songId": 3355480210,
-      "title": "花も騒めく",
-      "alias": "花亦喧嚣",
-      "artist": "ヨルシカ",
-      "album": "二人称",
-      "durationMs": 220711,
-      "playCount": 0,
-      "score": 21
-    },
-    {
-      "rank": 4,
       "songId": 487527980,
       "title": "言って。",
       "alias": "说吧。",
       "artist": "ヨルシカ",
       "album": "夏草が邪魔をする",
       "durationMs": 242230,
+      "playCount": 0,
+      "score": 14
+    },
+    {
+      "rank": 4,
+      "songId": 3355480210,
+      "title": "花も騒めく",
+      "alias": "花亦喧嚣",
+      "artist": "ヨルシカ",
+      "album": "二人称",
+      "durationMs": 220711,
       "playCount": 0,
       "score": 14
     },
@@ -111,17 +111,6 @@
     },
     {
       "rank": 7,
-      "songId": 1878036176,
-      "title": "花は買わない",
-      "alias": "我不买花",
-      "artist": "DADARAY",
-      "album": "ガーラ",
-      "durationMs": 273000,
-      "playCount": 0,
-      "score": 14
-    },
-    {
-      "rank": 8,
       "songId": 640866,
       "title": "Secret",
       "alias": "",
@@ -132,7 +121,7 @@
       "score": 7
     },
     {
-      "rank": 9,
+      "rank": 8,
       "songId": 618325,
       "title": "絆",
       "alias": "",
@@ -143,7 +132,7 @@
       "score": 7
     },
     {
-      "rank": 10,
+      "rank": 9,
       "songId": 609005,
       "title": "愛の実験",
       "alias": "爱的实验",
@@ -154,7 +143,7 @@
       "score": 7
     },
     {
-      "rank": 11,
+      "rank": 10,
       "songId": 557583335,
       "title": "爆弾魔",
       "alias": "炸弹魔",
@@ -165,7 +154,7 @@
       "score": 7
     },
     {
-      "rank": 12,
+      "rank": 11,
       "songId": 555142,
       "title": "そばにいるね",
       "alias": "留在我身边",
@@ -176,7 +165,7 @@
       "score": 7
     },
     {
-      "rank": 13,
+      "rank": 12,
       "songId": 536622304,
       "title": "Lemon",
       "alias": "日剧《非自然死亡》主题曲",
@@ -187,7 +176,7 @@
       "score": 7
     },
     {
-      "rank": 14,
+      "rank": 13,
       "songId": 518686034,
       "title": "戒烟",
       "alias": "",
@@ -198,7 +187,7 @@
       "score": 7
     },
     {
-      "rank": 15,
+      "rank": 14,
       "songId": 493451293,
       "title": "あの娘シークレット（Cover 初音ミク）",
       "alias": "",
@@ -209,7 +198,7 @@
       "score": 7
     },
     {
-      "rank": 16,
+      "rank": 15,
       "songId": 487527984,
       "title": "雲と幽霊",
       "alias": "云与幽灵",
@@ -220,7 +209,7 @@
       "score": 7
     },
     {
-      "rank": 17,
+      "rank": 16,
       "songId": 487527983,
       "title": "靴の花火",
       "alias": "靴上烟火",
@@ -231,7 +220,7 @@
       "score": 7
     },
     {
-      "rank": 18,
+      "rank": 17,
       "songId": 474739593,
       "title": "カサネテク",
       "alias": "千层套路",
@@ -242,7 +231,7 @@
       "score": 7
     },
     {
-      "rank": 19,
+      "rank": 18,
       "songId": 431259256,
       "title": "カタオモイ",
       "alias": "单相思",
@@ -253,13 +242,24 @@
       "score": 7
     },
     {
+      "rank": 19,
+      "songId": 406475394,
+      "title": "Wonderful U (Demo Version)",
+      "alias": "",
+      "artist": "AGA",
+      "album": "Ginadoll",
+      "durationMs": 248551,
+      "playCount": 0,
+      "score": 7
+    },
+    {
       "rank": 20,
-      "songId": 426881487,
-      "title": "前前前世 (movie ver.)",
-      "alias": "动画电影《你的名字。》主题曲",
-      "artist": "RADWIMPS",
-      "album": "君の名は。",
-      "durationMs": 284405,
+      "songId": 3373113236,
+      "title": "あぶく",
+      "alias": "泡沫",
+      "artist": "ヨルシカ",
+      "album": "あぶく",
+      "durationMs": 234613,
       "playCount": 0,
       "score": 7
     }
