@@ -3,7 +3,7 @@
   "profileUrl": "https://music.163.com/#/user/home?id=1441471952",
   "source": "NetEase Cloud Music public play record API",
   "endpoint": "/api/v1/play/record",
-  "updatedAt": "2026-10-18T18:37:43.356Z",
+  "updatedAt": "2026-10-20T19:59:45.038Z",
   "timezone": "Asia/Shanghai",
   "rankLimit": 20,
   "scrape": {
@@ -15,8 +15,8 @@
     "message": "Cookie 页面和接口均未返回播放次数，已回退公开接口。"
   },
   "duration": {
-    "weeklyMinutes": 0,
-    "allTimeMinutes": 130227,
+    "weeklyMinutes": 259,
+    "allTimeMinutes": 130440,
     "available": true,
     "source": "netease-listen-data",
     "endpoints": {
@@ -31,7 +31,7 @@
       "allTime": {
         "path": "totalDuration",
         "unit": "seconds",
-        "rawValue": 7813638
+        "rawValue": 7826441
       }
     },
     "validation": {
@@ -56,28 +56,6 @@
     },
     {
       "rank": 2,
-      "songId": 31546854,
-      "title": "月光食堂",
-      "alias": "",
-      "artist": "古川本舗 / ちびた",
-      "album": "SINGALONG6",
-      "durationMs": 285049,
-      "playCount": 0,
-      "score": 28
-    },
-    {
-      "rank": 3,
-      "songId": 487527980,
-      "title": "言って。",
-      "alias": "说吧。",
-      "artist": "ヨルシカ",
-      "album": "夏草が邪魔をする",
-      "durationMs": 242230,
-      "playCount": 0,
-      "score": 14
-    },
-    {
-      "rank": 4,
       "songId": 3355480210,
       "title": "花も騒めく",
       "alias": "花亦喧嚣",
@@ -85,10 +63,54 @@
       "album": "二人称",
       "durationMs": 220711,
       "playCount": 0,
-      "score": 14
+      "score": 33
+    },
+    {
+      "rank": 3,
+      "songId": 19572271,
+      "title": "Gotta Have You",
+      "alias": "",
+      "artist": "The Weepies",
+      "album": "Say I Am You",
+      "durationMs": 199786,
+      "playCount": 0,
+      "score": 25
+    },
+    {
+      "rank": 4,
+      "songId": 1487501535,
+      "title": "春夢",
+      "alias": "",
+      "artist": "May'n",
+      "album": "15Colors -nu skool-",
+      "durationMs": 226307,
+      "playCount": 0,
+      "score": 25
     },
     {
       "rank": 5,
+      "songId": 487527980,
+      "title": "言って。",
+      "alias": "说吧。",
+      "artist": "ヨルシカ",
+      "album": "夏草が邪魔をする",
+      "durationMs": 242230,
+      "playCount": 0,
+      "score": 16
+    },
+    {
+      "rank": 6,
+      "songId": 32619064,
+      "title": "年轮",
+      "alias": "电视剧《花千骨》插曲",
+      "artist": "张碧晨",
+      "album": "花千骨 电视原声带",
+      "durationMs": 274504,
+      "playCount": 0,
+      "score": 16
+    },
+    {
+      "rank": 7,
       "songId": 2607716396,
       "title": "忘れてください",
       "alias": "还请遗忘",
@@ -96,10 +118,10 @@
       "album": "忘れてください",
       "durationMs": 217682,
       "playCount": 0,
-      "score": 14
+      "score": 16
     },
     {
-      "rank": 6,
+      "rank": 8,
       "songId": 2154219378,
       "title": "はいよろこんで",
       "alias": "乐意效劳",
@@ -107,21 +129,131 @@
       "album": "はいよろこんで",
       "durationMs": 161632,
       "playCount": 0,
-      "score": 14
+      "score": 16
     },
     {
-      "rank": 7,
-      "songId": 640866,
-      "title": "Secret",
-      "alias": "",
-      "artist": "茶太",
-      "album": "eclipse改",
-      "durationMs": 276000,
+      "rank": 9,
+      "songId": 2111695133,
+      "title": "遠吠え",
+      "alias": "远吠",
+      "artist": "chilldspot",
+      "album": "まだらもよう",
+      "durationMs": 217213,
       "playCount": 0,
-      "score": 7
+      "score": 16
     },
     {
-      "rank": 8,
+      "rank": 10,
+      "songId": 1970535364,
+      "title": "刺激による彼ら",
+      "alias": "激情的他们",
+      "artist": "八木海莉",
+      "album": "刺激による彼ら",
+      "durationMs": 262200,
+      "playCount": 0,
+      "score": 16
+    },
+    {
+      "rank": 11,
+      "songId": 1965308423,
+      "title": "your trip",
+      "alias": "Your Trip",
+      "artist": "chilldspot",
+      "album": "around dusk",
+      "durationMs": 244376,
+      "playCount": 0,
+      "score": 16
+    },
+    {
+      "rank": 12,
+      "songId": 1878036176,
+      "title": "花は買わない",
+      "alias": "我不买花",
+      "artist": "DADARAY",
+      "album": "ガーラ",
+      "durationMs": 273000,
+      "playCount": 0,
+      "score": 16
+    },
+    {
+      "rank": 13,
+      "songId": 1810759765,
+      "title": "春泥棒",
+      "alias": "盗春者",
+      "artist": "ヨルシカ",
+      "album": "春泥棒",
+      "durationMs": 290279,
+      "playCount": 0,
+      "score": 16
+    },
+    {
+      "rank": 14,
+      "songId": 1387098936,
+      "title": "雨晴るる",
+      "alias": "雨后天晴",
+      "artist": "ヨルシカ",
+      "album": "エルマ",
+      "durationMs": 222756,
+      "playCount": 0,
+      "score": 16
+    },
+    {
+      "rank": 15,
+      "songId": 1361336636,
+      "title": "Come Back To Me",
+      "alias": "",
+      "artist": "宇多田ヒカル",
+      "album": "This Is The One",
+      "durationMs": 237946,
+      "playCount": 0,
+      "score": 16
+    },
+    {
+      "rank": 16,
+      "songId": 1357953768,
+      "title": "だから僕は音楽を辞めた",
+      "alias": "所以我放弃了音乐",
+      "artist": "ヨルシカ",
+      "album": "だから僕は音楽を辞めた",
+      "durationMs": 242973,
+      "playCount": 0,
+      "score": 16
+    },
+    {
+      "rank": 17,
+      "songId": 1348704277,
+      "title": "眩しいDNAだけ",
+      "alias": "只是耀眼的DNA",
+      "artist": "ずっと真夜中でいいのに。",
+      "album": "眩しいDNAだけ",
+      "durationMs": 227173,
+      "playCount": 0,
+      "score": 16
+    },
+    {
+      "rank": 18,
+      "songId": 1331310670,
+      "title": "雪の華",
+      "alias": "雪花",
+      "artist": "Uru",
+      "album": "プロローグ",
+      "durationMs": 319320,
+      "playCount": 0,
+      "score": 16
+    },
+    {
+      "rank": 19,
+      "songId": 769937,
+      "title": "I will be with you",
+      "alias": "I will be with you",
+      "artist": "LOVE PSYCHEDELICO",
+      "album": "I will be with you",
+      "durationMs": 261100,
+      "playCount": 0,
+      "score": 8
+    },
+    {
+      "rank": 20,
       "songId": 618325,
       "title": "絆",
       "alias": "",
@@ -129,139 +261,7 @@
       "album": "Rhythm of My Heart",
       "durationMs": 270893,
       "playCount": 0,
-      "score": 7
-    },
-    {
-      "rank": 9,
-      "songId": 609005,
-      "title": "愛の実験",
-      "alias": "爱的实验",
-      "artist": "Salyu",
-      "album": "呼吸",
-      "durationMs": 326706,
-      "playCount": 0,
-      "score": 7
-    },
-    {
-      "rank": 10,
-      "songId": 557583335,
-      "title": "爆弾魔",
-      "alias": "炸弹魔",
-      "artist": "ヨルシカ",
-      "album": "負け犬にアンコールはいらない",
-      "durationMs": 217026,
-      "playCount": 0,
-      "score": 7
-    },
-    {
-      "rank": 11,
-      "songId": 555142,
-      "title": "そばにいるね",
-      "alias": "留在我身边",
-      "artist": "青山テルマ / SoulJa",
-      "album": "そばにいるね",
-      "durationMs": 304906,
-      "playCount": 0,
-      "score": 7
-    },
-    {
-      "rank": 12,
-      "songId": 536622304,
-      "title": "Lemon",
-      "alias": "日剧《非自然死亡》主题曲",
-      "artist": "米津玄師",
-      "album": "Lemon",
-      "durationMs": 256000,
-      "playCount": 0,
-      "score": 7
-    },
-    {
-      "rank": 13,
-      "songId": 518686034,
-      "title": "戒烟",
-      "alias": "",
-      "artist": "李荣浩",
-      "album": "戒烟",
-      "durationMs": 293875,
-      "playCount": 0,
-      "score": 7
-    },
-    {
-      "rank": 14,
-      "songId": 493451293,
-      "title": "あの娘シークレット（Cover 初音ミク）",
-      "alias": "",
-      "artist": "Sawako碎花",
-      "album": "あの娘シークレット",
-      "durationMs": 232597,
-      "playCount": 0,
-      "score": 7
-    },
-    {
-      "rank": 15,
-      "songId": 487527984,
-      "title": "雲と幽霊",
-      "alias": "云与幽灵",
-      "artist": "ヨルシカ",
-      "album": "夏草が邪魔をする",
-      "durationMs": 315535,
-      "playCount": 0,
-      "score": 7
-    },
-    {
-      "rank": 16,
-      "songId": 487527983,
-      "title": "靴の花火",
-      "alias": "靴上烟火",
-      "artist": "ヨルシカ",
-      "album": "夏草が邪魔をする",
-      "durationMs": 303299,
-      "playCount": 0,
-      "score": 7
-    },
-    {
-      "rank": 17,
-      "songId": 474739593,
-      "title": "カサネテク",
-      "alias": "千层套路",
-      "artist": "中村千尋",
-      "album": "カサネテク",
-      "durationMs": 262235,
-      "playCount": 0,
-      "score": 7
-    },
-    {
-      "rank": 18,
-      "songId": 431259256,
-      "title": "カタオモイ",
-      "alias": "单相思",
-      "artist": "Aimer",
-      "album": "daydream",
-      "durationMs": 207934,
-      "playCount": 0,
-      "score": 7
-    },
-    {
-      "rank": 19,
-      "songId": 406475394,
-      "title": "Wonderful U (Demo Version)",
-      "alias": "",
-      "artist": "AGA",
-      "album": "Ginadoll",
-      "durationMs": 248551,
-      "playCount": 0,
-      "score": 7
-    },
-    {
-      "rank": 20,
-      "songId": 3373113236,
-      "title": "あぶく",
-      "alias": "泡沫",
-      "artist": "ヨルシカ",
-      "album": "あぶく",
-      "durationMs": 234613,
-      "playCount": 0,
-      "score": 7
+      "score": 8
     }
   ],
   "allTime": [
@@ -465,23 +465,23 @@
     },
     {
       "rank": 19,
-      "songId": 2061225325,
-      "title": "灰かぶり",
-      "alias": "灰姑娘",
-      "artist": "十明",
-      "album": "灰かぶり",
-      "durationMs": 220714,
-      "playCount": 0,
-      "score": 30
-    },
-    {
-      "rank": 20,
       "songId": 1387098936,
       "title": "雨晴るる",
       "alias": "雨后天晴",
       "artist": "ヨルシカ",
       "album": "エルマ",
       "durationMs": 222756,
+      "playCount": 0,
+      "score": 30
+    },
+    {
+      "rank": 20,
+      "songId": 1348704277,
+      "title": "眩しいDNAだけ",
+      "alias": "只是耀眼的DNA",
+      "artist": "ずっと真夜中でいいのに。",
+      "album": "眩しいDNAだけ",
+      "durationMs": 227173,
       "playCount": 0,
       "score": 30
     }
