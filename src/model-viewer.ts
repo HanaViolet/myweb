@@ -15,6 +15,7 @@ import { fullMotion, type MotionPreferences } from "./motion-preferences";
 import { inputDevice, onInputDevice } from "./gamepad";
 
 const PARTS = [
+  { id: "front-cover", label: "封面", en: "ARTICLE COVER", depth: 3.1 },
   { id: "fasteners", label: "紧固件", en: "FASTENERS", depth: 2.75 },
   { id: "cover", label: "透明盖板", en: "OPTICAL COVER", depth: 1.85 },
   {
@@ -71,6 +72,8 @@ export class ModelViewer {
   private groups = new Map<string, THREE.Group>();
   private spread = { value: 0, velocity: 0 };
   private targetSpread = 0;
+  private coverSpread = { value: 0, velocity: 0 };
+  private targetCoverSpread = 0;
   private clarity = { value: 1, velocity: 0 };
   private targetClarity = 1;
   private lastTime = 0;
@@ -114,7 +117,7 @@ export class ModelViewer {
         <span class="viewer-index">360<span>°</span></span>
       </header>
       <div class="viewer-surface" role="group" aria-label="玻璃模式"><button data-viewer="clear" aria-pressed="true">清晰</button><button data-viewer="frosted" aria-pressed="false">磨砂</button></div>
-      <aside class="viewer-parts" aria-label="模型装配结构"><div>ASSEMBLY / 装配结构</div>${PARTS.map((p, i) => `<p><span>${String(i + 1).padStart(2, "0")}</span><strong>${p.label}</strong><small>${p.en}</small></p>`).join("")}</aside>
+      <aside class="viewer-parts" aria-label="模型装配结构"><div>ASSEMBLY / 装配结构</div>${PARTS.map((p, i) => p.id === "front-cover" ? `<button type="button" class="viewer-part" data-viewer-part="front-cover" aria-pressed="false"><span>${String(i + 1).padStart(2, "0")}</span><strong>${p.label}</strong><small>点击拆下 · ${p.en}</small></button>` : `<p><span>${String(i + 1).padStart(2, "0")}</span><strong>${p.label}</strong><small>${p.en}</small></p>`).join("")}</aside>
       <div class="viewer-loading" role="status"><span>正在载入模型…</span><button data-viewer="retry" hidden>重新载入 ↗</button></div>
       <footer class="viewer-footer">
         <div class="viewer-help"><span>拖动旋转</span><span>↑ ↓ ← → 平移</span><span>滚轮缩放</span></div>
@@ -192,6 +195,13 @@ export class ModelViewer {
         this.resetView();
         this.onSound("tick");
       }
+      const part = (event.target as HTMLElement).closest<HTMLElement>(
+        "[data-viewer-part]",
+      )?.dataset.viewerPart;
+      if (part === "front-cover") {
+        this.toggleCover();
+        this.onSound(this.targetCoverSpread ? "explode" : "assemble");
+      }
     });
     this.root.addEventListener("keydown", (event) => this.keydown(event));
   }
@@ -220,6 +230,7 @@ export class ModelViewer {
       this.modelTransition = undefined;
       this.clarity = { value: this.targetClarity, velocity: 0 };
       this.spread = { value: this.targetSpread, velocity: 0 };
+      this.coverSpread = { value: this.targetCoverSpread, velocity: 0 };
     }
   }
 
@@ -249,6 +260,9 @@ export class ModelViewer {
       "FILE " + id + " / INTERNAL DATABASE";
     this.spread = { value: 0, velocity: 0 };
     this.targetSpread = 0;
+    this.coverSpread = { value: 0, velocity: 0 };
+    this.targetCoverSpread = 0;
+    this.root.dataset.cover = "false";
     this.clarity = { value: 1, velocity: 0 };
     this.setSurface(true);
     this.lastTime = 0;
@@ -287,6 +301,11 @@ export class ModelViewer {
         group?.add(child);
       }
       for (const group of this.groups.values()) source.model.add(group);
+      const coverButton = this.root.querySelector<HTMLElement>(
+        '[data-viewer-part="front-cover"]',
+      );
+      if (coverButton)
+        coverButton.hidden = !this.groups.get("front-cover")?.children.length;
       source.model.position.set(0, -1.85, 0);
       this.scene.add(source.model);
       applyTextureQuality(source.model, this.renderer, this.quality);
@@ -447,18 +466,45 @@ export class ModelViewer {
   }
   private setExploded(value: boolean) {
     this.targetSpread = value ? 1 : 0;
+    if (!value) this.targetCoverSpread = 0;
     this.root.dataset.exploded = String(value);
+    this.root.dataset.cover = String(Boolean(this.targetCoverSpread));
     this.root
       .querySelector('[data-viewer="explode"]')!
       .setAttribute("aria-pressed", String(value));
     this.root
       .querySelector('[data-viewer="assemble"]')!
       .setAttribute("aria-pressed", String(!value));
+    this.setCoverButton(this.targetCoverSpread === 1);
     this.setStatus(
       value ? "正在拆解" : this.spread.value > 0.001 ? "正在重组" : "已组装",
     );
-    if (!this.motion.viewerModelTransition)
+    if (!this.motion.viewerModelTransition) {
       this.spread = { value: this.targetSpread, velocity: 0 };
+      if (!value) this.coverSpread = { value: 0, velocity: 0 };
+    }
+  }
+  private toggleCover() {
+    this.targetCoverSpread = this.targetCoverSpread ? 0 : 1;
+    this.root.dataset.cover = String(Boolean(this.targetCoverSpread));
+    this.setCoverButton(this.targetCoverSpread === 1);
+    this.setStatus(
+      this.targetCoverSpread ? "正在拆下封面" : "正在装回封面",
+    );
+    if (!this.motion.viewerModelTransition)
+      this.coverSpread = { value: this.targetCoverSpread, velocity: 0 };
+  }
+  private setCoverButton(pressed: boolean) {
+    const button = this.root.querySelector<HTMLElement>(
+      '[data-viewer-part="front-cover"]',
+    );
+    if (!button) return;
+    button.setAttribute("aria-pressed", String(pressed));
+    const note = button.querySelector("small");
+    if (note)
+      note.textContent = pressed
+        ? "点击装回 · ARTICLE COVER"
+        : "点击拆下 · ARTICLE COVER";
   }
   private setStatus(value: string) {
     if (value !== this.status) {
@@ -623,18 +669,33 @@ export class ModelViewer {
       )
         this.clarity = { value: this.targetClarity, velocity: 0 };
       this.source.setClarity?.(this.clarity.value);
-      if (this.motion.viewerModelTransition)
+      if (this.motion.viewerModelTransition) {
         damp(this.spread, this.targetSpread, 5.5, dt);
-      else this.spread = { value: this.targetSpread, velocity: 0 };
+        damp(this.coverSpread, this.targetCoverSpread, 5.5, dt);
+      } else {
+        this.spread = { value: this.targetSpread, velocity: 0 };
+        this.coverSpread = { value: this.targetCoverSpread, velocity: 0 };
+      }
       if (
         Math.abs(this.spread.value - this.targetSpread) < 0.0001 &&
-        Math.abs(this.spread.velocity) < 0.001
+        Math.abs(this.spread.velocity) < 0.001 &&
+        Math.abs(this.coverSpread.value - this.targetCoverSpread) < 0.0001
       ) {
         this.spread = { value: this.targetSpread, velocity: 0 };
-        this.setStatus(this.targetSpread ? "已拆解" : "已组装");
+        this.coverSpread = { value: this.targetCoverSpread, velocity: 0 };
+        this.setStatus(
+          this.targetCoverSpread
+            ? "封面已拆下"
+            : this.targetSpread
+              ? "已拆解"
+              : "已组装",
+        );
       }
       for (const part of PARTS) {
-        this.groups.get(part.id)!.position.z = part.depth * this.spread.value;
+        const extra =
+          part.id === "front-cover" ? 1.5 * this.coverSpread.value : 0;
+        this.groups.get(part.id)!.position.z =
+          part.depth * this.spread.value + extra;
       }
     }
     this.controls.update();
@@ -671,6 +732,8 @@ export class ModelViewer {
       targetClarity: this.targetClarity,
       spread: this.spread.value,
       target: this.targetSpread,
+      coverSpread: this.coverSpread.value,
+      coverTarget: this.targetCoverSpread,
       distance: this.camera.position.distanceTo(this.cameraMotion.focus),
       targetPosition: this.cameraMotion.focus.toArray(),
       requestedTarget: this.controls.target.toArray(),

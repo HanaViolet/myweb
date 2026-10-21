@@ -1,7 +1,8 @@
 /* Blog-only reading and media surfaces; upstream scene, HUD and motion remain intact. */
 .tab-panel:has(.blog-prose) { height: auto; min-height: 180px; overflow: visible; }
-#stage[data-layout="desktop"] .detail-content { max-height: calc(100% - 455px); }
+#stage[data-layout="desktop"] .detail-content { max-height: calc(100% - 345px); }
 .blog-prose { font-size: 16px; line-height: 1.9; overflow-wrap: anywhere; padding-bottom: 18px; }
+#stage[data-layout="desktop"] .blog-prose { font-size: 17px; line-height: 1.95; }
 .blog-prose p { text-align: start; }
 .detail-content .blog-prose h2 { font-size: 23px; letter-spacing: 0; line-height: 1.6; margin: 28px 0 12px; }
 .blog-prose h3 { font-size: 19px; line-height: 1.6; margin: 22px 0 10px; }

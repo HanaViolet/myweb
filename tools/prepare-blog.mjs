@@ -88,7 +88,7 @@ for (const file of (await readdir('source/_posts')).filter(f => f.endsWith('.md'
   catch (error) { if (error.code !== 'ENOENT') throw error; }
   const tags = [data.tags || []].flat();
   const categories = [data.categories || []].flat();
-  const cover = data.cover ? new URL(data.cover, config.url + route).pathname : '/img/og.png';
+  const cover = data.cover ? new URL(data.cover, config.url + route).pathname : '';
   posts.push({ route, title: data.title, html, tags, categories, cover, date: String(data.date).slice(0, 10), abstract: data.description || text(html).slice(0, 140), comments: data.comments !== false, sourceFile: `source/_posts/${file}` });
 }
 posts.sort((a, b) => b.date.localeCompare(a.date));

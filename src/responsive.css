@@ -3,7 +3,10 @@
 /* Opening artwork keeps undistorted local coordinates while its backdrop and
    3D canvas fill the actual display. Corner identity remains edge anchored. */
 [data-layout="opening"] .boot { inset: auto; left: calc(50% - 960px); top: calc(50% - 540px); width: 1920px; height: 1080px; }
-[data-layout="opening"] .boot-white { left: calc((1920px - var(--opening-width)) / 2); top: calc((1080px - var(--opening-height)) / 2); width: var(--opening-width); height: var(--opening-height); right: auto; bottom: auto; }
+/* The white sweep belongs to the whole stage, not to the 1920×1080 artwork
+   reference. Sizing it from --opening-width shifted it on ultrawide/portrait
+   screens and left a bare background strip on one edge. */
+[data-layout="opening"] .boot-white { inset: 0; width: auto; height: auto; }
 [data-layout="opening"] .scan { transform: scale(var(--opening-scan-scale)); transform-origin: center; }
 [data-layout="opening"][data-opening-portrait="true"] :is(.access-text, .auth-status) { font-size: 36px; }
 [data-layout="opening"][data-opening-portrait="true"] .scan > span { font-size: 52px !important; letter-spacing: 1px !important; }
@@ -35,7 +38,8 @@
 [data-layout="desktop"] .archive-navigation { left: 26.25%; }
 [data-layout="desktop"] .column-navigation { left: 52.34375%; }
 [data-layout="desktop"] .archive-hint { left: 26.302083%; }
-[data-layout="desktop"] .detail-content { left: 60.104167%; width: min(636px, 33.125%); max-height: calc(100% - 369px); overflow-y: auto; scrollbar-width: thin; }
+[data-layout="desktop"] .detail-content { left: 53.5%; width: min(900px, 42.5%); top: 190px; max-height: calc(100% - 345px); overflow-y: auto; scrollbar-width: thin; scrollbar-gutter: stable; }
+[data-layout="desktop"] .back-button { top: 246px; }
 [data-layout="desktop"] .terminal-modal { max-width: calc(100% - 100px); }
 [data-layout="desktop"] .viewer-help, [data-layout="desktop"] .viewer-reset { width: 25%; }
 
@@ -221,4 +225,27 @@
   [data-layout="compact"] .system-nav { gap: 8px; }
   [data-layout="compact"] .system-nav [data-action="search"] { font-size: 0; gap: 0; }
   [data-layout="compact"] .viewer-help { max-width: 110px; }
+}
+:is([data-layout="compact"], [data-layout="portrait"]) .system-nav .nav-label,
+:is([data-layout="compact"], [data-layout="portrait"]) .system-nav .nav-count,
+:is([data-layout="compact"], [data-layout="portrait"]) .system-nav .key {
+  display: none;
+}
+:is([data-layout="compact"], [data-layout="portrait"]) .system-nav .nav-cn {
+  display: inline;
+}
+:is([data-layout="compact"], [data-layout="portrait"]) .system-nav button[data-action="search"] {
+  font-size: 11px;
+  gap: 6px;
+}
+:is([data-layout="compact"], [data-layout="portrait"]) .directory-meta {
+  flex-direction: column;
+  gap: 4px;
+}
+:is([data-layout="compact"], [data-layout="portrait"]) .directory-meta span:last-child {
+  text-align: left;
+}
+:is([data-layout="compact"], [data-layout="portrait"]) .archive-directory {
+  margin-top: 8px;
+  min-height: 32px;
 }

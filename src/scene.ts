@@ -20,7 +20,7 @@ import { applyTextureQuality, resizeQuality } from "./quality-renderer";
 import { CardAppearance } from "./appearance";
 import { configureInternalOptics } from "./internal-optics";
 import { DecryptionController } from "./decryption";
-import { fileAtSlot, fileLocation } from "./data";
+import { fileAtSlot, fileLocation, records } from "./data";
 import {
   cellKey,
   sameCell,
@@ -57,6 +57,18 @@ const ease = (t: number) => {
   t = THREE.MathUtils.clamp(t, 0, 1);
   return t * t * t * (t * (t * 6 - 15) + 10);
 };
+
+// Article artwork is a printed inner sheet. It sits behind the frosted polymer
+// and behind the optical rings: Three.js transmission only samples opaque
+// surfaces, so a transparent plane behind the glass would disappear entirely.
+// The image is blended into the paper colour instead, which keeps the rings in
+// front and reads as a muted print inside the glass.
+const COVER_WIDTH = 4.55;
+const COVER_HEIGHT = 3.35;
+const COVER_Z = 0.12;
+const COVER_BLEND = 0.55;
+const COVER_CANVAS_WIDTH = 1024;
+const COVER_CANVAS_HEIGHT = 756;
 export class ArchiveScene {
   private inputEvents = new AbortController();
   private presence = 1;
@@ -240,6 +252,11 @@ export class ArchiveScene {
   private labelCanvas = document.createElement("canvas");
   private labelTexture?: THREE.CanvasTexture;
   private labelMark = new Image();
+  private coverCanvas = document.createElement("canvas");
+  private coverTexture?: THREE.CanvasTexture;
+  private coverMesh?: THREE.Mesh;
+  private coverImages = new Map<string, HTMLImageElement | null>();
+  private selectedIndex = 0;
   private motion: MotionPreferences = fullMotion();
   private quality = normalizeQuality(undefined);
   private appliedQuality = "";
@@ -485,6 +502,24 @@ export class ArchiveScene {
     this.labelTexture.colorSpace = THREE.SRGBColorSpace;
     this.labelTexture.anisotropy =
       this.renderer.capabilities.getMaxAnisotropy();
+    this.coverCanvas.width = COVER_CANVAS_WIDTH;
+    this.coverCanvas.height = COVER_CANVAS_HEIGHT;
+    this.coverTexture = new THREE.CanvasTexture(this.coverCanvas);
+    this.coverTexture.colorSpace = THREE.SRGBColorSpace;
+    this.coverTexture.anisotropy =
+      this.renderer.capabilities.getMaxAnisotropy();
+    this.coverMesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(COVER_WIDTH, COVER_HEIGHT),
+      new THREE.MeshBasicMaterial({
+        map: this.coverTexture,
+        toneMapped: false,
+        side: THREE.DoubleSide,
+      }),
+    );
+    this.coverMesh.position.set(0, 1.85, COVER_Z);
+    this.coverMesh.name = "inner-cover";
+    this.coverMesh.userData.assemblyPart = "front-cover";
+    this.model.add(this.coverMesh);
     const label = new THREE.Mesh(
       new THREE.PlaneGeometry(0.99, 0.46),
       new THREE.MeshBasicMaterial({
@@ -499,6 +534,7 @@ export class ArchiveScene {
     this.appearance.prepare(this.model);
     this.appearance.apply(this.model, 0);
     this.drawLabel(0);
+    this.drawCover(0);
     this.scene.add(this.model);
     this.model.position.copy(this.cellPosition(poolCell(this.selectedSlot)));
     this.loaded = true;
@@ -560,6 +596,29 @@ export class ArchiveScene {
     label.userData.themeAmount.value = this.themeAmount;
     model.add(label);
     meshes.push(label);
+    const coverCanvas = document.createElement("canvas");
+    let coverTexture: THREE.CanvasTexture | undefined;
+    if (this.coverMesh?.visible) {
+      coverCanvas.width = this.coverCanvas.width;
+      coverCanvas.height = this.coverCanvas.height;
+      coverCanvas.getContext("2d")!.drawImage(this.coverCanvas, 0, 0);
+      coverTexture = new THREE.CanvasTexture(coverCanvas);
+      coverTexture.colorSpace = THREE.SRGBColorSpace;
+      coverTexture.anisotropy = this.renderer.capabilities.getMaxAnisotropy();
+      const innerCover = new THREE.Mesh(
+        new THREE.PlaneGeometry(COVER_WIDTH, COVER_HEIGHT),
+        new THREE.MeshBasicMaterial({
+          map: coverTexture,
+          toneMapped: false,
+          side: THREE.DoubleSide,
+        }),
+      );
+      innerCover.position.set(0, 1.85, COVER_Z);
+      innerCover.name = "inner-cover";
+      innerCover.userData.assemblyPart = "front-cover";
+      model.add(innerCover);
+      meshes.push(innerCover);
+    }
     return {
       model,
       setClarity: (value: number) => this.appearance.setClarity(model, value),
@@ -569,6 +628,7 @@ export class ArchiveScene {
           (mesh.material as THREE.Material).dispose();
         }
         texture.dispose();
+        coverTexture?.dispose();
       },
     };
   }
@@ -721,8 +781,8 @@ export class ArchiveScene {
       const group = this.model.clone(true);
       const label = group.children[group.children.length - 1] as THREE.Mesh;
       const canvas = document.createElement("canvas");
-      canvas.width = 1024;
-      canvas.height = 440;
+      canvas.width = this.labelCanvas.width;
+      canvas.height = this.labelCanvas.height;
       canvas.getContext("2d")!.drawImage(this.labelCanvas, 0, 0);
       const map = new THREE.CanvasTexture(canvas);
       map.colorSpace = THREE.SRGBColorSpace;
@@ -732,6 +792,23 @@ export class ArchiveScene {
         transparent: true,
         depthWrite: false,
       });
+      const outgoingCover = group.getObjectByName("inner-cover") as
+        | THREE.Mesh
+        | undefined;
+      if (outgoingCover) {
+        const coverCanvas = document.createElement("canvas");
+        coverCanvas.width = this.coverCanvas.width;
+        coverCanvas.height = this.coverCanvas.height;
+        coverCanvas.getContext("2d")!.drawImage(this.coverCanvas, 0, 0);
+        const coverMap = new THREE.CanvasTexture(coverCanvas);
+        coverMap.colorSpace = THREE.SRGBColorSpace;
+        outgoingCover.material = new THREE.MeshBasicMaterial({
+          map: coverMap,
+          toneMapped: false,
+          side: THREE.DoubleSide,
+        });
+        outgoingCover.visible = this.coverMesh?.visible ?? false;
+      }
       // Clone carries the selected label material by reference. Replace it
       // before installing appearance shaders, so theme hooks are not appended
       // to the original label a second time on every selection.
@@ -773,6 +850,7 @@ export class ArchiveScene {
     } else this.emitPulse(cell);
     this.targetRotation = 0;
     this.drawLabel(index);
+    this.drawCover(index);
   }
   private emitPulse(cell: ArchiveCell) {
     this.pulses.push({ ...cell, time: this.clock });
@@ -803,6 +881,70 @@ export class ArchiveScene {
     c.fillText("INFO", 830, 143);
     c.drawImage(this.labelMark, 790, 242, 210, 98);
     this.labelTexture.needsUpdate = true;
+  }
+  private drawCover(index: number) {
+    if (!this.coverTexture) return;
+    this.selectedIndex = index;
+    const cover = records[index]?.cover;
+    const url = cover
+      ? /^https?:/.test(cover)
+        ? cover
+        : publicAsset(cover)
+      : "";
+    const image = url ? this.coverImages.get(url) : undefined;
+    if (this.coverMesh) this.coverMesh.visible = Boolean(image);
+    this.paintCover(image ?? null);
+    if (url && !this.coverImages.has(url)) {
+      this.coverImages.set(url, null);
+      const img = new Image();
+      img.decoding = "async";
+      img.onload = () => {
+        this.coverImages.set(url, img);
+        if (this.selectedIndex === index) this.drawCover(index);
+      };
+      img.onerror = () => this.coverImages.set(url, null);
+      img.src = url;
+    }
+  }
+  private paintCover(image: HTMLImageElement | null) {
+    const c = this.coverCanvas.getContext("2d")!;
+    const W = COVER_CANVAS_WIDTH;
+    const H = COVER_CANVAS_HEIGHT;
+    c.clearRect(0, 0, W, H);
+    c.fillStyle = "#e6e2d9";
+    c.fillRect(0, 0, W, H);
+    if (!image) {
+      this.coverTexture!.needsUpdate = true;
+      return;
+    }
+    const scale = Math.min(W / image.width, H / image.height);
+    const width = image.width * scale;
+    const height = image.height * scale;
+    c.globalAlpha = COVER_BLEND;
+    c.drawImage(
+      image,
+      (W - width) / 2,
+      (H - height) / 2,
+      width,
+      height,
+    );
+    c.globalAlpha = 1;
+    // Fade the print into the paper at the edges instead of leaving a hard
+    // rectangle inside the glass.
+    const fade = c.createRadialGradient(
+      W / 2,
+      H / 2,
+      Math.min(W, H) * 0.18,
+      W / 2,
+      H / 2,
+      Math.max(W, H) * 0.64,
+    );
+    fade.addColorStop(0, "rgba(230,226,217,0)");
+    fade.addColorStop(0.7, "rgba(230,226,217,0)");
+    fade.addColorStop(1, "rgba(230,226,217,1)");
+    c.fillStyle = fade;
+    c.fillRect(0, 0, W, H);
+    this.coverTexture!.needsUpdate = true;
   }
   private ensureInstanceCapacity(required: number) {
     if (required <= this.instanceCapacity) return;

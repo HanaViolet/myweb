@@ -16,6 +16,7 @@ export interface ArchiveRecord {
   kind: string;
   html: string;
   tags: string[];
+  cover?: string;
   comments: boolean;
   searchText: string;
   trackId?: string;
