@@ -1,6 +1,15 @@
 const enterEase = "cubic-bezier(0.22, 1, 0.36, 1)";
 const exitEase = "cubic-bezier(0.4, 0, 1, 1)";
 
+/** Shared timing vocabulary for panels, content and the detail choreography. */
+export const motionLanguage = {
+  instant: 120,
+  fast: 180,
+  base: 260,
+  slow: 520,
+  settle: 900,
+} as const;
+
 /** Owns the visible lifetime, including a close that interrupts an opening. */
 export class SurfaceTransition {
   private animations: Animation[] = [];
@@ -9,12 +18,12 @@ export class SurfaceTransition {
   constructor(
     private root: HTMLElement,
     private panel?: HTMLElement,
-    private enterDuration = 300,
-    private exitDuration = 200,
+    private enterDuration: number = motionLanguage.base,
+    private exitDuration: number = motionLanguage.fast,
   ) {}
 
-  show(reduced: boolean) {
-    this.run(true, reduced);
+  show(reduced: boolean, delay = 0) {
+    this.run(true, reduced, undefined, delay);
   }
 
   hide(reduced: boolean, finished: () => void = () => {}) {
@@ -31,7 +40,12 @@ export class SurfaceTransition {
     this.animations = [];
   }
 
-  private run(show: boolean, reduced: boolean, finished?: () => void) {
+  private run(
+    show: boolean,
+    reduced: boolean,
+    finished?: () => void,
+    delay = 0,
+  ) {
     const revision = ++this.revision;
     const hidden = this.root.hidden;
     const opacity = hidden ? "0" : getComputedStyle(this.root).opacity;
@@ -60,6 +74,7 @@ export class SurfaceTransition {
       duration: show ? this.enterDuration : this.exitDuration,
       easing: show ? enterEase : exitEase,
       fill: "both",
+      delay: show ? delay : 0,
     };
     const fade = this.root.animate(
       [{ opacity }, { opacity: show ? 1 : 0 }],
@@ -92,7 +107,7 @@ export class ContentTransition {
     this.cancel();
     if (!reduced)
       this.animation = element.animate([{ opacity }, { opacity: 1 }], {
-        duration: 150,
+        duration: motionLanguage.fast,
         easing: enterEase,
       });
   }

@@ -26,7 +26,7 @@ import {
 } from "@kitlangton/rolling-number";
 import { ArchiveScene } from "./scene";
 import { ModelViewer } from "./model-viewer";
-import { ContentTransition, SurfaceTransition } from "./ui-transitions";
+import { ContentTransition, SurfaceTransition, motionLanguage } from "./ui-transitions";
 import { BootSequence } from "./boot";
 import { loadBootWebfonts } from "./boot-lettering";
 import { wrap, type ArchiveNavigation } from "./archive-loop";
@@ -161,8 +161,8 @@ let previousFocus: HTMLElement | null = null;
 const detailTransition = new SurfaceTransition(
   $("#detail-ui"),
   undefined,
-  180,
-  180,
+  motionLanguage.base,
+  motionLanguage.fast,
 );
 const tabTransition = new ContentTransition();
 let modalTransition: SurfaceTransition | undefined;
@@ -521,7 +521,10 @@ function setMode(next: Mode) {
   $(".system-footer").inert = next === "boot" || Boolean(modal);
   if (next === "detail") {
     if (previousMode !== "detail")
-      detailTransition.show(!motionActive("surfaceTransitions"));
+      detailTransition.show(
+        !motionActive("surfaceTransitions"),
+        motionLanguage.instant,
+      );
   } else if (
     previousMode === "detail" ||
     (next === "boot" && !$("#detail-ui").hidden)
