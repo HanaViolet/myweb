@@ -3,7 +3,7 @@
   "profileUrl": "https://music.163.com/#/user/home?id=1441471952",
   "source": "NetEase Cloud Music public play record API",
   "endpoint": "/api/v1/play/record",
-  "updatedAt": "2026-10-20T19:59:45.038Z",
+  "updatedAt": "2026-10-22T20:05:46.583Z",
   "timezone": "Asia/Shanghai",
   "rankLimit": 20,
   "scrape": {
@@ -15,8 +15,8 @@
     "message": "Cookie 页面和接口均未返回播放次数，已回退公开接口。"
   },
   "duration": {
-    "weeklyMinutes": 259,
-    "allTimeMinutes": 130440,
+    "weeklyMinutes": 334,
+    "allTimeMinutes": 130517,
     "available": true,
     "source": "netease-listen-data",
     "endpoints": {
@@ -31,7 +31,7 @@
       "allTime": {
         "path": "totalDuration",
         "unit": "seconds",
-        "rawValue": 7826441
+        "rawValue": 7831040
       }
     },
     "validation": {
@@ -63,21 +63,10 @@
       "album": "二人称",
       "durationMs": 220711,
       "playCount": 0,
-      "score": 33
+      "score": 80
     },
     {
       "rank": 3,
-      "songId": 19572271,
-      "title": "Gotta Have You",
-      "alias": "",
-      "artist": "The Weepies",
-      "album": "Say I Am You",
-      "durationMs": 199786,
-      "playCount": 0,
-      "score": 25
-    },
-    {
-      "rank": 4,
       "songId": 1487501535,
       "title": "春夢",
       "alias": "",
@@ -85,21 +74,10 @@
       "album": "15Colors -nu skool-",
       "durationMs": 226307,
       "playCount": 0,
-      "score": 25
+      "score": 60
     },
     {
-      "rank": 5,
-      "songId": 487527980,
-      "title": "言って。",
-      "alias": "说吧。",
-      "artist": "ヨルシカ",
-      "album": "夏草が邪魔をする",
-      "durationMs": 242230,
-      "playCount": 0,
-      "score": 16
-    },
-    {
-      "rank": 6,
+      "rank": 4,
       "songId": 32619064,
       "title": "年轮",
       "alias": "电视剧《花千骨》插曲",
@@ -107,21 +85,21 @@
       "album": "花千骨 电视原声带",
       "durationMs": 274504,
       "playCount": 0,
-      "score": 16
+      "score": 40
     },
     {
-      "rank": 7,
-      "songId": 2607716396,
-      "title": "忘れてください",
-      "alias": "还请遗忘",
+      "rank": 5,
+      "songId": 2702969612,
+      "title": "火星人",
+      "alias": "TVアニメ『小市民シリーズ』第2期オープニングテーマ",
       "artist": "ヨルシカ",
-      "album": "忘れてください",
-      "durationMs": 217682,
+      "album": "火星人",
+      "durationMs": 234929,
       "playCount": 0,
-      "score": 16
+      "score": 40
     },
     {
-      "rank": 8,
+      "rank": 6,
       "songId": 2154219378,
       "title": "はいよろこんで",
       "alias": "乐意效劳",
@@ -129,10 +107,21 @@
       "album": "はいよろこんで",
       "durationMs": 161632,
       "playCount": 0,
-      "score": 16
+      "score": 40
     },
     {
-      "rank": 9,
+      "rank": 7,
+      "songId": 2123807718,
+      "title": "Color Your Night",
+      "alias": "染上夜色",
+      "artist": "Lotus Juice / 高橋あず美 / アトラスサウンドチーム / ATLUS GAME MUSIC",
+      "album": "ペルソナ3 リロード オリジナル・サウンドトラック",
+      "durationMs": 227240,
+      "playCount": 0,
+      "score": 40
+    },
+    {
+      "rank": 8,
       "songId": 2111695133,
       "title": "遠吠え",
       "alias": "远吠",
@@ -140,21 +129,21 @@
       "album": "まだらもよう",
       "durationMs": 217213,
       "playCount": 0,
-      "score": 16
+      "score": 40
+    },
+    {
+      "rank": 9,
+      "songId": 2040876720,
+      "title": "フローリア",
+      "alias": "芙罗兰",
+      "artist": "ヒバナ",
+      "album": "フローリア",
+      "durationMs": 185625,
+      "playCount": 0,
+      "score": 40
     },
     {
       "rank": 10,
-      "songId": 1970535364,
-      "title": "刺激による彼ら",
-      "alias": "激情的他们",
-      "artist": "八木海莉",
-      "album": "刺激による彼ら",
-      "durationMs": 262200,
-      "playCount": 0,
-      "score": 16
-    },
-    {
-      "rank": 11,
       "songId": 1965308423,
       "title": "your trip",
       "alias": "Your Trip",
@@ -162,7 +151,18 @@
       "album": "around dusk",
       "durationMs": 244376,
       "playCount": 0,
-      "score": 16
+      "score": 40
+    },
+    {
+      "rank": 11,
+      "songId": 19572271,
+      "title": "Gotta Have You",
+      "alias": "",
+      "artist": "The Weepies",
+      "album": "Say I Am You",
+      "durationMs": 199786,
+      "playCount": 0,
+      "score": 40
     },
     {
       "rank": 12,
@@ -173,7 +173,7 @@
       "album": "ガーラ",
       "durationMs": 273000,
       "playCount": 0,
-      "score": 16
+      "score": 40
     },
     {
       "rank": 13,
@@ -184,10 +184,21 @@
       "album": "春泥棒",
       "durationMs": 290279,
       "playCount": 0,
-      "score": 16
+      "score": 40
     },
     {
       "rank": 14,
+      "songId": 1457709580,
+      "title": "思想犯",
+      "alias": "",
+      "artist": "ヨルシカ",
+      "album": "思想犯",
+      "durationMs": 252056,
+      "playCount": 0,
+      "score": 40
+    },
+    {
+      "rank": 15,
       "songId": 1387098936,
       "title": "雨晴るる",
       "alias": "雨后天晴",
@@ -195,10 +206,10 @@
       "album": "エルマ",
       "durationMs": 222756,
       "playCount": 0,
-      "score": 16
+      "score": 40
     },
     {
-      "rank": 15,
+      "rank": 16,
       "songId": 1361336636,
       "title": "Come Back To Me",
       "alias": "",
@@ -206,18 +217,7 @@
       "album": "This Is The One",
       "durationMs": 237946,
       "playCount": 0,
-      "score": 16
-    },
-    {
-      "rank": 16,
-      "songId": 1357953768,
-      "title": "だから僕は音楽を辞めた",
-      "alias": "所以我放弃了音乐",
-      "artist": "ヨルシカ",
-      "album": "だから僕は音楽を辞めた",
-      "durationMs": 242973,
-      "playCount": 0,
-      "score": 16
+      "score": 40
     },
     {
       "rank": 17,
@@ -228,7 +228,7 @@
       "album": "眩しいDNAだけ",
       "durationMs": 227173,
       "playCount": 0,
-      "score": 16
+      "score": 40
     },
     {
       "rank": 18,
@@ -239,7 +239,7 @@
       "album": "プロローグ",
       "durationMs": 319320,
       "playCount": 0,
-      "score": 16
+      "score": 40
     },
     {
       "rank": 19,
@@ -250,18 +250,18 @@
       "album": "I will be with you",
       "durationMs": 261100,
       "playCount": 0,
-      "score": 8
+      "score": 20
     },
     {
       "rank": 20,
-      "songId": 618325,
-      "title": "絆",
-      "alias": "",
-      "artist": "miu-clips",
-      "album": "Rhythm of My Heart",
-      "durationMs": 270893,
+      "songId": 740530,
+      "title": "日が落ちるまで",
+      "alias": "直到日落时",
+      "artist": "ハンバート ハンバート",
+      "album": "道はつづく",
+      "durationMs": 296542,
       "playCount": 0,
-      "score": 8
+      "score": 20
     }
   ],
   "allTime": [
