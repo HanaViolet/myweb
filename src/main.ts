@@ -75,6 +75,14 @@ const $ = <T extends HTMLElement = HTMLElement>(selector: string) =>
   document.querySelector<T>(selector)!;
 import { logo, brandHeading } from "./brand";
 
+const CATEGORY_EN: Record<string, string> = {
+  影像档案: "VISUAL ARCHIVE",
+  音乐档案: "MUSIC ARCHIVE",
+  文章档案: "JOURNAL ARCHIVE",
+  资源档案: "RESOURCE ARCHIVE",
+  个人档案: "PERSONAL ARCHIVE",
+};
+
 $("#stage").innerHTML = `
   <div id="three-scene" class="three-scene"></div>
   <div class="scene-atmosphere archive-atmosphere"></div>
@@ -96,7 +104,7 @@ $("#stage").innerHTML = `
   <svg id="inspection-marks" viewBox="0 0 1920 1080" aria-hidden="true"><path id="inspection-lines"/><g id="inspection-corners"></g><circle id="inspection-point" r="1.8"/></svg>
   <div id="inspection-text" aria-hidden="true">CONFIDENTIALITY:<strong>GENERAL BUSINESS USE</strong></div>
   <section id="archive-ui" class="archive-ui" aria-label="档案选择">
-    <div class="archive-callout"><div class="eyebrow">INTERNAL DATABASE <span>／</span> <span id="archive-category">机构档案</span></div><button class="file-title" data-action="open">FILE NUMBER: <span id="selected-id">X-<span id="selected-code">001</span></span><span class="file-open">↗</span></button><div class="callout-rule"><i></i></div><div class="file-summary"><span id="selected-title">莱茵生命</span><span id="selected-clearance">BUSINESS AREA</span></div><button class="read-file" data-action="open">ACCESS FILE <span>→</span></button></div>
+    <div class="archive-callout"><div class="eyebrow"><span id="archive-eyebrow">PERSONAL ARCHIVE</span><span class="eyebrow-sep">／</span><span id="archive-category">个人档案</span></div><button class="file-title" data-action="open"><span id="file-prefix" class="file-prefix"></span><span id="selected-id">X-<span id="selected-code">001</span></span><span class="file-open">↗</span></button><div class="callout-rule"><i></i></div><div class="file-summary"><span id="selected-title">关于 Sakura</span><span id="selected-clearance">PUBLIC ARCHIVE</span></div><button class="read-file" data-action="open">ACCESS FILE <span>→</span></button></div>
     <div id="hover-label" class="hover-label" hidden>X-<span id="hover-code">001</span> / <span id="hover-title"></span></div>
     <div class="archive-counter"><span class="tiny-label">ARCHIVE / SELECT</span><div><span id="selected-number">01</span><i>/</i><span class="count-total">12</span></div><button class="archive-directory" data-action="directory">内容目录 <span>${records.length}</span> ↗</button></div>
     <div class="archive-navigation"><button data-action="prev" aria-label="上一个档案">↑</button><div id="file-ticks" class="file-ticks"></div><button data-action="next" aria-label="下一个档案">↓</button></div>
@@ -133,7 +141,8 @@ let mode: Mode = "boot",
   ready = false;
 let modal: "search" | "saved" | "settings" | null = null,
   searchQuery = "",
-  filter = "全部档案";
+  filter = "全部档案",
+  sortOrder: "asc" | "desc" = "asc";
 let activeTab = "overview";
 let detailRecordId = "";
 const reviewParams = new URLSearchParams(location.search);
@@ -169,6 +178,7 @@ let modalTransition: SurfaceTransition | undefined;
 let modalClosing = false;
 let modalSiblings: { node: HTMLElement; inert: boolean }[] = [];
 let pendingDetailFocus = false;
+let detailClearTimer: ReturnType<typeof setTimeout> | undefined;
 let bookmarkFeedback: Animation | undefined;
 function readLocal<T>(key: string, fallback: T): T {
   try {
@@ -583,6 +593,7 @@ function setMode(next: Mode) {
     previousMode === "detail" ||
     (next === "boot" && !$("#detail-ui").hidden)
   ) {
+    clearTimeout(detailClearTimer);
     pendingDetailFocus = false;
     tabTransition.cancel();
     detailTransition.hide(
@@ -595,7 +606,7 @@ function setMode(next: Mode) {
   scene?.setMode(next === "boot" ? "hidden" : next);
   if (next !== "boot") {
     bootSequence.reset();
-    $(".file-title").firstChild!.textContent = "FILE NUMBER: ";
+    $("#file-prefix").textContent = "";
     $("#stage").dataset.boot = "done";
   }
   if (next === "detail" && previousMode !== "detail") {
@@ -637,6 +648,10 @@ function stepFileInDetail(direction: number) {
   selected = files[(files.indexOf(selected) + direction + files.length) % files.length];
   columnMemory[lane] = selected;
   scene?.select(selected, { axis: "row", direction });
+  // A pager step is navigation, not a new document reveal. Clear the glass
+  // immediately so the next file is readable without waiting for the full
+  // redaction timeline.
+  scene?.finishDecryption();
   updateSelection({ axis: "row", direction });
   renderDetail();
   blogMode("detail", records[selected]);
@@ -665,6 +680,8 @@ function updateSelection(navigation?: ArchiveNavigation) {
     text: r.category,
     animated: motionActive("rollingText") && mode === "archive",
   });
+  $("#archive-eyebrow").textContent =
+    CATEGORY_EN[r.category] ?? "INTERNAL ARCHIVE";
   const direction =
     navigation && "axis" in navigation
       ? navigation.direction > 0
@@ -758,8 +775,16 @@ function toggleSaved() {
   audio.play("confirm");
   notify(saved.has(id) ? "档案已加入收藏" : "已取消收藏");
 }
+function readingMinutes(html: string) {
+  const text = html
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  return Math.max(1, Math.round(text.length / 350));
+}
 function renderDetail() {
   tabTransition.cancel();
+  clearTimeout(detailClearTimer);
   const r = records[selected];
   if (r.id !== detailRecordId) {
     detailRecordId = r.id;
@@ -768,12 +793,40 @@ function renderDetail() {
   const { lane } = fileLocation(selected);
   const files = columnFiles(lane);
   const position = files.indexOf(selected) + 1;
+  const isPersonal = r.category === "个人档案";
+  const metadata: [string, string][] = [];
+  if (r.kind === "post") {
+    metadata.push(["CATEGORY / 分类", r.department]);
+    if (r.date) metadata.push(["DATE / 记录日期", r.date]);
+    metadata.push(["AUTHOR / 作者", r.lead]);
+    metadata.push(["READING / 阅读", `${readingMinutes(r.html)} 分钟`]);
+  } else if (r.kind === "music") {
+    metadata.push(["ARTIST / 音乐人", r.department]);
+    if (r.date) metadata.push(["DATE / 记录日期", r.date]);
+    if (r.trackId) metadata.push(["TRACK / 曲目", r.trackId]);
+  } else if (r.kind === "gallery") {
+    metadata.push(["COLLECTION / 系列", r.department]);
+  } else if (r.category === "资源档案") {
+    metadata.push(["SECTION / 分区", r.department]);
+    if (r.date) metadata.push(["DATE / 更新", r.date]);
+  } else if (!isPersonal) {
+    metadata.push(["CATEGORY / 分类", r.department]);
+    if (r.date) metadata.push(["DATE / 记录日期", r.date]);
+  }
+  if (isPersonal) metadata.push(["AUTHOR / 作者", r.lead]);
+  if (r.clearance === "RESTRICTED") metadata.push(["ACCESS / 访问", "目录访问"]);
+  const metadataHtml = metadata
+    .map(
+      ([label, value]) =>
+        `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`,
+    )
+    .join("");
   $("#object-id").textContent = r.id;
   $("#detail-content").innerHTML = `
-  <div class="detail-kicker"><span>FILE ${r.id} · ${escapeHtml(r.category)} · ${String(position).padStart(2, "0")} / ${String(files.length).padStart(2, "0")}</span><span>${escapeHtml(r.clearance)}</span></div>
-  <h2>${escapeHtml(r.en)}</h2><div class="detail-title-cn">${escapeHtml(r.title)}<span>${escapeHtml(r.category)}</span><a class="reader-link" href="${escapeHtml(r.route)}?reader=1">专注阅读 ↗</a></div>
+  <div class="detail-kicker"><span>FILE ${r.id} · ${String(position).padStart(2, "0")} / ${String(files.length).padStart(2, "0")}</span><span>${escapeHtml(r.clearance)}</span></div>
+  <h2>${escapeHtml(r.en)}</h2><div class="detail-title-cn">${escapeHtml(r.title)}<a class="reader-link" href="${escapeHtml(r.route)}?reader=1">专注阅读 ↗</a></div>
   <div class="detail-rule"></div>
-  <dl class="metadata"><div><dt>CATEGORY / 分类</dt><dd>${escapeHtml(r.department)}</dd></div><div><dt>DATE / 记录日期</dt><dd>${escapeHtml(r.date)}</dd></div><div><dt>AUTHOR / 作者</dt><dd>${escapeHtml(r.lead)}</dd></div><div><dt>STATUS / 状态</dt><dd><i></i>${r.clearance === "RESTRICTED" ? "目录访问" : "已归档 · 可读取"}</dd></div></dl>
+  <dl class="metadata">${metadataHtml}</dl>
   <div class="detail-tabs" role="tablist"><button id="tab-overview" class="active" role="tab" aria-controls="tab-panel" aria-selected="true" data-tab="overview">01 <span>正文</span></button><button id="tab-notes" role="tab" aria-controls="tab-panel" aria-selected="false" data-tab="notes">02 <span>目录</span></button><button id="tab-history" role="tab" aria-controls="tab-panel" aria-selected="false" data-tab="history">03 <span>留言</span></button><i class="tab-indicator" aria-hidden="true"></i></div>
   <div id="tab-panel" class="tab-panel" role="tabpanel">${overview()}</div>
   <div class="detail-actions"><button class="solid-button" data-action="bookmark">${saved.has(r.id) ? "− REMOVE FROM SAVED" : "＋ SAVE ARCHIVE"}<span>${saved.has(r.id) ? "已收藏" : "收藏档案"}</span></button><a class="export-button" href="${assetUrl(`archives/RHINE-LAB-${r.id}.txt`)}" download="RHINE-LAB-${r.id}.txt" aria-label="导出 ${r.id} 档案">EXPORT <span>↓</span></a></div>
@@ -792,6 +845,11 @@ function renderDetail() {
       scene.decryptionFrame.phase === "clear",
   );
   setTab(activeTab, false);
+  // Decorative redaction must never outlive a stalled glass reveal.
+  detailClearTimer = window.setTimeout(() => {
+    if (mode === "detail" && records[selected]?.id === r.id)
+      documentDecryption.reset($("#detail-content"), true);
+  }, 1400);
 }
 function overview() {
   return blogBody(records[selected]);
@@ -849,6 +907,7 @@ function openModal(kind: NonNullable<typeof modal>) {
   modal = kind;
   searchQuery = "";
   filter = "全部档案";
+  sortOrder = "asc";
   audio.play("page-open");
   renderModal();
 }
@@ -881,8 +940,9 @@ function recordCount(category: string) {
 function renderModal() {
   if (!modal) return;
   modalTransition?.dispose();
+  const latestPost = records.filter((record) => record.kind === "post").at(-1);
   $("#modal-root").innerHTML =
-    `<div class="modal-backdrop"><section class="terminal-modal ${modal === "settings" ? "settings-modal" : ""}" role="dialog" aria-modal="true" aria-label="${modal === "settings" ? "系统设置" : modal === "saved" ? "收藏档案" : "内容目录与档案检索"}"><div class="modal-top"><span>RHINE LAB / ${modal === "settings" ? "SYSTEM PREFERENCES" : "ARCHIVE DIRECTORY"}</span><button data-action="close-modal" aria-label="关闭窗口">CLOSE <span>×</span></button></div>${modal === "settings" ? settingsMarkup() : `<h2>${modal === "saved" ? "SAVED ARCHIVES" : "ARCHIVE INDEX"}<small>${modal === "saved" ? "收藏档案" : "内容目录与检索"}</small></h2>${modal === "search" ? `<div class="directory-meta"><span>${records.length} RECORDS / ${archiveColumns.length} COLLECTIONS</span><span>按栏目浏览，或直接检索标题、标签与正文</span></div>` : ""}<div class="search-field"><span>⌕</span><input id="archive-search" type="search" autocomplete="off" placeholder="搜索标题、标签或正文" aria-label="检索档案"/><span class="key">ESC</span></div><div class="category-filters">${categories.map((c, i) => `<button data-filter="${escapeHtml(c)}" class="${i === 0 ? "active" : ""}">${escapeHtml(c)}<small>${String(recordCount(c)).padStart(2, "0")}</small></button>`).join("")}</div><div class="result-header"><span>FILE / 档案</span><span>DEPARTMENT / 科室</span><span>ACCESS</span></div><div id="search-results" class="search-results"></div><div class="modal-bottom"><span id="result-count"></span><span>INTERNAL DATABASE <i>●</i> CONNECTED</span></div>`}</section></div>`;
+    `<div class="modal-backdrop"><section class="terminal-modal ${modal === "settings" ? "settings-modal" : ""}" role="dialog" aria-modal="true" aria-label="${modal === "settings" ? "系统设置" : modal === "saved" ? "收藏档案" : "内容目录与档案检索"}"><div class="modal-top"><span>RHINE LAB / ${modal === "settings" ? "SYSTEM PREFERENCES" : "ARCHIVE DIRECTORY"}</span><button data-action="close-modal" aria-label="关闭窗口">CLOSE <span>×</span></button></div>${modal === "settings" ? settingsMarkup() : `<h2>${modal === "saved" ? "SAVED ARCHIVES" : "ARCHIVE INDEX"}<small>${modal === "saved" ? "收藏档案" : "内容目录与检索"}</small></h2>${modal === "search" ? `<div class="directory-meta"><span>${records.length} RECORDS / ${archiveColumns.length} COLLECTIONS</span><span>按栏目浏览，或直接检索标题、标签与正文</span>${latestPost ? `<a class="latest-entry" href="${escapeHtml(latestPost.route)}">LATEST ENTRY · ${latestPost.id} ↗</a>` : ""}<a class="latest-entry" href="/resources/?reader=1">资源目录 ↗</a></div>` : ""}<div class="search-field"><span>⌕</span><input id="archive-search" type="search" autocomplete="off" placeholder="搜索标题、标签或正文" aria-label="检索档案"/><span class="key">ESC</span></div><div class="category-filters">${categories.map((c, i) => `<button data-filter="${escapeHtml(c)}" class="${i === 0 ? "active" : ""}">${escapeHtml(c)}<small>${String(recordCount(c)).padStart(2, "0")}</small></button>`).join("")}<button class="sort-toggle" data-sort aria-label="切换档案排序">SORT ${sortOrder === "asc" ? `001→${String(records.length).padStart(3, "0")} ↑` : `${String(records.length).padStart(3, "0")}→001 ↓`}</button></div><div class="result-header"><span>FILE / 档案</span><span>DEPARTMENT / 科室</span><span>ACCESS</span></div><div id="search-results" class="search-results"></div><div class="modal-bottom"><span id="result-count"></span><span>INTERNAL DATABASE <i>●</i> CONNECTED</span></div>`}</section></div>`;
   const backdrop = $(".modal-backdrop");
   backdrop.hidden = true;
   modalTransition = new SurfaceTransition(backdrop, $(".terminal-modal"));
@@ -915,23 +975,25 @@ function renderResults() {
           .toLowerCase()
           .includes(searchQuery.toLowerCase()),
     );
+  const sorted = [...results].sort((a, b) => {
+    const left = Number(a.r.id.slice(2));
+    const right = Number(b.r.id.slice(2));
+    return sortOrder === "asc" ? left - right : right - left;
+  });
   const rowMarkup = ({ r, i }: { r: (typeof records)[number]; i: number }) =>
     `<button class="result-row" data-result="${i}"><span class="result-name"><b>${r.id}</b><span>${escapeHtml(r.title)}<small>${escapeHtml(r.en)}</small><em class="result-summary">${escapeHtml(r.abstract)}</em></span>${saved.has(r.id) ? "<i>＋</i>" : ""}</span><span>${escapeHtml(r.department)}</span><span>${r.clearance === "RESTRICTED" ? "CATALOG ONLY" : "AUTHORIZED"} <i>↗</i></span></button>`;
-  if (modal === "search" && filter === "全部档案" && !searchQuery) {
-    $("#search-results").innerHTML = archiveColumns
-      .map((name) => {
-        const group = results.filter(({ r }) => r.category === name);
-        if (!group.length) return "";
-        return `<section class="result-group"><h3>${escapeHtml(name)}<small>${String(group.length).padStart(2, "0")}</small></h3>${name === "资源档案" ? '<a class="result-group-link" href="/resources/?reader=1">资源目录 ↗</a>' : ""}${group.map(rowMarkup).join("")}</section>`;
-      })
-      .join("");
-  } else {
-    $("#search-results").innerHTML = results.length
-      ? results.map(rowMarkup).join("")
-      : `<div class="empty-results"><span>∅</span><strong>${modal === "saved" && !searchQuery ? "尚无收藏档案" : "没有匹配的档案"}</strong><p>${modal === "saved" && !searchQuery ? "读取档案时，选择 SAVE ARCHIVE 将其保存在此处。" : "尝试其他名称、档案编号，或切换科室分类。"}</p><button data-action="reset-search">${modal === "saved" ? "查看全部档案 →" : "重置检索 →"}</button></div>`;
-  }
+  $("#search-results").innerHTML = sorted.length
+    ? sorted.map(rowMarkup).join("")
+    : `<div class="empty-results"><span>∅</span><strong>${modal === "saved" && !searchQuery ? "尚无收藏档案" : "没有匹配的档案"}</strong><p>${modal === "saved" && !searchQuery ? "读取档案时，选择 SAVE ARCHIVE 将其保存在此处。" : "尝试其他名称、档案编号，或切换科室分类。"}</p><button data-action="reset-search">${modal === "saved" ? "查看全部档案 →" : "重置检索 →"}</button></div>`;
   $("#result-count").textContent =
     `${String(results.length).padStart(2, "0")} RECORDS FOUND`;
+  const sortButton = document.querySelector<HTMLElement>("[data-sort]");
+  if (sortButton) {
+    sortButton.textContent =
+      sortOrder === "asc"
+        ? `SORT 001→${String(records.length).padStart(3, "0")} ↑`
+        : `SORT ${String(records.length).padStart(3, "0")}→001 ↓`;
+  }
 }
 function updateQualitySummary() {
   const summary = document.querySelector("#quality-summary");
@@ -1082,6 +1144,11 @@ document.addEventListener("click", (e) => {
       select(index);
       openFile();
     });
+    return;
+  }
+  if (el.dataset.sort !== undefined) {
+    sortOrder = sortOrder === "asc" ? "desc" : "asc";
+    renderResults();
     return;
   }
   if (el.dataset.filter) {
@@ -1370,10 +1437,10 @@ function bootFrame(t: number) {
     $("#stage").dataset.boot = step;
     lastStep = step;
   }
-  $(".file-title").firstChild!.textContent =
+  $("#file-prefix").textContent =
     step === "array"
       ? "SELECTING FILES...".slice(0, Math.max(0, Math.floor((t - 21.94) * 18)))
-      : "FILE NUMBER: ";
+      : "";
   $("#stage").style.setProperty(
     "--entry-opacity",
     String(ease((t - 21.9) / 0.13)),

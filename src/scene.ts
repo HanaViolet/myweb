@@ -831,6 +831,9 @@ export class ArchiveScene {
     this.selectedCell = cell;
     if (changed) {
       this.decryption.select();
+      // Re-enter the glass reveal when changing files while already in detail;
+      // select() intentionally leaves the controller idle.
+      if (this.targetDetail) this.decryption.enter();
       this.rotation = 0;
       this.returnY = null;
     }

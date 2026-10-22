@@ -370,7 +370,7 @@ button {
   transition: opacity 0.8s;
 }
 .system-nav button {
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1;
   min-height: 28px;
   letter-spacing: 0.7px;
@@ -423,7 +423,7 @@ button {
 .eyebrow {
   font-size: 12px;
   letter-spacing: 1.3px;
-  margin-bottom: 22px;
+  margin-bottom: 18px;
   color: #77756d;
   opacity: 0;
   transition: opacity 0.7s;
@@ -431,18 +431,34 @@ button {
 .eyebrow > span {
   margin-left: 16px;
 }
+.eyebrow > span:first-child { margin-left: 0; }
+.eyebrow-sep { color: #a49d90; }
 .file-title {
   font-size: 28px;
   font-weight: 750;
   display: flex;
-  gap: 10px;
-  align-items: center;
+  gap: 14px;
+  align-items: baseline;
   position: relative;
   letter-spacing: 0.2px;
 }
+.file-prefix {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 1.4px;
+  color: #77756d;
+  white-space: nowrap;
+}
+.file-prefix:empty { display: none; }
+#selected-id {
+  font-size: 54px;
+  line-height: 0.95;
+  letter-spacing: -2px;
+  font-weight: 750;
+}
 .file-open {
   font-size: 25px;
-  margin-left: 48px;
+  margin-left: 18px;
   opacity: 0;
   transition:
     opacity 0.3s,
@@ -456,7 +472,7 @@ button {
   height: 1px;
   background: #504b41;
   margin-left: 57px;
-  margin-top: 55px;
+  margin-top: 30px;
   position: relative;
   transform-origin: right;
   transform: scaleX(0);
@@ -473,12 +489,12 @@ button {
 }
 .file-summary {
   margin-left: 58px;
-  margin-top: 22px;
+  margin-top: 18px;
   width: 652px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 16px;
+  font-size: 20px;
   opacity: 0;
   transform: translateY(8px);
   transition:
@@ -651,7 +667,7 @@ button {
   bottom: 60px;
   left: 505px;
   color: #858077;
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.9px;
 }
 .archive-hint > span {
@@ -673,7 +689,7 @@ button {
   bottom: 35px;
   left: 59px;
   right: 59px;
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.9px;
   display: flex;
   gap: 44px;
@@ -1189,8 +1205,18 @@ button {
 }
 .category-filters {
   display: flex;
-  gap: 27px;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 27px;
   padding: 25px 0 24px;
+}
+.sort-toggle {
+  margin-left: auto;
+  font-size: 10px;
+  letter-spacing: 0.8px;
+  color: var(--accent);
+  border-bottom: 1px solid #c5b9a5;
+  padding-bottom: 2px;
 }
 .category-filters button {
   font-size: 12px;
@@ -1247,14 +1273,25 @@ button {
 }
 .directory-meta {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  gap: 24px;
+  gap: 6px 24px;
   margin: 18px 0 0;
   font-size: 10px;
   letter-spacing: 0.7px;
   color: #8a8171;
 }
 .directory-meta span:last-child { text-align: right; }
+.latest-entry {
+  flex-basis: 100%;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid #c5b9a5;
+  width: max-content;
+  padding-bottom: 2px;
+  font-size: 10px;
+  letter-spacing: 0.8px;
+}
 .result-group h3 {
   display: flex;
   justify-content: space-between;

@@ -81,7 +81,7 @@
     },
     "src/main.ts": {
       "upstreamSha256": "c0d8ac76957fe4ccf684e32526b24a0b02301ffe8fd494e49303a43256ff5ce7",
-      "localSha256": "4dcc8d3ce86db4842e4051d30d8509648b868d5086e84ea85ee26078106bcb61"
+      "localSha256": "e8f21fd3893e3d28665c49c74039fe0497a8d5996ee077304932e6ade9c82f8f"
     },
     "src/startup.ts": {
       "upstreamSha256": "9433a8aedefb405c8f595f4bd270af3505a67c7ff4cd1b5e9375d4b7357a2b86",
@@ -89,7 +89,7 @@
     },
     "src/scene.ts": {
       "upstreamSha256": "e81bdeabed0188bbfb4267dba533c0d1d3de41ec23c2f6752619b189dc54d3f9",
-      "localSha256": "5362e0941bc621cd7edd3a42f85c24004a490f7fc64e046efdaa16aae345b89c"
+      "localSha256": "4edb4b39ef801f1c25e69ed5e55a92dc4a332996ebd1a6042d0cfd8386d5f583"
     },
     "src/model-viewer.ts": {
       "upstreamSha256": "fcd892736f000e6755cfbf11f8db82b6563227f65a7c5936e7610159c0855065",
@@ -97,7 +97,7 @@
     },
     "src/style.css": {
       "upstreamSha256": "eeb99078b8db32f3a0c0681c373cef137b8e117bff1a96a6c75a52f04e076794",
-      "localSha256": "f21e2c24d09228559ff76a985c0a3fa76a7285ad947ee8915f15688717148042"
+      "localSha256": "c429bcc5a8a1ad1be209682d6952b472527da49266e9805c7ecb6b7ccf1884f1"
     },
     "src/responsive.css": {
       "upstreamSha256": "da6b88f597543e160d117d1b62c3cca2293c7d4279addbe8231fdaf2bbbb0b04",
