@@ -1,4 +1,12 @@
-const reader = new URLSearchParams(location.search).has('reader');
+let reader = new URLSearchParams(location.search).has('reader');
+// The resource directory is a page-only landing surface, not a numbered
+// archive file. Load its readable page directly instead of booting the 3D app.
+if (!reader && location.pathname === '/resources/') {
+  reader = true;
+  const url = new URL(location.href);
+  url.searchParams.set('reader', '1');
+  history.replaceState(null, '', url);
+}
 const fallback = document.querySelector<HTMLElement>('#static-content');
 if (!reader) {
   if (fallback) fallback.hidden = true;

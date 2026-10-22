@@ -871,7 +871,7 @@ export class ArchiveScene {
     c.fillText("INTERNAL DATABASE", 25, 174);
     c.fillStyle = "#171713";
     c.font = "bold 130px MiSans";
-    c.fillText("NO." + String(index + 1).padStart(3, "0"), 22, 360);
+    c.fillText(records[index]?.id ?? `X-${String(index + 1).padStart(3, "0")}`, 22, 360);
     c.fillRect(782, 32, 221, 39);
     c.fillStyle = "#eee9de";
     c.font = "24px MiSans";

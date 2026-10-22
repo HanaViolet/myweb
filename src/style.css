@@ -1271,6 +1271,15 @@ button {
   font-size: 9px;
   color: #9b927f;
 }
+.result-group-link {
+  display: inline-block;
+  margin: 10px 0 2px;
+  font-size: 10px;
+  letter-spacing: 0.6px;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid #c5b9a5;
+}
 .result-summary {
   display: -webkit-box;
   -webkit-line-clamp: 2;

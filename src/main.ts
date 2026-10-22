@@ -105,7 +105,7 @@ $("#stage").innerHTML = `
   </section>
   <section id="detail-ui" class="detail-ui" aria-label="档案内容" hidden>
     <button class="back-button" data-action="back">← <span>ARCHIVE OVERVIEW</span><small>ESC</small></button>
-    <div class="object-caption"><span id="object-id">NO.001</span><div>INTERNAL DATABASE</div><small>DRAG TO INSPECT <span>↔</span></small><button class="viewer-open" data-action="model-viewer">360° 查看文档模型 <span>↗</span></button></div>
+    <div class="object-caption"><span id="object-id">X-001</span><div>INTERNAL DATABASE</div><small>DRAG TO INSPECT <span>↔</span></small><button class="viewer-open" data-action="model-viewer">360° 查看文档模型 <span>↗</span></button></div>
     <article id="detail-content" class="detail-content"></article>
   </section>
   <div class="powered">POWERED BY <b>RHINE LAB</b><i></i></div>
@@ -178,6 +178,60 @@ function readLocal<T>(key: string, fallback: T): T {
   }
 }
 const saved = new Set<string>(readLocal<string[]>("rhine-saved", []));
+// One-time migration for bookmarks created before the archive was renumbered.
+// The stable route/permalink is unchanged; only the visible catalog ID moved.
+const LEGACY_SAVED_IDS: Record<string, string> = {
+  "X-001": "X-035",
+  "X-002": "X-034",
+  "X-003": "X-033",
+  "X-004": "X-032",
+  "X-005": "X-031",
+  "X-006": "X-030",
+  "X-007": "X-029",
+  "X-008": "X-028",
+  "X-009": "X-004",
+  "X-010": "X-005",
+  "X-011": "X-006",
+  "X-012": "X-007",
+  "X-013": "X-008",
+  "X-014": "X-009",
+  "X-015": "X-010",
+  "X-016": "X-011",
+  "X-017": "X-012",
+  "X-018": "X-013",
+  "X-019": "X-014",
+  "X-020": "X-015",
+  "X-021": "X-016",
+  "X-022": "X-017",
+  "X-024": "X-018",
+  "X-025": "X-019",
+  "X-026": "X-020",
+  "X-027": "X-021",
+  "X-028": "X-022",
+  "X-029": "X-023",
+  "X-030": "X-024",
+  "X-031": "X-025",
+  "X-032": "X-026",
+  "X-033": "X-027",
+  "X-034": "X-001",
+  "X-035": "X-002",
+  "X-036": "X-003",
+};
+try {
+  if (localStorage.getItem("rhine-saved-version") !== "2026-10-22-x-sequential") {
+    for (const [oldId, nextId] of Object.entries(LEGACY_SAVED_IDS)) {
+      if (saved.delete(oldId)) saved.add(nextId);
+    }
+    // The resource index and the interim home record are no longer files.
+    saved.delete("X-023");
+    saved.delete("X-037");
+    localStorage.setItem("rhine-saved", JSON.stringify([...saved]));
+    localStorage.setItem(
+      "rhine-saved-version",
+      "2026-10-22-x-sequential",
+    );
+  }
+} catch {}
 const storedPrefs = readLocal<
   Partial<{
     sound: boolean;
@@ -714,7 +768,7 @@ function renderDetail() {
   const { lane } = fileLocation(selected);
   const files = columnFiles(lane);
   const position = files.indexOf(selected) + 1;
-  $("#object-id").textContent = "NO." + String(selected + 1).padStart(3, "0");
+  $("#object-id").textContent = r.id;
   $("#detail-content").innerHTML = `
   <div class="detail-kicker"><span>FILE ${r.id} · ${escapeHtml(r.category)} · ${String(position).padStart(2, "0")} / ${String(files.length).padStart(2, "0")}</span><span>${escapeHtml(r.clearance)}</span></div>
   <h2>${escapeHtml(r.en)}</h2><div class="detail-title-cn">${escapeHtml(r.title)}<span>${escapeHtml(r.category)}</span><a class="reader-link" href="${escapeHtml(r.route)}?reader=1">专注阅读 ↗</a></div>
@@ -724,7 +778,7 @@ function renderDetail() {
   <div id="tab-panel" class="tab-panel" role="tabpanel">${overview()}</div>
   <div class="detail-actions"><button class="solid-button" data-action="bookmark">${saved.has(r.id) ? "− REMOVE FROM SAVED" : "＋ SAVE ARCHIVE"}<span>${saved.has(r.id) ? "已收藏" : "收藏档案"}</span></button><a class="export-button" href="${assetUrl(`archives/RHINE-LAB-${r.id}.txt`)}" download="RHINE-LAB-${r.id}.txt" aria-label="导出 ${r.id} 档案">EXPORT <span>↓</span></a></div>
   <div class="detail-pager"><button type="button" data-action="prev-file">← 上一份</button><button type="button" data-action="directory">内容目录</button><button type="button" data-action="next-file">下一份 →</button></div>
-  <div class="detail-footnote"><a href="${escapeHtml(r.source)}" target="_blank" rel="noopener">永久链接 ↗</a><span>${String(selected + 1).padStart(3, "0")} / ${String(records.length).padStart(3, "0")}</span></div>`;
+  <div class="detail-footnote"><a href="${escapeHtml(r.source)}" target="_blank" rel="noopener">永久链接 ↗</a><span>${r.id} / ${String(records.length).padStart(3, "0")}</span></div>`;
   $("#detail-content").setAttribute("tabindex", "-1");
   $("#detail-content").scrollTop = 0;
   $('[data-action="bookmark"]').setAttribute(
@@ -868,7 +922,7 @@ function renderResults() {
       .map((name) => {
         const group = results.filter(({ r }) => r.category === name);
         if (!group.length) return "";
-        return `<section class="result-group"><h3>${escapeHtml(name)}<small>${String(group.length).padStart(2, "0")}</small></h3>${group.map(rowMarkup).join("")}</section>`;
+        return `<section class="result-group"><h3>${escapeHtml(name)}<small>${String(group.length).padStart(2, "0")}</small></h3>${name === "资源档案" ? '<a class="result-group-link" href="/resources/?reader=1">资源目录 ↗</a>' : ""}${group.map(rowMarkup).join("")}</section>`;
       })
       .join("");
   } else {

@@ -65,6 +65,11 @@ function route() {
   return true;
 }
 export function startBlog() {
+  const page = pageAt(location.pathname);
+  if (page && !page.recordId && location.pathname !== '/' && !new URLSearchParams(location.search).has('reader')) {
+    location.replace(`${page.route}?reader=1`);
+    return false;
+  }
   return route();
 }
 function updatePlayer() {
@@ -142,7 +147,14 @@ export function initBlog(api: Bridge) {
     }
     if (!(target instanceof HTMLAnchorElement) || target.target === '_blank' || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) return;
     const url = new URL(target.href, location.href);
-    if (url.origin !== location.origin || url.searchParams.has('reader') || !pageAt(url.pathname)) return;
+    const page = pageAt(url.pathname);
+    if (url.origin !== location.origin || url.searchParams.has('reader') || !page) return;
+    if (!page.recordId) {
+      if (page.route === '/') return;
+      event.preventDefault();
+      location.href = `${page.route}?reader=1`;
+      return;
+    }
     if (url.pathname === location.pathname && url.hash) {
       const anchor = [...document.querySelectorAll<HTMLElement>('#detail-content [id]')].find(el => el.id === decodeURIComponent(url.hash.slice(1)));
       if (anchor) { event.preventDefault(); anchor.scrollIntoView({ block: 'start' }); }

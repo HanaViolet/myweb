@@ -56,8 +56,8 @@ try {
   await page.locator('.blog-tags a').first().click();
   assert.equal(new URL(page.url()).pathname, '/gallery/%E5%B0%8F%E7%BC%98/');
   assert.equal(await page.locator('.blog-gallery img').count(), 11);
-  await page.goto(base + '/resources/'); await ready();
-  assert.equal(await page.locator('.blog-prose .resource-item').count(), 10);
+  await page.goto(base + '/resources/?reader=1');
+  assert.equal(await page.locator('#static-content .resource-item').count(), 10);
   assert.equal(await page.locator('[data-blog-copy]').count(), 10);
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(base + '/posts/b8e4a61c/'); await ready();

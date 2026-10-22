@@ -25,7 +25,7 @@ npm run check:browser # 预览服务运行时执行 Chrome 端到端检查
 - `source/_data/tracks.json`、`source/music/`：私人选曲与音频。
 - `source/_data/discovery.json`、`netease-stats.json`、`netease-comments.json`：开放音乐、官方听歌记录和热评，原更新任务仍可使用。
 - `blog.config.json`：新站名称、域名、作者和 Giscus 配置。
-- `content/blog-ids.json`：稳定档案编号，由构建补充新条目，随新增内容提交；不要重排或删除已有编号。
+- `content/blog-ids.json`：档案编号，`X-001` 固定为“关于 Sakura”，其余固定栏目依次编号，文章按时间顺序放在最后；新增文章自动获得下一个编号并追加到文章栏末尾。重排编号会改变可见档案身份，需同时迁移收藏和旧导出链接。
 
 五列分别为影像、音乐、文章、资源、个人档案。全文检索支持标题、标签与正文；原 `/posts/:abbrlink/`、归档、分类、标签、图库、听歌室、资源、关于和友链地址继续生成。音乐在站内导航时持续播放；选曲开始播放时暂时关闭终端环境音乐。评论沿用 GitHub Discussions 与原文章路径，通过“留言”加载。
 

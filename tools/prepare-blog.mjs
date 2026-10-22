@@ -75,6 +75,9 @@ function add(route, title, category, html, extra = {}) {
   pages.push({ route, recordId: record.id, title, html: record.html, description: record.abstract });
   return record;
 }
+function addPageOnly(route, title, html, description) {
+  pages.push({ route, title, html: clean(html), recordId: '', description });
+}
 const list = items => `<div class="blog-list">${items.map(r => `<a href="${e(r.route)}"><small>${e(r.date || r.department)}</small><strong>${e(r.title)}</strong><span>${e(r.abstract)}</span></a>`).join('')}</div>`;
 const posts = [];
 for (const file of (await readdir('source/_posts')).filter(f => f.endsWith('.md'))) {
@@ -91,10 +94,12 @@ for (const file of (await readdir('source/_posts')).filter(f => f.endsWith('.md'
   const cover = data.cover ? new URL(data.cover, config.url + route).pathname : '';
   posts.push({ route, title: data.title, html, tags, categories, cover, date: String(data.date).slice(0, 10), abstract: data.description || text(html).slice(0, 140), comments: data.comments !== false, sourceFile: `source/_posts/${file}` });
 }
-posts.sort((a, b) => b.date.localeCompare(a.date));
+posts.sort((a, b) => a.date.localeCompare(b.date));
 for (const p of posts) add(p.route, p.title, '文章档案', p.html, { ...p, kind: 'post', en: 'JOURNAL / SAKURA', department: p.categories.join(' · ') || '随笔' });
 const postRecords = records.filter(r => r.kind === 'post');
-const archive = add('/archives/', '文章目录', '文章档案', list(postRecords), { en: 'JOURNAL INDEX', abstract: `${posts.length} 篇文章，记录音乐、代码、游戏、阅读与生活。` });
+const archive = add('/archives/', '文章目录', '文章档案', list([...postRecords].reverse()), { en: 'JOURNAL INDEX', abstract: `${posts.length} 篇文章，记录音乐、代码、游戏、阅读与生活。` });
+const homeHtml = `<p>${e(config.description)}</p><nav class="blog-tags"><a href="/archives/">文章</a><a href="/gallery/">图库</a><a href="/listening/">听歌室</a><a href="/resources/?reader=1">资源</a><a href="/about/">关于</a><a href="/link/">友链</a></nav>${list([...postRecords].reverse())}`;
+addPageOnly('/', config.title, homeHtml, config.description);
 function alias(route, title, html, recordId = archive.id) { pages.push({ route, title, html: clean(html), recordId, description: title }); }
 for (const [type, key, name] of [['tags', 'tags', '标签'], ['categories', 'categories', '分类']]) {
   const values = [...new Set(posts.flatMap(p => p[key]))];
@@ -138,7 +143,7 @@ $resource('.resource-item').each((i, el) => {
   $resource(el).find('code').after(`<button type="button" data-blog-copy="${e(code)}">复制提取码</button>`);
 });
 const resourcesHtml = $resource('body').html();
-add('/resources/', '资源目录', '资源档案', resourcesHtml, { en: 'RESOURCE INDEX', abstract: resource.data.description });
+addPageOnly('/resources/', '资源目录', resourcesHtml, resource.data.description);
 $resource('.resource-item').each((i, el) => {
   add(`/resources/${String(i + 1).padStart(3, '0')}/`, $resource(el).find('h3').text(), '资源档案', $resource.html(el), { en: 'RESOURCE / COLLECTION', department: $resource(el).closest('.resource-group').find('header h2').text(), abstract: $resource(el).find('p').text() });
 });
@@ -147,7 +152,18 @@ const aboutRecord = add('/about/', '关于 Sakura', '个人档案', about.html +
 const links = parse(await read('source/_data/link.yml'));
 add('/link/', '友情链接', '个人档案', links.map(g => `<h3>${e(g.class_name)}</h3><p>${e(g.class_desc)}</p><div class="blog-list">${g.link_list.map(l => `<a href="${e(l.link)}" target="_blank" rel="noopener"><strong>${e(l.name)}</strong><span>${e(l.descr)}</span></a>`).join('')}</div>`).join(''), { en: 'FRIENDS / NETWORK', abstract: '互联网上偶然相遇的人与地方。' });
 add('/credits/', '关于这个终端', '个人档案', '<p>界面、三维模型与交互基于 LBEILC 的 RhineLabUI。博客内容属于 Sakura。</p><p><a href="https://github.com/LBEILC/RhineLabUI" target="_blank" rel="noopener">RhineLabUI 源项目 ↗</a> · <a href="/licenses/RhineLabUI-MIT.txt">MIT 许可证</a> · <a href="/fonts/MiSans-license.pdf">MiSans 许可</a></p><p>这是非官方同人界面的个人博客改编，与鹰角网络无隶属关系。</p>', { en: 'CREDITS / SOURCES' });
-alias('/', config.title, `<p>${e(config.description)}</p><nav class="blog-tags"><a href="/archives/">文章</a><a href="/gallery/">图库</a><a href="/listening/">听歌室</a><a href="/resources/">资源</a><a href="/about/">关于</a><a href="/link/">友链</a></nav>${list(postRecords)}`, archive.id);
+// About Sakura is X-001. Keep the fixed collections next, then the article
+// index, and leave articles at the end in chronological order. A new post then
+// receives the next number and appears after the existing articles.
+const displayRecords = [
+  ...records.filter(r => r.category === '个人档案'),
+  ...records.filter(r => r.category === '影像档案'),
+  ...records.filter(r => r.category === '音乐档案'),
+  ...records.filter(r => r.category === '资源档案'),
+  archive,
+  ...postRecords,
+];
+records.splice(0, records.length, ...displayRecords);
 const manifest = { config, records, categories: config.columns, columns: config.columns, pages, tracks: [...tracks, ...discovery.tracks], statsUpdatedAt: stats.updatedAt, inventory: { posts: posts.length, images: images.length, tracks: tracks.length, discovery: discovery.tracks.length, resources: $resource('.resource-item').length, friends: links.reduce((n, g) => n + g.link_list.length, 0) } };
 if (new Set(records.map(r => r.id)).size !== records.length) throw Error('Duplicate archive IDs');
 if (new Set(pages.map(p => p.route)).size !== pages.length) throw Error('Duplicate routes');
