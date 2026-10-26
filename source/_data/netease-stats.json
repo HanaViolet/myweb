@@ -3,7 +3,7 @@
   "profileUrl": "https://music.163.com/#/user/home?id=1441471952",
   "source": "NetEase Cloud Music public play record API",
   "endpoint": "/api/v1/play/record",
-  "updatedAt": "2026-10-22T20:05:46.583Z",
+  "updatedAt": "2026-10-26T21:00:44.421Z",
   "timezone": "Asia/Shanghai",
   "rankLimit": 20,
   "scrape": {
@@ -15,8 +15,8 @@
     "message": "Cookie 页面和接口均未返回播放次数，已回退公开接口。"
   },
   "duration": {
-    "weeklyMinutes": 334,
-    "allTimeMinutes": 130517,
+    "weeklyMinutes": 109,
+    "allTimeMinutes": 130882,
     "available": true,
     "source": "netease-listen-data",
     "endpoints": {
@@ -31,7 +31,7 @@
       "allTime": {
         "path": "totalDuration",
         "unit": "seconds",
-        "rawValue": 7831040
+        "rawValue": 7852969
       }
     },
     "validation": {
@@ -45,6 +45,17 @@
   "weekly": [
     {
       "rank": 1,
+      "songId": 3447749509,
+      "title": "雲を抜け風下へ私だけ",
+      "alias": "TV动画《药屋少女的呢喃 第三季》片头曲",
+      "artist": "ヨルシカ",
+      "album": "雲を抜け風下へ私だけ",
+      "durationMs": 238398,
+      "playCount": 0,
+      "score": 100
+    },
+    {
+      "rank": 2,
       "songId": 1293886117,
       "title": "年少有为",
       "alias": "",
@@ -55,7 +66,7 @@
       "score": 100
     },
     {
-      "rank": 2,
+      "rank": 3,
       "songId": 3355480210,
       "title": "花も騒めく",
       "alias": "花亦喧嚣",
@@ -63,54 +74,21 @@
       "album": "二人称",
       "durationMs": 220711,
       "playCount": 0,
-      "score": 80
-    },
-    {
-      "rank": 3,
-      "songId": 1487501535,
-      "title": "春夢",
-      "alias": "",
-      "artist": "May'n",
-      "album": "15Colors -nu skool-",
-      "durationMs": 226307,
-      "playCount": 0,
-      "score": 60
+      "score": 62
     },
     {
       "rank": 4,
-      "songId": 32619064,
-      "title": "年轮",
-      "alias": "电视剧《花千骨》插曲",
-      "artist": "张碧晨",
-      "album": "花千骨 电视原声带",
-      "durationMs": 274504,
+      "songId": 3319483197,
+      "title": "DARMA GRAND PRIX",
+      "alias": "",
+      "artist": "ヨルシカ",
+      "album": "DARMA GRAND PRIX",
+      "durationMs": 259866,
       "playCount": 0,
-      "score": 40
+      "score": 37
     },
     {
       "rank": 5,
-      "songId": 2702969612,
-      "title": "火星人",
-      "alias": "TVアニメ『小市民シリーズ』第2期オープニングテーマ",
-      "artist": "ヨルシカ",
-      "album": "火星人",
-      "durationMs": 234929,
-      "playCount": 0,
-      "score": 40
-    },
-    {
-      "rank": 6,
-      "songId": 2154219378,
-      "title": "はいよろこんで",
-      "alias": "乐意效劳",
-      "artist": "こっちのけんと",
-      "album": "はいよろこんで",
-      "durationMs": 161632,
-      "playCount": 0,
-      "score": 40
-    },
-    {
-      "rank": 7,
       "songId": 2123807718,
       "title": "Color Your Night",
       "alias": "染上夜色",
@@ -118,32 +96,10 @@
       "album": "ペルソナ3 リロード オリジナル・サウンドトラック",
       "durationMs": 227240,
       "playCount": 0,
-      "score": 40
+      "score": 37
     },
     {
-      "rank": 8,
-      "songId": 2111695133,
-      "title": "遠吠え",
-      "alias": "远吠",
-      "artist": "chilldspot",
-      "album": "まだらもよう",
-      "durationMs": 217213,
-      "playCount": 0,
-      "score": 40
-    },
-    {
-      "rank": 9,
-      "songId": 2040876720,
-      "title": "フローリア",
-      "alias": "芙罗兰",
-      "artist": "ヒバナ",
-      "album": "フローリア",
-      "durationMs": 185625,
-      "playCount": 0,
-      "score": 40
-    },
-    {
-      "rank": 10,
+      "rank": 6,
       "songId": 1965308423,
       "title": "your trip",
       "alias": "Your Trip",
@@ -151,65 +107,21 @@
       "album": "around dusk",
       "durationMs": 244376,
       "playCount": 0,
-      "score": 40
+      "score": 37
     },
     {
-      "rank": 11,
-      "songId": 19572271,
-      "title": "Gotta Have You",
+      "rank": 7,
+      "songId": 1487501535,
+      "title": "春夢",
       "alias": "",
-      "artist": "The Weepies",
-      "album": "Say I Am You",
-      "durationMs": 199786,
+      "artist": "May'n",
+      "album": "15Colors -nu skool-",
+      "durationMs": 226307,
       "playCount": 0,
-      "score": 40
+      "score": 37
     },
     {
-      "rank": 12,
-      "songId": 1878036176,
-      "title": "花は買わない",
-      "alias": "我不买花",
-      "artist": "DADARAY",
-      "album": "ガーラ",
-      "durationMs": 273000,
-      "playCount": 0,
-      "score": 40
-    },
-    {
-      "rank": 13,
-      "songId": 1810759765,
-      "title": "春泥棒",
-      "alias": "盗春者",
-      "artist": "ヨルシカ",
-      "album": "春泥棒",
-      "durationMs": 290279,
-      "playCount": 0,
-      "score": 40
-    },
-    {
-      "rank": 14,
-      "songId": 1457709580,
-      "title": "思想犯",
-      "alias": "",
-      "artist": "ヨルシカ",
-      "album": "思想犯",
-      "durationMs": 252056,
-      "playCount": 0,
-      "score": 40
-    },
-    {
-      "rank": 15,
-      "songId": 1387098936,
-      "title": "雨晴るる",
-      "alias": "雨后天晴",
-      "artist": "ヨルシカ",
-      "album": "エルマ",
-      "durationMs": 222756,
-      "playCount": 0,
-      "score": 40
-    },
-    {
-      "rank": 16,
+      "rank": 8,
       "songId": 1361336636,
       "title": "Come Back To Me",
       "alias": "",
@@ -217,51 +129,139 @@
       "album": "This Is The One",
       "durationMs": 237946,
       "playCount": 0,
-      "score": 40
+      "score": 37
+    },
+    {
+      "rank": 9,
+      "songId": 762499,
+      "title": "波よせて",
+      "alias": "随波逐流",
+      "artist": "クラムボン",
+      "album": "LOVER ALBUM リマスター",
+      "durationMs": 310386,
+      "playCount": 0,
+      "score": 25
+    },
+    {
+      "rank": 10,
+      "songId": 561877,
+      "title": "Lie Lie Lie",
+      "alias": "",
+      "artist": "BONNIE PINK",
+      "album": "Bonnie's Kitchen #1",
+      "durationMs": 239866,
+      "playCount": 0,
+      "score": 25
+    },
+    {
+      "rank": 11,
+      "songId": 557583335,
+      "title": "爆弾魔",
+      "alias": "炸弹魔",
+      "artist": "ヨルシカ",
+      "album": "負け犬にアンコールはいらない",
+      "durationMs": 217026,
+      "playCount": 0,
+      "score": 25
+    },
+    {
+      "rank": 12,
+      "songId": 34613621,
+      "title": "Vagrant",
+      "alias": "",
+      "artist": "Feint / Veela",
+      "album": "Vagrant",
+      "durationMs": 268571,
+      "playCount": 0,
+      "score": 25
+    },
+    {
+      "rank": 13,
+      "songId": 3355479297,
+      "title": "千鳥",
+      "alias": "",
+      "artist": "ヨルシカ",
+      "album": "二人称",
+      "durationMs": 252115,
+      "playCount": 0,
+      "score": 25
+    },
+    {
+      "rank": 14,
+      "songId": 31654343,
+      "title": "不将就",
+      "alias": "电影《何以笙箫默》片尾主题曲",
+      "artist": "李荣浩",
+      "album": "有理想",
+      "durationMs": 312997,
+      "playCount": 0,
+      "score": 25
+    },
+    {
+      "rank": 15,
+      "songId": 31546854,
+      "title": "月光食堂",
+      "alias": "",
+      "artist": "古川本舗 / ちびた",
+      "album": "SINGALONG6",
+      "durationMs": 285049,
+      "playCount": 0,
+      "score": 25
+    },
+    {
+      "rank": 16,
+      "songId": 28885472,
+      "title": "ヤキモチ",
+      "alias": "吃醋",
+      "artist": "高橋優",
+      "album": "今、そこにある明滅と群生",
+      "durationMs": 314633,
+      "playCount": 0,
+      "score": 25
     },
     {
       "rank": 17,
-      "songId": 1348704277,
-      "title": "眩しいDNAだけ",
-      "alias": "只是耀眼的DNA",
-      "artist": "ずっと真夜中でいいのに。",
-      "album": "眩しいDNAだけ",
-      "durationMs": 227173,
+      "songId": 2702969612,
+      "title": "火星人",
+      "alias": "TVアニメ『小市民シリーズ』第2期オープニングテーマ",
+      "artist": "ヨルシカ",
+      "album": "火星人",
+      "durationMs": 234929,
       "playCount": 0,
-      "score": 40
+      "score": 25
     },
     {
       "rank": 18,
-      "songId": 1331310670,
-      "title": "雪の華",
-      "alias": "雪花",
-      "artist": "Uru",
-      "album": "プロローグ",
-      "durationMs": 319320,
+      "songId": 22711357,
+      "title": "Darlin'",
+      "alias": "",
+      "artist": "BENI",
+      "album": "MTV UNplugged",
+      "durationMs": 267540,
       "playCount": 0,
-      "score": 40
+      "score": 25
     },
     {
       "rank": 19,
-      "songId": 769937,
-      "title": "I will be with you",
-      "alias": "I will be with you",
-      "artist": "LOVE PSYCHEDELICO",
-      "album": "I will be with you",
-      "durationMs": 261100,
+      "songId": 2141838426,
+      "title": "エヴリー・セカンド (ジャパニーズ・ヴァージョン)",
+      "alias": "每一秒",
+      "artist": "ミイナ・オカベ",
+      "album": "エヴリー・セカンド (ジャパニーズ・ヴァージョン)",
+      "durationMs": 182500,
       "playCount": 0,
-      "score": 20
+      "score": 25
     },
     {
       "rank": 20,
-      "songId": 740530,
-      "title": "日が落ちるまで",
-      "alias": "直到日落时",
-      "artist": "ハンバート ハンバート",
-      "album": "道はつづく",
-      "durationMs": 296542,
+      "songId": 2111695133,
+      "title": "遠吠え",
+      "alias": "远吠",
+      "artist": "chilldspot",
+      "album": "まだらもよう",
+      "durationMs": 217213,
       "playCount": 0,
-      "score": 20
+      "score": 25
     }
   ],
   "allTime": [
@@ -285,7 +285,7 @@
       "album": "踊り子",
       "durationMs": 230109,
       "playCount": 0,
-      "score": 84
+      "score": 83
     },
     {
       "rank": 3,
@@ -373,7 +373,7 @@
       "album": "BOOTLEG",
       "durationMs": 288949,
       "playCount": 0,
-      "score": 37
+      "score": 36
     },
     {
       "rank": 11,
@@ -388,23 +388,23 @@
     },
     {
       "rank": 12,
-      "songId": 487527979,
-      "title": "カトレア",
-      "alias": "卡特兰 Cattleya",
-      "artist": "ヨルシカ",
-      "album": "夏草が邪魔をする",
-      "durationMs": 188429,
-      "playCount": 0,
-      "score": 34
-    },
-    {
-      "rank": 13,
       "songId": 1378491296,
       "title": "グランドエスケープ (Movie edit)",
       "alias": "逃离地面",
       "artist": "三浦透子 / RADWIMPS",
       "album": "天気の子",
       "durationMs": 188066,
+      "playCount": 0,
+      "score": 34
+    },
+    {
+      "rank": 13,
+      "songId": 487527979,
+      "title": "カトレア",
+      "alias": "卡特兰 Cattleya",
+      "artist": "ヨルシカ",
+      "album": "夏草が邪魔をする",
+      "durationMs": 188429,
       "playCount": 0,
       "score": 34
     },
