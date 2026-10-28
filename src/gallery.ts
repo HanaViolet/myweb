@@ -13,11 +13,32 @@ export function initGallery() {
     index = (next + items.length) % items.length;
     const item = items[index];
     const img = dialog.querySelector('img')!;
+    dialog.dataset.imageState = 'loading';
     img.src = item.src; img.alt = item.alt;
     dialog.querySelector('figcaption')!.textContent = item.alt;
     dialog.querySelector('[data-gallery-count]')!.textContent = `${index + 1} / ${items.length}`;
     dialog.querySelector('a')!.href = item.src;
   };
+  const image = dialog.querySelector('img')!;
+  image.addEventListener('load', () => { dialog.dataset.imageState = 'ready'; });
+  image.addEventListener('error', () => {
+    dialog.dataset.imageState = 'error';
+    dialog.querySelector('figcaption')!.textContent = '图片载入失败，可通过原图链接重试。';
+  });
+  let swipe: { x: number; y: number; id: number } | undefined;
+  image.addEventListener('pointerdown', event => {
+    if (event.pointerType !== 'touch' || !event.isPrimary) return;
+    swipe = { x: event.clientX, y: event.clientY, id: event.pointerId };
+    image.setPointerCapture(event.pointerId);
+  });
+  image.addEventListener('pointerup', event => {
+    if (!swipe || swipe.id !== event.pointerId) return;
+    const dx = event.clientX - swipe.x, dy = event.clientY - swipe.y;
+    swipe = undefined;
+    if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.5) show(index + (dx < 0 ? 1 : -1));
+  });
+  image.addEventListener('pointercancel', () => { swipe = undefined; });
+  dialog.addEventListener('close', () => { swipe = undefined; });
   document.addEventListener('click', event => {
     const link = (event.target as Element).closest<HTMLAnchorElement>('.blog-gallery a');
     if (!link || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) return;

@@ -8,3 +8,8 @@
 .gallery-viewer[open] { animation: gallery-enter 180ms ease-out; }
 @keyframes gallery-enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .gallery-viewer[open] { animation: none; } }
+
+.gallery-viewer img { touch-action: pan-y pinch-zoom; transition: opacity 180ms ease-out; }
+.gallery-viewer[data-image-state="loading"] img { opacity: .35; }
+@media (max-width: 600px) { .gallery-viewer { box-sizing: border-box; width: calc(100vw - 16px); padding: 12px; } .gallery-viewer button, .gallery-viewer a { min-height: 44px; } }
+@media (prefers-reduced-motion: reduce) { .gallery-viewer img { transition: none; } }

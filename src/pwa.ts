@@ -94,6 +94,7 @@ document.addEventListener("click", async event => {
     refresh();
   }
   if (button.dataset.pwaAction === "update" && registration?.waiting) {
+    document.dispatchEvent(new Event('sakura:before-update'));
     reloading = true;
     button.disabled = true;
     registration.waiting.postMessage({ type: "RHINE_APPLY_UPDATE" });

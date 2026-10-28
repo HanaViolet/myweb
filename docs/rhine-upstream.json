@@ -108,8 +108,8 @@
     },
     "src/pwa.ts": {
       "upstreamSha256": "f060a0ca020e78201995fcf50678f730fb5fa858802d804d9e0e82ac5b612946",
-      "localSha256": "3244e47b076a1fe5868c0b24bc6d36e4e467dec11694c1f1dc462353197a3a83",
-      "reason": "Offline status distinguishes shell from lazily fetched visited content."
+      "localSha256": "9122833daff3bdcb50b6c0aa00fa99a7fba4415aa5befbffbeae16c7c3f82862",
+      "reason": "Lazy offline status and a checkpoint event before applying an update."
     }
   }
 }

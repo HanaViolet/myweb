@@ -1,0 +1,32 @@
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+import ts from 'typescript';
+async function moduleAt(path) {
+  const source = await readFile(path, 'utf8');
+  const js = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 } }).outputText;
+  return import('data:text/javascript;base64,' + Buffer.from(js).toString('base64'));
+}
+const { DetailPresentation } = await moduleAt('src/detail-presentation.ts');
+const { parseCheckpoint } = await moduleAt('src/session-checkpoint.ts');
+const motion = new DetailPresentation();
+motion.open();
+assert.equal(motion.update(16, 0).interactive, false);
+assert.equal(motion.update(16, 0.6).visibility, 0.6);
+assert.equal(motion.update(16, 0.2).visibility, 0.6, 'Reading must not disappear during model replacement');
+motion.close();
+assert.equal(motion.update(16, 1).visibility, 0);
+motion.open();
+assert.equal(motion.update(60_000, 0).fallback, false, 'A background time jump must not skip the presentation');
+let result;
+for (let i = 0; i < 140; i++) result = motion.update(16, 0);
+assert.equal(result.visibility, 1, 'A stalled scene must not permanently block reading');
+assert.equal(result.fallback, true);
+motion.open(true);
+assert.equal(motion.update(16, NaN).visibility, 1);
+const checkpoint = { version: 1, at: 1000, path: '/about/', uid: 'content:/about/', mode: 'detail', tab: 'notes', scroll: 420 };
+assert.deepEqual(parseCheckpoint(JSON.stringify(checkpoint), '/about/', 1100), checkpoint);
+assert.equal(parseCheckpoint(JSON.stringify(checkpoint), '/gallery/', 1100), null);
+assert.equal(parseCheckpoint(JSON.stringify(checkpoint), '/about/', 700000), null);
+assert.equal(parseCheckpoint(JSON.stringify({ ...checkpoint, scroll: -1 }), '/about/', 1100), null);
+assert.equal(parseCheckpoint('{broken', '/about/', 1100), null);
+console.log('Interaction regression checks passed: interruption, stalled scene, background time and update checkpoints.');

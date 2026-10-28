@@ -11,7 +11,7 @@
     "server": "vite",
     "build": "npm run prepare && npm run content:build && tsc && vite build && node tools/finalize-blog.mjs",
     "preview": "vite preview --host 127.0.0.1 --port 4000",
-    "check": "npm run build && node tools/check-blog.mjs && node tools/check-platform.mjs && node tools/check-bookmarks.mjs && npm run check:links",
+    "check": "npm run build && node tools/check-blog.mjs && node tools/check-platform.mjs && node tools/check-bookmarks.mjs && node tools/check-interactions.mjs && npm run check:links",
     "check:links": "node tools/check-local-links.mjs",
     "check:browser": "node tools/check-blog-browser.mjs",
     "listening:chart": "node tools/generate-listening-chart.mjs",

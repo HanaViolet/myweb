@@ -27,10 +27,17 @@ Set `published: true` when ready. Use existing absolute media paths or HTTPS URL
 
 Run `npm run check` before publishing. It includes original content/link checks and new platform contracts. Keep source files, `content/blog-ids.json` and media backed up together. Generated directories can be rebuilt. Preview a production build with `npm run preview`; deployment remains the existing Cloudflare workflow.
 
+## Interaction follow-up (local next version)
+
+- Detail opacity, input readiness and focus share one monotonic presentation signal. Foreground frame time bounds a stalled reveal; changing records cannot hide already-readable content.
+- Applying a service-worker update saves the active record, reading tab and scroll position in session storage. A matching checkpoint expires after ten minutes. Restoration waits for the body; deliberate user input cancels pending restoration.
+- Gallery images have loading/error feedback and touch swipe navigation. Small-screen controls have 44px minimum height, and reduced motion disables the image fade.
+- Pure regression checks cover presentation timing and checkpoint validation. Full service-worker upgrade restoration and touch gestures still require device/end-to-end validation. Late-loading media can affect restored scroll position.
+
 ## Next milestones (not represented as completed)
 
 1. Responsive image variants and local media ingestion; virtualized search for large collections.
-2. A unified scene/readiness state machine, animation stress tests on real mobile devices, and update-position restoration.
+2. Broader scene/readiness integration, animation stress tests on real mobile devices, and end-to-end update restoration checks.
 3. Album/playlist editing, travel timeline UI, cross-content collections and optional content-management UI.
 4. Operational monitoring, deployment rollback exercise and accessibility/device performance budgets.
 

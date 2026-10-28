@@ -1,3 +1,5 @@
+import { DetailPresentation } from './detail-presentation';
+import { CHECKPOINT_KEY, parseCheckpoint } from './session-checkpoint';
 import { migrateBookmarks } from './bookmarks';
 import { createRollingClock } from "./rolling-clock";
 import { initBlog, startBlog, blogMode, blogBody, blogNotes, blogDiscussion } from "./blog";
@@ -180,7 +182,26 @@ let modalTransition: SurfaceTransition | undefined;
 let modalClosing = false;
 let modalSiblings: { node: HTMLElement; inert: boolean }[] = [];
 let pendingDetailFocus = false;
-let detailClearTimer: ReturnType<typeof setTimeout> | undefined;
+const detailPresentation = new DetailPresentation();
+let presentationFrameTime = 0;
+let clearedByFallback = false;
+let resumeCheckpoint = (() => {
+  try { return parseCheckpoint(sessionStorage.getItem(CHECKPOINT_KEY), location.pathname + location.search); }
+  catch { return null; }
+})();
+let pendingRestore = false;
+for (const event of ['pointerdown', 'wheel', 'keydown']) document.addEventListener(event, () => {
+  // A deliberate user action takes precedence over a late network response.
+  if (pendingRestore) { pendingRestore = false; resumeCheckpoint = null; }
+}, { capture: true, passive: true });
+document.addEventListener('sakura:before-update', () => {
+  if (mode !== 'archive' && mode !== 'detail') return;
+  try {
+    sessionStorage.setItem(CHECKPOINT_KEY, JSON.stringify({ version: 1, at: Date.now(),
+      path: location.pathname + location.search, uid: records[selected].uid, mode, tab: activeTab,
+      scroll: document.querySelector('#detail-content')?.scrollTop ?? 0 }));
+  } catch {}
+});
 let bookmarkFeedback: Animation | undefined;
 function readLocal<T>(key: string, fallback: T): T {
   try {
@@ -586,7 +607,8 @@ function setMode(next: Mode) {
     previousMode === "detail" ||
     (next === "boot" && !$("#detail-ui").hidden)
   ) {
-    clearTimeout(detailClearTimer);
+    detailPresentation.close();
+    pendingRestore = false;
     pendingDetailFocus = false;
     tabTransition.cancel();
     detailTransition.hide(
@@ -603,6 +625,8 @@ function setMode(next: Mode) {
     $("#stage").dataset.boot = "done";
   }
   if (next === "detail" && previousMode !== "detail") {
+    detailPresentation.open(!scene || !motionActive('detailTransition'));
+    presentationFrameTime = performance.now();
     renderDetail();
     pendingDetailFocus = true;
     if (!scene) {
@@ -768,9 +792,10 @@ function toggleSaved() {
   notify(saved.has(id) ? "档案已加入收藏" : "已取消收藏");
 }
 function renderDetail() {
+  if (pendingRestore) { pendingRestore = false; resumeCheckpoint = null; }
   tabScroll.clear();
   tabTransition.cancel();
-  clearTimeout(detailClearTimer);
+  clearedByFallback = false;
   const r = records[selected];
   if (r.id !== detailRecordId) {
     detailRecordId = r.id;
@@ -831,11 +856,7 @@ function renderDetail() {
       scene.decryptionFrame.phase === "clear",
   );
   setTab(activeTab, false);
-  // Decorative redaction must never outlive a stalled glass reveal.
-  detailClearTimer = window.setTimeout(() => {
-    if (mode === "detail" && records[selected]?.id === r.id)
-      documentDecryption.reset($("#detail-content"), true);
-  }, 1400);
+
 }
 function overview() {
   return blogBody(records[selected]);
@@ -1476,6 +1497,7 @@ function frame(ms: number) {
     return;
   }
   if (document.hidden) {
+    presentationFrameTime = ms;
     requestAnimationFrame(frame);
     return;
   }
@@ -1500,29 +1522,45 @@ function frame(ms: number) {
   viewer?.update(time);
   if (threeState === "closing" && scene?.presentationHidden) releaseThree();
   playground?.position();
-  if (scene && mode === "detail") {
-    documentDecryption.update(
+  const presentation = detailPresentation.update(ms - presentationFrameTime, scene?.detailVisibility ?? 1);
+  presentationFrameTime = ms;
+  if (mode === "detail") {
+    if (presentation.fallback && !clearedByFallback) {
+      documentDecryption.reset($("#detail-content"), true);
+      clearedByFallback = true;
+    }
+    if (scene) documentDecryption.update(
       time,
       scene.decryptionFrame,
       !motionActive("documentReveal"),
     );
-    $("#detail-content").style.opacity = String(scene.detailVisibility);
+    $("#detail-content").style.opacity = String(presentation.visibility);
     $("#detail-content").style.translate =
-      `0 ${(1 - scene.detailVisibility) * 18}px`;
-    $("#detail-content").inert = scene.detailVisibility < 0.1;
+      `0 ${(1 - presentation.visibility) * 18}px`;
+    $("#detail-content").inert = !presentation.interactive;
     if (
       pendingDetailFocus &&
-      scene.detailVisibility >= 0.1 &&
+      presentation.interactive &&
       !modal &&
       !viewer?.isOpen
     ) {
       $("#detail-content").focus({ preventScroll: true });
       pendingDetailFocus = false;
     }
+    if (pendingRestore && resumeCheckpoint && presentation.interactive) {
+      const root = $("#detail-content");
+      const panel = root.querySelector<HTMLElement>(`[data-reading-panel="${activeTab}"]`);
+      // Do not wait for offscreen lazy images: they may only load after restoring scroll.
+      if (panel && !panel.querySelector('[aria-busy="true"]')) {
+        root.scrollTop = resumeCheckpoint.scroll;
+        pendingRestore = false;
+        resumeCheckpoint = null;
+      }
+    }
   }
   $("#stage").style.setProperty(
     "--detail-shade",
-    String(mode === "boot" ? 0 : (scene?.detailVisibility ?? 0)),
+    String(mode === "boot" ? 0 : mode === "detail" ? presentation.visibility : (scene?.detailVisibility ?? 0)),
   );
   const currentScene = scene;
   if (currentScene)
@@ -1716,7 +1754,7 @@ async function start() {
     savePrefs();
     ready = true;
     select(0);
-    if (location.pathname !== '/' || reviewParams.has('track')) completeStartup(false);
+    if (resumeCheckpoint || location.pathname !== '/' || reviewParams.has('track')) completeStartup(false);
     else if (entry) entry.ready();
     else {
       if (isWallpaper) {
@@ -1756,7 +1794,23 @@ function completeStartup(silent: boolean) {
   )
     setMode("archive");
   if (reviewParams.get("scene") === "detail") setMode("detail");
+  if (resumeCheckpoint) setMode('archive');
   startBlog();
+  if (resumeCheckpoint) {
+    const index = records.findIndex(r => r.uid === resumeCheckpoint!.uid);
+    if (index >= 0) {
+      if (resumeCheckpoint.mode === 'archive') select(index);
+      else {
+        if (selected !== index || mode !== 'detail') navigateRecord(index);
+        scene?.finishDecryption();
+        detailPresentation.open(true);
+        setTab(resumeCheckpoint.tab, false);
+        pendingRestore = true;
+      }
+    }
+    try { sessionStorage.removeItem(CHECKPOINT_KEY); } catch {}
+    if (!pendingRestore) resumeCheckpoint = null;
+  }
   if (isWallpaper && wallpaperHost()?.properties.boot?.value === false)
     setMode("archive");
   $("#stage").inert = false;
