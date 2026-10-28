@@ -27,13 +27,13 @@ $404('body').append(`<main id="static-content">${nav}<h1>404 / 档案未找到</
 $404('script[type="module"]').remove();
 await writeFile('public/404.html', $404.html());
 await writeFile('public/sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${pages.map(p => `<url><loc>${e(config.url + encodeURI(p.route))}</loc></url>`).join('')}</urlset>`);
-const posts = records.filter(r => r.kind === 'post');
+const posts = records.filter(r => r.kind === 'post').sort((a, b) => b.date.localeCompare(a.date));
 await writeFile('public/atom.xml', `<?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom"><title>${e(config.title)}</title><id>${config.url}/</id><link href="${config.url}/atom.xml" rel="self"/><link href="${config.url}/"/><updated>${posts[0].date}T00:00:00+08:00</updated>${posts.map(r => `<entry><title>${e(r.title)}</title><id>${e(r.source)}</id><link href="${e(r.source)}"/><updated>${r.date}T00:00:00+08:00</updated><author><name>${e(config.author)}</name></author><content type="html">${e(r.html)}</content></entry>`).join('')}</feed>`);
 await writeFile('public/search.xml', `<?xml version="1.0" encoding="UTF-8"?><search>${posts.map(r => `<entry><title>${e(r.title)}</title><url>${e(r.route)}</url><content>${e(r.searchText)}</content></entry>`).join('')}</search>`);
-// Keep the shell, article HTML and model in one atomic offline version. Images and
+// Keep the shell and model in one atomic offline version. Article pages, search, images and
 // personal MP3s stay on demand; visiting the homepage never downloads the music library.
 const all = (await readdir('public', { recursive: true })).map(p => p.replaceAll('\\', '/'));
-const files = all.filter(p => /\.(?:html|css|js|woff2|txt|webmanifest)$/.test(p) || /^assets\/.*\.(glb|png|jpg)$/.test(p) || /^audio\//.test(p) || /^icons\//.test(p)).filter(p => !['sw.js', '404.html'].includes(p) && !/^assets\/archive-(cassette|assembly)\.glb$/.test(p));
+const files = all.filter(p => p === 'index.html' || /\.(?:css|js|woff2|webmanifest)$/.test(p) || /^assets\/.*\.(glb|png|jpg)$/.test(p) || /^audio\//.test(p) || /^icons\//.test(p)).filter(p => !['sw.js', '404.html'].includes(p) && !/^assets\/search-/.test(p) && !/^assets\/archive-(cassette|assembly)\.glb$/.test(p));
 const concrete = [];
 for (const file of files) if ((await stat(`public/${file}`)).isFile()) concrete.push(file);
 const worker = await readFile('tools/rhine/pwa-worker.js', 'utf8');

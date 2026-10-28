@@ -35,11 +35,16 @@ self.addEventListener('fetch', event => {
   url.search = ''; url.hash = '';
   if (event.request.mode === 'navigate' && url.pathname.endsWith('/')) url.pathname += 'index.html';
   const key = url.href;
-  if (!allowed.has(key)) return;
+  const contentRequest = /\/content\/[a-f0-9]{20}\.json$/.test(url.pathname);
+  const onDemand = contentRequest || event.request.mode === 'navigate' || /\/assets\/search-[^/]+\.js$/.test(url.pathname);
+  if (!allowed.has(key) && !onDemand) return;
   event.respondWith((async () => {
     const cache = await caches.open(CACHE);
     const cached = await cache.match(key);
     if (cached && event.request.mode === 'navigate') return new Response(cached.body, { status: cached.status, headers: cached.headers });
-    return cached || fetch(event.request);
+    if (cached) return cached;
+    const response = await fetch(event.request);
+    if (onDemand && response.ok) await cache.put(key, response.clone());
+    return response;
   })());
 });

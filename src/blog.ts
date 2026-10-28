@@ -1,4 +1,4 @@
-import content from '../.generated/blog.json';
+import content from '../.generated/catalog.json';
 import { records, type ArchiveRecord } from './data';
 import { escapeHtml as e } from './html';
 import './blog.css';
@@ -16,16 +16,40 @@ let trackIndex = -1;
 let player: HTMLElement;
 const tracks = content.tracks;
 
+const bodies = new Map<string, Promise<string>>();
+function loadBody(url: string) {
+  if (!bodies.has(url)) bodies.set(url, fetch(url).then(async response => {
+    if (!response.ok) throw new Error('Content unavailable');
+    const data = await response.json();
+    if (typeof data.html !== 'string') throw new Error('Invalid content');
+    return data.html as string;
+  }).catch(error => { bodies.delete(url); throw error; }));
+  return bodies.get(url)!;
+}
 export function blogBody(record: ArchiveRecord) {
   current = record;
-  const page = pageAt(activeRoute);
-  const body = page?.recordId === record.id && decodePath(activeRoute) !== '/' ? page.html : record.html;
-  return `<div class="blog-prose">${body}</div>`;
+  const alias = pageAt(activeRoute);
+  const page = alias?.recordId === record.id ? alias : pageAt(record.route);
+  if (!page) return '<p>内容暂不可用。</p>';
+  const url = page.bodyUrl;
+  void loadBody(url).then(html => {
+    document.querySelectorAll<HTMLElement>('[data-content-url]').forEach(root => {
+      if (root.dataset.contentUrl !== url) return;
+      root.innerHTML = html;
+      root.removeAttribute('aria-busy');
+    });
+  }).catch(() => {
+    document.querySelectorAll<HTMLElement>('[data-content-url]').forEach(root => {
+      if (root.dataset.contentUrl !== url) return;
+      root.innerHTML = '<p>内容未能载入。</p><button type="button" data-content-retry>重试</button>';
+      root.removeAttribute('aria-busy');
+    });
+  });
+  return `<div class="blog-prose" data-content-url="${e(url)}" aria-busy="true"><p role="status">正在载入档案…</p></div>`;
 }
 export function blogNotes(record: ArchiveRecord) {
-  const doc = new DOMParser().parseFromString(record.html, 'text/html');
-  const headings = [...doc.querySelectorAll('h2,h3')];
-  return `<div class="blog-prose"><div class="panel-label">DOCUMENT INDEX / 目录</div>${headings.length ? `<ol>${headings.map((h, i) => `<li><button type="button" data-blog-heading="${i}">${e(h.textContent || '')}</button></li>`).join('')}</ol>` : `<p>${e(record.abstract)}</p>`}<div class="blog-tags">${record.tags.map(t => `<a href="/tags/${encodeURIComponent(t)}/">#${e(t)}</a>`).join('')}</div><p><a href="${e(record.route)}?reader=1">专注阅读 ↗</a> · <button type="button" data-blog-share>复制链接</button></p><p><a href="/archives/">文章目录</a> · <a href="/categories/">分类</a> · <a href="/tags/">标签</a></p></div>`;
+  const headings = record.headings;
+  return `<div class="blog-prose"><div class="panel-label">DOCUMENT INDEX / 目录</div>${headings.length ? `<ol>${headings.map((h, i) => `<li><button type="button" data-blog-heading="${i}">${e(h.title)}</button></li>`).join('')}</ol>` : `<p>${e(record.abstract)}</p>`}<div class="blog-tags">${record.tags.map(t => `<a href="/tags/${encodeURIComponent(t)}/">#${e(t)}</a>`).join('')}</div><p><a href="${e(record.route)}?reader=1">专注阅读 ↗</a> · <button type="button" data-blog-share>复制链接</button></p><p><a href="/archives/">文章目录</a> · <a href="/categories/">分类</a> · <a href="/tags/">标签</a></p></div>`;
 }
 export function blogDiscussion(record: ArchiveRecord) {
   return `<div class="blog-prose"><p>${record.comments ? '在原有 GitHub Discussions 中继续交流。' : '这份档案未开启评论。'}</p>${record.comments ? '<button type="button" data-blog-comments>加载留言</button><div id="blog-comments"></div>' : ''}<p><a href="${e(record.route)}?reader=1">专注阅读 ↗</a> · <button type="button" data-blog-share>复制链接</button></p></div>`;
@@ -78,6 +102,7 @@ function updatePlayer() {
   player.hidden = false;
   player.querySelector('[data-player-title]')!.textContent = track.title;
   player.querySelector('[data-player-meta]')!.textContent = track.artist;
+  player.querySelectorAll<HTMLElement>('[data-queue-index]').forEach(button => button.setAttribute('aria-current', String(Number(button.dataset.queueIndex) === trackIndex)));
   player.querySelector('[data-player-toggle]')!.textContent = audio.paused ? '播放' : '暂停';
   const range = player.querySelector<HTMLInputElement>('[data-player-seek]')!;
   range.value = String(Number.isFinite(audio.duration) ? audio.currentTime / audio.duration * 100 : 0);
@@ -97,7 +122,7 @@ async function playTrack(index: number) {
 export function initBlog(api: Bridge) {
   bridge = api;
   document.querySelector('.system-footer > span:nth-child(2)')!.firstChild!.textContent = 'SAKURA ';
-  document.querySelector('#stage')!.insertAdjacentHTML('beforeend', `<aside class="blog-player" aria-label="音乐播放器" hidden><div><a data-player-link><strong data-player-title></strong></a><small data-player-meta></small></div><div class="blog-player-controls"><button type="button" data-player-prev aria-label="上一首">←</button><button type="button" data-player-toggle>播放</button><button type="button" data-player-next aria-label="下一首">→</button><button type="button" data-player-close aria-label="停止并关闭播放器">×</button></div><input type="range" min="0" max="100" step="0.1" value="0" data-player-seek aria-label="播放进度"><small data-player-time></small><label>音量 <input type="range" min="0" max="1" step="0.05" value="0.65" data-player-volume aria-label="音乐音量"></label></aside>`);
+  document.querySelector('#stage')!.insertAdjacentHTML('beforeend', `<aside class="blog-player" aria-label="音乐播放器" hidden><div><a data-player-link><strong data-player-title></strong></a><small data-player-meta></small></div><div class="blog-player-controls"><button type="button" data-player-prev aria-label="上一首">←</button><button type="button" data-player-toggle>播放</button><button type="button" data-player-next aria-label="下一首">→</button><button type="button" data-player-close aria-label="停止并关闭播放器">×</button></div><input type="range" min="0" max="100" step="0.1" value="0" data-player-seek aria-label="播放进度"><small data-player-time></small><label>音量 <input type="range" min="0" max="1" step="0.05" value="0.65" data-player-volume aria-label="音乐音量"></label><details class="player-queue"><summary>播放队列</summary><ol>${tracks.map((t, i) => `<li><button type="button" data-queue-index="${i}">${e(t.title)} · ${e(t.artist)}</button></li>`).join('')}</ol></details></aside>`);
   player = document.querySelector('.blog-player')!;
   audio.volume = 0.65;
   try {
@@ -105,7 +130,7 @@ export function initBlog(api: Bridge) {
     const index = tracks.findIndex(t => t.id === state?.id);
     if (index >= 0) {
       trackIndex = index; audio.src = tracks[index].src;
-      audio.volume = Math.min(1, Math.max(0, Number(state.volume) || 0.65));
+      audio.volume = Math.min(1, Math.max(0, Number.isFinite(state.volume) ? state.volume : 0.65));
       audio.addEventListener('loadedmetadata', () => { if (Number.isFinite(state.time)) audio.currentTime = Math.min(state.time, audio.duration || 0); }, { once: true });
       player.querySelector<HTMLInputElement>('[data-player-volume]')!.value = String(audio.volume);
     }
@@ -123,6 +148,8 @@ export function initBlog(api: Bridge) {
   document.addEventListener('click', async event => {
     const target = (event.target as Element).closest<HTMLElement>('a,button');
     if (!target) return;
+    if (target.hasAttribute('data-content-retry') && current) { target.closest('[data-content-url]')!.outerHTML = blogBody(current); return; }
+    if (target.dataset.queueIndex !== undefined) { await playTrack(Number(target.dataset.queueIndex)); return; }
     const play = target.dataset.blogPlay;
     if (play) { await playTrack(tracks.findIndex(t => t.id === play)); return; }
     if (target.hasAttribute('data-blog-heading')) {

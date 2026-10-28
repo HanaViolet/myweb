@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { readFile, writeFile, mkdir, readdir, cp, stat, rm } from 'node:fs/promises';
 import path from 'node:path';
 import { parse } from 'yaml';
@@ -92,7 +93,21 @@ for (const file of (await readdir('source/_posts')).filter(f => f.endsWith('.md'
   const tags = [data.tags || []].flat();
   const categories = [data.categories || []].flat();
   const cover = data.cover ? new URL(data.cover, config.url + route).pathname : '';
-  posts.push({ route, title: data.title, html, tags, categories, cover, date: String(data.date).slice(0, 10), abstract: data.description || text(html).slice(0, 140), comments: data.comments !== false, sourceFile: `source/_posts/${file}` });
+  posts.push({ route, title: data.title, html, tags, categories, cover, date: String(data.date).slice(0, 10), abstract: data.description || text(html).slice(0, 140), comments: data.comments !== false, related: data.related || [], sourceFile: `source/_posts/${file}` });
+}
+// Optional travel journals use the article lane and the same stable URL contract.
+await mkdir('source/_trips', { recursive: true });
+for (const file of (await readdir('source/_trips')).filter(f => f.endsWith('.md'))) {
+  const raw = await markdown(`source/_trips/${file}`, '/');
+  if (raw.data.published === false) continue;
+  const { title, slug, date, destination, related = [] } = raw.data;
+  if (!title || !/^[a-z0-9-]+$/.test(slug || '') || !destination || !/^\d{4}-\d{2}-\d{2}/.test(String(date)))
+    throw Error(`Travel journal requires title, slug, date and destination: ${file}`);
+  if (Date.parse(String(date).slice(0, 10)) > Date.now()) continue;
+  const route = `/travel/${slug}/`;
+  const { html } = await markdown(`source/_trips/${file}`, route);
+  add(route, title, '文章档案', html, { kind: 'trip', en: 'TRAVEL JOURNAL', date: String(date).slice(0, 10),
+    department: destination, destination, related, tags: [raw.data.tags || []].flat(), abstract: raw.data.description || text(html).slice(0, 140) });
 }
 posts.sort((a, b) => a.date.localeCompare(b.date));
 for (const p of posts) add(p.route, p.title, '文章档案', p.html, { ...p, kind: 'post', en: 'JOURNAL / SAKURA', department: p.categories.join(' · ') || '随笔' });
@@ -161,14 +176,46 @@ const displayRecords = [
   ...records.filter(r => r.category === '音乐档案'),
   ...records.filter(r => r.category === '资源档案'),
   archive,
+  ...records.filter(r => r.kind === "trip"),
   ...postRecords,
 ];
 records.splice(0, records.length, ...displayRecords);
+for (const r of records) {
+  if (!r.title || !config.columns.includes(r.category)) throw Error(`Invalid content metadata: ${r.route}`);
+  r.related ??= [];
+  if (!Array.isArray(r.related) || r.related.some(route => !pages.some(p => p.route === route)))
+    throw Error(`Unknown related content route: ${r.route}`);
+  if (r.related.length) r.html += `<nav class="blog-tags" aria-label="相关内容">${r.related.map(route => `<a href="${e(route)}">${e(pages.find(p => p.route === route).title)}</a>`).join('')}</nav>`;
+  const page = pages.find(p => p.route === r.route);
+  if (page) page.html = r.html;
+}
 const manifest = { config, records, categories: config.columns, columns: config.columns, pages, tracks: [...tracks, ...discovery.tracks], statsUpdatedAt: stats.updatedAt, inventory: { posts: posts.length, images: images.length, tracks: tracks.length, discovery: discovery.tracks.length, resources: $resource('.resource-item').length, friends: links.reduce((n, g) => n + g.link_list.length, 0) } };
 if (new Set(records.map(r => r.id)).size !== records.length) throw Error('Duplicate archive IDs');
 if (new Set(pages.map(p => p.route)).size !== pages.length) throw Error('Duplicate routes');
 await writeFile('content/blog-ids.json', JSON.stringify(ids, null, 2) + '\n');
 await writeFile('.generated/blog.json', JSON.stringify(manifest, null, 2) + '\n');
+// Stable content identity is independent of the visual X-number.
+for (const r of records) {
+  r.uid = `content:${r.route}`;
+  r.readingMinutes = Math.max(1, Math.ceil(text(r.html).length / 420));
+  r.headings = load(r.html)('h2,h3').map((_, el) => ({ title: load(el).text(), level: el.tagName })).get();
+}
+await mkdir(`${output}/content`, { recursive: true });
+const runtimePages = [];
+for (const page of pages) {
+  const bytes = JSON.stringify({ html: page.html });
+  const hash = createHash('sha256').update(bytes).digest('hex').slice(0, 20);
+  const bodyUrl = `/content/${hash}.json`;
+  await writeFile(`${output}${bodyUrl}`, bytes);
+  const { html, ...meta } = page;
+  runtimePages.push({ ...meta, bodyUrl });
+}
+const runtimeRecords = records.map(({ html, searchText, ...r }) => ({ ...r, html: '', searchText: '' }));
+await writeFile('.generated/catalog.json', JSON.stringify({ ...manifest, records: runtimeRecords, pages: runtimePages }));
+await writeFile('.generated/search.json', JSON.stringify(Object.fromEntries(records.map(r => [r.uid, r.searchText]))));
+// Keep the full build manifest for prerendering and content validation only.
+await writeFile('.generated/blog.json', JSON.stringify(manifest, null, 2) + '\n');
+
 await mkdir(`${output}/archives`, { recursive: true });
 for (const r of records) await writeFile(`${output}/archives/RHINE-LAB-${r.id}.txt`, `${r.title}\n${r.source}\n${r.date}\n\n${load(r.html.replace(/<\/(p|h[1-6]|li|section|blockquote)>/g, '</$1>\n\n')).text()}`);
 await writeFile(`${output}/manifest.webmanifest`, JSON.stringify({ name: config.title, short_name: 'Sakura', start_url: '/', scope: '/', display: 'standalone', background_color: '#e8e5e1', theme_color: '#e8e5e1', icons: [{ src: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' }, { src: '/icons/icon-512.png', sizes: '512x512', type: 'image/png' }] }));

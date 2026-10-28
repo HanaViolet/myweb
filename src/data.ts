@@ -1,7 +1,10 @@
-import content from "../.generated/blog.json";
+import content from "../.generated/catalog.json";
 
 export interface ArchiveRecord {
   id: string;
+  uid: string;
+  readingMinutes: number;
+  headings: { title: string; level: string }[];
   title: string;
   en: string;
   department: string;

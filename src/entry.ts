@@ -1,3 +1,5 @@
+import { initGallery } from './gallery';
+initGallery();
 let reader = new URLSearchParams(location.search).has('reader');
 // The resource directory is a page-only landing surface, not a numbered
 // archive file. Load its readable page directly instead of booting the 3D app.
@@ -26,7 +28,7 @@ if (!reader) {
   });
   document.querySelectorAll<HTMLButtonElement>('[data-blog-play]').forEach(button => {
     button.addEventListener('click', async () => {
-      const { default: content } = await import('../.generated/blog.json');
+      const { default: content } = await import('../.generated/catalog.json');
       const track = content.tracks.find(t => t.id === button.dataset.blogPlay);
       if (!track) return;
       document.querySelectorAll('audio').forEach(a => a.pause());

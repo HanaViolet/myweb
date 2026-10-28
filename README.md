@@ -18,6 +18,8 @@ npm run check:browser # 预览服务运行时执行 Chrome 端到端检查
 
 ## 内容维护
 
+内容平台的新结构、旅行日志格式和后续里程碑见 [平台改造说明](docs/platform-roadmap.md)。旅行日志模板在 `scaffolds/trip.md`；复制到 `source/_trips/` 后填写内容，确认发布时将 `published` 改为 `true`。
+
 - `source/_posts/*.md`：继续写 Markdown，保留原有 Front Matter。`abbrlink` 是稳定的文章地址，必须唯一，不要修改已发布文章的值。同名目录保存文章配图。
 - `source/gallery/index.md`：图库图片清单，系列从图片 alt 中提取。
 - `source/resources/index.md`：资源名称、说明、网盘地址与提取码。

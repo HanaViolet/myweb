@@ -27,7 +27,7 @@ export function pwaSettingsMarkup() {
     : !window.isSecureContext ? "使用 HTTPS 地址后可保存离线副本。"
     : !("serviceWorker" in navigator) ? "当前浏览器支持在线使用。"
     : failed ? "离线副本未能保存，可联网后重试。"
-    : ready ? "离线资源已就绪，可离线浏览档案与模型。"
+    : ready ? "界面已离线保存，已访问的档案正文可离线阅读。"
     : "正在准备离线资源，首次需要保持联网。";
   const guidance = installed() ? "已从主屏幕打开。"
     : ios() ? "在 Safari 中轻点“分享”→“添加到主屏幕”，然后从主屏幕图标打开。"

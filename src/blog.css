@@ -50,3 +50,13 @@
 .entry-reader { color: inherit; font-size: 12px; margin-top: 18px; display: block; text-underline-offset: 4px; }
 .file-ticks button[hidden] { display: none !important; }
 .detail-title-cn { flex-wrap: wrap; }
+
+.player-queue { margin-top: 12px; font-size: 12px; }
+.player-queue summary { cursor: pointer; padding: 8px 0; }
+.player-queue ol { max-height: 180px; overflow: auto; padding-left: 20px; }
+.player-queue button { text-align: left; }
+.player-queue [aria-current="true"] { color: #876529; text-decoration: underline; }
+[data-reading-panel][hidden] { display: none !important; }
+
+.detail-tabs { position: sticky; top: 0; z-index: 3; background: var(--blog-player-bg, #e8e5e1); }
+:root[data-dark-surface="true"] .detail-tabs { background: #20221d; }

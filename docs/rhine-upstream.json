@@ -37,7 +37,6 @@
     "src/internal-optics.ts": "9caad082d277fefa49e07cf8703ae55a4d41c6e13686542952d7f1708830c275",
     "src/motion-preferences.ts": "94b7249dfcbcad235dd1e6e37a69c324bdc44caf10a4a8070f712cf9b42e447e",
     "src/motion.ts": "e7516d56bc9397e3089cc2fbe69ac04159820a5b29bcad2928fc940aca7ca91e",
-    "src/pwa.ts": "f060a0ca020e78201995fcf50678f730fb5fa858802d804d9e0e82ac5b612946",
     "src/quality-renderer.ts": "ad714d03a87caefa6b264e373deca44f9ab0fabe5300f98dd743318ba11f4b00",
     "src/quality-settings.css": "cd5c7b7c90ace8a16c54a77b77756c04bda4f607e07103bc48d52f64cbf0a4dc",
     "src/quality-settings.ts": "cabf9dead055e078ef066fcfa640b4bfaa54514b8ed92c741f04df1002588392",
@@ -106,6 +105,11 @@
     "src/ui-transitions.ts": {
       "upstreamSha256": "7626a50473e57b5a6d387cb3f8328f2bfc9123f6dfe165a394cd4a686d7466c6",
       "localSha256": "5d850a40b29665b06a55739d04ddade6592e990469b97e42f0e5de88d5d72492"
+    },
+    "src/pwa.ts": {
+      "upstreamSha256": "f060a0ca020e78201995fcf50678f730fb5fa858802d804d9e0e82ac5b612946",
+      "localSha256": "3244e47b076a1fe5868c0b24bc6d36e4e467dec11694c1f1dc462353197a3a83",
+      "reason": "Offline status distinguishes shell from lazily fetched visited content."
     }
   }
 }

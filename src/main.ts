@@ -1,3 +1,4 @@
+import { migrateBookmarks } from './bookmarks';
 import { createRollingClock } from "./rolling-clock";
 import { initBlog, startBlog, blogMode, blogBody, blogNotes, blogDiscussion } from "./blog";
 import { InspectionOverlay } from "./inspection-overlay";
@@ -144,6 +145,7 @@ let modal: "search" | "saved" | "settings" | null = null,
   filter = "全部档案",
   sortOrder: "asc" | "desc" = "asc";
 let activeTab = "overview";
+const tabScroll = new Map<string, number>();
 let detailRecordId = "";
 const reviewParams = new URLSearchParams(location.search);
 let frozenTime =
@@ -187,7 +189,7 @@ function readLocal<T>(key: string, fallback: T): T {
     return fallback;
   }
 }
-const saved = new Set<string>(readLocal<string[]>("rhine-saved", []));
+let saved = new Set<string>(readLocal<string[]>("rhine-saved", []));
 // One-time migration for bookmarks created before the archive was renumbered.
 // The stable route/permalink is unchanged; only the visible catalog ID moved.
 const LEGACY_SAVED_IDS: Record<string, string> = {
@@ -227,21 +229,12 @@ const LEGACY_SAVED_IDS: Record<string, string> = {
   "X-035": "X-002",
   "X-036": "X-003",
 };
-try {
-  if (localStorage.getItem("rhine-saved-version") !== "2026-10-22-x-sequential") {
-    for (const [oldId, nextId] of Object.entries(LEGACY_SAVED_IDS)) {
-      if (saved.delete(oldId)) saved.add(nextId);
-    }
-    // The resource index and the interim home record are no longer files.
-    saved.delete("X-023");
-    saved.delete("X-037");
-    localStorage.setItem("rhine-saved", JSON.stringify([...saved]));
-    localStorage.setItem(
-      "rhine-saved-version",
-      "2026-10-22-x-sequential",
-    );
-  }
-} catch {}
+// Migrate once from the untouched legacy snapshot into permanent identities.
+const stableSaved = readLocal<string[] | null>("sakura-saved-v2", null);
+let needsRenumbering = false;
+try { needsRenumbering = localStorage.getItem("rhine-saved-version") !== "2026-10-22-x-sequential"; } catch {}
+saved = new Set(stableSaved ?? migrateBookmarks([...saved], LEGACY_SAVED_IDS, records, needsRenumbering));
+try { localStorage.setItem("sakura-saved-v2", JSON.stringify([...saved])); } catch {}
 const storedPrefs = readLocal<
   Partial<{
     sound: boolean;
@@ -641,23 +634,22 @@ function stepFile(direction: number) {
     { axis: "row", direction },
   );
 }
-function stepFileInDetail(direction: number) {
-  const lane = fileLocation(selected).lane;
-  const files = columnFiles(lane);
-  if (files.length < 2) return;
-  selected = files[(files.indexOf(selected) + direction + files.length) % files.length];
-  columnMemory[lane] = selected;
-  scene?.select(selected, { axis: "row", direction });
-  // A pager step is navigation, not a new document reveal. Clear the glass
-  // immediately so the next file is readable without waiting for the full
-  // redaction timeline.
+function navigateRecord(index: number) {
+  if (mode !== "detail") { select(index); openFile(); return; }
+  selected = index;
+  columnMemory[fileLocation(index).lane] = index;
+  scene?.select(index);
   scene?.finishDecryption();
-  updateSelection({ axis: "row", direction });
+  updateSelection();
   renderDetail();
-  blogMode("detail", records[selected]);
+  blogMode("detail", records[index]);
   recordAccess();
-  $("#detail-content").scrollTop = 0;
-  $("#detail-content").focus({ preventScroll: true });
+  pendingDetailFocus = true;
+}
+function stepFileInDetail(direction: number) {
+  const files = columnFiles(fileLocation(selected).lane);
+  if (files.length < 2) return;
+  navigateRecord(files[(files.indexOf(selected) + direction + files.length) % files.length]);
 }
 function stepColumn(direction: number) {
   const lane = fileLocation(selected).lane;
@@ -752,11 +744,11 @@ function openFile() {
   });
 }
 function toggleSaved() {
-  const id = records[selected].id;
+  const id = records[selected].uid;
   if (saved.has(id)) saved.delete(id);
   else saved.add(id);
   try {
-    localStorage.setItem("rhine-saved", JSON.stringify([...saved]));
+    localStorage.setItem("sakura-saved-v2", JSON.stringify([...saved]));
   } catch {}
   $("#saved-count").textContent = String(saved.size).padStart(2, "0");
   const button = $<HTMLButtonElement>('[data-action="bookmark"]');
@@ -775,14 +767,8 @@ function toggleSaved() {
   audio.play("confirm");
   notify(saved.has(id) ? "档案已加入收藏" : "已取消收藏");
 }
-function readingMinutes(html: string) {
-  const text = html
-    .replace(/<[^>]*>/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-  return Math.max(1, Math.round(text.length / 350));
-}
 function renderDetail() {
+  tabScroll.clear();
   tabTransition.cancel();
   clearTimeout(detailClearTimer);
   const r = records[selected];
@@ -799,7 +785,7 @@ function renderDetail() {
     metadata.push(["CATEGORY / 分类", r.department]);
     if (r.date) metadata.push(["DATE / 记录日期", r.date]);
     metadata.push(["AUTHOR / 作者", r.lead]);
-    metadata.push(["READING / 阅读", `${readingMinutes(r.html)} 分钟`]);
+    metadata.push(["READING / 阅读", `${r.readingMinutes} 分钟`]);
   } else if (r.kind === "music") {
     metadata.push(["ARTIST / 音乐人", r.department]);
     if (r.date) metadata.push(["DATE / 记录日期", r.date]);
@@ -828,15 +814,15 @@ function renderDetail() {
   <div class="detail-rule"></div>
   <dl class="metadata">${metadataHtml}</dl>
   <div class="detail-tabs" role="tablist"><button id="tab-overview" class="active" role="tab" aria-controls="tab-panel" aria-selected="true" data-tab="overview">01 <span>正文</span></button><button id="tab-notes" role="tab" aria-controls="tab-panel" aria-selected="false" data-tab="notes">02 <span>目录</span></button><button id="tab-history" role="tab" aria-controls="tab-panel" aria-selected="false" data-tab="history">03 <span>留言</span></button><i class="tab-indicator" aria-hidden="true"></i></div>
-  <div id="tab-panel" class="tab-panel" role="tabpanel">${overview()}</div>
-  <div class="detail-actions"><button class="solid-button" data-action="bookmark">${saved.has(r.id) ? "− REMOVE FROM SAVED" : "＋ SAVE ARCHIVE"}<span>${saved.has(r.id) ? "已收藏" : "收藏档案"}</span></button><a class="export-button" href="${assetUrl(`archives/RHINE-LAB-${r.id}.txt`)}" download="RHINE-LAB-${r.id}.txt" aria-label="导出 ${r.id} 档案">EXPORT <span>↓</span></a></div>
+  <div id="tab-panel" class="tab-panel" role="tabpanel"></div>
+  <div class="detail-actions"><button class="solid-button" data-action="bookmark">${saved.has(r.uid) ? "− REMOVE FROM SAVED" : "＋ SAVE ARCHIVE"}<span>${saved.has(r.uid) ? "已收藏" : "收藏档案"}</span></button><a class="export-button" href="${assetUrl(`archives/RHINE-LAB-${r.id}.txt`)}" download="RHINE-LAB-${r.id}.txt" aria-label="导出 ${r.id} 档案">EXPORT <span>↓</span></a></div>
   <div class="detail-pager"><button type="button" data-action="prev-file">← 上一份</button><button type="button" data-action="directory">内容目录</button><button type="button" data-action="next-file">下一份 →</button></div>
   <div class="detail-footnote"><a href="${escapeHtml(r.source)}" target="_blank" rel="noopener">永久链接 ↗</a><span>${r.id} / ${String(records.length).padStart(3, "0")}</span></div>`;
   $("#detail-content").setAttribute("tabindex", "-1");
   $("#detail-content").scrollTop = 0;
   $('[data-action="bookmark"]').setAttribute(
     "aria-pressed",
-    String(saved.has(r.id)),
+    String(saved.has(r.uid)),
   );
   documentDecryption.reset(
     $("#detail-content"),
@@ -856,6 +842,8 @@ function overview() {
 }
 function setTab(tab: string, sound = true) {
   if (sound && tab === activeTab) return;
+  const previous = $("#tab-panel").dataset.activeTab;
+  if (previous) tabScroll.set(previous, $("#detail-content").scrollTop);
   activeTab = tab;
   document.querySelectorAll("[data-tab]").forEach((b) => {
     const active = (b as HTMLElement).dataset.tab === tab;
@@ -870,14 +858,17 @@ function setTab(tab: string, sound = true) {
     sound && motionActive("surfaceTransitions") ? "" : "none";
   indicator.style.transform = `translateX(${tabButton.offsetLeft}px) scaleX(${tabButton.offsetWidth})`;
   $("#tab-panel").setAttribute("aria-labelledby", tabButton.id);
-  $("#tab-panel").innerHTML =
-    tab === "overview"
-      ? overview()
-      : tab === "notes"
-        ? blogNotes(r)
-        : blogDiscussion(r);
-  $("#tab-panel").scrollTop = 0;
-  $("#detail-content").scrollTop = 0;
+  const host = $("#tab-panel");
+  let panel = host.querySelector<HTMLElement>(`[data-reading-panel="${tab}"]`);
+  if (!panel) {
+    panel = document.createElement("div");
+    panel.dataset.readingPanel = tab;
+    panel.innerHTML = tab === "overview" ? overview() : tab === "notes" ? blogNotes(r) : blogDiscussion(r);
+    host.append(panel);
+  }
+  host.querySelectorAll<HTMLElement>('[data-reading-panel]').forEach(node => { node.hidden = node !== panel; });
+  host.dataset.activeTab = tab;
+  $("#detail-content").scrollTop = tabScroll.get(tab) ?? 0;
   documentDecryption.refresh();
   if (sound) {
     tabTransition.reveal($("#tab-panel"), !motionActive("surfaceTransitions"));
@@ -891,6 +882,17 @@ function notify(message: string) {
   toastTimer = setTimeout(() => $("#toast").classList.remove("visible"), 2600);
 }
 
+let directoryScroll = 0;
+let searchIndexReady = false;
+let searchIndexLoading: Promise<void> | undefined;
+function loadSearchIndex() {
+  if (searchIndexReady) return;
+  searchIndexLoading ??= import('../.generated/search.json').then(({ default: index }) => {
+    for (const r of records) r.searchText = (index as Record<string, string>)[r.uid] ?? '';
+    searchIndexReady = true;
+    if (modal === 'search' || modal === 'saved') renderResults();
+  }).catch(() => { searchIndexLoading = undefined; notify('全文索引暂不可用，可按标题检索；重新打开目录可重试。'); });
+}
 function openModal(kind: NonNullable<typeof modal>) {
   if (!ready) return;
   if (!modal) {
@@ -905,9 +907,7 @@ function openModal(kind: NonNullable<typeof modal>) {
   }
   modalClosing = false;
   modal = kind;
-  searchQuery = "";
-  filter = "全部档案";
-  sortOrder = "asc";
+  if (kind !== 'settings') loadSearchIndex();
   audio.play("page-open");
   renderModal();
 }
@@ -917,6 +917,7 @@ function closeModal(afterClose?: () => void) {
     return;
   }
   if (modalClosing) return;
+  directoryScroll = document.querySelector("#search-results")?.scrollTop ?? directoryScroll;
   modalClosing = true;
   audio.play("page-close");
   modalTransition!.hide(!motionActive("surfaceTransitions"), () => {
@@ -942,14 +943,16 @@ function renderModal() {
   modalTransition?.dispose();
   const latestPost = records.filter((record) => record.kind === "post").at(-1);
   $("#modal-root").innerHTML =
-    `<div class="modal-backdrop"><section class="terminal-modal ${modal === "settings" ? "settings-modal" : ""}" role="dialog" aria-modal="true" aria-label="${modal === "settings" ? "系统设置" : modal === "saved" ? "收藏档案" : "内容目录与档案检索"}"><div class="modal-top"><span>RHINE LAB / ${modal === "settings" ? "SYSTEM PREFERENCES" : "ARCHIVE DIRECTORY"}</span><button data-action="close-modal" aria-label="关闭窗口">CLOSE <span>×</span></button></div>${modal === "settings" ? settingsMarkup() : `<h2>${modal === "saved" ? "SAVED ARCHIVES" : "ARCHIVE INDEX"}<small>${modal === "saved" ? "收藏档案" : "内容目录与检索"}</small></h2>${modal === "search" ? `<div class="directory-meta"><span>${records.length} RECORDS / ${archiveColumns.length} COLLECTIONS</span><span>按栏目浏览，或直接检索标题、标签与正文</span>${latestPost ? `<a class="latest-entry" href="${escapeHtml(latestPost.route)}">LATEST ENTRY · ${latestPost.id} ↗</a>` : ""}<a class="latest-entry" href="/resources/?reader=1">资源目录 ↗</a></div>` : ""}<div class="search-field"><span>⌕</span><input id="archive-search" type="search" autocomplete="off" placeholder="搜索标题、标签或正文" aria-label="检索档案"/><span class="key">ESC</span></div><div class="category-filters">${categories.map((c, i) => `<button data-filter="${escapeHtml(c)}" class="${i === 0 ? "active" : ""}">${escapeHtml(c)}<small>${String(recordCount(c)).padStart(2, "0")}</small></button>`).join("")}<button class="sort-toggle" data-sort aria-label="切换档案排序">SORT ${sortOrder === "asc" ? `001→${String(records.length).padStart(3, "0")} ↑` : `${String(records.length).padStart(3, "0")}→001 ↓`}</button></div><div class="result-header"><span>FILE / 档案</span><span>DEPARTMENT / 科室</span><span>ACCESS</span></div><div id="search-results" class="search-results"></div><div class="modal-bottom"><span id="result-count"></span><span>INTERNAL DATABASE <i>●</i> CONNECTED</span></div>`}</section></div>`;
+    `<div class="modal-backdrop"><section class="terminal-modal ${modal === "settings" ? "settings-modal" : ""}" role="dialog" aria-modal="true" aria-label="${modal === "settings" ? "系统设置" : modal === "saved" ? "收藏档案" : "内容目录与档案检索"}"><div class="modal-top"><span>RHINE LAB / ${modal === "settings" ? "SYSTEM PREFERENCES" : "ARCHIVE DIRECTORY"}</span><button data-action="close-modal" aria-label="关闭窗口">CLOSE <span>×</span></button></div>${modal === "settings" ? settingsMarkup() : `<h2>${modal === "saved" ? "SAVED ARCHIVES" : "ARCHIVE INDEX"}<small>${modal === "saved" ? "收藏档案" : "内容目录与检索"}</small></h2>${modal === "search" ? `<div class="directory-meta"><span>${records.length} RECORDS / ${archiveColumns.length} COLLECTIONS</span><span>按栏目浏览，或直接检索标题、标签与正文</span>${latestPost ? `<a class="latest-entry" href="${escapeHtml(latestPost.route)}">LATEST ENTRY · ${latestPost.id} ↗</a>` : ""}<a class="latest-entry" href="/resources/?reader=1">资源目录 ↗</a></div>` : ""}<div class="search-field"><span>⌕</span><input id="archive-search" type="search" autocomplete="off" placeholder="搜索标题、标签或正文" aria-label="检索档案"/><span class="key">ESC</span></div><div class="category-filters">${categories.map((c, i) => `<button data-filter="${escapeHtml(c)}" class="${c === filter ? "active" : ""}">${escapeHtml(c)}<small>${String(recordCount(c)).padStart(2, "0")}</small></button>`).join("")}<button class="sort-toggle" data-sort aria-label="切换档案排序">SORT ${sortOrder === "asc" ? `001→${String(records.length).padStart(3, "0")} ↑` : `${String(records.length).padStart(3, "0")}→001 ↓`}</button></div><div class="result-header"><span>FILE / 档案</span><span>DEPARTMENT / 科室</span><span>ACCESS</span></div><div id="search-results" class="search-results"></div><div class="modal-bottom"><span id="result-count"></span><span>INTERNAL DATABASE <i>●</i> CONNECTED</span></div>`}</section></div>`;
   const backdrop = $(".modal-backdrop");
   backdrop.hidden = true;
   modalTransition = new SurfaceTransition(backdrop, $(".terminal-modal"));
   modalTransition.show(!motionActive("surfaceTransitions"));
   if (modal === "settings") updateQualitySummary();
   if (modal !== "settings") {
+    $<HTMLInputElement>("#archive-search").value = searchQuery;
     renderResults();
+    $("#search-results").scrollTop = directoryScroll;
     requestAnimationFrame(() => {
       if (backdrop.isConnected && !modalClosing) $("#archive-search").focus();
     });
@@ -969,7 +972,7 @@ function renderResults() {
     .map((r, i) => ({ r, i }))
     .filter(
       ({ r }) =>
-        (modal !== "saved" || saved.has(r.id)) &&
+        (modal !== "saved" || saved.has(r.uid)) &&
         (filter === "全部档案" || r.category === filter) &&
         `${r.id} ${r.title} ${r.en} ${r.department} ${r.lead} ${r.searchText}`
           .toLowerCase()
@@ -981,7 +984,7 @@ function renderResults() {
     return sortOrder === "asc" ? left - right : right - left;
   });
   const rowMarkup = ({ r, i }: { r: (typeof records)[number]; i: number }) =>
-    `<button class="result-row" data-result="${i}"><span class="result-name"><b>${r.id}</b><span>${escapeHtml(r.title)}<small>${escapeHtml(r.en)}</small><em class="result-summary">${escapeHtml(r.abstract)}</em></span>${saved.has(r.id) ? "<i>＋</i>" : ""}</span><span>${escapeHtml(r.department)}</span><span>${r.clearance === "RESTRICTED" ? "CATALOG ONLY" : "AUTHORIZED"} <i>↗</i></span></button>`;
+    `<button class="result-row" data-result="${i}"><span class="result-name"><b>${r.id}</b><span>${escapeHtml(r.title)}<small>${escapeHtml(r.en)}</small><em class="result-summary">${escapeHtml(r.abstract)}</em></span>${saved.has(r.uid) ? "<i>＋</i>" : ""}</span><span>${escapeHtml(r.department)}</span><span>${r.clearance === "RESTRICTED" ? "CATALOG ONLY" : "AUTHORIZED"} <i>↗</i></span></button>`;
   $("#search-results").innerHTML = sorted.length
     ? sorted.map(rowMarkup).join("")
     : `<div class="empty-results"><span>∅</span><strong>${modal === "saved" && !searchQuery ? "尚无收藏档案" : "没有匹配的档案"}</strong><p>${modal === "saved" && !searchQuery ? "读取档案时，选择 SAVE ARCHIVE 将其保存在此处。" : "尝试其他名称、档案编号，或切换科室分类。"}</p><button data-action="reset-search">${modal === "saved" ? "查看全部档案 →" : "重置检索 →"}</button></div>`;
@@ -1141,8 +1144,7 @@ document.addEventListener("click", (e) => {
   if (el.dataset.result) {
     const index = Number(el.dataset.result);
     closeModal(() => {
-      select(index);
-      openFile();
+      navigateRecord(index);
     });
     return;
   }
@@ -1250,7 +1252,7 @@ document.addEventListener("click", (e) => {
 });
 document.addEventListener("keydown", (e) => {
   if (!started) return;
-  if ((e.target as HTMLElement).closest('.blog-prose, .blog-player')) return;
+  if (e.key !== 'Escape' && (e.target as HTMLElement).closest('.blog-prose, .blog-player')) return;
   if (viewer?.isOpen) return;
   if (playground?.active && !modal) {
     if (e.key === "Escape") {
@@ -1924,7 +1926,7 @@ if (isWallpaper) {
   });
 }
 initBlog({
-  open: index => { select(index); openFile(); },
+  open: index => { closeModal(() => navigateRecord(index)); },
   overview: () => setMode('archive'),
   body: () => setTab('overview'),
   music: playing => { musicSuppressed = playing; configureAudio(); },
