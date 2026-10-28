@@ -79,6 +79,6 @@ jobs:
       - name: Verify Cloudflare Pages deployment
         if: steps.publish.outputs.changed == 'true'
         env:
-          CLOUDFLARE_SITE_URL: https://sakura.luxe/about/
+          CLOUDFLARE_SITE_URL: https://sakura.luxe/listening/stats/
           CLOUDFLARE_EXPECTED_MARKER: ${{ steps.publish.outputs.marker }}
         run: node tools/verify-cloudflare-deployment.mjs

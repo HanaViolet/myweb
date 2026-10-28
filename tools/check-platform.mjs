@@ -21,3 +21,17 @@ for (const page of catalog.pages) {
   assert.equal(JSON.parse(bytes).html, full.pages.find(p => p.route === page.route).html);
 }
 console.log(`Platform contracts passed: ${catalog.records.length} stable identities, ${catalog.pages.length} lazy bodies, full-text parity.`);
+
+// Deployment probes must target an HTML page that actually exposes the source marker.
+for (const [source, workflow, route, attribute] of [
+  ['netease-comments', 'update-netease-comments', '/listening/', 'data-netease-comments-updated'],
+  ['netease-stats', 'update-netease-stats', '/listening/stats/', 'data-netease-updated'],
+]) {
+  const data = JSON.parse(await readFile(`source/_data/${source}.json`, 'utf8'));
+  assert(data.updatedAt, `${source} must have an update marker`);
+  const yaml = await readFile(`.github/workflows/${workflow}.yml`, 'utf8');
+  assert(yaml.includes(`CLOUDFLARE_SITE_URL: https://sakura.luxe${route}`));
+  const html = await readFile(`public${route}index.html`, 'utf8');
+  assert(html.includes(`${attribute}="${data.updatedAt}"`), `${route} must expose the deployment marker`);
+}
+console.log('NetEase deployment probe routes and rendered markers passed.');

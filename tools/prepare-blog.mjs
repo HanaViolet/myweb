@@ -24,7 +24,7 @@ const text = html => load(html).text().replace(/\s+/g, ' ').trim();
 function clean(html) {
   return sanitizeHtml(html, {
     allowedTags: [...sanitizeHtml.defaults.allowedTags, 'img', 'figure', 'figcaption', 'section', 'article', 'nav', 'header', 'footer', 'audio', 'source', 'button'],
-    allowedAttributes: { '*': ['id', 'class', 'aria-label'], a: ['href', 'target', 'rel'], img: ['src', 'alt', 'title', 'loading', 'width', 'height'], audio: ['src', 'controls', 'preload'], source: ['src', 'type'], button: ['type', 'data-blog-play', 'data-blog-copy', 'data-blog-comments'], time: ['datetime'] },
+    allowedAttributes: { '*': ['id', 'class', 'aria-label'], p: ['data-netease-comments-updated'], section: ['data-netease-updated'], a: ['href', 'target', 'rel'], img: ['src', 'alt', 'title', 'loading', 'width', 'height'], audio: ['src', 'controls', 'preload'], source: ['src', 'type'], button: ['type', 'data-blog-play', 'data-blog-copy', 'data-blog-comments'], time: ['datetime'] },
     allowedSchemes: ['https', 'http', 'mailto'],
   });
 }
@@ -141,7 +141,7 @@ const discovery = await json('source/_data/discovery.json');
 const comments = await json('source/_data/netease-comments.json');
 const stats = await json('source/_data/netease-stats.json');
 const trackList = items => `<div class="blog-tracks">${items.map(t => `<section><small>${e(t.artist)}</small><h3>${e(t.title)}</h3><p>${e(t.about)}</p><button type="button" data-blog-play="${e(t.id)}">播放 ↗</button>${t.sourceUrl ? ` <a href="${e(t.sourceUrl)}" target="_blank" rel="noopener">${e(t.source)}</a> · <a href="${e(t.licenseUrl)}" target="_blank" rel="noopener">${e(t.licenseLabel)}</a>` : ` <a href="/listening/${e(t.id)}/">曲目档案 →</a>`}</section>`).join('')}</div>`;
-add('/listening/', '私人听歌室', '音乐档案', `<p>随手放一首，带着音乐读一篇旧文。</p><p><a href="/listening/discovery/">开放音乐</a> · <a href="/listening/stats/">听歌记录</a> · <a href="https://music.163.com/#/playlist?id=2203036705" target="_blank" rel="noopener">网易云歌单 ↗</a></p>${trackList(tracks)}`, { en: 'LISTENING ROOM', kind: 'music' });
+add('/listening/', '私人听歌室', '音乐档案', `<p data-netease-comments-updated="${e(comments.updatedAt)}">随手放一首，带着音乐读一篇旧文。</p><p><a href="/listening/discovery/">开放音乐</a> · <a href="/listening/stats/">听歌记录</a> · <a href="https://music.163.com/#/playlist?id=2203036705" target="_blank" rel="noopener">网易云歌单 ↗</a></p>${trackList(tracks)}`, { en: 'LISTENING ROOM', kind: 'music' });
 for (const t of tracks) {
   const hot = comments.tracks[t.id]?.comments || [];
   add(`/listening/${t.id}/`, t.title, '音乐档案', `${trackList([t])}<p>${e(t.titleJa)} · ${e(t.meta)}</p><blockquote>${e(t.noteJa)}<br>${e(t.noteZh)}</blockquote><p><a href="https://music.163.com/#/song?id=${t.neteaseId}" target="_blank" rel="noopener">在网易云音乐打开 ↗</a></p><h3>听众留言</h3>${hot.map(c => `<blockquote><p>${e(c.content)}</p><footer>${e(c.nickname)} · ${e(c.date)} · ${c.likedCount} 赞</footer></blockquote>`).join('')}`, { en: 'MUSIC / SELECTION', kind: 'music', department: t.artist, abstract: t.about, trackId: t.id });
