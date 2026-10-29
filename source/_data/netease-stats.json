@@ -3,7 +3,7 @@
   "profileUrl": "https://music.163.com/#/user/home?id=1441471952",
   "source": "NetEase Cloud Music public play record API",
   "endpoint": "/api/v1/play/record",
-  "updatedAt": "2026-10-26T21:00:44.421Z",
+  "updatedAt": "2026-10-29T21:07:30.557Z",
   "timezone": "Asia/Shanghai",
   "rankLimit": 20,
   "scrape": {
@@ -15,8 +15,8 @@
     "message": "Cookie 页面和接口均未返回播放次数，已回退公开接口。"
   },
   "duration": {
-    "weeklyMinutes": 109,
-    "allTimeMinutes": 130882,
+    "weeklyMinutes": 318,
+    "allTimeMinutes": 131069,
     "available": true,
     "source": "netease-listen-data",
     "endpoints": {
@@ -31,7 +31,7 @@
       "allTime": {
         "path": "totalDuration",
         "unit": "seconds",
-        "rawValue": 7852969
+        "rawValue": 7864187
       }
     },
     "validation": {
@@ -63,21 +63,10 @@
       "album": "耳朵",
       "durationMs": 279196,
       "playCount": 0,
-      "score": 100
+      "score": 42
     },
     {
       "rank": 3,
-      "songId": 3355480210,
-      "title": "花も騒めく",
-      "alias": "花亦喧嚣",
-      "artist": "ヨルシカ",
-      "album": "二人称",
-      "durationMs": 220711,
-      "playCount": 0,
-      "score": 62
-    },
-    {
-      "rank": 4,
       "songId": 3319483197,
       "title": "DARMA GRAND PRIX",
       "alias": "",
@@ -85,51 +74,62 @@
       "album": "DARMA GRAND PRIX",
       "durationMs": 259866,
       "playCount": 0,
-      "score": 37
+      "score": 26
+    },
+    {
+      "rank": 4,
+      "songId": 3355480210,
+      "title": "花も騒めく",
+      "alias": "花亦喧嚣",
+      "artist": "ヨルシカ",
+      "album": "二人称",
+      "durationMs": 220711,
+      "playCount": 0,
+      "score": 21
     },
     {
       "rank": 5,
-      "songId": 2123807718,
-      "title": "Color Your Night",
-      "alias": "染上夜色",
-      "artist": "Lotus Juice / 高橋あず美 / アトラスサウンドチーム / ATLUS GAME MUSIC",
-      "album": "ペルソナ3 リロード オリジナル・サウンドトラック",
-      "durationMs": 227240,
+      "songId": 2090567800,
+      "title": "月光浴",
+      "alias": "剧场版动画《大雪海的凯纳 星球的信者》主题曲",
+      "artist": "ヨルシカ",
+      "album": "月光浴",
+      "durationMs": 248130,
       "playCount": 0,
-      "score": 37
+      "score": 15
     },
     {
       "rank": 6,
-      "songId": 1965308423,
-      "title": "your trip",
-      "alias": "Your Trip",
-      "artist": "chilldspot",
-      "album": "around dusk",
-      "durationMs": 244376,
+      "songId": 1967786901,
+      "title": "S.S.S.",
+      "alias": "",
+      "artist": "佐藤千亜妃",
+      "album": "S.S.S.",
+      "durationMs": 201683,
       "playCount": 0,
-      "score": 37
+      "score": 15
     },
     {
       "rank": 7,
-      "songId": 1487501535,
-      "title": "春夢",
+      "songId": 1487445030,
+      "title": "Midnight Call",
       "alias": "",
-      "artist": "May'n",
-      "album": "15Colors -nu skool-",
-      "durationMs": 226307,
+      "artist": "ぜったくん / kojikoji",
+      "album": "Midnight Call",
+      "durationMs": 210341,
       "playCount": 0,
-      "score": 37
+      "score": 15
     },
     {
       "rank": 8,
-      "songId": 1361336636,
-      "title": "Come Back To Me",
+      "songId": 769950,
+      "title": "Last Smile",
       "alias": "",
-      "artist": "宇多田ヒカル",
-      "album": "This Is The One",
-      "durationMs": 237946,
+      "artist": "LOVE PSYCHEDELICO",
+      "album": "Last Smile",
+      "durationMs": 346506,
       "playCount": 0,
-      "score": 37
+      "score": 10
     },
     {
       "rank": 9,
@@ -140,21 +140,32 @@
       "album": "LOVER ALBUM リマスター",
       "durationMs": 310386,
       "playCount": 0,
-      "score": 25
+      "score": 10
     },
     {
       "rank": 10,
-      "songId": 561877,
-      "title": "Lie Lie Lie",
+      "songId": 642723,
+      "title": "17",
       "alias": "",
-      "artist": "BONNIE PINK",
-      "album": "Bonnie's Kitchen #1",
-      "durationMs": 239866,
+      "artist": "椎名林檎",
+      "album": "罪と罰",
+      "durationMs": 272625,
       "playCount": 0,
-      "score": 25
+      "score": 10
     },
     {
       "rank": 11,
+      "songId": 579954,
+      "title": "恋愛サーキュレーション",
+      "alias": "恋爱循环",
+      "artist": "花澤香菜",
+      "album": "恋愛サーキュレーション & あとがたり",
+      "durationMs": 253880,
+      "playCount": 0,
+      "score": 10
+    },
+    {
+      "rank": 12,
       "songId": 557583335,
       "title": "爆弾魔",
       "alias": "炸弹魔",
@@ -162,10 +173,10 @@
       "album": "負け犬にアンコールはいらない",
       "durationMs": 217026,
       "playCount": 0,
-      "score": 25
+      "score": 10
     },
     {
-      "rank": 12,
+      "rank": 13,
       "songId": 34613621,
       "title": "Vagrant",
       "alias": "",
@@ -173,32 +184,10 @@
       "album": "Vagrant",
       "durationMs": 268571,
       "playCount": 0,
-      "score": 25
-    },
-    {
-      "rank": 13,
-      "songId": 3355479297,
-      "title": "千鳥",
-      "alias": "",
-      "artist": "ヨルシカ",
-      "album": "二人称",
-      "durationMs": 252115,
-      "playCount": 0,
-      "score": 25
+      "score": 10
     },
     {
       "rank": 14,
-      "songId": 31654343,
-      "title": "不将就",
-      "alias": "电影《何以笙箫默》片尾主题曲",
-      "artist": "李荣浩",
-      "album": "有理想",
-      "durationMs": 312997,
-      "playCount": 0,
-      "score": 25
-    },
-    {
-      "rank": 15,
       "songId": 31546854,
       "title": "月光食堂",
       "alias": "",
@@ -206,32 +195,10 @@
       "album": "SINGALONG6",
       "durationMs": 285049,
       "playCount": 0,
-      "score": 25
+      "score": 10
     },
     {
-      "rank": 16,
-      "songId": 28885472,
-      "title": "ヤキモチ",
-      "alias": "吃醋",
-      "artist": "高橋優",
-      "album": "今、そこにある明滅と群生",
-      "durationMs": 314633,
-      "playCount": 0,
-      "score": 25
-    },
-    {
-      "rank": 17,
-      "songId": 2702969612,
-      "title": "火星人",
-      "alias": "TVアニメ『小市民シリーズ』第2期オープニングテーマ",
-      "artist": "ヨルシカ",
-      "album": "火星人",
-      "durationMs": 234929,
-      "playCount": 0,
-      "score": 25
-    },
-    {
-      "rank": 18,
+      "rank": 15,
       "songId": 22711357,
       "title": "Darlin'",
       "alias": "",
@@ -239,29 +206,62 @@
       "album": "MTV UNplugged",
       "durationMs": 267540,
       "playCount": 0,
-      "score": 25
+      "score": 10
+    },
+    {
+      "rank": 16,
+      "songId": 2074163984,
+      "title": "SPECIALZ",
+      "alias": "TV动画《咒术回战：涩谷事变》片头曲",
+      "artist": "King Gnu",
+      "album": "SPECIALZ",
+      "durationMs": 239211,
+      "playCount": 0,
+      "score": 10
+    },
+    {
+      "rank": 17,
+      "songId": 2026823532,
+      "title": "そんなbitterな話",
+      "alias": "那样苦涩的事 (ABEMA恋综系列《别被花束和狼酱所欺骗》主题曲)",
+      "artist": "Vaundy",
+      "album": "そんなbitterな話",
+      "durationMs": 276131,
+      "playCount": 0,
+      "score": 10
+    },
+    {
+      "rank": 18,
+      "songId": 1482193341,
+      "title": "透過夏",
+      "alias": "透过夏",
+      "artist": "Guiano / 理芽",
+      "album": "あの夏の記憶だけ",
+      "durationMs": 194586,
+      "playCount": 0,
+      "score": 10
     },
     {
       "rank": 19,
-      "songId": 2141838426,
-      "title": "エヴリー・セカンド (ジャパニーズ・ヴァージョン)",
-      "alias": "每一秒",
-      "artist": "ミイナ・オカベ",
-      "album": "エヴリー・セカンド (ジャパニーズ・ヴァージョン)",
-      "durationMs": 182500,
+      "songId": 1464737240,
+      "title": "盗作",
+      "alias": "Plagiarism",
+      "artist": "ヨルシカ",
+      "album": "盗作",
+      "durationMs": 239114,
       "playCount": 0,
-      "score": 25
+      "score": 10
     },
     {
       "rank": 20,
-      "songId": 2111695133,
-      "title": "遠吠え",
-      "alias": "远吠",
-      "artist": "chilldspot",
-      "album": "まだらもよう",
-      "durationMs": 217213,
+      "songId": 1399789326,
+      "title": "居眠り遠征隊",
+      "alias": "假寐远征队",
+      "artist": "ずっと真夜中でいいのに。",
+      "album": "潜潜話",
+      "durationMs": 218333,
       "playCount": 0,
-      "score": 25
+      "score": 10
     }
   ],
   "allTime": [
@@ -296,7 +296,7 @@
       "album": "DARMA GRAND PRIX",
       "durationMs": 259866,
       "playCount": 0,
-      "score": 59
+      "score": 60
     },
     {
       "rank": 4,
