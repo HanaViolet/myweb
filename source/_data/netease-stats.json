@@ -3,7 +3,7 @@
   "profileUrl": "https://music.163.com/#/user/home?id=1441471952",
   "source": "NetEase Cloud Music public play record API",
   "endpoint": "/api/v1/play/record",
-  "updatedAt": "2026-11-02T23:29:10.213Z",
+  "updatedAt": "2026-11-03T21:46:20.002Z",
   "timezone": "Asia/Shanghai",
   "rankLimit": 20,
   "scrape": {
@@ -15,7 +15,7 @@
     "message": "Cookie 页面和接口均未返回播放次数，已回退公开接口。"
   },
   "duration": {
-    "weeklyMinutes": 84,
+    "weeklyMinutes": 121,
     "allTimeMinutes": 131393,
     "available": true,
     "source": "netease-listen-data",
@@ -63,21 +63,10 @@
       "album": "DARMA GRAND PRIX",
       "durationMs": 259866,
       "playCount": 0,
-      "score": 27
+      "score": 31
     },
     {
       "rank": 3,
-      "songId": 1293886117,
-      "title": "年少有为",
-      "alias": "",
-      "artist": "李荣浩",
-      "album": "耳朵",
-      "durationMs": 279196,
-      "playCount": 0,
-      "score": 22
-    },
-    {
-      "rank": 4,
       "songId": 3355480210,
       "title": "花も騒めく",
       "alias": "花亦喧嚣",
@@ -85,10 +74,10 @@
       "album": "二人称",
       "durationMs": 220711,
       "playCount": 0,
-      "score": 16
+      "score": 18
     },
     {
-      "rank": 5,
+      "rank": 4,
       "songId": 1870469768,
       "title": "老人と海",
       "alias": "老人与海",
@@ -96,21 +85,21 @@
       "album": "老人と海",
       "durationMs": 255468,
       "playCount": 0,
-      "score": 16
+      "score": 18
+    },
+    {
+      "rank": 5,
+      "songId": 1293886117,
+      "title": "年少有为",
+      "alias": "",
+      "artist": "李荣浩",
+      "album": "耳朵",
+      "durationMs": 279196,
+      "playCount": 0,
+      "score": 18
     },
     {
       "rank": 6,
-      "songId": 557583335,
-      "title": "爆弾魔",
-      "alias": "炸弹魔",
-      "artist": "ヨルシカ",
-      "album": "負け犬にアンコールはいらない",
-      "durationMs": 217026,
-      "playCount": 0,
-      "score": 11
-    },
-    {
-      "rank": 7,
       "songId": 3400022202,
       "title": "夏の肖像",
       "alias": "",
@@ -118,7 +107,18 @@
       "album": "幻燈",
       "durationMs": 325787,
       "playCount": 0,
-      "score": 11
+      "score": 12
+    },
+    {
+      "rank": 7,
+      "songId": 3355479296,
+      "title": "ヒッチコック (Re-Recording)",
+      "alias": "希区柯克",
+      "artist": "ヨルシカ",
+      "album": "二人称",
+      "durationMs": 225144,
+      "playCount": 0,
+      "score": 12
     },
     {
       "rank": 8,
@@ -129,7 +129,7 @@
       "album": "月光浴",
       "durationMs": 248130,
       "playCount": 0,
-      "score": 11
+      "score": 12
     },
     {
       "rank": 9,
@@ -140,7 +140,7 @@
       "album": "灰かぶり",
       "durationMs": 220714,
       "playCount": 0,
-      "score": 11
+      "score": 12
     },
     {
       "rank": 10,
@@ -151,7 +151,7 @@
       "album": "幻燈",
       "durationMs": 262120,
       "playCount": 0,
-      "score": 11
+      "score": 12
     },
     {
       "rank": 11,
@@ -162,7 +162,7 @@
       "album": "そんなbitterな話",
       "durationMs": 276131,
       "playCount": 0,
-      "score": 11
+      "score": 12
     },
     {
       "rank": 12,
@@ -173,7 +173,7 @@
       "album": "又三郎",
       "durationMs": 227731,
       "playCount": 0,
-      "score": 11
+      "score": 12
     },
     {
       "rank": 13,
@@ -184,7 +184,7 @@
       "album": "盗作",
       "durationMs": 217048,
       "playCount": 0,
-      "score": 11
+      "score": 12
     },
     {
       "rank": 14,
@@ -195,18 +195,18 @@
       "album": "花に亡霊",
       "durationMs": 239932,
       "playCount": 0,
-      "score": 11
+      "score": 12
     },
     {
       "rank": 15,
-      "songId": 1357960252,
-      "title": "エルマ",
-      "alias": "Elma",
-      "artist": "ヨルシカ",
-      "album": "だから僕は音楽を辞めた",
-      "durationMs": 219892,
+      "songId": 1361336636,
+      "title": "Come Back To Me",
+      "alias": "",
+      "artist": "宇多田ヒカル",
+      "album": "This Is The One",
+      "durationMs": 237946,
       "playCount": 0,
-      "score": 11
+      "score": 12
     },
     {
       "rank": 16,
@@ -217,7 +217,7 @@
       "album": "だから僕は音楽を辞めた",
       "durationMs": 242973,
       "playCount": 0,
-      "score": 11
+      "score": 12
     },
     {
       "rank": 17,
@@ -228,7 +228,7 @@
       "album": "Last Smile",
       "durationMs": 346506,
       "playCount": 0,
-      "score": 5
+      "score": 6
     },
     {
       "rank": 18,
@@ -239,10 +239,21 @@
       "album": "あの日タイムマシン",
       "durationMs": 238386,
       "playCount": 0,
-      "score": 5
+      "score": 6
     },
     {
       "rank": 19,
+      "songId": 769651,
+      "title": "Standing Bird",
+      "alias": "",
+      "artist": "LOVE PSYCHEDELICO",
+      "album": "This is LOVE PSYCHEDELICO",
+      "durationMs": 300973,
+      "playCount": 0,
+      "score": 6
+    },
+    {
+      "rank": 20,
       "songId": 762499,
       "title": "波よせて",
       "alias": "随波逐流",
@@ -250,18 +261,7 @@
       "album": "LOVER ALBUM リマスター",
       "durationMs": 310386,
       "playCount": 0,
-      "score": 5
-    },
-    {
-      "rank": 20,
-      "songId": 740611,
-      "title": "明日の朝には",
-      "alias": "明日清晨",
-      "artist": "ハンバート ハンバート",
-      "album": "11のみじかい話",
-      "durationMs": 182764,
-      "playCount": 0,
-      "score": 5
+      "score": 6
     }
   ],
   "allTime": [
