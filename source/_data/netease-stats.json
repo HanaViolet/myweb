@@ -3,7 +3,7 @@
   "profileUrl": "https://music.163.com/#/user/home?id=1441471952",
   "source": "NetEase Cloud Music public play record API",
   "endpoint": "/api/v1/play/record",
-  "updatedAt": "2026-11-03T21:46:20.002Z",
+  "updatedAt": "2026-11-07T20:14:43.007Z",
   "timezone": "Asia/Shanghai",
   "rankLimit": 20,
   "scrape": {
@@ -15,8 +15,8 @@
     "message": "Cookie 页面和接口均未返回播放次数，已回退公开接口。"
   },
   "duration": {
-    "weeklyMinutes": 121,
-    "allTimeMinutes": 131393,
+    "weeklyMinutes": 330,
+    "allTimeMinutes": 131608,
     "available": true,
     "source": "netease-listen-data",
     "endpoints": {
@@ -31,7 +31,7 @@
       "allTime": {
         "path": "totalDuration",
         "unit": "seconds",
-        "rawValue": 7883634
+        "rawValue": 7896494
       }
     },
     "validation": {
@@ -56,25 +56,25 @@
     },
     {
       "rank": 2,
-      "songId": 3319483197,
-      "title": "DARMA GRAND PRIX",
-      "alias": "",
+      "songId": 1357953768,
+      "title": "だから僕は音楽を辞めた",
+      "alias": "所以我放弃了音乐",
       "artist": "ヨルシカ",
-      "album": "DARMA GRAND PRIX",
-      "durationMs": 259866,
+      "album": "だから僕は音楽を辞めた",
+      "durationMs": 242973,
       "playCount": 0,
-      "score": 31
+      "score": 66
     },
     {
       "rank": 3,
-      "songId": 3355480210,
-      "title": "花も騒めく",
-      "alias": "花亦喧嚣",
-      "artist": "ヨルシカ",
-      "album": "二人称",
-      "durationMs": 220711,
+      "songId": 2061225325,
+      "title": "灰かぶり",
+      "alias": "灰姑娘",
+      "artist": "十明",
+      "album": "灰かぶり",
+      "durationMs": 220714,
       "playCount": 0,
-      "score": 18
+      "score": 50
     },
     {
       "rank": 4,
@@ -85,87 +85,10 @@
       "album": "老人と海",
       "durationMs": 255468,
       "playCount": 0,
-      "score": 18
+      "score": 50
     },
     {
       "rank": 5,
-      "songId": 1293886117,
-      "title": "年少有为",
-      "alias": "",
-      "artist": "李荣浩",
-      "album": "耳朵",
-      "durationMs": 279196,
-      "playCount": 0,
-      "score": 18
-    },
-    {
-      "rank": 6,
-      "songId": 3400022202,
-      "title": "夏の肖像",
-      "alias": "",
-      "artist": "ヨルシカ",
-      "album": "幻燈",
-      "durationMs": 325787,
-      "playCount": 0,
-      "score": 12
-    },
-    {
-      "rank": 7,
-      "songId": 3355479296,
-      "title": "ヒッチコック (Re-Recording)",
-      "alias": "希区柯克",
-      "artist": "ヨルシカ",
-      "album": "二人称",
-      "durationMs": 225144,
-      "playCount": 0,
-      "score": 12
-    },
-    {
-      "rank": 8,
-      "songId": 2090567800,
-      "title": "月光浴",
-      "alias": "剧场版动画《大雪海的凯纳 星球的信者》主题曲",
-      "artist": "ヨルシカ",
-      "album": "月光浴",
-      "durationMs": 248130,
-      "playCount": 0,
-      "score": 12
-    },
-    {
-      "rank": 9,
-      "songId": 2061225325,
-      "title": "灰かぶり",
-      "alias": "灰姑娘",
-      "artist": "十明",
-      "album": "灰かぶり",
-      "durationMs": 220714,
-      "playCount": 0,
-      "score": 12
-    },
-    {
-      "rank": 10,
-      "songId": 2036444271,
-      "title": "第一夜",
-      "alias": "百年",
-      "artist": "ヨルシカ",
-      "album": "幻燈",
-      "durationMs": 262120,
-      "playCount": 0,
-      "score": 12
-    },
-    {
-      "rank": 11,
-      "songId": 2026823532,
-      "title": "そんなbitterな話",
-      "alias": "那样苦涩的事 (ABEMA恋综系列《别被花束和狼酱所欺骗》主题曲)",
-      "artist": "Vaundy",
-      "album": "そんなbitterな話",
-      "durationMs": 276131,
-      "playCount": 0,
-      "score": 12
-    },
-    {
-      "rank": 12,
       "songId": 1850977722,
       "title": "又三郎",
       "alias": "",
@@ -173,10 +96,65 @@
       "album": "又三郎",
       "durationMs": 227731,
       "playCount": 0,
-      "score": 12
+      "score": 50
     },
     {
-      "rank": 13,
+      "rank": 6,
+      "songId": 3355479296,
+      "title": "ヒッチコック (Re-Recording)",
+      "alias": "希区柯克",
+      "artist": "ヨルシカ",
+      "album": "二人称",
+      "durationMs": 225144,
+      "playCount": 0,
+      "score": 33
+    },
+    {
+      "rank": 7,
+      "songId": 2634153295,
+      "title": "アポリア",
+      "alias": "困惑 (TV动画《地。-关于地球的运动-》片尾曲)",
+      "artist": "ヨルシカ",
+      "album": "アポリア",
+      "durationMs": 230209,
+      "playCount": 0,
+      "score": 33
+    },
+    {
+      "rank": 8,
+      "songId": 1961279178,
+      "title": "ブレーメン",
+      "alias": "不莱梅 Bremen",
+      "artist": "ヨルシカ",
+      "album": "ブレーメン",
+      "durationMs": 274957,
+      "playCount": 0,
+      "score": 33
+    },
+    {
+      "rank": 9,
+      "songId": 1843648162,
+      "title": "イージーゲーム (feat. 和ぬか)",
+      "alias": "Easy Game",
+      "artist": "natsumi / 和ぬか",
+      "album": "イージーゲーム",
+      "durationMs": 183929,
+      "playCount": 0,
+      "score": 33
+    },
+    {
+      "rank": 10,
+      "songId": 1466519473,
+      "title": "花人局",
+      "alias": "花人局",
+      "artist": "ヨルシカ",
+      "album": "盗作",
+      "durationMs": 333704,
+      "playCount": 0,
+      "score": 33
+    },
+    {
+      "rank": 11,
       "songId": 1466519472,
       "title": "レプリカント",
       "alias": "复制人 ",
@@ -184,10 +162,10 @@
       "album": "盗作",
       "durationMs": 217048,
       "playCount": 0,
-      "score": 12
+      "score": 33
     },
     {
-      "rank": 14,
+      "rank": 12,
       "songId": 1442466883,
       "title": "花に亡霊",
       "alias": "花上亡灵",
@@ -195,54 +173,32 @@
       "album": "花に亡霊",
       "durationMs": 239932,
       "playCount": 0,
-      "score": 12
+      "score": 33
+    },
+    {
+      "rank": 13,
+      "songId": 1357953769,
+      "title": "五月は花緑青の窓辺から",
+      "alias": "五月 窗边的花绿青",
+      "artist": "ヨルシカ",
+      "album": "だから僕は音楽を辞めた",
+      "durationMs": 185132,
+      "playCount": 0,
+      "score": 33
+    },
+    {
+      "rank": 14,
+      "songId": 1308032189,
+      "title": "春、恋、花以外の（翻自 匀子）",
+      "alias": "除了春天、爱情和樱花",
+      "artist": "Nini陈佳妮 / 熊太kuma / 春树",
+      "album": "春、恋、花以外の（原曲：봄 사랑 벚꽃 말고/除了春天 爱情和樱花）",
+      "durationMs": 195186,
+      "playCount": 0,
+      "score": 33
     },
     {
       "rank": 15,
-      "songId": 1361336636,
-      "title": "Come Back To Me",
-      "alias": "",
-      "artist": "宇多田ヒカル",
-      "album": "This Is The One",
-      "durationMs": 237946,
-      "playCount": 0,
-      "score": 12
-    },
-    {
-      "rank": 16,
-      "songId": 1357953768,
-      "title": "だから僕は音楽を辞めた",
-      "alias": "所以我放弃了音乐",
-      "artist": "ヨルシカ",
-      "album": "だから僕は音楽を辞めた",
-      "durationMs": 242973,
-      "playCount": 0,
-      "score": 12
-    },
-    {
-      "rank": 17,
-      "songId": 769950,
-      "title": "Last Smile",
-      "alias": "",
-      "artist": "LOVE PSYCHEDELICO",
-      "album": "Last Smile",
-      "durationMs": 346506,
-      "playCount": 0,
-      "score": 6
-    },
-    {
-      "rank": 18,
-      "songId": 769870,
-      "title": "あの日タイムマシン",
-      "alias": "那日的时光机",
-      "artist": "LONG SHOT PARTY",
-      "album": "あの日タイムマシン",
-      "durationMs": 238386,
-      "playCount": 0,
-      "score": 6
-    },
-    {
-      "rank": 19,
       "songId": 769651,
       "title": "Standing Bird",
       "alias": "",
@@ -250,18 +206,62 @@
       "album": "This is LOVE PSYCHEDELICO",
       "durationMs": 300973,
       "playCount": 0,
-      "score": 6
+      "score": 16
+    },
+    {
+      "rank": 16,
+      "songId": 740611,
+      "title": "明日の朝には",
+      "alias": "明日清晨",
+      "artist": "ハンバート ハンバート",
+      "album": "11のみじかい話",
+      "durationMs": 182764,
+      "playCount": 0,
+      "score": 16
+    },
+    {
+      "rank": 17,
+      "songId": 672188,
+      "title": "You",
+      "alias": "广播剧《寒蝉鸣泣之时》片尾曲",
+      "artist": "雪野五月",
+      "album": "You",
+      "durationMs": 248840,
+      "playCount": 0,
+      "score": 16
+    },
+    {
+      "rank": 18,
+      "songId": 643034,
+      "title": "風になる",
+      "alias": "幻化成风",
+      "artist": "つじあやの",
+      "album": "恋恋風歌",
+      "durationMs": 276600,
+      "playCount": 0,
+      "score": 16
+    },
+    {
+      "rank": 19,
+      "songId": 584155,
+      "title": "いつも何度でも",
+      "alias": "永远同在",
+      "artist": "伊藤サチコ",
+      "album": "ジブリを聴きながら、上を向いて歩こう",
+      "durationMs": 228306,
+      "playCount": 0,
+      "score": 16
     },
     {
       "rank": 20,
-      "songId": 762499,
-      "title": "波よせて",
-      "alias": "随波逐流",
-      "artist": "クラムボン",
-      "album": "LOVER ALBUM リマスター",
-      "durationMs": 310386,
+      "songId": 557581317,
+      "title": "準透明少年",
+      "alias": "准透明少年",
+      "artist": "ヨルシカ",
+      "album": "負け犬にアンコールはいらない",
+      "durationMs": 281466,
       "playCount": 0,
-      "score": 6
+      "score": 16
     }
   ],
   "allTime": [
