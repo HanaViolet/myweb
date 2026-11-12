@@ -3,7 +3,7 @@
   "profileUrl": "https://music.163.com/#/user/home?id=1441471952",
   "source": "NetEase Cloud Music public play record API",
   "endpoint": "/api/v1/play/record",
-  "updatedAt": "2026-11-10T21:48:06.275Z",
+  "updatedAt": "2026-11-12T22:14:21.837Z",
   "timezone": "Asia/Shanghai",
   "rankLimit": 20,
   "scrape": {
@@ -15,8 +15,8 @@
     "message": "Cookie 页面和接口均未返回播放次数，已回退公开接口。"
   },
   "duration": {
-    "weeklyMinutes": 40,
-    "allTimeMinutes": 131671,
+    "weeklyMinutes": 160,
+    "allTimeMinutes": 131738,
     "available": true,
     "source": "netease-listen-data",
     "endpoints": {
@@ -31,7 +31,7 @@
       "allTime": {
         "path": "totalDuration",
         "unit": "seconds",
-        "rawValue": 7900298
+        "rawValue": 7904317
       }
     },
     "validation": {
@@ -63,43 +63,54 @@
       "album": "だから僕は音楽を辞めた",
       "durationMs": 242973,
       "playCount": 0,
-      "score": 50
+      "score": 100
     },
     {
       "rank": 3,
-      "songId": 1961279178,
-      "title": "ブレーメン",
-      "alias": "不莱梅 Bremen",
+      "songId": 487527980,
+      "title": "言って。",
+      "alias": "说吧。",
       "artist": "ヨルシカ",
-      "album": "ブレーメン",
-      "durationMs": 274957,
+      "album": "夏草が邪魔をする",
+      "durationMs": 242230,
       "playCount": 0,
-      "score": 33
+      "score": 66
     },
     {
       "rank": 4,
-      "songId": 1843648162,
-      "title": "イージーゲーム (feat. 和ぬか)",
-      "alias": "Easy Game",
-      "artist": "natsumi / 和ぬか",
-      "album": "イージーゲーム",
-      "durationMs": 183929,
+      "songId": 3355480210,
+      "title": "花も騒めく",
+      "alias": "花亦喧嚣",
+      "artist": "ヨルシカ",
+      "album": "二人称",
+      "durationMs": 220711,
       "playCount": 0,
-      "score": 33
+      "score": 66
     },
     {
       "rank": 5,
-      "songId": 1466519473,
-      "title": "花人局",
-      "alias": "花人局",
+      "songId": 1466519472,
+      "title": "レプリカント",
+      "alias": "复制人 ",
       "artist": "ヨルシカ",
       "album": "盗作",
-      "durationMs": 333704,
+      "durationMs": 217048,
       "playCount": 0,
-      "score": 33
+      "score": 66
     },
     {
       "rank": 6,
+      "songId": 1387098938,
+      "title": "エイミー",
+      "alias": "Amy",
+      "artist": "ヨルシカ",
+      "album": "エルマ",
+      "durationMs": 212908,
+      "playCount": 0,
+      "score": 66
+    },
+    {
+      "rank": 7,
       "songId": 1361336637,
       "title": "Merry Christmas Mr. Lawrence - FYI",
       "alias": "メリークリスマス・ミスター・ローレンス-FYI",
@@ -107,10 +118,10 @@
       "album": "This Is The One",
       "durationMs": 229560,
       "playCount": 0,
-      "score": 33
+      "score": 66
     },
     {
-      "rank": 7,
+      "rank": 8,
       "songId": 1357953769,
       "title": "五月は花緑青の窓辺から",
       "alias": "五月 窗边的花绿青",
@@ -118,32 +129,10 @@
       "album": "だから僕は音楽を辞めた",
       "durationMs": 185132,
       "playCount": 0,
-      "score": 33
-    },
-    {
-      "rank": 8,
-      "songId": 1308032189,
-      "title": "春、恋、花以外の（翻自 匀子）",
-      "alias": "除了春天、爱情和樱花",
-      "artist": "Nini陈佳妮 / 熊太kuma / 春树",
-      "album": "春、恋、花以外の（原曲：봄 사랑 벚꽃 말고/除了春天 爱情和樱花）",
-      "durationMs": 195186,
-      "playCount": 0,
-      "score": 33
+      "score": 66
     },
     {
       "rank": 9,
-      "songId": 769651,
-      "title": "Standing Bird",
-      "alias": "",
-      "artist": "LOVE PSYCHEDELICO",
-      "album": "This is LOVE PSYCHEDELICO",
-      "durationMs": 300973,
-      "playCount": 0,
-      "score": 16
-    },
-    {
-      "rank": 10,
       "songId": 672188,
       "title": "You",
       "alias": "广播剧《寒蝉鸣泣之时》片尾曲",
@@ -151,10 +140,10 @@
       "album": "You",
       "durationMs": 248840,
       "playCount": 0,
-      "score": 16
+      "score": 33
     },
     {
-      "rank": 11,
+      "rank": 10,
       "songId": 643034,
       "title": "風になる",
       "alias": "幻化成风",
@@ -162,21 +151,21 @@
       "album": "恋恋風歌",
       "durationMs": 276600,
       "playCount": 0,
-      "score": 16
+      "score": 33
+    },
+    {
+      "rank": 11,
+      "songId": 557583473,
+      "title": "Alice in 冷凍庫",
+      "alias": "Alice in 冷冻库",
+      "artist": "めありー / Orangestar",
+      "album": "彼はきっと魔法を使う。",
+      "durationMs": 342000,
+      "playCount": 0,
+      "score": 33
     },
     {
       "rank": 12,
-      "songId": 584155,
-      "title": "いつも何度でも",
-      "alias": "永远同在",
-      "artist": "伊藤サチコ",
-      "album": "ジブリを聴きながら、上を向いて歩こう",
-      "durationMs": 228306,
-      "playCount": 0,
-      "score": 16
-    },
-    {
-      "rank": 13,
       "songId": 557581317,
       "title": "準透明少年",
       "alias": "准透明少年",
@@ -184,7 +173,18 @@
       "album": "負け犬にアンコールはいらない",
       "durationMs": 281466,
       "playCount": 0,
-      "score": 16
+      "score": 33
+    },
+    {
+      "rank": 13,
+      "songId": 557581314,
+      "title": "負け犬にアンコールはいらない",
+      "alias": "败犬不需要安可",
+      "artist": "ヨルシカ",
+      "album": "負け犬にアンコールはいらない",
+      "durationMs": 234293,
+      "playCount": 0,
+      "score": 33
     },
     {
       "rank": 14,
@@ -195,18 +195,18 @@
       "album": "そばにいるね",
       "durationMs": 304906,
       "playCount": 0,
-      "score": 16
+      "score": 33
     },
     {
       "rank": 15,
-      "songId": 512359195,
-      "title": "LOSER",
-      "alias": "",
+      "songId": 536622304,
+      "title": "Lemon",
+      "alias": "日剧《非自然死亡》主题曲",
       "artist": "米津玄師",
-      "album": "BOOTLEG",
-      "durationMs": 243879,
+      "album": "Lemon",
+      "durationMs": 256000,
       "playCount": 0,
-      "score": 16
+      "score": 33
     },
     {
       "rank": 16,
@@ -217,10 +217,21 @@
       "album": "Hush a by little girl",
       "durationMs": 220506,
       "playCount": 0,
-      "score": 16
+      "score": 33
     },
     {
       "rank": 17,
+      "songId": 507116307,
+      "title": "トモダチ/コイビト",
+      "alias": "朋友/恋人",
+      "artist": "moumoon",
+      "album": "moumoon BEST -FULLMOON-",
+      "durationMs": 232906,
+      "playCount": 0,
+      "score": 33
+    },
+    {
+      "rank": 18,
       "songId": 493451293,
       "title": "あの娘シークレット（Cover 初音ミク）",
       "alias": "",
@@ -228,32 +239,10 @@
       "album": "あの娘シークレット",
       "durationMs": 232597,
       "playCount": 0,
-      "score": 16
-    },
-    {
-      "rank": 18,
-      "songId": 4899624,
-      "title": "ありがとう…",
-      "alias": "谢谢...",
-      "artist": "KOKIA",
-      "album": "想いうた~歌姫エールソングス",
-      "durationMs": 333880,
-      "playCount": 0,
-      "score": 16
+      "score": 33
     },
     {
       "rank": 19,
-      "songId": 488388942,
-      "title": "願い～あの頃のキミへ～",
-      "alias": "祈愿～致那时候的你～",
-      "artist": "當山みれい",
-      "album": "願い E.P.",
-      "durationMs": 340426,
-      "playCount": 0,
-      "score": 16
-    },
-    {
-      "rank": 20,
       "songId": 487527984,
       "title": "雲と幽霊",
       "alias": "云与幽灵",
@@ -261,7 +250,18 @@
       "album": "夏草が邪魔をする",
       "durationMs": 315535,
       "playCount": 0,
-      "score": 16
+      "score": 33
+    },
+    {
+      "rank": 20,
+      "songId": 487527983,
+      "title": "靴の花火",
+      "alias": "靴上烟火",
+      "artist": "ヨルシカ",
+      "album": "夏草が邪魔をする",
+      "durationMs": 303299,
+      "playCount": 0,
+      "score": 33
     }
   ],
   "allTime": [
@@ -399,23 +399,23 @@
     },
     {
       "rank": 13,
-      "songId": 487527979,
-      "title": "カトレア",
-      "alias": "卡特兰 Cattleya",
-      "artist": "ヨルシカ",
-      "album": "夏草が邪魔をする",
-      "durationMs": 188429,
-      "playCount": 0,
-      "score": 34
-    },
-    {
-      "rank": 14,
       "songId": 1850977722,
       "title": "又三郎",
       "alias": "",
       "artist": "ヨルシカ",
       "album": "又三郎",
       "durationMs": 227731,
+      "playCount": 0,
+      "score": 34
+    },
+    {
+      "rank": 14,
+      "songId": 487527979,
+      "title": "カトレア",
+      "alias": "卡特兰 Cattleya",
+      "artist": "ヨルシカ",
+      "album": "夏草が邪魔をする",
+      "durationMs": 188429,
       "playCount": 0,
       "score": 34
     },
@@ -476,14 +476,14 @@
     },
     {
       "rank": 20,
-      "songId": 1387098936,
-      "title": "雨晴るる",
-      "alias": "雨后天晴",
+      "songId": 1466519472,
+      "title": "レプリカント",
+      "alias": "复制人 ",
       "artist": "ヨルシカ",
-      "album": "エルマ",
-      "durationMs": 222756,
+      "album": "盗作",
+      "durationMs": 217048,
       "playCount": 0,
-      "score": 30
+      "score": 29
     }
   ],
   "notes": "本周和累计听歌时长来自网易云“云村听歌足迹”接口。"
