@@ -3,7 +3,7 @@
   "profileUrl": "https://music.163.com/#/user/home?id=1441471952",
   "source": "NetEase Cloud Music public play record API",
   "endpoint": "/api/v1/play/record",
-  "updatedAt": "2026-11-15T21:02:36.820Z",
+  "updatedAt": "2026-11-17T00:13:23.966Z",
   "timezone": "Asia/Shanghai",
   "rankLimit": 20,
   "scrape": {
@@ -16,7 +16,7 @@
   },
   "duration": {
     "weeklyMinutes": 39,
-    "allTimeMinutes": 131870,
+    "allTimeMinutes": 131909,
     "available": true,
     "source": "netease-listen-data",
     "endpoints": {
@@ -31,7 +31,7 @@
       "allTime": {
         "path": "totalDuration",
         "unit": "seconds",
-        "rawValue": 7912210
+        "rawValue": 7914592
       }
     },
     "validation": {
@@ -45,6 +45,17 @@
   "weekly": [
     {
       "rank": 1,
+      "songId": 805197,
+      "title": "さくら 〜あなたに出会えてよかった〜",
+      "alias": "樱花~能与你相遇太好了",
+      "artist": "RSP",
+      "album": "さくら 〜あなたに出会えてよかった〜",
+      "durationMs": 301493,
+      "playCount": 0,
+      "score": 100
+    },
+    {
+      "rank": 2,
       "songId": 3447749509,
       "title": "雲を抜け風下へ私だけ",
       "alias": "TV动画《药屋少女的呢喃 第三季》片头曲",
@@ -55,17 +66,6 @@
       "score": 100
     },
     {
-      "rank": 2,
-      "songId": 805197,
-      "title": "さくら 〜あなたに出会えてよかった〜",
-      "alias": "樱花~能与你相遇太好了",
-      "artist": "RSP",
-      "album": "さくら 〜あなたに出会えてよかった〜",
-      "durationMs": 301493,
-      "playCount": 0,
-      "score": 66
-    },
-    {
       "rank": 3,
       "songId": 3355480210,
       "title": "花も騒めく",
@@ -74,7 +74,7 @@
       "album": "二人称",
       "durationMs": 220711,
       "playCount": 0,
-      "score": 66
+      "score": 100
     },
     {
       "rank": 4,
@@ -85,7 +85,7 @@
       "album": "春泥棒",
       "durationMs": 290279,
       "playCount": 0,
-      "score": 66
+      "score": 100
     },
     {
       "rank": 5,
@@ -96,7 +96,7 @@
       "album": "盗作",
       "durationMs": 217048,
       "playCount": 0,
-      "score": 66
+      "score": 100
     },
     {
       "rank": 6,
@@ -107,21 +107,10 @@
       "album": "だから僕は音楽を辞めた",
       "durationMs": 242973,
       "playCount": 0,
-      "score": 66
+      "score": 100
     },
     {
       "rank": 7,
-      "songId": 1348704277,
-      "title": "眩しいDNAだけ",
-      "alias": "只是耀眼的DNA",
-      "artist": "ずっと真夜中でいいのに。",
-      "album": "眩しいDNAだけ",
-      "durationMs": 227173,
-      "playCount": 0,
-      "score": 66
-    },
-    {
-      "rank": 8,
       "songId": 625096,
       "title": "雪の華",
       "alias": "雪花",
@@ -129,10 +118,10 @@
       "album": "雪の華",
       "durationMs": 341933,
       "playCount": 0,
-      "score": 33
+      "score": 50
     },
     {
-      "rank": 9,
+      "rank": 8,
       "songId": 557583473,
       "title": "Alice in 冷凍庫",
       "alias": "Alice in 冷冻库",
@@ -140,10 +129,10 @@
       "album": "彼はきっと魔法を使う。",
       "durationMs": 342000,
       "playCount": 0,
-      "score": 33
+      "score": 50
     },
     {
-      "rank": 10,
+      "rank": 9,
       "songId": 557583336,
       "title": "冬眠",
       "alias": "",
@@ -151,10 +140,10 @@
       "album": "負け犬にアンコールはいらない",
       "durationMs": 301186,
       "playCount": 0,
-      "score": 33
+      "score": 50
     },
     {
-      "rank": 11,
+      "rank": 10,
       "songId": 557581314,
       "title": "負け犬にアンコールはいらない",
       "alias": "败犬不需要安可",
@@ -162,10 +151,10 @@
       "album": "負け犬にアンコールはいらない",
       "durationMs": 234293,
       "playCount": 0,
-      "score": 33
+      "score": 50
     },
     {
-      "rank": 12,
+      "rank": 11,
       "songId": 536622304,
       "title": "Lemon",
       "alias": "日剧《非自然死亡》主题曲",
@@ -173,10 +162,10 @@
       "album": "Lemon",
       "durationMs": 256000,
       "playCount": 0,
-      "score": 33
+      "score": 50
     },
     {
-      "rank": 13,
+      "rank": 12,
       "songId": 507116307,
       "title": "トモダチ/コイビト",
       "alias": "朋友/恋人",
@@ -184,10 +173,10 @@
       "album": "moumoon BEST -FULLMOON-",
       "durationMs": 232906,
       "playCount": 0,
-      "score": 33
+      "score": 50
     },
     {
-      "rank": 14,
+      "rank": 13,
       "songId": 487527983,
       "title": "靴の花火",
       "alias": "靴上烟火",
@@ -195,10 +184,10 @@
       "album": "夏草が邪魔をする",
       "durationMs": 303299,
       "playCount": 0,
-      "score": 33
+      "score": 50
     },
     {
-      "rank": 15,
+      "rank": 14,
       "songId": 487527980,
       "title": "言って。",
       "alias": "说吧。",
@@ -206,10 +195,10 @@
       "album": "夏草が邪魔をする",
       "durationMs": 242230,
       "playCount": 0,
-      "score": 33
+      "score": 50
     },
     {
-      "rank": 16,
+      "rank": 15,
       "songId": 487527979,
       "title": "カトレア",
       "alias": "卡特兰 Cattleya",
@@ -217,10 +206,10 @@
       "album": "夏草が邪魔をする",
       "durationMs": 188429,
       "playCount": 0,
-      "score": 33
+      "score": 50
     },
     {
-      "rank": 17,
+      "rank": 16,
       "songId": 469713310,
       "title": "桜の約束",
       "alias": "",
@@ -228,10 +217,10 @@
       "album": "桜の約束",
       "durationMs": 206242,
       "playCount": 0,
-      "score": 33
+      "score": 50
     },
     {
-      "rank": 18,
+      "rank": 17,
       "songId": 456185064,
       "title": "Zenzenzense (English ver.)",
       "alias": "前前前世",
@@ -239,10 +228,10 @@
       "album": "君の名は。 English edition",
       "durationMs": 277373,
       "playCount": 0,
-      "score": 33
+      "score": 50
     },
     {
-      "rank": 19,
+      "rank": 18,
       "songId": 445816405,
       "title": "糸守に東京に",
       "alias": "",
@@ -250,18 +239,29 @@
       "album": "糸守に東京に",
       "durationMs": 211353,
       "playCount": 0,
-      "score": 33
+      "score": 50
+    },
+    {
+      "rank": 19,
+      "songId": 441491828,
+      "title": "水星记",
+      "alias": "",
+      "artist": "郭顶",
+      "album": "飞行器的执行周期",
+      "durationMs": 325266,
+      "playCount": 0,
+      "score": 50
     },
     {
       "rank": 20,
-      "songId": 442016694,
-      "title": "天ノ弱 -うぃんぐPiano Ver.-",
-      "alias": "天之弱",
-      "artist": "Akie秋绘",
-      "album": "天ノ弱 -うぃんぐPiano Ver.-",
-      "durationMs": 273369,
+      "songId": 3400023090,
+      "title": "いさな",
+      "alias": "",
+      "artist": "ヨルシカ",
+      "album": "幻燈",
+      "durationMs": 264204,
       "playCount": 0,
-      "score": 33
+      "score": 50
     }
   ],
   "allTime": [
