@@ -3,7 +3,7 @@
   "profileUrl": "https://music.163.com/#/user/home?id=1441471952",
   "source": "NetEase Cloud Music public play record API",
   "endpoint": "/api/v1/play/record",
-  "updatedAt": "2026-11-19T23:02:26.177Z",
+  "updatedAt": "2026-11-20T22:40:35.083Z",
   "timezone": "Asia/Shanghai",
   "rankLimit": 20,
   "scrape": {
@@ -15,7 +15,7 @@
     "message": "Cookie 页面和接口均未返回播放次数，已回退公开接口。"
   },
   "duration": {
-    "weeklyMinutes": 207,
+    "weeklyMinutes": 269,
     "allTimeMinutes": 132079,
     "available": true,
     "source": "netease-listen-data",
@@ -67,28 +67,6 @@
     },
     {
       "rank": 3,
-      "songId": 3447749509,
-      "title": "雲を抜け風下へ私だけ",
-      "alias": "TV动画《药屋少女的呢喃 第三季》片头曲",
-      "artist": "ヨルシカ",
-      "album": "雲を抜け風下へ私だけ",
-      "durationMs": 238398,
-      "playCount": 0,
-      "score": 66
-    },
-    {
-      "rank": 4,
-      "songId": 3355480219,
-      "title": "櫂",
-      "alias": "",
-      "artist": "ヨルシカ",
-      "album": "二人称",
-      "durationMs": 238037,
-      "playCount": 0,
-      "score": 66
-    },
-    {
-      "rank": 5,
       "songId": 3319483197,
       "title": "DARMA GRAND PRIX",
       "alias": "",
@@ -96,10 +74,10 @@
       "album": "DARMA GRAND PRIX",
       "durationMs": 259866,
       "playCount": 0,
-      "score": 66
+      "score": 75
     },
     {
-      "rank": 6,
+      "rank": 4,
       "songId": 2123807718,
       "title": "Color Your Night",
       "alias": "染上夜色",
@@ -107,43 +85,10 @@
       "album": "ペルソナ3 リロード オリジナル・サウンドトラック",
       "durationMs": 227240,
       "playCount": 0,
-      "score": 66
+      "score": 75
     },
     {
-      "rank": 7,
-      "songId": 1966162262,
-      "title": "未定",
-      "alias": "Mitei",
-      "artist": "chilldspot",
-      "album": "ingredients",
-      "durationMs": 200248,
-      "playCount": 0,
-      "score": 66
-    },
-    {
-      "rank": 8,
-      "songId": 1884380173,
-      "title": "月に吠える",
-      "alias": "对月长啸",
-      "artist": "ヨルシカ",
-      "album": "月に吠える",
-      "durationMs": 265803,
-      "playCount": 0,
-      "score": 66
-    },
-    {
-      "rank": 9,
-      "songId": 1466520411,
-      "title": "春ひさぎ",
-      "alias": "卖春",
-      "artist": "ヨルシカ",
-      "album": "盗作",
-      "durationMs": 217731,
-      "playCount": 0,
-      "score": 66
-    },
-    {
-      "rank": 10,
+      "rank": 5,
       "songId": 1361336636,
       "title": "Come Back To Me",
       "alias": "",
@@ -151,87 +96,10 @@
       "album": "This Is The One",
       "durationMs": 237946,
       "playCount": 0,
-      "score": 66
+      "score": 75
     },
     {
-      "rank": 11,
-      "songId": 640866,
-      "title": "Secret",
-      "alias": "",
-      "artist": "茶太",
-      "album": "eclipse改",
-      "durationMs": 276000,
-      "playCount": 0,
-      "score": 33
-    },
-    {
-      "rank": 12,
-      "songId": 625096,
-      "title": "雪の華",
-      "alias": "雪花",
-      "artist": "中島美嘉",
-      "album": "雪の華",
-      "durationMs": 341933,
-      "playCount": 0,
-      "score": 33
-    },
-    {
-      "rank": 13,
-      "songId": 584155,
-      "title": "いつも何度でも",
-      "alias": "永远同在",
-      "artist": "伊藤サチコ",
-      "album": "ジブリを聴きながら、上を向いて歩こう",
-      "durationMs": 228306,
-      "playCount": 0,
-      "score": 33
-    },
-    {
-      "rank": 14,
-      "songId": 557583336,
-      "title": "冬眠",
-      "alias": "",
-      "artist": "ヨルシカ",
-      "album": "負け犬にアンコールはいらない",
-      "durationMs": 301186,
-      "playCount": 0,
-      "score": 33
-    },
-    {
-      "rank": 15,
-      "songId": 557583335,
-      "title": "爆弾魔",
-      "alias": "炸弹魔",
-      "artist": "ヨルシカ",
-      "album": "負け犬にアンコールはいらない",
-      "durationMs": 217026,
-      "playCount": 0,
-      "score": 33
-    },
-    {
-      "rank": 16,
-      "songId": 557581315,
-      "title": "ヒッチコック",
-      "alias": "希区柯克 Hitchcock",
-      "artist": "ヨルシカ",
-      "album": "負け犬にアンコールはいらない",
-      "durationMs": 222813,
-      "playCount": 0,
-      "score": 33
-    },
-    {
-      "rank": 17,
-      "songId": 557581314,
-      "title": "負け犬にアンコールはいらない",
-      "alias": "败犬不需要安可",
-      "artist": "ヨルシカ",
-      "album": "負け犬にアンコールはいらない",
-      "durationMs": 234293,
-      "playCount": 0,
-      "score": 33
-    },
-    {
-      "rank": 18,
+      "rank": 6,
       "songId": 487527979,
       "title": "カトレア",
       "alias": "卡特兰 Cattleya",
@@ -239,29 +107,161 @@
       "album": "夏草が邪魔をする",
       "durationMs": 188429,
       "playCount": 0,
-      "score": 33
+      "score": 50
+    },
+    {
+      "rank": 7,
+      "songId": 3447749509,
+      "title": "雲を抜け風下へ私だけ",
+      "alias": "TV动画《药屋少女的呢喃 第三季》片头曲",
+      "artist": "ヨルシカ",
+      "album": "雲を抜け風下へ私だけ",
+      "durationMs": 238398,
+      "playCount": 0,
+      "score": 50
+    },
+    {
+      "rank": 8,
+      "songId": 3355480219,
+      "title": "櫂",
+      "alias": "",
+      "artist": "ヨルシカ",
+      "album": "二人称",
+      "durationMs": 238037,
+      "playCount": 0,
+      "score": 50
+    },
+    {
+      "rank": 9,
+      "songId": 1966162262,
+      "title": "未定",
+      "alias": "Mitei",
+      "artist": "chilldspot",
+      "album": "ingredients",
+      "durationMs": 200248,
+      "playCount": 0,
+      "score": 50
+    },
+    {
+      "rank": 10,
+      "songId": 1909244322,
+      "title": "朝までまだ時間はある",
+      "alias": "直到早上还有时间",
+      "artist": "Nao'ymt / Marika",
+      "album": "朝までまだ時間はある",
+      "durationMs": 250053,
+      "playCount": 0,
+      "score": 50
+    },
+    {
+      "rank": 11,
+      "songId": 1884380173,
+      "title": "月に吠える",
+      "alias": "对月长啸",
+      "artist": "ヨルシカ",
+      "album": "月に吠える",
+      "durationMs": 265803,
+      "playCount": 0,
+      "score": 50
+    },
+    {
+      "rank": 12,
+      "songId": 1466520411,
+      "title": "春ひさぎ",
+      "alias": "卖春",
+      "artist": "ヨルシカ",
+      "album": "盗作",
+      "durationMs": 217731,
+      "playCount": 0,
+      "score": 50
+    },
+    {
+      "rank": 13,
+      "songId": 1357953768,
+      "title": "だから僕は音楽を辞めた",
+      "alias": "所以我放弃了音乐",
+      "artist": "ヨルシカ",
+      "album": "だから僕は音楽を辞めた",
+      "durationMs": 242973,
+      "playCount": 0,
+      "score": 50
+    },
+    {
+      "rank": 14,
+      "songId": 1296558133,
+      "title": "おいらの船",
+      "alias": "我们的船",
+      "artist": "ハンバート ハンバート",
+      "album": "FOLK 2",
+      "durationMs": 283812,
+      "playCount": 0,
+      "score": 50
+    },
+    {
+      "rank": 15,
+      "songId": 1293886117,
+      "title": "年少有为",
+      "alias": "",
+      "artist": "李荣浩",
+      "album": "耳朵",
+      "durationMs": 279196,
+      "playCount": 0,
+      "score": 50
+    },
+    {
+      "rank": 16,
+      "songId": 640866,
+      "title": "Secret",
+      "alias": "",
+      "artist": "茶太",
+      "album": "eclipse改",
+      "durationMs": 276000,
+      "playCount": 0,
+      "score": 25
+    },
+    {
+      "rank": 17,
+      "songId": 625096,
+      "title": "雪の華",
+      "alias": "雪花",
+      "artist": "中島美嘉",
+      "album": "雪の華",
+      "durationMs": 341933,
+      "playCount": 0,
+      "score": 25
+    },
+    {
+      "rank": 18,
+      "songId": 584155,
+      "title": "いつも何度でも",
+      "alias": "永远同在",
+      "artist": "伊藤サチコ",
+      "album": "ジブリを聴きながら、上を向いて歩こう",
+      "durationMs": 228306,
+      "playCount": 0,
+      "score": 25
     },
     {
       "rank": 19,
-      "songId": 424262056,
-      "title": "インドア系ならトラックメイカー",
-      "alias": "内向都是作曲家",
-      "artist": "Yunomi / nicamoq",
-      "album": "インドア系ならトラックメイカー",
-      "durationMs": 197343,
+      "songId": 557583336,
+      "title": "冬眠",
+      "alias": "",
+      "artist": "ヨルシカ",
+      "album": "負け犬にアンコールはいらない",
+      "durationMs": 301186,
       "playCount": 0,
-      "score": 33
+      "score": 25
     },
     {
       "rank": 20,
-      "songId": 407685130,
-      "title": "女生徒",
-      "alias": "女学生",
-      "artist": "藤井久美",
-      "album": "心象スケツチ",
-      "durationMs": 275089,
+      "songId": 557583335,
+      "title": "爆弾魔",
+      "alias": "炸弹魔",
+      "artist": "ヨルシカ",
+      "album": "負け犬にアンコールはいらない",
+      "durationMs": 217026,
       "playCount": 0,
-      "score": 33
+      "score": 25
     }
   ],
   "allTime": [
@@ -428,7 +428,7 @@
       "album": "盗作",
       "durationMs": 162834,
       "playCount": 0,
-      "score": 32
+      "score": 31
     },
     {
       "rank": 16,
