@@ -1,7 +1,7 @@
 {
   "source": "NetEase Cloud Music hot comments API",
   "endpoint": "/api/v1/resource/comments/R_SO_4_{songId}",
-  "updatedAt": "2026-11-15T21:09:25.476Z",
+  "updatedAt": "2026-11-22T21:56:13.563Z",
   "timezone": "Asia/Shanghai",
   "commentLimit": 4,
   "tracks": {
@@ -16,28 +16,28 @@
           "commentId": 1485315095,
           "nickname": "Kiba穆年",
           "content": "だから僕は宿題を辞めた\n（所以我放弃了作业）",
-          "likedCount": 63380,
+          "likedCount": 63537,
           "date": "2019-05-11"
         },
         {
           "commentId": 1448351769,
           "nickname": "拿橙之夏",
           "content": "拿终于没有让一专辑死一堆人了，而是让一个人用了一专辑来死去[大哭]",
-          "likedCount": 33063,
+          "likedCount": 33086,
           "date": "2019-04-11"
         },
         {
           "commentId": 1460473413,
           "nickname": "地铁强子对撞机",
           "content": "だから僕は钱包を辞めた",
-          "likedCount": 22601,
+          "likedCount": 22606,
           "date": "2019-04-22"
         },
         {
           "commentId": 1475626692,
           "nickname": "名之松",
           "content": "这首上日本公信榜了。。。。流批(一下子实在想不出别的词了)",
-          "likedCount": 13056,
+          "likedCount": 13060,
           "date": "2019-05-03"
         }
       ],
@@ -46,7 +46,7 @@
       "matchedBy": "track-data",
       "mode": "fresh",
       "error": "",
-      "updatedAt": "2026-11-15T21:09:18.118Z"
+      "updatedAt": "2026-11-22T21:56:06.211Z"
     },
     "kajin": {
       "trackId": "kajin",
@@ -59,7 +59,7 @@
           "commentId": 3443836480,
           "nickname": "云村用户264018",
           "content": "n-buna：这是由“美人局”一词而演变来的自造词。所谓“美人局”，就是是早上醒来被身边突然出现的女人骗取金钱（中国俗称仙人跳）。而“花人局”是指早上起来反而发现身边谁都不在，却只留下了谁人曾经待过的痕迹。用来指代给自己人生带来花(华彩)并消失掉的人…",
-          "likedCount": 4237,
+          "likedCount": 4250,
           "date": "2020-09-04"
         },
         {
@@ -70,18 +70,18 @@
           "date": "2020-07-29"
         },
         {
+          "commentId": 7559367514,
+          "nickname": "wolpis_kater",
+          "content": "很难想象这首歌除了suis还能有谁能想出来这种近乎完美的情绪释放方式，整首歌在我看来就是从克制的哀愁到清醒的悲伤，那种怅若所失感和拧巴男的和声还是太过于完美了",
+          "likedCount": 1261,
+          "date": "2025-03-05"
+        },
+        {
           "commentId": 3396106514,
           "nickname": "宋邋遢-Sonata-",
           "content": "讲个有意思的。试听刚出来时，与其他曲目下面成片的赞美声不同，这首下面比较多的是调侃意味的“青春3.0”“emy2.0”。但全曲放出来后个人感觉这首整体素质排这专前三是没有问题的！\n花持たせ，自己丝毫不逊色，却把赞赏都让给他人，在某种意义上也是点题了。",
           "likedCount": 1256,
           "date": "2020-07-29"
-        },
-        {
-          "commentId": 7559367514,
-          "nickname": "wolpis_kater",
-          "content": "很难想象这首歌除了suis还能有谁能想出来这种近乎完美的情绪释放方式，整首歌在我看来就是从克制的哀愁到清醒的悲伤，那种怅若所失感和拧巴男的和声还是太过于完美了",
-          "likedCount": 1244,
-          "date": "2025-03-05"
         }
       ],
       "sourceUrl": "https://music.163.com/#/song?id=1466519473",
@@ -89,7 +89,7 @@
       "matchedBy": "track-data",
       "mode": "fresh",
       "error": "",
-      "updatedAt": "2026-11-15T21:09:19.624Z"
+      "updatedAt": "2026-11-22T21:56:07.801Z"
     },
     "oldman": {
       "trackId": "oldman",
@@ -102,28 +102,28 @@
           "commentId": 5395510597,
           "nickname": "空气弥漫爱意于是我戴上防毒面具",
           "content": "凭借我多年听日语歌和看日漫的经验，我居然翻译出了，这首歌的歌名！！！！啊啊啊啊！！我好厉害，我厉害死了！！！",
-          "likedCount": 45013,
+          "likedCount": 45123,
           "date": "2021-08-18"
         },
         {
           "commentId": 5395679420,
           "nickname": "MelanyLin",
           "content": "ヨルシカ：将诗歌音乐化　　                       YOASOBI ：将小说音乐化                                      真夜中:将动画音乐化",
-          "likedCount": 25056,
+          "likedCount": 25103,
           "date": "2021-08-18"
         },
         {
           "commentId": 5926339969,
           "nickname": "川花花花",
           "content": "“摘耳机是新世纪的脱帽礼。”",
-          "likedCount": 21802,
+          "likedCount": 21911,
           "date": "2023-06-18"
         },
         {
           "commentId": 5395464076,
           "nickname": "txyler",
           "content": "我曾经以为一个有着『冒着冷气的苏打水』、『漫天的晚霞与积雨云』、『晴空万里的原野』、『你歌颂的歌谣』的日子才是夏天。\n直到后来我才慢慢发现就算是一轮草凋谢的日子里，只要戴上耳机放起夜鹿的歌曲，夏天就已经来了。\n因为ヨルシカ，我的夏天被赋予特殊的意义。",
-          "likedCount": 12978,
+          "likedCount": 12985,
           "date": "2021-08-18"
         }
       ],
@@ -132,7 +132,7 @@
       "matchedBy": "track-data",
       "mode": "fresh",
       "error": "",
-      "updatedAt": "2026-11-15T21:09:20.980Z"
+      "updatedAt": "2026-11-22T21:56:09.111Z"
     },
     "odoriko": {
       "trackId": "odoriko",
@@ -145,28 +145,28 @@
           "commentId": 5663101783,
           "nickname": "瓦次run味日有",
           "content": "居然能在一首歌里听出面无表情这个词。",
-          "likedCount": 30531,
+          "likedCount": 30647,
           "date": "2022-05-17"
         },
         {
           "commentId": 5461250690,
           "nickname": "Akaiyume-",
           "content": "《关于我喜欢的冷门歌手出新歌封面是小松菜奈这件事》",
-          "likedCount": 19898,
+          "likedCount": 19932,
           "date": "2021-11-17"
         },
         {
           "commentId": 5564243809,
           "nickname": "皿吾",
           "content": "卧槽，看了一下歌手才19岁，作曲作词，唱歌，影像制作全能。😳论我来人间凑数的20多年",
-          "likedCount": 8159,
+          "likedCount": 8195,
           "date": "2022-01-26"
         },
         {
           "commentId": 7687529095,
           "nickname": "野生老柠萌",
           "content": "各位从我视频来的粉丝，首先感谢你们喜欢我的视频，也喜欢我里面用的音乐。我本身是很喜欢这个歌手的音乐，视频里就尝试用了一下这首音乐，但是最近太多粉丝来这里留言了，这和歌曲是无关的内容，这很影响喜欢这首歌的粉丝，希望可以减少这类的评论，更专注得去听这首歌[泪目][泪目]",
-          "likedCount": 7283,
+          "likedCount": 7326,
           "date": "2025-08-14"
         }
       ],
@@ -175,7 +175,7 @@
       "matchedBy": "track-data",
       "mode": "fresh",
       "error": "",
-      "updatedAt": "2026-11-15T21:09:22.374Z"
+      "updatedAt": "2026-11-22T21:56:10.487Z"
     },
     "highway": {
       "trackId": "highway",
@@ -188,28 +188,28 @@
           "commentId": 231408889,
           "nickname": "二宫_",
           "content": "歌手百度:etsuco是日本女歌手，虽然只有144cm的身高，但是却有用惊人的演唱实力。出生三重县的她，现在集中经历在东海三县的LIVE上。嘛！不管怎样，这个声音很好听不是么？[憨笑]",
-          "likedCount": 13766,
+          "likedCount": 13770,
           "date": "2016-10-17"
         },
         {
           "commentId": 251804120,
           "nickname": "熊裁缝",
           "content": "今天郑州下雪❄️了…考研党走在回寝室的路上看到一只手套，心想丢的人一定会回来找，便拿着手套往前走 果然看到一个女孩逆着人流在找东西…我手往前一伸 女孩笑了起来！尽管是帮到了别人一件小事，也会在这个寒冷的冬天感受到一丝温暖 [吐舌][吐舌]",
-          "likedCount": 10824,
+          "likedCount": 10830,
           "date": "2016-11-22"
         },
         {
           "commentId": 340858121,
           "nickname": "风人疯语",
           "content": "日语愣生生唱出英语的感觉……",
-          "likedCount": 8363,
+          "likedCount": 8370,
           "date": "2017-03-28"
         },
         {
           "commentId": 309206285,
           "nickname": "Jacob-Shi",
           "content": "课间休息 喜欢的女孩从后面路过 拍了一下我的肩 而我却跟屌丝一样 心里美了半天 什么也不敢说  老感觉我配不上她 也经常忘掉她长什么样子 然后就自己脑补 但每次见到她 永远都要比想象的更动人 祝自己情人节快乐",
-          "likedCount": 5215,
+          "likedCount": 5216,
           "date": "2017-02-14"
         }
       ],
@@ -218,7 +218,7 @@
       "matchedBy": "track-data",
       "mode": "fresh",
       "error": "",
-      "updatedAt": "2026-11-15T21:09:23.958Z"
+      "updatedAt": "2026-11-22T21:56:12.040Z"
     },
     "sss": {
       "trackId": "sss",
@@ -231,28 +231,28 @@
           "commentId": 5892744188,
           "nickname": "冰啡走",
           "content": "原谅我 全等三角形 对应边相等SSS",
-          "likedCount": 8896,
+          "likedCount": 8925,
           "date": "2023-04-18"
         },
         {
           "commentId": 5882595930,
           "nickname": "Leiounad",
           "content": "在村东头的一家山东煎饼铺子听到的，大蒜加辣椒burning，初秋的早晨",
-          "likedCount": 5645,
+          "likedCount": 5650,
           "date": "2023-04-03"
         },
         {
           "commentId": 5998983126,
           "nickname": "凉茶只喝加多宝a",
           "content": "日推这个歌曲的点我一下！",
-          "likedCount": 4065,
+          "likedCount": 4066,
           "date": "2023-10-30"
         },
         {
           "commentId": 5806716221,
           "nickname": "冰栗子仙豆糕",
           "content": "在纽约曼哈顿东村的一家日式油画吐司brunch小店听到的，冬日的早晨，🍞和🍵。",
-          "likedCount": 3467,
+          "likedCount": 3469,
           "date": "2022-12-10"
         }
       ],
@@ -261,7 +261,7 @@
       "matchedBy": "track-data",
       "mode": "fresh",
       "error": "",
-      "updatedAt": "2026-11-15T21:09:25.476Z"
+      "updatedAt": "2026-11-22T21:56:13.563Z"
     }
   },
   "scrape": {
