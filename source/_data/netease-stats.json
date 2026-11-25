@@ -3,7 +3,7 @@
   "profileUrl": "https://music.163.com/#/user/home?id=1441471952",
   "source": "NetEase Cloud Music public play record API",
   "endpoint": "/api/v1/play/record",
-  "updatedAt": "2026-11-24T02:55:11.830Z",
+  "updatedAt": "2026-11-25T00:41:16.595Z",
   "timezone": "Asia/Shanghai",
   "rankLimit": 20,
   "scrape": {
@@ -15,8 +15,8 @@
     "message": "Cookie 页面和接口均未返回播放次数，已回退公开接口。"
   },
   "duration": {
-    "weeklyMinutes": 42,
-    "allTimeMinutes": 132252,
+    "weeklyMinutes": 100,
+    "allTimeMinutes": 132310,
     "available": true,
     "source": "netease-listen-data",
     "endpoints": {
@@ -31,7 +31,7 @@
       "allTime": {
         "path": "totalDuration",
         "unit": "seconds",
-        "rawValue": 7935156
+        "rawValue": 7938659
       }
     },
     "validation": {
@@ -63,21 +63,10 @@
       "album": "ペルソナ3 リロード オリジナル・サウンドトラック",
       "durationMs": 227240,
       "playCount": 0,
-      "score": 83
+      "score": 85
     },
     {
       "rank": 3,
-      "songId": 3319483197,
-      "title": "DARMA GRAND PRIX",
-      "alias": "",
-      "artist": "ヨルシカ",
-      "album": "DARMA GRAND PRIX",
-      "durationMs": 259866,
-      "playCount": 0,
-      "score": 66
-    },
-    {
-      "rank": 4,
       "songId": 805197,
       "title": "さくら 〜あなたに出会えてよかった〜",
       "alias": "樱花~能与你相遇太好了",
@@ -85,43 +74,10 @@
       "album": "さくら 〜あなたに出会えてよかった〜",
       "durationMs": 301493,
       "playCount": 0,
-      "score": 50
+      "score": 42
     },
     {
-      "rank": 5,
-      "songId": 3447749509,
-      "title": "雲を抜け風下へ私だけ",
-      "alias": "TV动画《药屋少女的呢喃 第三季》片头曲",
-      "artist": "ヨルシカ",
-      "album": "雲を抜け風下へ私だけ",
-      "durationMs": 238398,
-      "playCount": 0,
-      "score": 50
-    },
-    {
-      "rank": 6,
-      "songId": 3355480210,
-      "title": "花も騒めく",
-      "alias": "花亦喧嚣",
-      "artist": "ヨルシカ",
-      "album": "二人称",
-      "durationMs": 220711,
-      "playCount": 0,
-      "score": 50
-    },
-    {
-      "rank": 7,
-      "songId": 2061225325,
-      "title": "灰かぶり",
-      "alias": "灰姑娘",
-      "artist": "十明",
-      "album": "灰かぶり",
-      "durationMs": 220714,
-      "playCount": 0,
-      "score": 50
-    },
-    {
-      "rank": 8,
+      "rank": 4,
       "songId": 1966162262,
       "title": "未定",
       "alias": "Mitei",
@@ -129,21 +85,10 @@
       "album": "ingredients",
       "durationMs": 200248,
       "playCount": 0,
-      "score": 50
+      "score": 42
     },
     {
-      "rank": 9,
-      "songId": 1361336636,
-      "title": "Come Back To Me",
-      "alias": "",
-      "artist": "宇多田ヒカル",
-      "album": "This Is The One",
-      "durationMs": 237946,
-      "playCount": 0,
-      "score": 50
-    },
-    {
-      "rank": 10,
+      "rank": 5,
       "songId": 487527981,
       "title": "あの夏に咲け",
       "alias": "在那个夏天绽放吧！",
@@ -151,10 +96,10 @@
       "album": "夏草が邪魔をする",
       "durationMs": 258880,
       "playCount": 0,
-      "score": 33
+      "score": 28
     },
     {
-      "rank": 11,
+      "rank": 6,
       "songId": 487527979,
       "title": "カトレア",
       "alias": "卡特兰 Cattleya",
@@ -162,10 +107,32 @@
       "album": "夏草が邪魔をする",
       "durationMs": 188429,
       "playCount": 0,
-      "score": 33
+      "score": 28
     },
     {
-      "rank": 12,
+      "rank": 7,
+      "songId": 3447749509,
+      "title": "雲を抜け風下へ私だけ",
+      "alias": "TV动画《药屋少女的呢喃 第三季》片头曲",
+      "artist": "ヨルシカ",
+      "album": "雲を抜け風下へ私だけ",
+      "durationMs": 238398,
+      "playCount": 0,
+      "score": 28
+    },
+    {
+      "rank": 8,
+      "songId": 3355480210,
+      "title": "花も騒めく",
+      "alias": "花亦喧嚣",
+      "artist": "ヨルシカ",
+      "album": "二人称",
+      "durationMs": 220711,
+      "playCount": 0,
+      "score": 28
+    },
+    {
+      "rank": 9,
       "songId": 3355479296,
       "title": "ヒッチコック (Re-Recording)",
       "alias": "希区柯克",
@@ -173,10 +140,32 @@
       "album": "二人称",
       "durationMs": 225144,
       "playCount": 0,
-      "score": 33
+      "score": 28
     },
     {
-      "rank": 13,
+      "rank": 10,
+      "songId": 3319483197,
+      "title": "DARMA GRAND PRIX",
+      "alias": "",
+      "artist": "ヨルシカ",
+      "album": "DARMA GRAND PRIX",
+      "durationMs": 259866,
+      "playCount": 0,
+      "score": 28
+    },
+    {
+      "rank": 11,
+      "songId": 29593073,
+      "title": "クロノスタシス",
+      "alias": "时停错觉 Chronostasis",
+      "artist": "きのこ帝国",
+      "album": "フェイクワールドワンダーランド",
+      "durationMs": 227813,
+      "playCount": 0,
+      "score": 28
+    },
+    {
+      "rank": 12,
       "songId": 2154219378,
       "title": "はいよろこんで",
       "alias": "乐意效劳",
@@ -184,7 +173,18 @@
       "album": "はいよろこんで",
       "durationMs": 161632,
       "playCount": 0,
-      "score": 33
+      "score": 28
+    },
+    {
+      "rank": 13,
+      "songId": 2061225325,
+      "title": "灰かぶり",
+      "alias": "灰姑娘",
+      "artist": "十明",
+      "album": "灰かぶり",
+      "durationMs": 220714,
+      "playCount": 0,
+      "score": 28
     },
     {
       "rank": 14,
@@ -195,10 +195,32 @@
       "album": "盗作",
       "durationMs": 217731,
       "playCount": 0,
-      "score": 33
+      "score": 28
     },
     {
       "rank": 15,
+      "songId": 1466519472,
+      "title": "レプリカント",
+      "alias": "复制人 ",
+      "artist": "ヨルシカ",
+      "album": "盗作",
+      "durationMs": 217048,
+      "playCount": 0,
+      "score": 28
+    },
+    {
+      "rank": 16,
+      "songId": 1428153831,
+      "title": "夜行",
+      "alias": "Night Journey",
+      "artist": "ヨルシカ",
+      "album": "夜行",
+      "durationMs": 203941,
+      "playCount": 0,
+      "score": 28
+    },
+    {
+      "rank": 17,
       "songId": 1361336637,
       "title": "Merry Christmas Mr. Lawrence - FYI",
       "alias": "メリークリスマス・ミスター・ローレンス-FYI",
@@ -206,10 +228,21 @@
       "album": "This Is The One",
       "durationMs": 229560,
       "playCount": 0,
-      "score": 33
+      "score": 28
     },
     {
-      "rank": 16,
+      "rank": 18,
+      "songId": 1361336636,
+      "title": "Come Back To Me",
+      "alias": "",
+      "artist": "宇多田ヒカル",
+      "album": "This Is The One",
+      "durationMs": 237946,
+      "playCount": 0,
+      "score": 28
+    },
+    {
+      "rank": 19,
       "songId": 1357953768,
       "title": "だから僕は音楽を辞めた",
       "alias": "所以我放弃了音乐",
@@ -217,10 +250,10 @@
       "album": "だから僕は音楽を辞めた",
       "durationMs": 242973,
       "playCount": 0,
-      "score": 33
+      "score": 28
     },
     {
-      "rank": 17,
+      "rank": 20,
       "songId": 1296558133,
       "title": "おいらの船",
       "alias": "我们的船",
@@ -228,40 +261,7 @@
       "album": "FOLK 2",
       "durationMs": 283812,
       "playCount": 0,
-      "score": 33
-    },
-    {
-      "rank": 18,
-      "songId": 640866,
-      "title": "Secret",
-      "alias": "",
-      "artist": "茶太",
-      "album": "eclipse改",
-      "durationMs": 276000,
-      "playCount": 0,
-      "score": 16
-    },
-    {
-      "rank": 19,
-      "songId": 584155,
-      "title": "いつも何度でも",
-      "alias": "永远同在",
-      "artist": "伊藤サチコ",
-      "album": "ジブリを聴きながら、上を向いて歩こう",
-      "durationMs": 228306,
-      "playCount": 0,
-      "score": 16
-    },
-    {
-      "rank": 20,
-      "songId": 557583335,
-      "title": "爆弾魔",
-      "alias": "炸弹魔",
-      "artist": "ヨルシカ",
-      "album": "負け犬にアンコールはいらない",
-      "durationMs": 217026,
-      "playCount": 0,
-      "score": 16
+      "score": 28
     }
   ],
   "allTime": [
