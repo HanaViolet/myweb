@@ -3,7 +3,7 @@
   "profileUrl": "https://music.163.com/#/user/home?id=1441471952",
   "source": "NetEase Cloud Music public play record API",
   "endpoint": "/api/v1/play/record",
-  "updatedAt": "2026-11-25T00:41:16.595Z",
+  "updatedAt": "2026-11-27T00:34:46.664Z",
   "timezone": "Asia/Shanghai",
   "rankLimit": 20,
   "scrape": {
@@ -15,8 +15,8 @@
     "message": "Cookie 页面和接口均未返回播放次数，已回退公开接口。"
   },
   "duration": {
-    "weeklyMinutes": 100,
-    "allTimeMinutes": 132310,
+    "weeklyMinutes": 193,
+    "allTimeMinutes": 132405,
     "available": true,
     "source": "netease-listen-data",
     "endpoints": {
@@ -31,7 +31,7 @@
       "allTime": {
         "path": "totalDuration",
         "unit": "seconds",
-        "rawValue": 7938659
+        "rawValue": 7944323
       }
     },
     "validation": {
@@ -63,10 +63,32 @@
       "album": "ペルソナ3 リロード オリジナル・サウンドトラック",
       "durationMs": 227240,
       "playCount": 0,
-      "score": 85
+      "score": 75
     },
     {
       "rank": 3,
+      "songId": 1293886117,
+      "title": "年少有为",
+      "alias": "",
+      "artist": "李荣浩",
+      "album": "耳朵",
+      "durationMs": 279196,
+      "playCount": 0,
+      "score": 50
+    },
+    {
+      "rank": 4,
+      "songId": 3319483197,
+      "title": "DARMA GRAND PRIX",
+      "alias": "",
+      "artist": "ヨルシカ",
+      "album": "DARMA GRAND PRIX",
+      "durationMs": 259866,
+      "playCount": 0,
+      "score": 37
+    },
+    {
+      "rank": 5,
       "songId": 805197,
       "title": "さくら 〜あなたに出会えてよかった〜",
       "alias": "樱花~能与你相遇太好了",
@@ -74,21 +96,10 @@
       "album": "さくら 〜あなたに出会えてよかった〜",
       "durationMs": 301493,
       "playCount": 0,
-      "score": 42
+      "score": 25
     },
     {
-      "rank": 4,
-      "songId": 1966162262,
-      "title": "未定",
-      "alias": "Mitei",
-      "artist": "chilldspot",
-      "album": "ingredients",
-      "durationMs": 200248,
-      "playCount": 0,
-      "score": 42
-    },
-    {
-      "rank": 5,
+      "rank": 6,
       "songId": 487527981,
       "title": "あの夏に咲け",
       "alias": "在那个夏天绽放吧！",
@@ -96,10 +107,10 @@
       "album": "夏草が邪魔をする",
       "durationMs": 258880,
       "playCount": 0,
-      "score": 28
+      "score": 25
     },
     {
-      "rank": 6,
+      "rank": 7,
       "songId": 487527979,
       "title": "カトレア",
       "alias": "卡特兰 Cattleya",
@@ -107,18 +118,7 @@
       "album": "夏草が邪魔をする",
       "durationMs": 188429,
       "playCount": 0,
-      "score": 28
-    },
-    {
-      "rank": 7,
-      "songId": 3447749509,
-      "title": "雲を抜け風下へ私だけ",
-      "alias": "TV动画《药屋少女的呢喃 第三季》片头曲",
-      "artist": "ヨルシカ",
-      "album": "雲を抜け風下へ私だけ",
-      "durationMs": 238398,
-      "playCount": 0,
-      "score": 28
+      "score": 25
     },
     {
       "rank": 8,
@@ -129,7 +129,7 @@
       "album": "二人称",
       "durationMs": 220711,
       "playCount": 0,
-      "score": 28
+      "score": 25
     },
     {
       "rank": 9,
@@ -140,18 +140,18 @@
       "album": "二人称",
       "durationMs": 225144,
       "playCount": 0,
-      "score": 28
+      "score": 25
     },
     {
       "rank": 10,
-      "songId": 3319483197,
-      "title": "DARMA GRAND PRIX",
-      "alias": "",
+      "songId": 3355479288,
+      "title": "雲になる",
+      "alias": "化云",
       "artist": "ヨルシカ",
-      "album": "DARMA GRAND PRIX",
-      "durationMs": 259866,
+      "album": "二人称",
+      "durationMs": 246829,
       "playCount": 0,
-      "score": 28
+      "score": 25
     },
     {
       "rank": 11,
@@ -162,10 +162,21 @@
       "album": "フェイクワールドワンダーランド",
       "durationMs": 227813,
       "playCount": 0,
-      "score": 28
+      "score": 25
     },
     {
       "rank": 12,
+      "songId": 2652412440,
+      "title": "星光下的梦想(《喜羊羊与灰太狼之兔年顶呱呱》动画电影插曲)",
+      "alias": "",
+      "artist": "郭易YoYo",
+      "album": "《喜羊羊与灰太狼》音乐原声带合辑",
+      "durationMs": 187005,
+      "playCount": 0,
+      "score": 25
+    },
+    {
+      "rank": 13,
       "songId": 2154219378,
       "title": "はいよろこんで",
       "alias": "乐意效劳",
@@ -173,10 +184,10 @@
       "album": "はいよろこんで",
       "durationMs": 161632,
       "playCount": 0,
-      "score": 28
+      "score": 25
     },
     {
-      "rank": 13,
+      "rank": 14,
       "songId": 2061225325,
       "title": "灰かぶり",
       "alias": "灰姑娘",
@@ -184,21 +195,21 @@
       "album": "灰かぶり",
       "durationMs": 220714,
       "playCount": 0,
-      "score": 28
-    },
-    {
-      "rank": 14,
-      "songId": 1466520411,
-      "title": "春ひさぎ",
-      "alias": "卖春",
-      "artist": "ヨルシカ",
-      "album": "盗作",
-      "durationMs": 217731,
-      "playCount": 0,
-      "score": 28
+      "score": 25
     },
     {
       "rank": 15,
+      "songId": 1966162262,
+      "title": "未定",
+      "alias": "Mitei",
+      "artist": "chilldspot",
+      "album": "ingredients",
+      "durationMs": 200248,
+      "playCount": 0,
+      "score": 25
+    },
+    {
+      "rank": 16,
       "songId": 1466519472,
       "title": "レプリカント",
       "alias": "复制人 ",
@@ -206,32 +217,10 @@
       "album": "盗作",
       "durationMs": 217048,
       "playCount": 0,
-      "score": 28
-    },
-    {
-      "rank": 16,
-      "songId": 1428153831,
-      "title": "夜行",
-      "alias": "Night Journey",
-      "artist": "ヨルシカ",
-      "album": "夜行",
-      "durationMs": 203941,
-      "playCount": 0,
-      "score": 28
+      "score": 25
     },
     {
       "rank": 17,
-      "songId": 1361336637,
-      "title": "Merry Christmas Mr. Lawrence - FYI",
-      "alias": "メリークリスマス・ミスター・ローレンス-FYI",
-      "artist": "宇多田ヒカル",
-      "album": "This Is The One",
-      "durationMs": 229560,
-      "playCount": 0,
-      "score": 28
-    },
-    {
-      "rank": 18,
       "songId": 1361336636,
       "title": "Come Back To Me",
       "alias": "",
@@ -239,29 +228,40 @@
       "album": "This Is The One",
       "durationMs": 237946,
       "playCount": 0,
-      "score": 28
+      "score": 25
+    },
+    {
+      "rank": 18,
+      "songId": 769651,
+      "title": "Standing Bird",
+      "alias": "",
+      "artist": "LOVE PSYCHEDELICO",
+      "album": "This is LOVE PSYCHEDELICO",
+      "durationMs": 300973,
+      "playCount": 0,
+      "score": 12
     },
     {
       "rank": 19,
-      "songId": 1357953768,
-      "title": "だから僕は音楽を辞めた",
-      "alias": "所以我放弃了音乐",
-      "artist": "ヨルシカ",
-      "album": "だから僕は音楽を辞めた",
-      "durationMs": 242973,
+      "songId": 740558,
+      "title": "今晩はお月さん",
+      "alias": "今晚月色真好",
+      "artist": "ハンバート ハンバート",
+      "album": "今晩はお月さん",
+      "durationMs": 224522,
       "playCount": 0,
-      "score": 28
+      "score": 12
     },
     {
       "rank": 20,
-      "songId": 1296558133,
-      "title": "おいらの船",
-      "alias": "我们的船",
-      "artist": "ハンバート ハンバート",
-      "album": "FOLK 2",
-      "durationMs": 283812,
+      "songId": 672188,
+      "title": "You",
+      "alias": "广播剧《寒蝉鸣泣之时》片尾曲",
+      "artist": "雪野五月",
+      "album": "You",
+      "durationMs": 248840,
       "playCount": 0,
-      "score": 28
+      "score": 12
     }
   ],
   "allTime": [
@@ -307,7 +307,7 @@
       "album": "だから僕は音楽を辞めた",
       "durationMs": 185132,
       "playCount": 0,
-      "score": 54
+      "score": 55
     },
     {
       "rank": 5,
